@@ -1,4 +1,8 @@
-name: Daily Newsletter Generation
+name: Daily Agri-News Digest Generation
+
+# Ajoutez cette section pour définir les permissions
+permissions:
+  contents: write
 
 on:
   schedule:
