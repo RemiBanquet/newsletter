@@ -27,10 +27,34 @@ jobs:
     - name: Set up Chrome
       uses: browser-actions/setup-chrome@v1
       
+    # Télécharger le fichier sent_articles.json des exécutions précédentes
+    - name: Download previous sent_articles.json
+      uses: actions/download-artifact@v3
+      with:
+        name: sent-articles-data
+        path: ./
+      continue-on-error: true  # Continue même si c'est la première exécution
+      
     - name: Run newsletter script
       env:
+        MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
+        NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+        NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+        GMAIL_SMTP_SERVER: ${{ secrets.GMAIL_SMTP_SERVER }}
+        GMAIL_SMTP_PORT: ${{ secrets.GMAIL_SMTP_PORT }}
+        GMAIL_USERNAME: ${{ secrets.GMAIL_USERNAME }}
+        GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
+        ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
         FEED_URLS: ${{ secrets.FEED_URLS }}
         EMAIL_RECIPIENTS: ${{ secrets.EMAIL_RECIPIENTS }}
-        MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
         # Ajoutez ici d'autres variables d'environnement nécessaires
       run: python newsletter_with_agreste.py
+      
+    # Sauvegarder le fichier sent_articles.json mis à jour pour les prochaines exécutions
+    - name: Save sent_articles.json for next runs
+      uses: actions/upload-artifact@v3
+      with:
+        name: sent-articles-data
+        path: sent_articles.json
+        retention-days: 90  # Conserve les données pendant 90 jours
+
