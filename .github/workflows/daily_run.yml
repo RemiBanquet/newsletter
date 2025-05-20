@@ -27,13 +27,16 @@ jobs:
     - name: Set up Chrome
       uses: browser-actions/setup-chrome@v1
       
-    # Télécharger le fichier sent_articles.json des exécutions précédentes
-    - name: Download previous sent_articles.json
-      uses: actions/download-artifact@v2  # Changé de v3 à v2
-      with:
-        name: sent-articles-data
-        path: ./
-      continue-on-error: true  # Continue même si c'est la première exécution
+    # Au lieu d'utiliser download-artifact, nous allons vérifier si le fichier existe déjà dans le dépôt
+    - name: Check if sent_articles.json exists
+      id: check_file
+      run: |
+        if [ -f "sent_articles.json" ]; then
+          echo "Le fichier sent_articles.json existe déjà dans le dépôt"
+        else
+          echo "Le fichier sent_articles.json n'existe pas, création d'un fichier vide"
+          echo "[]" > sent_articles.json
+        fi
       
     - name: Run newsletter script
       env:
@@ -50,10 +53,11 @@ jobs:
         
       run: python newsletter_with_agreste.py
       
-    # Sauvegarder le fichier sent_articles.json mis à jour pour les prochaines exécutions
-    - name: Save sent_articles.json for next runs
-      uses: actions/upload-artifact@v2  # Changé de v3 à v2
-      with:
-        name: sent-articles-data
-        path: sent_articles.json
-        retention-days: 90  # Conserve les données pendant 90 jours
+    # Après l'exécution, nous allons committer les changements au fichier sent_articles.json
+    - name: Commit updated sent_articles.json
+      run: |
+        git config --global user.name "GitHub Actions Bot"
+        git config --global user.email "actions@github.com"
+        git add sent_articles.json
+        git commit -m "Update sent_articles.json after newsletter generation" || echo "No changes to commit"
+        git push
