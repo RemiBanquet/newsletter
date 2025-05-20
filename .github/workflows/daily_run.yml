@@ -29,7 +29,7 @@ jobs:
       
     # Télécharger le fichier sent_articles.json des exécutions précédentes
     - name: Download previous sent_articles.json
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v2  # Changé de v3 à v2
       with:
         name: sent-articles-data
         path: ./
@@ -47,14 +47,13 @@ jobs:
         ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
         FEED_URLS: ${{ secrets.FEED_URLS }}
         EMAIL_RECIPIENTS: ${{ secrets.EMAIL_RECIPIENTS }}
-        # Ajoutez ici d'autres variables d'environnement nécessaires
+        
       run: python newsletter_with_agreste.py
       
     # Sauvegarder le fichier sent_articles.json mis à jour pour les prochaines exécutions
     - name: Save sent_articles.json for next runs
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v2  # Changé de v3 à v2
       with:
         name: sent-articles-data
         path: sent_articles.json
         retention-days: 90  # Conserve les données pendant 90 jours
-
