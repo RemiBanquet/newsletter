@@ -55,7 +55,7 @@ else:
 
 NEWSLETTER_TITLE = "🛰️ Daily Agri-News Digest 🌱"
 DAYS_TO_LOOK_BACK = 2
-MAX_ARTICLES_PER_EMAIL = 300
+MAX_ARTICLES_PER_EMAIL = 10
 HISTORY_FILE = "sent_articles.json"
 
 MISTRAL_API_KEY = os.getenv("MISTRAL_API_KEY")
@@ -146,7 +146,7 @@ def scrape_agreste():
                     date_article = datetime.strptime(date_str, "%d/%m/%Y")
 
                     # Filtrer les articles des 2 derniers jours
-                    if date_article > today - timedelta(days=2):
+                    if date_article > today - timedelta(days=5):
                         article = {
                             'title': title,
                             'date': date_str,
