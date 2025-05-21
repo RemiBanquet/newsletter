@@ -288,21 +288,38 @@ Summary:
 - Bullet point 2
 - Bullet point 3
 
-Category: <Vegetal crops / Agri-tech / Climate / Animals / Other>
+Category: <Vegetal crops / Agri-tech / Climate / Rejected>
 Tag: <exactly one tag from the list below>
 ---
 
 Then, follow these steps:
 
 1. If the text is not in English, translate it into English first.
-2. Summarize the article in exactly 3 concise and informative bullet points, focusing on the key facts and data.
-3. Categorize the article with one of the following categories (choose the most precise one):
-   - "Vegetal crops" → Only if the article specifically relates to one or more of the following cultivated plants: alfalfa, beans, beet, hemp, linen, maize, corn, cereals, peas, potato, soy, sorghum, barley, wheat, sunflower, triticale, canola. The topic can be about their area, yield, price, seeds, crop protection, weather or market trends — but only if it is directly linked to one of these crops. If the article refers to other plants or general agriculture without naming one of these crops, do not assign "Vegetal crops".
-   - "Agri-tech" → Innovations, companies or tools in agtech: sensors, drones, satellite monitoring, remote sensing, decision support systems, digital platforms, start-up funding, start-up partnerships, start-ups buyouts. ❌ Exclude anything related to heavy machinery, field robotics, genetic engineering, or plant breeding tools.
-   - "Climate" → weather conditions affecting vegetal crops, regenerative agriculture, regen ag practices and programs
-   - "Animals" → All content related to livestock, breeding, feed, animal health, veterinary policy.
-   - "Other" → Only if the article clearly does not belong to any of the above categories (e.g. general environment, climate change, politics unrelated to agriculture).
-4. Assign a semantic tag from the list below that best represents the main theme of the article:
+
+2. If the article is too vague, promotional, or not relevant to the agricultural sector, reject it. In this case, return:
+---
+Summary: Rejected
+Category: Rejected
+---
+
+3. Summarize the article in exactly 3 concise and informative bullet points, focusing on the key facts and data.
+
+4. Categorize the article with one of the following categories (choose the most precise one):
+
+   - "Vegetal crops" → Only if the article specifically relates to one or more of the following cultivated plants: alfalfa, beans, beet, hemp, linen, maize, corn, cereals, peas, potato, soy, sorghum, barley, wheat, sunflower, triticale, canola. The topic can be about their area, yield, price, seeds, crop protection, weather or market trends — but only if it is directly linked to one of these crops.
+
+   - "Agri-tech" → Innovations, companies or tools in agtech: sensors, drones, satellite monitoring, remote sensing, decision support systems, digital platforms, start-up funding, start-up partnerships, start-ups buyouts. ❌ Exclude anything related to heavy machinery, field robotics, genetic engineering, or plant breeding tools unless directly linked to the above crops.
+
+   - "Climate" → weather conditions affecting vegetal crops, regenerative agriculture, regen ag practices and programs. ❌ Reject general weather or disasters (e.g. tornadoes, floods) unless crop impact is mentioned.
+
+   - "Rejected" → Use this if the article doesn't match with any of the 3 previous categories or if the article fits any of the following:
+     - The article is about livestock, breeding, feed, animal health, veterinary policy.
+     - The article covers politics, infrastructure (e.g. pipelines, wind farms, solar), or general environment without direct impact on vegetal crops.
+     - The article mentions biotech, genetics, or AI with no clear agricultural use case linked to vegetal crops.
+     - The article is about protests, litigation, or public campaigns unrelated to crop production or policy.
+     - The article is very vague or promotional without factual content.
+
+5. Assign a semantic tag from the list below that best represents the main theme of the article:
 
    - "🚀 AgTech |" → new tools, startups, technology, platforms, sensors, AI, robotics, data
    - "🌍 Climate |" → weather, droughts, floods, climate impact, CO2, emissions
@@ -319,7 +336,7 @@ Do NOT output multiple tags.
 
 Text to process: {text_to_process}
 """
-
+    
     messages_payload = [{
         "role": "user",
         "content": prompt
