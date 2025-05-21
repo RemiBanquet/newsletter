@@ -306,7 +306,7 @@ Category: Rejected
 
 4. Categorize the article with one of the following categories (choose the most precise one):
 
-   - "Vegetal crops" → Only if the article specifically relates to one or more of the following cultivated plants: alfalfa, beans, beet, hemp, linen, maize, corn, cereals, peas, potato, soy, sorghum, barley, wheat, sunflower, triticale, canola. The topic can be about their area, yield, price, seeds, crop protection, weather or market trends — but only if it is directly linked to one of these crops.
+   - "Vegetal crops" → Only if the article specifically relates to one or more of the following cultivated plants: alfalfa, beans, beet, hemp, linen, maize, corn, cereals, peas, potato, soy, sorghum, barley, wheat, sunflower, triticale, canola. The topic can be about their acreage, land use, yields, price, seeds, crop protection, weather or market trends — but only if it is directly linked to one of these crops. If the article refers to other plants or general agriculture without naming one of these crops, do not assign "Vegetal crops".
 
    - "Agri-tech" → Innovations, companies or tools in agtech: sensors, drones, satellite monitoring, remote sensing, decision support systems, digital platforms, start-up funding, start-up partnerships, start-ups buyouts. ❌ Exclude anything related to heavy machinery, field robotics, genetic engineering, or plant breeding tools unless directly linked to the above crops.
 
@@ -326,6 +326,8 @@ Category: Rejected
    - "💧 Irrigation |" → irrigation, water use, water efficiency
    - "⚖️ Regulation |" → policies, subsidies, bans, laws, certifications
    - "💸 Market |" → price trends, trade flows, supply/demand, market forecasts
+   - "🌾 Crop land use |" → crop acreages, year-on-year crop acreage evolution
+   - "📈 Yields |" → crop yields, year-on-year crop yields evolution, weather impact on yields
    - "🌱 Seeds |" → genetics, varieties, seed production, certification, commercialization
    - "🛡️ Crop Protection |" → pesticides, biocontrol, fungicides, herbicides, resistance management, approvals
    - "🧪 Crop Nutrition |" → fertilizers, biostimulants, foliar nutrition, nutrient management, fertilization tools
