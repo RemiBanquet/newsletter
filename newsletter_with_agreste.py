@@ -25,6 +25,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 # Configuration du logging
 logging.basicConfig(
@@ -98,74 +100,74 @@ mistral_rate_limiter = RateLimiter(requests_per_second=1)
 
 # AJOUT: Fonction pour scraper les données Agreste
 def scrape_agreste():
-    """
-    Scrape les publications récentes du site Agreste.
-    
-    Returns:
-        list: Liste des articles des 2 derniers jours avec titre, date et lien
-    """
     logging.info("Début du scraping des publications Agreste")
     
     chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument('--headless')  # Pour exécuter sans fenêtre
+    chrome_options.add_argument('--headless')
     chrome_options.add_argument('--disable-gpu')
     chrome_options.add_argument('--no-sandbox')
 
-    # Utilisation de Service pour spécifier le chemin du chromedriver
     service = Service(ChromeDriverManager().install())
-    
-    # Initialisation du driver
     driver = webdriver.Chrome(service=service, options=chrome_options)
 
-    driver.get('https://agreste.agriculture.gouv.fr/agreste-web/disaron/!searchurl/4545f1a9-afe6-4c86-a141-693f2c72d550!1b69a349-ca8f-4353-82bb-4c00c502412c!729f399f-53c3-4952-9971-4753794a7c1b!c6be0c43-70a0-4666-853f-80de38a08ec7!0c593aed-b1d0-476e-9359-12d6347d8243!b125c6dc-13b7-4260-9abd-6e9321b2b963!fec0e278-6655-4c48-ac47-aab6d8847e15/search/')
-
-    # Ajouter une pause pour s'assurer que la page se charge
-    time.sleep(5)  # Attendre 5 secondes pour s'assurer que la page a bien fini de se charger
-
-    # Liste des articles
-    articles = []
+    url = "https://agreste.agriculture.gouv.fr/agreste-web/disaron/!searchurl/4545f1a9-afe6-4c86-a141-693f2c72d550!1b69a349-ca8f-4353-82bb-4c00c502412c!729f399f-53c3-4952-9971-4753794a7c1b!c6be0c43-70a0-4666-853f-80de38a08ec7!0c593aed-b1d0-476e-9359-12d6347d8243!b125c6dc-13b7-4260-9abd-6e9321b2b963!fec0e278-6655-4c48-ac47-aab6d8847e15/search/"
+    driver.get(url)
 
     try:
-        rows = driver.find_elements(By.CSS_SELECTOR, '.ptfixed')  # Ajuste le sélecteur si nécessaire
+        WebDriverWait(driver, 15).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, "h4.titreSearch"))
+        )
+    except Exception as e:
+        logging.error(f"Timeout : contenu Agreste non chargé : {e}")
+        driver.save_screenshot("agreste_error.png")
+        driver.quit()
+        return []
 
-        if not rows:
-            logging.warning("Aucune publication Agreste trouvée. Vérifiez le sélecteur CSS.")
-        
-        today = datetime.today()
+    articles = []
+    today = datetime.today()
 
-        for row in rows:
+    try:
+        rows = driver.find_elements(By.CSS_SELECTOR, "h4.titreSearch")
+
+        for i, row in enumerate(rows):
             try:
-                title_tag = row.find_element(By.CSS_SELECTOR, '.titreSearch a')
-                title = title_tag.text.strip()
-                date_raw = row.find_element(By.CSS_SELECTOR, '.disar-split-panel-right-table-cell-content-info').text.strip().split(" | ")[-1]
-                link = title_tag.get_attribute('href')
+                a_tag = row.find_element(By.TAG_NAME, "a")
+                title = a_tag.get_attribute("title").strip()
+                full_link = url  # ou lien plus précis si tu peux le construire à partir du JS onclick
 
-                # Nettoyer la date brute et convertir en format datetime
-                if "Mis à jour le " in date_raw:
-                    date_str = date_raw.replace("Mis à jour le ", "")
-                    date_article = datetime.strptime(date_str, "%d/%m/%Y")
+                # ➕ Récupération de la date
+                date_info_el = driver.find_elements(By.CSS_SELECTOR, ".disar-split-panel-right-table-cell-content-info")
+                if i < len(date_info_el):
+                    date_text = date_info_el[i].text.strip()
+                    match = re.search(r"Mis à jour le (\d{2}/\d{2}/\d{4})", date_text)
+                    if match:
+                        date_str = match.group(1)
+                        date_article = datetime.strptime(date_str, "%d/%m/%Y")
+                    else:
+                        date_article = today
+                        date_str = "Date inconnue"
+                else:
+                    date_article = today
+                    date_str = "Date inconnue"
 
-                    # Filtrer les articles des 2 derniers jours
-                    if date_article > today - timedelta(days=2):
-                        article = {
-                            'title': title,
-                            'date': date_str,
-                            'link': link
-                        }
-                        articles.append(article)
-                        logging.info(f"Publication Agreste trouvée: {article['title']} ({article['date']})")
+                if date_article > today - timedelta(days=2):
+                    article = {
+                        "title": title,
+                        "date": date_str,
+                        "link": full_link
+                    }
+                    articles.append(article)
+                    logging.info(f"Publication Agreste trouvée: {title} ({date_str})")
 
             except Exception as e:
-                logging.warning(f"Erreur lors de l'extraction des données d'une publication Agreste: {e}")
+                logging.warning(f"Erreur lors de l'extraction d'une ligne Agreste: {e}")
 
-    except Exception as e:
-        logging.error(f"Erreur lors du scraping des publications Agreste: {e}")
     finally:
         driver.quit()
 
     logging.info(f"Scraping Agreste terminé: {len(articles)} publications trouvées")
     return articles
-
+    
 def detect_language(text):
     try:
         lang = detect(text)
