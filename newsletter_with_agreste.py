@@ -440,6 +440,7 @@ def generate_newsletter_html(articles, agreste_articles=None):
     </style>
 </head>
 <body>
+    <div id="top"></div>
     <img src="{BANNER_URL}" alt="Hyperplan" class="banner">
     <h1>{NEWSLETTER_TITLE}</h1>
 """
