@@ -321,15 +321,15 @@ Category: Rejected
 
 5. Assign a semantic tag from the list below that best represents the main theme of the article:
 
-   - "🚀 AgTech |" → new tools, startups, technology, platforms, sensors, AI, robotics, data
-   - "🌍 Climate |" → weather, droughts, floods, climate impact, CO2, emissions
+   - "🚀 AgTech |" → sensors, remote sensing, satellite monitoring, decision support systems, digital farming, smart farming, digital platforms, start-up funding, start-up partnerships, start-ups buyouts, AI, generative AI
+   - "🌍 Climate |" → weather, droughts, floods, climate impact, CO2, emissions, regenerative agriculture, agroecology, sustainable agriculture, carbon farming
    - "💧 Irrigation |" → irrigation, water use, water efficiency
-   - "⚖️ Regulation |" → policies, subsidies, bans, laws, certifications
+   - "⚖️ Regulation |" → policies, subsidies, bans, laws, certifications, regulatory restrictions
    - "💸 Market |" → price trends, trade flows, supply/demand, market forecasts
    - "🌾 Crop land use |" → crop acreages, year-on-year crop acreage evolution
    - "📈 Yields |" → crop yields, year-on-year crop yields evolution, weather impact on yields
-   - "🌱 Seeds |" → genetics, varieties, seed production, certification, commercialization
-   - "🛡️ Crop Protection |" → pesticides, biocontrol, fungicides, herbicides, resistance management, approvals
+   - "🌱 Seeds |" → seed genetics, seed varieties, seed production, seed certification, seed multiplication, seed commercialization
+   - "🛡️ Crop Protection |" → pesticides, biocontrol, insecticides, fungicides, herbicides, nematicides, resistance management
    - "🧪 Crop Nutrition |" → fertilizers, biostimulants, foliar nutrition, nutrient management, fertilization tools
    - "🤷 Misc |" → only if no tag above fits precisely
 
