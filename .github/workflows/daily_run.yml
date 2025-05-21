@@ -6,7 +6,7 @@ permissions:
 
 on:
   schedule:
-    # Exécution à 07:00 UTC (09:00 UTC+2)
+    # Exécution à 06:30 UTC (08:30 UTC+2)
     - cron: '30 6 * * *'
   workflow_dispatch:  # Permet l'exécution manuelle depuis l'interface GitHub
 
