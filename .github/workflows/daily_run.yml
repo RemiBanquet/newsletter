@@ -33,23 +33,21 @@ jobs:
       
     # Au lieu d'utiliser download-artifact, nous allons vérifier si le fichier existe déjà dans le dépôt
     - name: Check if sent_articles.json exists
-      id: check_file
-      run: |
-        if [ -f "sent_articles.json" ]; then
-          echo "Le fichier sent_articles.json existe déjà dans le dépôt"
-        else
-          echo "Le fichier sent_articles.json n'existe pas, création d'un fichier vide"
-          echo "[]" > sent_articles.json
-        fi
+    id: check_sent_articles
+    run: |
+      if [ -f "sent_articles.json" ]; then
+        echo "Le fichier sent_articles.json existe déjà dans le dépôt"
+      else
+        echo "[]" > sent_articles.json
+      fi
 
     # Au lieu d'utiliser download-artifact, nous allons vérifier si le fichier existe déjà dans le dépôt
     - name: Check if sent_publications.json exists
-      id: check_file
+      id: check_sent_publications
       run: |
         if [ -f "sent_publications.json" ]; then
           echo "Le fichier sent_publications.json existe déjà dans le dépôt"
         else
-          echo "Le fichier sent_publications.json n'existe pas, création d'un fichier vide"
           echo "[]" > sent_publications.json
         fi
       
