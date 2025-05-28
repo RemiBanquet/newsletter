@@ -7,3 +7,5 @@ notion-client
 requests
 selenium
 webdriver-manager
+deep-translator
+python-dateutil
