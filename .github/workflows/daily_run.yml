@@ -1,6 +1,6 @@
 name: Daily Agri-News Digest Generation
 
-# Ajoutez cette section pour définir les permissions
+# Ajoutez cette section pour définir les permissions 
 permissions:
   contents: write
 
