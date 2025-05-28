@@ -41,21 +41,33 @@ jobs:
           echo "Le fichier sent_articles.json n'existe pas, création d'un fichier vide"
           echo "[]" > sent_articles.json
         fi
+
+    # Au lieu d'utiliser download-artifact, nous allons vérifier si le fichier existe déjà dans le dépôt
+    - name: Check if sent_publications.json exists
+      id: check_file
+      run: |
+        if [ -f "sent_publications.json" ]; then
+          echo "Le fichier sent_publications.json existe déjà dans le dépôt"
+        else
+          echo "Le fichier sent_publications.json n'existe pas, création d'un fichier vide"
+          echo "[]" > sent_publications.json
+        fi
       
     - name: Run newsletter script
       env:
         MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
         NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
         NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+        NOTION_OFFICIAL_DATABASE_ID: ${{ secrets.NOTION_OFFICIAL_DATABASE_ID }}
         GMAIL_SMTP_SERVER: ${{ secrets.GMAIL_SMTP_SERVER }}
         GMAIL_SMTP_PORT: ${{ secrets.GMAIL_SMTP_PORT }}
         GMAIL_USERNAME: ${{ secrets.GMAIL_USERNAME }}
         GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
         ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
-        FEED_URLS: ${{ secrets.FEED_URLS }}
         EMAIL_RECIPIENTS: ${{ secrets.EMAIL_RECIPIENTS }}
+        FEED_URLS: ${{ secrets.FEED_URLS }}
         
-      run: python newsletter_with_agreste.py
+      run: python newsletterv3.py
       
     # Après l'exécution, nous allons committer les changements au fichier sent_articles.json
     - name: Commit updated sent_articles.json
@@ -65,3 +77,12 @@ jobs:
         git add sent_articles.json
         git commit -m "Update sent_articles.json after newsletter generation" || echo "No changes to commit"
         git push
+
+    # Et au fichier sent_publications.json
+    - name: Commit updated sent_publications.json
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add sent_publications.json
+          git commit -m "🧠 Update sent_publications.json" || echo "No changes to commit"
+          git push
