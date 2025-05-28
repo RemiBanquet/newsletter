@@ -80,9 +80,10 @@ jobs:
 
     # Et au fichier sent_publications.json
     - name: Commit updated sent_publications.json
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          git add sent_publications.json
-          git commit -m "🧠 Update sent_publications.json" || echo "No changes to commit"
-          git push
+      run: |
+        git config user.name "github-actions"
+        git config user.email "github-actions@github.com"
+        git add sent_publications.json
+        git commit -m "🧠 Update sent_publications.json" || echo "No changes to commit"
+        git push
+
