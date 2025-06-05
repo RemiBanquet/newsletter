@@ -744,28 +744,34 @@ def generate_newsletter_html(articles, publications_by_zone=None):
 def send_email(subject, html_body, recipients=None):
     if recipients is None:
         recipients = EMAIL_TO
+
     gmail_user = os.getenv("GMAIL_USERNAME")
     gmail_pass = os.getenv("GMAIL_PASSWORD")
     gmail_server = os.getenv("GMAIL_SMTP_SERVER")
     gmail_port = os.getenv("GMAIL_SMTP_PORT")
+
     if not all([gmail_user, gmail_pass, gmail_server, gmail_port]):
         logging.error("Informations SMTP Gmail manquantes dans le .env. Impossible d'envoyer l'email.")
         return False
+
     try:
         msg = MIMEMultipart("alternative")
         msg["Subject"] = subject
         msg["From"] = gmail_user
-        msg["To"] = ", ".join(recipients)
+        msg["To"] = f"Hyperplan Newsletter <{gmail_user}>"
+        msg["Bcc"] = ", ".join(recipients)
         msg.attach(MIMEText(html_body, "html"))
+
         with smtplib.SMTP(gmail_server, int(gmail_port)) as server:
             server.starttls()
             server.login(gmail_user, gmail_pass)
-            server.sendmail(msg["From"], recipients, msg.as_string())
-        logging.info(f"Email envoyé avec succès à {len(recipients)} destinataires: {', '.join(recipients)}")
+            server.sendmail(msg["From"], msg.get_all("Bcc", []), msg.as_string())
+
+        logging.info(f"Email envoyé avec succès à {len(recipients)} destinataires (en Bcc).")
         return True
+
     except Exception:
         logging.exception("Erreur lors de l'envoi de l'email")
-
         return False
 
 def send_admin_report(articles_count, filtered_count, error_count_rss, error_count_mistral, email_success,
