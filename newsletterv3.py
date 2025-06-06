@@ -759,13 +759,13 @@ def send_email(subject, html_body, recipients=None):
         msg["Subject"] = subject
         msg["From"] = gmail_user
         msg["To"] = f"Hyperplan Newsletter <{gmail_user}>"
-        msg["Bcc"] = ", ".join(recipients)
+        msg["Bcc"] = ", ".join(recipients)  # uniquement pour l'en-tête
         msg.attach(MIMEText(html_body, "html"))
 
         with smtplib.SMTP(gmail_server, int(gmail_port)) as server:
             server.starttls()
             server.login(gmail_user, gmail_pass)
-            server.sendmail(msg["From"], msg.get_all("Bcc", []), msg.as_string())
+            server.sendmail(msg["From"], recipients, msg.as_string())
 
         logging.info(f"Email envoyé avec succès à {len(recipients)} destinataires (en Bcc).")
         return True
