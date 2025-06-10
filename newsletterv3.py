@@ -48,7 +48,7 @@ OFFICIAL_SOURCES = {
         "scrapers": []
     },
     "Hungary": {
-        "rss": ["https://www.ksh.hu/rss/news", "https://www.ksh.hu/rss/bulletins"],
+        "rss": ["https://www.ksh.hu/apps/shop.rss_temakor?p_lang=EN&p_temakor_kod=KSH"],
         "scrapers": []
     },
     "Germany": {
