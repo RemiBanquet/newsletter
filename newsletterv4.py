@@ -299,7 +299,7 @@ def scrape_jrc():
 
     driver.get(url)
     results = []
-    since = datetime.utcnow() - timedelta(days=2)
+    since = datetime.utcnow() - timedelta(days=30)
 
     # ✅ nouveaux préfixes acceptés
     valid_prefixes = (
@@ -381,7 +381,7 @@ def scrape_caa():
     driver = webdriver.Chrome(service=service, options=chrome_options)
 
     results = []
-    since = datetime.utcnow() - timedelta(days=2)
+    since = datetime.utcnow() - timedelta(days=30)
 
     try:
         driver.get(url)
