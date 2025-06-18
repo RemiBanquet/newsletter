@@ -299,7 +299,7 @@ def scrape_jrc():
 
     driver.get(url)
     results = []
-    since = datetime.utcnow() - timedelta(days=30)
+    since = datetime.utcnow() - timedelta(days=2)
 
     # ✅ nouveaux préfixes acceptés
     valid_prefixes = (
@@ -381,7 +381,7 @@ def scrape_caa():
     driver = webdriver.Chrome(service=service, options=chrome_options)
 
     results = []
-    since = datetime.utcnow() - timedelta(days=30)
+    since = datetime.utcnow() - timedelta(days=2)
 
     try:
         driver.get(url)
@@ -450,7 +450,7 @@ def scrape_statcan():
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),
                               options=opts)
 
-    since = datetime.utcnow() - timedelta(days=30)   # fenêtre temporelle
+    since = datetime.utcnow() - timedelta(days=2)   # fenêtre temporelle
     results, skipped = [], 0
 
     try:
@@ -574,7 +574,7 @@ def scrape_tuik():
     driver = webdriver.Chrome(service=service, options=chrome_options)
 
     results = []
-    since = datetime.utcnow() - timedelta(days=30)
+    since = datetime.utcnow() - timedelta(days=2)
 
     try:
         driver.get(url)
@@ -669,7 +669,7 @@ def scrape_uk():
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),
                               options=opts)
 
-    since = datetime.utcnow() - timedelta(days=30)
+    since = datetime.utcnow() - timedelta(days=2)
     results = []
 
     try:
@@ -743,7 +743,7 @@ def scrape_ksh():
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),
                               options=opts)
 
-    since = datetime.utcnow() - timedelta(days=30)
+    since = datetime.utcnow() - timedelta(days=2)
     results = []
 
     try:
