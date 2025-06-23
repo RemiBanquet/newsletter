@@ -60,7 +60,7 @@ jobs:
           ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
           EMAIL_RECIPIENTS: ${{ secrets.EMAIL_RECIPIENTS }}
           FEED_URLS: ${{ secrets.FEED_URLS }}
-        run: python newsletterv4.py
+        run: python newsletterv4-1.py
 
       - name: Commit updated sent_articles.json
         run: |
