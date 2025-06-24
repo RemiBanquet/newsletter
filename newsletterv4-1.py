@@ -816,7 +816,7 @@ def scrape_coceral():
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),
                               options=opts)
 
-    since = datetime.utcnow() - timedelta(days=30)
+    since = datetime.utcnow() - timedelta(days=2)
     results = []
 
     try:
@@ -868,7 +868,7 @@ def scrape_destatis():
     """
     Scrape Destatis (Allemagne) – résultats de recherche cultures.
     Conserve les 10 premières publications ≤ 30 j, sans should_keep_publication.
-    Corrige le titre pour ne garder que la partie après la date.
+    Corrige le titre et le lien pour qu'ils soient propres.
     """
     from selenium import webdriver
     from selenium.webdriver.common.by import By
@@ -892,7 +892,7 @@ def scrape_destatis():
     opts.add_argument("--disable-gpu")
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=opts)
 
-    since = datetime.utcnow() - timedelta(days=60)
+    since = datetime.utcnow() - timedelta(days=40)
     results = []
 
     try:
@@ -901,19 +901,30 @@ def scrape_destatis():
             EC.presence_of_all_elements_located((By.CSS_SELECTOR, "div.c-result"))
         )
 
-        # Prise du HTML pour parsing BeautifulSoup
         soup = BeautifulSoup(driver.page_source, "html.parser")
         blocks = soup.select("div.c-result")
         logging.info(f"🔎 {len(blocks)} publications Destatis détectées")
 
-        # Limiter à 10 premières publications
         for idx, blk in enumerate(blocks[:10], 1):
             try:
                 h3 = blk.select_one("h3.c-result__heading")
                 a_tag = h3.find("a")
-                title_raw = a_tag.get_text(" ", strip=True)
+                # ---- Nettoyage titre ----
+                # Supprimer "Date:" s'il existe
+                raw_text = a_tag.get_text(" ", strip=True).replace("Date:", "").strip()
+                # Retirer la date au début s'il y en a une ("May 19, 2025 ...")
+                m = re.match(r"^[A-Z][a-z]+ \d{1,2}, \d{4}\s*(.*)", raw_text)
+                title = m.group(1).strip() if m else raw_text
 
-                # Extraire la date (toujours dans un <span class="c-result__date">)
+                # ---- Lien absolu ----
+                link = a_tag.get("href")
+                if link.startswith("/"):
+                    link = base_url + link
+                elif link.startswith("EN/"):
+                    link = base_url + "/" + link
+                # sinon lien déjà absolu
+
+                # ---- Date ----
                 date_tag = a_tag.find("span", class_="c-result__date")
                 if not date_tag or not date_tag.text.strip():
                     logging.info(f"[DESTATIS-{idx}] ⏭️ Date introuvable")
@@ -924,14 +935,6 @@ def scrape_destatis():
                 if pub_date < since:
                     logging.info(f"[DESTATIS-{idx}] 📅 Trop ancien ({pub_date.date()})")
                     continue
-
-                # Nettoyage titre : enlève la date en début de chaîne s'il y a
-                m = re.match(r"^(?:[A-Z][a-z]+ \d{1,2}, \d{4})\s*(.*)$", title_raw)
-                title = m.group(1).strip() if m else title_raw
-
-                link = a_tag.get("href")
-                if link.startswith("/"):
-                    link = base_url + "/" + link.lstrip("/")
 
                 pub = {
                     "title": title,
@@ -979,7 +982,7 @@ def scrape_govua():
     opts.add_argument("--disable-gpu")
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=opts)
 
-    since = datetime.utcnow() - timedelta(days=300)
+    since = datetime.utcnow() - timedelta(days=2)
     results = []
 
     try:
