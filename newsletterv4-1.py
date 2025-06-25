@@ -892,7 +892,7 @@ def scrape_destatis():
     opts.add_argument("--disable-gpu")
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=opts)
 
-    since = datetime.utcnow() - timedelta(days=40)
+    since = datetime.utcnow() - timedelta(days=2)
     results = []
 
     try:
