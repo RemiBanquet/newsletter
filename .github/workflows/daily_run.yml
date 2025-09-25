@@ -50,6 +50,7 @@ jobs:
       - name: Run newsletter script
         env:
           MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
+          MISTRAL_MODEL_NAME: ${{ secrets.MISTRAL_MODEL_NAME }}
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
           NOTION_OFFICIAL_DATABASE_ID: ${{ secrets.NOTION_OFFICIAL_DATABASE_ID }}
@@ -60,7 +61,7 @@ jobs:
           ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
           EMAIL_RECIPIENTS: ${{ secrets.EMAIL_RECIPIENTS }}
           FEED_URLS: ${{ secrets.FEED_URLS }}
-        run: python newsletterv4-1.py
+        run: python newsletterv4-3.py
 
       - name: Commit updated sent_articles.json
         run: |
