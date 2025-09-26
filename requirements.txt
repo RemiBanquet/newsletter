@@ -10,3 +10,4 @@ webdriver-manager
 deep-translator
 python-dateutil
 beautifulsoup4
+urllib3<2
