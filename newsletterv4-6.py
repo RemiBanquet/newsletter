@@ -126,8 +126,8 @@ else:
     EMAIL_TO = [email.strip() for email in raw_recipients.split(",") if email.strip()]
 
 NEWSLETTER_TITLE = "🛰️ Daily Agri-News Digest 🌱"
-DAYS_TO_LOOK_BACK = 1
-MAX_ARTICLES_PER_EMAIL = 10
+DAYS_TO_LOOK_BACK = 2
+MAX_ARTICLES_PER_EMAIL = 500
 HISTORY_FILE = "sent_articles.json"
 
 MISTRAL_API_KEY = os.getenv("MISTRAL_API_KEY")
