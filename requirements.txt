@@ -1,0 +1,38 @@
+# -------------------------------------------------------
+# Hyperplan Daily Agri-News Digest — Python dependencies
+# Last resolved: 2026-03-18  |  Python 3.11
+#
+# All packages are pinned to their latest compatible
+# resolved versions as of the date above.
+#
+# To update: run `pip install -r requirements.txt` in a
+# clean venv, then `pip freeze > requirements.txt`.
+# -------------------------------------------------------
+
+# --- AI / LLM
+# v1.x API: `from mistralai import Mistral` + client.chat.complete()
+# DO NOT upgrade to v2+ without auditing the script — breaking API change.
+mistralai>=1.0.0,<2.0.0
+
+# --- Scraping & feeds
+feedparser==6.0.12
+requests==2.32.5
+beautifulsoup4==4.14.3
+lxml==6.0.2                  # HTML/XML parser backend for BeautifulSoup
+html2text==2025.4.15         # HTML → plain text conversion
+selenium==4.32.0
+webdriver-manager==4.0.2
+
+# --- urllib3 pinned below v2 — selenium and requests require this range
+urllib3>=1.26.0,<2.0.0
+
+# --- NLP / language
+langdetect==1.0.9
+deep-translator==1.11.4
+
+# --- Notion
+notion-client==3.0.0
+
+# --- Utilities
+python-dotenv==1.2.1
+python-dateutil==2.9.0.post0
