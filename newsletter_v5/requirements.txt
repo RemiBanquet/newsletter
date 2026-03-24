@@ -1,0 +1,44 @@
+# Daily Agri-News Digest v5 — Dependencies
+# Python 3.11+
+
+# LLM
+anthropic>=0.40.0
+
+# RSS parsing
+feedparser>=6.0.0
+
+# Async HTTP
+aiohttp>=3.9.0
+
+# HTML parsing (for scrapers)
+beautifulsoup4>=4.12.0
+lxml>=5.0.0
+
+# Notion config
+notion-client>=3.0.0
+
+# Template rendering
+Jinja2>=3.1.0
+
+# Language detection
+langdetect>=1.0.9
+
+# Config & serialization
+PyYAML>=6.0
+
+# HTTP (for Lemlist API, sync)
+requests>=2.31.0
+
+# Retry logic
+tenacity>=8.2.0
+
+# Selenium (for JS-rendered scrapers — Agreste fallback)
+selenium>=4.20.0
+webdriver-manager>=4.0.0
+
+# Data processing (USDA PSD)
+pandas>=2.0.0
+
+# Linting/formatting (dev)
+# ruff
+# black

@@ -1,0 +1,9 @@
+newsletter_v5/notion_db_ids.env
+.env
+*.env
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+newsletter_v5/.psd_cache/
+newsletter_v5/test_*.html
