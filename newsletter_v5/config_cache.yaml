@@ -1,0 +1,951 @@
+companies:
+- company_type: prospect
+  enabled: true
+  name: FMC Corporation
+  priority: medium
+  search_keywords: FMC Corporation agriculture crop protection
+- company_type: prospect
+  enabled: false
+  name: De Sangosse
+  priority: medium
+  search_keywords: De Sangosse agriculture biocontrol
+- company_type: client
+  enabled: true
+  name: Syngenta
+  priority: high
+  search_keywords: Syngenta agriculture crop
+- company_type: client
+  enabled: true
+  name: Certis Belchim
+  priority: high
+  search_keywords: Certis Belchim crop protection biocontrol
+- company_type: prospect
+  enabled: true
+  name: CF Industries
+  priority: medium
+  search_keywords: CF Industries nitrogen fertilizer agriculture
+- company_type: prospect
+  enabled: true
+  name: Timac Agro
+  priority: high
+  search_keywords: Timac Agro fertilizer plant nutrition
+- company_type: prospect
+  enabled: true
+  name: Richardson International
+  priority: medium
+  search_keywords: Richardson International agriculture grain oilseed
+- company_type: prospect
+  enabled: true
+  name: GDM
+  priority: medium
+  search_keywords: GDM seeds genetics agriculture
+- company_type: prospect
+  enabled: false
+  name: K+S AG
+  priority: medium
+  search_keywords: K+S AG fertilizer potash agriculture
+- company_type: client
+  enabled: true
+  name: ADAMA
+  priority: high
+  search_keywords: ADAMA agriculture crop protection
+- company_type: prospect
+  enabled: true
+  name: Nutrien
+  priority: high
+  search_keywords: Nutrien agriculture fertilizer
+- company_type: prospect
+  enabled: true
+  name: CHS Inc
+  priority: medium
+  search_keywords: CHS Inc agriculture cooperative grain
+- company_type: client
+  enabled: true
+  name: BASF
+  priority: high
+  search_keywords: BASF agriculture crop protection
+- company_type: client
+  enabled: true
+  name: Saipol
+  priority: medium
+  search_keywords: Saipol oilseed crushing
+- company_type: prospect
+  enabled: true
+  name: Sumitomo Chemical
+  priority: medium
+  search_keywords: Sumitomo Chemical agriculture crop protection
+- company_type: prospect
+  enabled: true
+  name: Nufarm
+  priority: high
+  search_keywords: Nufarm agriculture crop protection
+- company_type: prospect
+  enabled: true
+  name: ICL Group
+  priority: medium
+  search_keywords: ICL Group fertilizer specialty agriculture
+- company_type: client
+  enabled: true
+  name: KWS
+  priority: high
+  search_keywords: KWS seeds agriculture crop
+- company_type: prospect
+  enabled: true
+  name: Mosaic Company
+  priority: high
+  search_keywords: Mosaic Company fertilizer agriculture
+- company_type: prospect
+  enabled: true
+  name: UPL
+  priority: high
+  search_keywords: UPL agriculture crop protection
+- company_type: client
+  enabled: true
+  name: Bayer CropScience
+  priority: high
+  search_keywords: Bayer CropScience agriculture
+- company_type: prospect
+  enabled: true
+  name: Yara International
+  priority: high
+  search_keywords: Yara International fertilizer agriculture
+- company_type: client
+  enabled: true
+  name: Corteva Agriscience
+  priority: high
+  search_keywords: Corteva Agriscience agriculture
+- company_type: prospect
+  enabled: true
+  name: Limagrain
+  priority: high
+  search_keywords: Limagrain agriculture seeds
+- company_type: prospect
+  enabled: true
+  name: OCP Nutricrops
+  priority: high
+  search_keywords: OCP Nutricrops phosphate fertilizer agriculture
+- company_type: client
+  enabled: true
+  name: Lidea
+  priority: high
+  search_keywords: Lidea seeds agriculture
+countries:
+- enabled: true
+  flag_emoji: 🇸🇪
+  has_scraper: false
+  name: Sweden
+  pan_regional_sources:
+  - eurostat
+  - jrc_mars
+  region: EU
+- enabled: true
+  flag_emoji: 🇭🇷
+  has_scraper: false
+  name: Croatia
+  pan_regional_sources:
+  - eurostat
+  - jrc_mars
+  region: EU
+- enabled: true
+  flag_emoji: 🇿🇦
+  has_scraper: false
+  name: South Africa
+  pan_regional_sources:
+  - usda_fas
+  - fao
+  region: Africa-ME
+- enabled: true
+  flag_emoji: 🇲🇦
+  has_scraper: false
+  name: Morocco
+  pan_regional_sources:
+  - usda_fas
+  - fao
+  region: Africa-ME
+- enabled: true
+  flag_emoji: 🇮🇩
+  has_scraper: false
+  name: Indonesia
+  pan_regional_sources:
+  - usda_fas
+  - fao
+  region: Asia-Pacific
+- enabled: true
+  flag_emoji: 🇭🇺
+  has_scraper: true
+  name: Hungary
+  pan_regional_sources:
+  - eurostat
+  - jrc_mars
+  region: EU
+- enabled: true
+  flag_emoji: 🇷🇴
+  has_scraper: false
+  name: Romania
+  pan_regional_sources:
+  - eurostat
+  - jrc_mars
+  region: EU
+- enabled: true
+  flag_emoji: 🇳🇱
+  has_scraper: false
+  name: Netherlands
+  pan_regional_sources:
+  - eurostat
+  - jrc_mars
+  region: EU
+- enabled: true
+  flag_emoji: 🇹🇷
+  has_scraper: true
+  name: Turkey
+  pan_regional_sources:
+  - jrc_mars
+  - usda_fas
+  region: EU
+- enabled: true
+  flag_emoji: 🇵🇱
+  has_scraper: false
+  name: Poland
+  pan_regional_sources:
+  - eurostat
+  - jrc_mars
+  region: EU
+- enabled: true
+  flag_emoji: 🇧🇪
+  has_scraper: false
+  name: Belgium
+  pan_regional_sources:
+  - eurostat
+  - jrc_mars
+  region: EU
+- enabled: true
+  flag_emoji: 🇩🇪
+  has_scraper: true
+  name: Germany
+  pan_regional_sources:
+  - eurostat
+  - jrc_mars
+  region: EU
+- enabled: true
+  flag_emoji: 🇨🇦
+  has_scraper: true
+  name: Canada
+  pan_regional_sources:
+  - usda_fas
+  region: Americas
+- enabled: true
+  flag_emoji: 🇵🇹
+  has_scraper: false
+  name: Portugal
+  pan_regional_sources:
+  - eurostat
+  - jrc_mars
+  region: EU
+- enabled: true
+  flag_emoji: 🇮🇪
+  has_scraper: false
+  name: Ireland
+  pan_regional_sources:
+  - eurostat
+  - jrc_mars
+  region: EU
+- enabled: true
+  flag_emoji: 🇪🇺
+  has_scraper: true
+  name: Europe
+  pan_regional_sources:
+  - eurostat
+  - jrc_mars
+  - usda_fas
+  region: EU
+- enabled: true
+  flag_emoji: 🇦🇷
+  has_scraper: false
+  name: Argentina
+  pan_regional_sources:
+  - usda_fas
+  - fao
+  region: Americas
+- enabled: true
+  flag_emoji: 🇸🇰
+  has_scraper: false
+  name: Slovakia
+  pan_regional_sources:
+  - eurostat
+  - jrc_mars
+  region: EU
+- enabled: true
+  flag_emoji: 🇪🇪
+  has_scraper: false
+  name: Estonia
+  pan_regional_sources:
+  - eurostat
+  - jrc_mars
+  region: EU
+- enabled: true
+  flag_emoji: 🇺🇦
+  has_scraper: true
+  name: Ukraine
+  pan_regional_sources:
+  - jrc_mars
+  - usda_fas
+  region: EU
+- enabled: true
+  flag_emoji: 🇪🇬
+  has_scraper: false
+  name: Egypt
+  pan_regional_sources:
+  - usda_fas
+  - fao
+  region: Africa-ME
+- enabled: true
+  flag_emoji: 🇪🇸
+  has_scraper: true
+  name: Spain
+  pan_regional_sources:
+  - eurostat
+  - jrc_mars
+  region: EU
+- enabled: true
+  flag_emoji: 🇮🇳
+  has_scraper: false
+  name: India
+  pan_regional_sources:
+  - usda_fas
+  - fao
+  region: Asia-Pacific
+- enabled: true
+  flag_emoji: 🇱🇹
+  has_scraper: false
+  name: Lithuania
+  pan_regional_sources:
+  - eurostat
+  - jrc_mars
+  region: EU
+- enabled: true
+  flag_emoji: 🇫🇮
+  has_scraper: false
+  name: Finland
+  pan_regional_sources:
+  - eurostat
+  - jrc_mars
+  region: EU
+- enabled: true
+  flag_emoji: 🇧🇷
+  has_scraper: false
+  name: Brazil
+  pan_regional_sources:
+  - usda_fas
+  - fao
+  region: Americas
+- enabled: true
+  flag_emoji: 🇧🇬
+  has_scraper: false
+  name: Bulgaria
+  pan_regional_sources:
+  - eurostat
+  - jrc_mars
+  region: EU
+- enabled: true
+  flag_emoji: 🇮🇹
+  has_scraper: false
+  name: Italy
+  pan_regional_sources:
+  - eurostat
+  - jrc_mars
+  region: EU
+- enabled: true
+  flag_emoji: 🇦🇹
+  has_scraper: false
+  name: Austria
+  pan_regional_sources:
+  - eurostat
+  - jrc_mars
+  region: EU
+- enabled: true
+  flag_emoji: 🇬🇧
+  has_scraper: true
+  name: UK
+  pan_regional_sources:
+  - jrc_mars
+  - usda_fas
+  region: EU
+- enabled: true
+  flag_emoji: 🇫🇷
+  has_scraper: true
+  name: France
+  pan_regional_sources:
+  - eurostat
+  - jrc_mars
+  region: EU
+- enabled: true
+  flag_emoji: 🇩🇰
+  has_scraper: false
+  name: Denmark
+  pan_regional_sources:
+  - eurostat
+  - jrc_mars
+  region: EU
+- enabled: true
+  flag_emoji: 🇱🇻
+  has_scraper: false
+  name: Latvia
+  pan_regional_sources:
+  - eurostat
+  - jrc_mars
+  region: EU
+- enabled: true
+  flag_emoji: 🇲🇽
+  has_scraper: false
+  name: Mexico
+  pan_regional_sources:
+  - usda_fas
+  - fao
+  region: Americas
+- enabled: true
+  flag_emoji: 🇨🇿
+  has_scraper: false
+  name: Czechia
+  pan_regional_sources:
+  - eurostat
+  - jrc_mars
+  region: EU
+- enabled: true
+  flag_emoji: 🇺🇸
+  has_scraper: false
+  name: USA
+  pan_regional_sources:
+  - usda_fas
+  region: Americas
+- enabled: true
+  flag_emoji: 🇳🇿
+  has_scraper: false
+  name: New Zealand
+  pan_regional_sources:
+  - usda_fas
+  - fao
+  region: Asia-Pacific
+recipients:
+- active: true
+  email: ruben@hyperplan.fr
+  group: internal
+  is_primary: false
+  lead_id: ''
+  name: Ruben
+- active: true
+  email: matthieu@hyperplan.fr
+  group: internal
+  is_primary: false
+  lead_id: ''
+  name: Matthieu
+- active: true
+  email: jb@hyperplan.fr
+  group: internal
+  is_primary: false
+  lead_id: ''
+  name: JB
+- active: true
+  email: victoria@hyperplan.fr
+  group: internal
+  is_primary: false
+  lead_id: ''
+  name: Victoria
+- active: true
+  email: thomas.beaugendre@demeter-im.com
+  group: external
+  is_primary: true
+  lead_id: lea_sw4aA2KkNiqJyZZTt
+  name: Thomas Beaugendre
+- active: true
+  email: clemence@hyperplan.fr
+  group: internal
+  is_primary: false
+  lead_id: ''
+  name: Clémence
+- active: true
+  email: geoffroy.dubus@demeter-im.com
+  group: external
+  is_primary: false
+  lead_id: ''
+  name: Geoffroy Dubus
+- active: true
+  email: victor@hyperplan.fr
+  group: internal
+  is_primary: false
+  lead_id: ''
+  name: Victor
+- active: true
+  email: guillaume@hyperplan.fr
+  group: internal
+  is_primary: false
+  lead_id: ''
+  name: Guillaume
+- active: true
+  email: thibault@hyperplan.fr
+  group: internal
+  is_primary: false
+  lead_id: ''
+  name: Thibault
+- active: true
+  email: remi@hyperplan.fr
+  group: internal
+  is_primary: true
+  lead_id: lea_yyJNZzei2udyP3agF
+  name: Rémi Banquet
+sources:
+- category: official_publication
+  country: Romania
+  enabled: true
+  keywords_filter: []
+  name: INSSE Romania
+  scraper_id: ''
+  source_type: rss
+  url: https://insse.ro/cms/files/rss_ins_en.xml
+- category: official_publication
+  country: Europe
+  enabled: false
+  keywords_filter: []
+  name: COCERAL Europe
+  scraper_id: scrape_coceral
+  source_type: requests-scraper
+  url: https://www.coceral.com/web/coceral%20crop%20forecast/
+- category: official_publication
+  country: Hungary
+  enabled: true
+  keywords_filter: []
+  name: KSH Hungary
+  scraper_id: ''
+  source_type: rss
+  url: https://www.ksh.hu/apps/shop.rss_temakor?p_lang=EN&p_temakor_kod=KSH
+- category: official_publication
+  country: Europe
+  enabled: true
+  keywords_filter: []
+  name: Eurostat — Datasets
+  scraper_id: ''
+  source_type: rss
+  url: https://ec.europa.eu/eurostat/web/main/home/rss
+- category: media
+  country: Global
+  enabled: true
+  keywords_filter: []
+  name: Inside Climate News
+  scraper_id: ''
+  source_type: rss
+  url: http://insideclimatenews.org/news/rss-teaser.xml
+- category: official_publication
+  country: France
+  enabled: false
+  keywords_filter: []
+  name: Agreste France
+  scraper_id: scrape_agreste
+  source_type: requests-scraper
+  url: https://agreste.agriculture.gouv.fr/agreste-web/
+- category: media
+  country: Europe
+  enabled: true
+  keywords_filter: []
+  name: SeedWorld Europe
+  scraper_id: ''
+  source_type: rss
+  url: https://www.seedworld.com/europe/feed/
+- category: media
+  country: Global
+  enabled: true
+  keywords_filter: []
+  name: Grain Central — News
+  scraper_id: ''
+  source_type: rss
+  url: https://www.graincentral.com/news/feed/
+- category: media
+  country: Global
+  enabled: true
+  keywords_filter: []
+  name: Grain Central — Markets
+  scraper_id: ''
+  source_type: rss
+  url: https://www.graincentral.com/markets/feed/
+- category: official_publication
+  country: Spain
+  enabled: false
+  keywords_filter: []
+  name: CAA Spain (Cooperativas)
+  scraper_id: scrape_caa
+  source_type: requests-scraper
+  url: https://www.agro-alimentarias.coop/documents?cat_sel=33
+- category: media
+  country: Romania
+  enabled: true
+  keywords_filter: []
+  name: Romania Insider
+  scraper_id: ''
+  source_type: rss
+  url: http://www.romania-insider.com/feed/
+- category: media
+  country: Global
+  enabled: true
+  keywords_filter: []
+  name: FAO Newsroom
+  scraper_id: ''
+  source_type: rss
+  url: https://www.fao.org/feeds/fao-newsroom-rss
+- category: media
+  country: USA
+  enabled: true
+  keywords_filter: []
+  name: USDA NASS — Reports
+  scraper_id: ''
+  source_type: rss
+  url: http://www.nass.usda.gov/rss/reports.xml
+- category: official_publication
+  country: Turkey
+  enabled: true
+  keywords_filter: []
+  name: TUIK Turkey
+  scraper_id: scrape_tuik
+  source_type: requests-scraper
+  url: https://data.tuik.gov.tr/Kategori/GetKategori?p=tarim-111
+- category: media
+  country: Global
+  enabled: true
+  keywords_filter: []
+  name: Precision Ag
+  scraper_id: ''
+  source_type: rss
+  url: http://www.precisionag.com/feed/
+- category: media
+  country: Global
+  enabled: true
+  keywords_filter: []
+  name: Farm Chemicals Intl
+  scraper_id: ''
+  source_type: rss
+  url: http://www.farmchemicalsinternational.com/rss/rssfeed.php?pageid=2
+- category: official_publication
+  country: Germany
+  enabled: true
+  keywords_filter: []
+  name: Destatis Germany
+  scraper_id: ''
+  source_type: rss
+  url: http://www.destatis.de/Aktuelles.xml
+- category: media
+  country: Global
+  enabled: true
+  keywords_filter: []
+  name: AgFunder News
+  scraper_id: ''
+  source_type: rss
+  url: http://agfundernews.com/feed
+- category: official_publication
+  country: Ukraine
+  enabled: false
+  keywords_filter: []
+  name: Stat Gov UA Ukraine
+  scraper_id: scrape_govua
+  source_type: requests-scraper
+  url: https://stat.gov.ua/en/search
+- category: media
+  country: France
+  enabled: true
+  keywords_filter: []
+  name: Min. Agriculture FR
+  scraper_id: ''
+  source_type: rss
+  url: http://agriculture.gouv.fr/rss.xml
+- category: media
+  country: France
+  enabled: true
+  keywords_filter: []
+  name: Terre-net
+  scraper_id: ''
+  source_type: rss
+  url: http://www.terre-net.fr/actualite-agriculture.html
+- category: official_publication
+  country: Canada
+  enabled: true
+  keywords_filter: []
+  name: StatCan Canada
+  scraper_id: ''
+  source_type: rss
+  url: https://www150.statcan.gc.ca/n1/rss/dai-quo/32-eng.atom
+- category: media
+  country: Global
+  enabled: true
+  keywords_filter: []
+  name: TechCrunch AgTech
+  scraper_id: ''
+  source_type: rss
+  url: https://techcrunch.com/tag/agtech/feed/
+- category: media
+  country: Canada
+  enabled: true
+  keywords_filter: []
+  name: Farms.com
+  scraper_id: ''
+  source_type: rss
+  url: https://www.farms.com/Portals/_default/RSS_Portal/Featured_Crop.xml
+- category: official_publication
+  country: Hungary
+  enabled: false
+  keywords_filter: []
+  name: KSH Hungary Scraper
+  scraper_id: scrape_ksh
+  source_type: requests-scraper
+  url: https://www.ksh.hu/apps/shop.lista?p_lang=EN&p_temakor_kod=OM
+- category: media
+  country: Canada
+  enabled: true
+  keywords_filter: []
+  name: Western Producer
+  scraper_id: ''
+  source_type: rss
+  url: http://feeds.feedburner.com/westernproducer
+- category: media
+  country: Global
+  enabled: true
+  keywords_filter: []
+  name: Grain Central — Trade
+  scraper_id: ''
+  source_type: rss
+  url: https://www.graincentral.com/trade/feed/
+- category: media
+  country: Global
+  enabled: true
+  keywords_filter: []
+  name: Agribusiness Global
+  scraper_id: ''
+  source_type: rss
+  url: https://www.agribusinessglobal.com/feed/
+- category: media
+  country: Global
+  enabled: true
+  keywords_filter: []
+  name: World-Grain
+  scraper_id: ''
+  source_type: rss
+  url: https://www.world-grain.com/rss/articles
+- category: media
+  country: Global
+  enabled: true
+  keywords_filter: []
+  name: Barchart Commodities
+  scraper_id: ''
+  source_type: rss
+  url: https://www.barchart.com/news/rss/commodities
+- category: official_publication
+  country: Germany
+  enabled: false
+  keywords_filter: []
+  name: Destatis Scraper
+  scraper_id: scrape_destatis
+  source_type: requests-scraper
+  url: https://www.destatis.de/SiteGlobals/Forms/Suche/EN/
+- category: official_publication
+  country: Europe
+  enabled: true
+  keywords_filter: []
+  name: Eurostat — News
+  scraper_id: ''
+  source_type: rss
+  url: https://ec.europa.eu/eurostat/web/main/home/rss
+- category: media
+  country: Europe
+  enabled: true
+  keywords_filter: []
+  name: JRC Agriculture News
+  scraper_id: ''
+  source_type: rss
+  url: https://joint-research-centre.ec.europa.eu/node/2/rss_en
+- category: official_publication
+  country: UK
+  enabled: false
+  keywords_filter: []
+  name: DEFRA UK
+  scraper_id: scrape_uk
+  source_type: requests-scraper
+  url: https://www.gov.uk/search/all
+- category: media
+  country: France
+  enabled: true
+  keywords_filter: []
+  name: La France Agricole
+  scraper_id: ''
+  source_type: rss
+  url: http://www.lafranceagricole.fr/rss/actualites
+- category: media
+  country: Global
+  enabled: true
+  keywords_filter: []
+  name: Future Farming
+  scraper_id: ''
+  source_type: rss
+  url: https://www.futurefarming.com/feed/
+- category: official_publication
+  country: Canada
+  enabled: false
+  keywords_filter: []
+  name: StatCan Scraper
+  scraper_id: scrape_statcan
+  source_type: requests-scraper
+  url: https://www150.statcan.gc.ca/
+- category: media
+  country: Spain
+  enabled: true
+  keywords_filter: []
+  name: Agroes (Spain)
+  scraper_id: ''
+  source_type: rss
+  url: https://www.agroes.es/cultivos-agricultura?format=feed&type=rss
+- category: media
+  country: Canada
+  enabled: true
+  keywords_filter: []
+  name: Farms.com
+  scraper_id: ''
+  source_type: rss
+  url: https://www.farms.com/Portals/_default/RSS_Portal/News_Crop.xml
+- category: media
+  country: Global
+  enabled: true
+  keywords_filter: []
+  name: Investopedia Agriculture
+  scraper_id: ''
+  source_type: rss
+  url: https://feeds-api.dotdashmeredith.com/v1/rss/google/77cb61c1-0387-45bf-80e6-3f2976e90672
+- category: official_publication
+  country: Italy
+  enabled: true
+  keywords_filter: []
+  name: ISTAT Italy
+  scraper_id: ''
+  source_type: rss
+  url: https://www.istat.it/en/tema/agriculture/feed/
+- category: official_publication
+  country: Europe
+  enabled: false
+  keywords_filter: []
+  name: JRC MARS Europe
+  scraper_id: scrape_jrc
+  source_type: requests-scraper
+  url: https://publications.jrc.ec.europa.eu/repository/search
+- category: official_publication
+  country: Spain
+  enabled: true
+  keywords_filter: []
+  name: MAPA Spain
+  scraper_id: ''
+  source_type: rss
+  url: https://www.mapa.gob.es/es/agricultura/noticiasRss.aspx
+- category: media
+  country: Global
+  enabled: true
+  keywords_filter: []
+  name: AgWired
+  scraper_id: ''
+  source_type: rss
+  url: http://agwired.com/feed/
+- category: media
+  country: USA
+  enabled: true
+  keywords_filter: []
+  name: USDA NASS — News
+  scraper_id: ''
+  source_type: rss
+  url: http://www.nass.usda.gov/rss/news.xml
+- category: official_publication
+  country: Ukraine
+  enabled: true
+  keywords_filter: []
+  name: GovUA Ukraine Scraper
+  scraper_id: scrape_govua
+  source_type: requests-scraper
+  url: https://stat.gov.ua/en/search?f%5B0%5D=content_type%3Adataset&f%5B1%5D=topics%3A178&search_api_fulltext=crops&sort_by=created
+- category: official_publication
+  country: Spain
+  enabled: true
+  keywords_filter: []
+  name: MAPA Avances Scraper
+  scraper_id: scrape_mapa
+  source_type: requests-scraper
+  url: https://www.mapa.gob.es/es/estadistica/temas/estadisticas-agrarias/agricultura/avances-superficies-producciones-agricolas
+- category: official_publication
+  country: Spain
+  enabled: true
+  keywords_filter: []
+  name: CAA Spain Scraper
+  scraper_id: scrape_caa
+  source_type: requests-scraper
+  url: https://www.agro-alimentarias.coop/documents?cat_sel=33
+- category: official_publication
+  country: Europe
+  enabled: true
+  keywords_filter: []
+  name: COCERAL Europe Scraper
+  scraper_id: scrape_coceral
+  source_type: requests-scraper
+  url: https://www.coceral.com/web/coceral%20crop%20forecast%7C%20june%202025/1011306087/list1187970814/f1.html
+- category: official_publication
+  country: Italy
+  enabled: true
+  keywords_filter: []
+  name: ISTAT Italy Scraper
+  scraper_id: scrape_istat
+  source_type: requests-scraper
+  url: https://www.istat.it/en/statistical-themes/economy/agriculture/
+- category: official_publication
+  country: Canada
+  enabled: true
+  keywords_filter: []
+  name: StatCan Canada Scraper
+  scraper_id: scrape_statcan
+  source_type: requests-scraper
+  url: https://www150.statcan.gc.ca/n1/en/subjects/agriculture_and_food/crop_production?count=10
+- category: official_publication
+  country: France
+  enabled: true
+  keywords_filter: []
+  name: Agreste France Scraper
+  scraper_id: scrape_agreste
+  source_type: requests-scraper
+  url: https://agreste.agriculture.gouv.fr/agreste-web/disaron/!searchurl/4545f1a9-afe6-4c86-a141-693f2c72d550!1b69a349-ca8f-4353-82bb-4c00c502412c!729f399f-53c3-4952-9971-4753794a7c1b!c6be0c43-70a0-4666-853f-80de38a08ec7!0c593aed-b1d0-476e-9359-12d6347d8243!b125c6dc-13b7-4260-9abd-6e9321b2b963!fec0e278-6655-4c48-ac47-aab6d8847e15/search/
+- category: official_publication
+  country: United Kingdom
+  enabled: true
+  keywords_filter: []
+  name: DEFRA UK Scraper
+  scraper_id: scrape_uk
+  source_type: requests-scraper
+  url: https://www.gov.uk/search/all?content_purpose_supergroup%5B%5D=research_and_statistics&keywords=crops&organisations%5B%5D=department-for-environment-food-rural-affairs&order=updated-newest
+- category: official_publication
+  country: Europe
+  enabled: true
+  keywords_filter: []
+  name: JRC MARS Europe Scraper
+  scraper_id: scrape_jrc
+  source_type: requests-scraper
+  url: https://publications.jrc.ec.europa.eu/repository/search?sort=date-desc&filter=SCIENCE_AREA%3AS001%7CGROUP%3AG001&query=JRC+Mars+Bulletin
+- category: official_publication
+  country: Germany
+  enabled: true
+  keywords_filter: []
+  name: Destatis Germany Scraper
+  scraper_id: scrape_destatis
+  source_type: requests-scraper
+  url: https://www.destatis.de/SiteGlobals/Forms/Suche/EN/Expertensuche_Formular.html?templateQueryString=crops&cl2Taxonomies_Themen_0=land_forstwirtschaft_fischerei
+- category: official_publication
+  country: Hungary
+  enabled: true
+  keywords_filter: []
+  name: KSH Hungary Scraper
+  scraper_id: scrape_ksh
+  source_type: requests-scraper
+  url: https://www.ksh.hu/apps/shop.lista?p_lang=EN&p_temakor_kod=OM
+- category: official_publication
+  country: Brazil
+  enabled: true
+  keywords_filter: []
+  name: IBGE PAM Brazil
+  scraper_id: scrape_ibge_pam
+  source_type: requests-scraper
+  url: https://apisidra.ibge.gov.br/values/t/5457
