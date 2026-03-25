@@ -15,7 +15,7 @@ from constants import SENDER_EMAIL
 
 logger = logging.getLogger(__name__)
 
-SMTP_HOST = "smtp.office365.com"
+SMTP_HOST = "smtp.gmail.com"
 SMTP_PORT = 587
 
 
