@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Agri-News Digest</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Source+Sans+3:wght@400;600&display=swap');
+    </style>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f5f3f1; font-family: 'Source Sans 3', 'Source Sans Pro', 'Segoe UI', Tahoma, sans-serif; color: #333; -webkit-font-smoothing: antialiased;">
+
+<!-- Container -->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f3f1;">
+<tr><td align="center" style="padding: 20px 10px;">
+<table role="presentation" width="700" cellpadding="0" cellspacing="0" style="max-width: 700px; width: 100%;">
+
+    <!-- Header Banner -->
+    <tr><td style="background: #14213D; border-radius: 12px 12px 0 0; padding: 28px 32px; text-align: center;">
+        <h1 style="margin: 0; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-weight: 700; font-size: 24px; color: #69BE82; letter-spacing: 0.5px;">
+            🛰️ Daily Agri-News Digest 🌱
+        </h1>
+        <p style="margin: 8px 0 0; font-size: 14px; color: #a0aec0;">
+            {{ date }} · Powered by <span style="color: #69BE82;">Hyperplan</span>
+        </p>
+    </td></tr>
+
+    <!-- AT A GLANCE Navigation -->
+    <tr><td style="background: #1a2a4d; padding: 20px 32px; border-bottom: 2px solid #69BE82;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+            <tr><td>
+                <h2 style="margin: 0 0 12px; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-weight: 700; font-size: 16px; color: #ffffff;">
+                    📌 At a Glance
+                </h2>
+                <p style="margin: 0 0 12px; font-size: 14px; color: #cbd5e0;">
+                    {{ publications|length }} publication{{ 's' if publications|length != 1 else '' }} · {{ articles|length }} article{{ 's' if articles|length != 1 else '' }}{% if client_signals %} · {{ client_signals|length }} client signal{{ 's' if client_signals|length != 1 else '' }}{% endif %}{% if prospect_signals %} · {{ prospect_signals|length }} prospect signal{{ 's' if prospect_signals|length != 1 else '' }}{% endif %}
+                </p>
+
+                <!-- Jump links -->
+                <table role="presentation" cellpadding="0" cellspacing="0">
+                    {% if publications %}
+                    <tr><td style="padding: 3px 0;">
+                        <a href="#publications" style="color: #69BE82; text-decoration: none; font-size: 14px; font-weight: 600;">
+                            📋 Official Publications ({{ publications|length }})
+                        </a>
+                    </td></tr>
+                    {% endif %}
+                    {% if psd_data and psd_data.available %}
+                    <tr><td style="padding: 3px 0;">
+                        <a href="#psd-snapshot" style="color: #69BE82; text-decoration: none; font-size: 14px; font-weight: 600;">
+                            📊 Global Crop Production (USDA PSD){% if psd_data.is_new_update %} <span style="color: #e57373;">●</span>{% endif %}
+                        </a>
+                    </td></tr>
+                    {% endif %}
+                    {% if articles %}
+                    <tr><td style="padding: 3px 0;">
+                        <a href="#news" style="color: #69BE82; text-decoration: none; font-size: 14px; font-weight: 600;">
+                            🌍 Today's News ({{ articles|length }})
+                        </a>
+                    </td></tr>
+                    <!-- Tag sub-links -->
+                    {% for tag, count in tag_counts.items() %}
+                    <tr><td style="padding: 2px 0 2px 20px;">
+                        <a href="#tag-{{ tag }}" style="color: #a0aec0; text-decoration: none; font-size: 13px;">
+                            {{ category_emoji.get(tag, '📰') }} {{ tag|replace('_', ' ')|title }} ({{ count }})
+                        </a>
+                    </td></tr>
+                    {% endfor %}
+                    {% endif %}
+                    {% if client_signals %}
+                    <tr><td style="padding: 3px 0;">
+                        <a href="#client-intel" style="color: #69BE82; text-decoration: none; font-size: 14px; font-weight: 600;">
+                            🏢 Client Intelligence ({{ client_signals|length }})
+                        </a>
+                    </td></tr>
+                    {% for company, signals in client_groups.items() %}
+                    <tr><td style="padding: 2px 0 2px 20px;">
+                        <a href="#client-{{ company|lower|replace(' ', '-') }}" style="color: #a0aec0; text-decoration: none; font-size: 13px;">
+                            {{ company }} ({{ signals|length }})
+                        </a>
+                    </td></tr>
+                    {% endfor %}
+                    {% endif %}
+                    {% if prospect_signals %}
+                    <tr><td style="padding: 3px 0;">
+                        <a href="#prospect-intel" style="color: #69BE82; text-decoration: none; font-size: 14px; font-weight: 600;">
+                            🎯 Prospect Intelligence ({{ prospect_signals|length }})
+                        </a>
+                    </td></tr>
+                    {% for company, signals in prospect_groups.items() %}
+                    <tr><td style="padding: 2px 0 2px 20px;">
+                        <a href="#prospect-{{ company|lower|replace(' ', '-') }}" style="color: #a0aec0; text-decoration: none; font-size: 13px;">
+                            {{ company }} ({{ signals|length }})
+                        </a>
+                    </td></tr>
+                    {% endfor %}
+                    {% endif %}
+                </table>
+            </td></tr>
+        </table>
+    </td></tr>
+
+    <!-- SECTION 1: Official Publications -->
+    {% if publications %}
+    <tr><td style="padding: 24px 0 8px;" id="publications">
+        <h2 style="margin: 0; padding: 0 32px; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-weight: 700; font-size: 18px; color: #14213D;">
+            📋 Official Publications
+        </h2>
+    </td></tr>
+
+    {% for pub in publications %}
+    <tr><td style="padding: 3px 0;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background: #14213D; border-left: 4px solid #69BE82;">
+            <tr><td style="padding: 14px 28px;">
+                <p style="margin: 0 0 4px; font-size: 12px; color: #a0aec0;">
+                    {{ pub.flag_emoji }} {{ pub.country }} · {{ pub.source_name }}{% if pub.published_at %} · {{ pub.published_at.strftime('%d %b') }}{% endif %}
+                </p>
+                <a href="{{ pub.url }}" style="color: #69BE82; text-decoration: none; font-weight: 600; font-size: 15px; line-height: 1.4;">
+                    {{ pub.title }}
+                </a>
+                {% if pub.summary %}
+                <p style="margin: 8px 0 0; font-size: 13px; color: #cbd5e0; line-height: 1.5;">
+                    {{ pub.summary[:200] }}
+                </p>
+                {% endif %}
+            </td></tr>
+        </table>
+    </td></tr>
+    {% endfor %}
+    {% endif %}
+
+    <!-- SECTION 2: Today's News -->
+    {% if articles %}
+    <tr><td style="padding: 24px 0 8px;" id="news">
+        <h2 style="margin: 0; padding: 0 32px; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-weight: 700; font-size: 18px; color: #14213D;">
+            🌍 Today's News
+        </h2>
+    </td></tr>
+
+    {% for category, cat_articles in articles_by_category.items() %}
+    <tr><td style="padding: 12px 0 4px;" id="tag-{{ category }}">
+        <h3 style="margin: 0; padding: 0 32px; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-weight: 600; font-size: 15px; color: #69BE82;">
+            {{ category_emoji.get(category, '📰') }} {{ category|replace('_', ' ')|title }} ({{ cat_articles|length }})
+        </h3>
+    </td></tr>
+
+    {% for article in cat_articles %}
+    <tr><td style="padding: 3px 0;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background: #14213D; border-left: 4px solid #69BE82;">
+            <tr><td style="padding: 14px 28px;">
+                <p style="margin: 0 0 4px; font-size: 12px; color: #a0aec0;">
+                    {{ article.source_name }}{% if article.published_at %} · {{ article.published_at.strftime('%d %b %Y') }}{% endif %}{% if article.location.country_iso %} · {{ article.location.country_iso }}{% endif %}
+                </p>
+                <a href="{{ article.url }}" style="color: #69BE82; text-decoration: none; font-weight: 600; font-size: 15px; line-height: 1.4;">
+                    {{ article.title }}
+                </a>
+                {% if article.summary %}
+                <div style="margin: 8px 0 0; font-size: 13px; color: #cbd5e0; line-height: 1.6;">
+                    {{ article.summary }}
+                </div>
+                {% endif %}
+                {% if article.tags %}
+                <p style="margin: 8px 0 0;">
+                    {% for tag in article.tags %}
+                    <span style="display: inline-block; background: #1a2a4d; color: #69BE82; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-right: 4px;">{{ tag }}</span>
+                    {% endfor %}
+                </p>
+                {% endif %}
+            </td></tr>
+        </table>
+    </td></tr>
+    {% endfor %}
+    {% endfor %}
+    {% endif %}
+
+    <!-- SECTION 3: Client Intelligence -->
+    {% if client_signals %}
+    <tr><td style="padding: 24px 0 8px;" id="client-intel">
+        <h2 style="margin: 0; padding: 0 32px; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-weight: 700; font-size: 18px; color: #14213D;">
+            🏢 Client Intelligence
+        </h2>
+    </td></tr>
+
+    {% for company, signals in client_groups.items() %}
+    <tr><td style="padding: 3px 0 0;" id="client-{{ company|lower|replace(' ', '-') }}">
+        <h3 style="margin: 0; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-weight: 600; font-size: 15px; color: #ffffff; background: #1a2d50; padding: 8px 28px; border-left: 4px solid #69BE82;">
+            {{ company }}
+        </h3>
+    </td></tr>
+    {% for signal in signals %}
+    <tr><td style="padding: 0 0 3px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background: #14213D; border-left: 4px solid #69BE82;">
+            <tr><td style="padding: 10px 28px;">
+                <p style="margin: 0 0 4px; font-size: 12px; color: #a0aec0;">
+                    {{ signal_type_emoji.get(signal.signal_type.value, '📰') if signal.signal_type else '📰' }} {{ signal.signal_type.value|title if signal.signal_type else 'News' }} · {{ signal.source_name }}{% if signal.published_at %} · {{ signal.published_at.strftime('%d %b') }}{% endif %}
+                </p>
+                <a href="{{ signal.url }}" style="color: #69BE82; text-decoration: none; font-weight: 600; font-size: 14px;">
+                    {{ signal.title }}
+                </a>
+                {% if signal.summary %}
+                <div style="margin: 6px 0 0; font-size: 13px; color: #cbd5e0; line-height: 1.5;">
+                    {{ signal.summary }}
+                </div>
+                {% endif %}
+            </td></tr>
+        </table>
+    </td></tr>
+    {% endfor %}
+    {% endfor %}
+    {% endif %}
+
+    <!-- SECTION 4: Prospect Intelligence -->
+    {% if prospect_signals %}
+    <tr><td style="padding: 24px 0 8px;" id="prospect-intel">
+        <h2 style="margin: 0; padding: 0 32px; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-weight: 700; font-size: 18px; color: #14213D;">
+            🎯 Prospect Intelligence
+        </h2>
+    </td></tr>
+
+    {% for company, signals in prospect_groups.items() %}
+    <tr><td style="padding: 3px 0 0;" id="prospect-{{ company|lower|replace(' ', '-') }}">
+        <h3 style="margin: 0; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-weight: 600; font-size: 15px; color: #ffffff; background: #1a2d50; padding: 8px 28px; border-left: 4px solid #69BE82;">
+            {{ company }}
+        </h3>
+    </td></tr>
+    {% for signal in signals %}
+    <tr><td style="padding: 0 0 3px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background: #14213D; border-left: 4px solid #69BE82;">
+            <tr><td style="padding: 10px 28px;">
+                <p style="margin: 0 0 4px; font-size: 12px; color: #a0aec0;">
+                    {{ signal_type_emoji.get(signal.signal_type.value, '📰') if signal.signal_type else '📰' }} {{ signal.signal_type.value|title if signal.signal_type else 'News' }} · {{ signal.source_name }}{% if signal.published_at %} · {{ signal.published_at.strftime('%d %b') }}{% endif %}
+                </p>
+                <a href="{{ signal.url }}" style="color: #69BE82; text-decoration: none; font-weight: 600; font-size: 14px;">
+                    {{ signal.title }}
+                </a>
+                {% if signal.summary %}
+                <div style="margin: 6px 0 0; font-size: 13px; color: #cbd5e0; line-height: 1.5;">
+                    {{ signal.summary }}
+                </div>
+                {% endif %}
+            </td></tr>
+        </table>
+    </td></tr>
+    {% endfor %}
+    {% endfor %}
+    {% endif %}
+
+    <!-- SECTION 5: USDA PSD Global Crop Snapshot (last section) -->
+    {% if psd_data and psd_data.available %}
+    <tr><td style="padding: 24px 0 8px;" id="psd-snapshot">
+        <h2 style="margin: 0; padding: 0 32px; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-weight: 700; font-size: 18px; color: #14213D;">
+            📊 Global Crop Snapshot
+            <span style="font-size: 12px; font-weight: 400; color: #666; margin-left: 6px;">
+                <a href="https://apps.fas.usda.gov/psdonline/" style="color: #69BE82; text-decoration: none;">USDA PSD</a> · {{ psd_data.my_label }} · {{ psd_data.release_label }}
+                {% if psd_data.is_new_update %}<span style="color: #69BE82; font-weight: 600;"> ● NEW UPDATE</span>{% endif %}
+            </span>
+        </h2>
+    </td></tr>
+
+    {# ── Macro: render one unified matrix card (all 6 crops side-by-side) ── #}
+    {% macro render_matrix(title, unit, matrix) %}
+    {% if matrix and matrix.rows %}
+    {% set num_crops = matrix.crops|length %}
+    <tr><td style="padding: 3px 0;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background: #14213D; border-left: 4px solid #69BE82;">
+            <tr><td style="padding: 14px 16px 4px;">
+                <p style="margin: 0 0 2px; font-size: 14px; font-weight: 600; color: #ffffff;">
+                    {{ title }}
+                </p>
+                <p style="margin: 0; font-size: 10px; color: #5a6a8a;">
+                    Values in {{ unit }} · YoY = {{ psd_data.my_label }} vs prior year
+                </p>
+            </td></tr>
+            <tr><td style="padding: 4px 16px 8px; overflow-x: auto;">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="min-width: 660px;">
+                    <!-- Crop header row -->
+                    <tr>
+                        <td style="padding: 4px 3px 4px 0; font-size: 9px; color: #69BE82; font-weight: 600; border-bottom: 1px solid #2a3a5d; width: 16%;">&nbsp;</td>
+                        {% for crop in matrix.crops %}
+                        <td colspan="2" style="padding: 4px 1px; font-size: 9px; color: #69BE82; font-weight: 600; text-align: center; border-bottom: 1px solid #2a3a5d;">{{ crop }}</td>
+                        {% endfor %}
+                    </tr>
+                    <!-- Sub-header: Value / YoY -->
+                    <tr>
+                        <td style="padding: 2px 3px 2px 0; font-size: 8px; color: #5a6a8a; border-bottom: 1px solid #1a2a4d;">&nbsp;</td>
+                        {% for crop in matrix.crops %}
+                        <td style="padding: 2px 1px; font-size: 8px; color: #5a6a8a; text-align: right; border-bottom: 1px solid #1a2a4d;">Val.</td>
+                        <td style="padding: 2px 1px; font-size: 8px; color: #5a6a8a; text-align: right; border-bottom: 1px solid #1a2a4d;">YoY</td>
+                        {% endfor %}
+                    </tr>
+                    <!-- Data rows grouped by region -->
+                    {% set ns = namespace(prev_region='') %}
+                    {% for row in matrix.rows %}
+                    {% if row.region != ns.prev_region %}
+                    {% set ns.prev_region = row.region %}
+                    <tr>
+                        <td colspan="{{ 1 + num_crops * 2 }}" style="padding: 5px 0 2px; font-size: 9px; font-weight: 600; color: #5a6a8a; border-top: 1px solid #2a3a5d; text-transform: uppercase; letter-spacing: 0.3px;">
+                            {{ row.region }}
+                        </td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <td style="padding: 2px 3px 2px 0; font-size: 10px; color: #cbd5e0; white-space: nowrap;">
+                            {{ row.flag }} {{ row.name }}
+                        </td>
+                        {% for crop in matrix.crops %}
+                        {% set cell = row.values[crop] if row.values is defined else none %}
+                        <td style="padding: 2px 1px; font-size: 10px; color: #a0aec0; text-align: right; font-variant-numeric: tabular-nums;">
+                            {% if cell and cell.value is not none %}{{ "{:,.0f}".format(cell.value) }}{% else %}<span style="color: #3a4a6d;">—</span>{% endif %}
+                        </td>
+                        <td style="padding: 2px 1px; font-size: 10px; text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; color: {% if cell and cell.yoy_pct is not none %}{{ '#69BE82' if cell.yoy_pct > 0 else '#e57373' if cell.yoy_pct < 0 else '#a0aec0' }}{% else %}#3a4a6d{% endif %};">
+                            {% if cell and cell.yoy_pct is not none %}{{ "{:+.1f}".format(cell.yoy_pct) }}%{% else %}—{% endif %}
+                        </td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </table>
+            </td></tr>
+        </table>
+    </td></tr>
+    {% endif %}
+    {% endmacro %}
+
+    {# ── Card 1: Area Harvested (all 6 crops) ── #}
+    {{ render_matrix("🌾 Area Harvested", "1,000 HA", psd_data.area_all) }}
+
+    {# ── Card 2: Production (all 6 crops) ── #}
+    {{ render_matrix("📦 Production", "1,000 MT", psd_data.production_all) }}
+
+    {% endif %}
+
+    <!-- Footer -->
+    <tr><td style="background: #14213D; border-radius: 0 0 12px 12px; padding: 20px 32px; text-align: center;">
+        <p style="margin: 0; font-size: 12px; color: #a0aec0;">
+            Daily Agri-News Digest by <span style="color: #69BE82;">Hyperplan</span> · Sent from {{ sender_email }}
+        </p>
+        <p style="margin: 8px 0 0; font-size: 12px; color: #718096;">
+            This digest is generated automatically. Reply to this email for feedback.
+        </p>
+    </td></tr>
+
+</table>
+</td></tr>
+</table>
+
+</body>
+</html>
