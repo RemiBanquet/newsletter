@@ -10,7 +10,7 @@ from pathlib import Path
 from jinja2 import Environment, FileSystemLoader
 
 from models import Article, CompanySignal, CompanyType, Publication
-from constants import CATEGORY_EMOJI, SIGNAL_TYPE_EMOJI, LEMLIST_SEND_EMAIL
+from constants import CATEGORY_EMOJI, SIGNAL_TYPE_EMOJI, SENDER_EMAIL
 
 logger = logging.getLogger(__name__)
 
@@ -107,7 +107,7 @@ def render_newsletter(
         tag_counts=tag_counts,
         category_emoji=CATEGORY_EMOJI,
         signal_type_emoji=SIGNAL_TYPE_EMOJI,
-        sender_email=LEMLIST_SEND_EMAIL,
+        sender_email=SENDER_EMAIL,
         psd_data=psd_ns,
     )
 
