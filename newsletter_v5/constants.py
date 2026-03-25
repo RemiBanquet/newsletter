@@ -135,4 +135,4 @@ ARTICLE_LOOKBACK_HOURS = 48  # Articles/publications: 48h to catch late entries
 
 # ── Email sender config ──────────────────────────────────────────
 
-SENDER_EMAIL = "remi@hyperplan.fr"
+SENDER_EMAIL = "remi.banquet@gmail.com"
