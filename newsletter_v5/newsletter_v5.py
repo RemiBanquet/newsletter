@@ -10,13 +10,11 @@ Usage:
 
 Environment variables required:
     ANTHROPIC_API_KEY       — Claude API key
-    LEMLIST_API_KEY         — Lemlist API key
     NOTION_TOKEN            — Notion integration token
     NOTION_SOURCES_DB_ID    — Notion "Newsletter Sources" database ID
     NOTION_RECIPIENTS_DB_ID — Notion "Newsletter Recipients" database ID
     NOTION_COMPANIES_DB_ID  — Notion "Tracked Companies" database ID
     NOTION_COUNTRIES_DB_ID  — Notion "Countries of Interest" database ID
-    LEMLIST_ADMIN_LEAD_ID   — Lemlist lead ID for admin reports (optional)
 """
 
 import argparse
