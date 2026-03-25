@@ -2,7 +2,7 @@ name: Daily Agri-News Digest v5
 
 on:
   schedule:
-    - cron: "45 6 * * *"
+    - cron: "30 6 * * *"
   workflow_dispatch:
 
 jobs:
