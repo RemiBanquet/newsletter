@@ -40,7 +40,7 @@ def _send_via_lemlist(
     try:
         response = requests.post(
             f"{LEMLIST_API_BASE}/inbox/send",
-            headers={"Authorization": f"Bearer {api_key}"},
+            auth=("", api_key),
             json=payload,
             timeout=30,
         )
