@@ -35,8 +35,8 @@ def _send_smtp(
         return False
 
     msg = MIMEMultipart("alternative")
-    msg["From"] = SENDER_EMAIL
-    msg["To"] = to
+    msg["From"] = f"Hyperplan <{SENDER_EMAIL}>"
+    msg["To"] = f"Hyperplan Newsletter <{to}>"
     msg["Subject"] = subject
     if cc:
         msg["Cc"] = ", ".join(cc)
