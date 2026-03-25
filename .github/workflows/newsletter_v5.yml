@@ -35,8 +35,7 @@ jobs:
           NOTION_PUBLICATIONS_DB_ID: ${{ secrets.NOTION_PUBLICATIONS_DB_ID }}
           NOTION_SIGNALS_DB_ID: ${{ secrets.NOTION_SIGNALS_DB_ID }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          LEMLIST_API_KEY: ${{ secrets.LEMLIST_API_KEY }}
-          LEMLIST_ADMIN_LEAD_ID: ${{ secrets.LEMLIST_ADMIN_LEAD_ID }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
         run: |
           cd newsletter_v5
           python newsletter_v5.py
