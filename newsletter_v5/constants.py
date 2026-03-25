@@ -133,17 +133,6 @@ DEDUP_SIGNALS_FILE = "sent_signals.json"
 SIGNAL_LOOKBACK_DAYS = 7  # Company signals: 7-day rolling window
 ARTICLE_LOOKBACK_HOURS = 48  # Articles/publications: 48h to catch late entries
 
-# ── Lemlist config ────────────────────────────────────────────────
+# ── Email sender config ──────────────────────────────────────────
 
-LEMLIST_API_BASE = "https://api.lemlist.com/api"
-LEMLIST_SEND_USER_ID = "usr_FYxnRkvNuRFSixkrP"
-LEMLIST_SEND_EMAIL = "remi@hyperplan.fr"
-LEMLIST_SEND_MAILBOX_ID = "usm_RjWktLTma7TthAcj8"
-
-# Campaign IDs
-LEMLIST_CAMPAIGN_INTERNAL = "cam_iGwKk8nr6czJWRdRY"
-LEMLIST_CAMPAIGN_EXTERNAL = "cam_PtmyYFfWuLc28DYz5"
-LEMLIST_CAMPAIGN_ADMIN = "cam_gcwijB3Nbor62LQSs"
-
-# Admin lead ID (for --test mode and admin reports)
-LEMLIST_ADMIN_LEAD_ID = "lea_3hyxZzRCvsS4RPQ9j"
+SENDER_EMAIL = "remi@hyperplan.fr"
