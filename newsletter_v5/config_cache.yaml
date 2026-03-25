@@ -429,68 +429,46 @@ recipients:
 - active: true
   email: ruben@hyperplan.fr
   group: internal
-  is_primary: false
-  lead_id: ''
   name: Ruben
 - active: true
   email: matthieu@hyperplan.fr
   group: internal
-  is_primary: false
-  lead_id: ''
   name: Matthieu
 - active: true
   email: jb@hyperplan.fr
   group: internal
-  is_primary: false
-  lead_id: ''
   name: JB
 - active: true
   email: victoria@hyperplan.fr
   group: internal
-  is_primary: false
-  lead_id: ''
   name: Victoria
 - active: true
   email: thomas.beaugendre@demeter-im.com
   group: external
-  is_primary: true
-  lead_id: lea_sw4aA2KkNiqJyZZTt
   name: Thomas Beaugendre
 - active: true
   email: clemence@hyperplan.fr
   group: internal
-  is_primary: false
-  lead_id: ''
   name: Clémence
 - active: true
   email: geoffroy.dubus@demeter-im.com
   group: external
-  is_primary: false
-  lead_id: ''
   name: Geoffroy Dubus
 - active: true
   email: victor@hyperplan.fr
   group: internal
-  is_primary: false
-  lead_id: ''
   name: Victor
 - active: true
   email: guillaume@hyperplan.fr
   group: internal
-  is_primary: false
-  lead_id: ''
   name: Guillaume
 - active: true
   email: thibault@hyperplan.fr
   group: internal
-  is_primary: false
-  lead_id: ''
   name: Thibault
 - active: true
   email: remi@hyperplan.fr
   group: internal
-  is_primary: true
-  lead_id: lea_yyJNZzei2udyP3agF
   name: Rémi Banquet
 sources:
 - category: official_publication
