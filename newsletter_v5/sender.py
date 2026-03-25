@@ -1,57 +1,66 @@
 """
-Email delivery via Lemlist API.
-Sends newsletter to internal + external groups, plus admin reports.
+Email delivery via SMTP (Office 365 / Outlook).
+Sends newsletter to all recipients via BCC, plus admin reports.
 """
 
 import logging
 import os
+import smtplib
 from datetime import datetime, timezone
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
-import requests
-
-from models import PipelineConfig, RecipientGroup, RunMetrics
-from constants import (
-    LEMLIST_API_BASE, LEMLIST_SEND_USER_ID,
-    LEMLIST_SEND_EMAIL, LEMLIST_SEND_MAILBOX_ID,
-)
+from models import PipelineConfig, RunMetrics
+from constants import SENDER_EMAIL
 
 logger = logging.getLogger(__name__)
 
+SMTP_HOST = "smtp.office365.com"
+SMTP_PORT = 587
 
-def _send_via_lemlist(
-    api_key: str,
-    lead_id: str,
+
+def _send_smtp(
+    to: str,
     subject: str,
     html_body: str,
     cc: list[str] = None,
+    bcc: list[str] = None,
 ) -> bool:
-    """Send a single email via Lemlist inbox API."""
-    payload = {
-        "sendUserId": LEMLIST_SEND_USER_ID,
-        "sendUserEmail": LEMLIST_SEND_EMAIL,
-        "sendUserMailboxId": LEMLIST_SEND_MAILBOX_ID,
-        "leadId": lead_id,
-        "subject": subject,
-        "message": html_body,
-    }
+    """Send a single email via Office 365 SMTP."""
+    smtp_user = os.getenv("SMTP_USERNAME", SENDER_EMAIL)
+    smtp_pass = os.getenv("SMTP_PASSWORD")
+
+    if not smtp_pass:
+        logger.error("SMTP_PASSWORD not set")
+        return False
+
+    msg = MIMEMultipart("alternative")
+    msg["From"] = SENDER_EMAIL
+    msg["To"] = to
+    msg["Subject"] = subject
     if cc:
-        payload["cc"] = cc
+        msg["Cc"] = ", ".join(cc)
+    # BCC is intentionally NOT added to headers
+
+    msg.attach(MIMEText(html_body, "html", "utf-8"))
+
+    all_recipients = [to] + (cc or []) + (bcc or [])
 
     try:
-        response = requests.post(
-            f"{LEMLIST_API_BASE}/inbox/send",
-            auth=("", api_key),
-            json=payload,
-            timeout=30,
-        )
-        if response.ok:
-            logger.info(f"Lemlist send OK (lead={lead_id}, cc={len(cc or [])})")
-            return True
-        else:
-            logger.error(f"Lemlist send failed: {response.status_code} — {response.text}")
-            return False
+        with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=30) as server:
+            server.ehlo()
+            server.starttls()
+            server.ehlo()
+            server.login(smtp_user, smtp_pass)
+            server.sendmail(SENDER_EMAIL, all_recipients, msg.as_string())
+
+        logger.info(f"SMTP send OK (to={to}, bcc={len(bcc or [])})")
+        return True
+    except smtplib.SMTPAuthenticationError as e:
+        logger.error(f"SMTP auth failed: {e} — check SMTP_PASSWORD and that SMTP AUTH is enabled for {smtp_user}")
+        return False
     except Exception as e:
-        logger.error(f"Lemlist send error: {e}")
+        logger.error(f"SMTP send error: {e}")
         return False
 
 
@@ -62,45 +71,34 @@ def send_newsletter(
     metrics: RunMetrics,
     test_mode: bool = False,
 ) -> bool:
-    """Send newsletter to all recipient groups via Lemlist."""
-    api_key = os.getenv("LEMLIST_API_KEY")
-    if not api_key:
-        logger.error("LEMLIST_API_KEY not set")
+    """Send newsletter to all recipients via SMTP (BCC)."""
+    if not os.getenv("SMTP_PASSWORD"):
+        logger.error("SMTP_PASSWORD not set — cannot send")
         return False
 
     if test_mode:
-        # In test mode, just send to admin with no CC
-        admin_lead_id = os.getenv("LEMLIST_ADMIN_LEAD_ID", "")
-        if admin_lead_id:
-            ok = _send_via_lemlist(api_key, admin_lead_id, f"[TEST] {subject}", html_body)
-            metrics.emails_sent += 1 if ok else 0
-            metrics.emails_failed += 0 if ok else 1
-            return ok
-        else:
-            logger.warning("No LEMLIST_ADMIN_LEAD_ID set — skipping send in test mode")
-            return True
+        admin_email = os.getenv("ADMIN_EMAIL", SENDER_EMAIL)
+        ok = _send_smtp(to=admin_email, subject=f"[TEST] {subject}", html_body=html_body)
+        metrics.emails_sent += 1 if ok else 0
+        metrics.emails_failed += 0 if ok else 1
+        return ok
 
-    groups = config.recipient_groups()
-    all_ok = True
+    # Collect all active recipient emails
+    all_emails = [r.email for r in config.active_recipients if r.email]
+    if not all_emails:
+        logger.error("No active recipients found")
+        metrics.emails_failed += 1
+        return False
 
-    for group_type, group_data in groups.items():
-        lead_id = group_data["lead_id"]
-        cc = group_data["cc"]
+    # Send to self, BCC all recipients
+    ok = _send_smtp(to=SENDER_EMAIL, subject=subject, html_body=html_body, bcc=all_emails)
+    if ok:
+        metrics.emails_sent += 1
+        logger.info(f"Newsletter sent to {len(all_emails)} recipients via BCC")
+    else:
+        metrics.emails_failed += 1
 
-        if not lead_id:
-            logger.error(f"No lead_id for {group_type.value} group — skipping")
-            metrics.emails_failed += 1
-            all_ok = False
-            continue
-
-        ok = _send_via_lemlist(api_key, lead_id, subject, html_body, cc)
-        if ok:
-            metrics.emails_sent += 1
-        else:
-            metrics.emails_failed += 1
-            all_ok = False
-
-    return all_ok
+    return ok
 
 
 def send_admin_report(
@@ -110,12 +108,10 @@ def send_admin_report(
     test_mode: bool = False,
 ):
     """Send admin report email with run KPIs or failure alert."""
-    api_key = os.getenv("LEMLIST_API_KEY")
-    admin_lead_id = os.getenv("LEMLIST_ADMIN_LEAD_ID", "")
+    admin_email = os.getenv("ADMIN_EMAIL", SENDER_EMAIL)
 
-    if not api_key or not admin_lead_id:
-        logger.warning("Cannot send admin report: missing API key or admin lead ID")
-        # Print to console as fallback
+    if not os.getenv("SMTP_PASSWORD"):
+        logger.warning("Cannot send admin report: SMTP_PASSWORD not set")
         _print_admin_report(metrics, success, error_message)
         return
 
@@ -129,11 +125,11 @@ def send_admin_report(
     if test_mode:
         subject = f"[TEST] {subject}"
 
-    _send_via_lemlist(api_key, admin_lead_id, subject, body)
+    _send_smtp(admin_email, subject, body)
 
 
 def _print_admin_report(metrics: RunMetrics, success: bool, error_message: str = ""):
-    """Print admin report to console (fallback when Lemlist not available)."""
+    """Print admin report to console (fallback when SMTP not available)."""
     metrics.estimate_cost()
     print("\n" + "=" * 60)
     print("ADMIN REPORT" + (" — SUCCESS" if success else " — FAILED"))
