@@ -53,8 +53,7 @@ def _google_news_rss_url(query: str) -> str:
 
 
 _FEED_HEADERS = {
-    "User-Agent": "HyperplanAgriDigest/2.0 (+https://hyperplan.fr; remi@hyperplan.fr)",
-    "Accept": "application/rss+xml, application/xml, text/xml, */*",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
 }
 
 
