@@ -182,7 +182,7 @@ async def fetch_all_articles(
     rss_sources = [s for s in sources if s.source_type == SourceType.RSS and s.category == SourceCategory.MEDIA]
     logger.info(f"Fetching articles from {len(rss_sources)} RSS sources")
 
-    async with aiohttp.ClientSession() as session:
+    async with aiohttp.ClientSession(max_field_size=16384) as session:
         tasks = [fetch_articles_from_source(s, session, metrics) for s in rss_sources]
         results = await asyncio.gather(*tasks, return_exceptions=True)
 
@@ -287,7 +287,7 @@ async def fetch_all_publications(
     ]
     logger.info(f"Fetching publications from {len(pub_sources)} sources")
 
-    async with aiohttp.ClientSession() as session:
+    async with aiohttp.ClientSession(max_field_size=16384) as session:
         tasks = [fetch_publications_from_source(s, session, metrics) for s in pub_sources]
         results = await asyncio.gather(*tasks, return_exceptions=True)
 
@@ -380,7 +380,7 @@ async def fetch_all_signals(
     active = [c for c in companies if c.enabled]
     logger.info(f"Fetching signals for {len(active)} companies")
 
-    async with aiohttp.ClientSession() as session:
+    async with aiohttp.ClientSession(max_field_size=16384) as session:
         tasks = [fetch_company_signals(c, session, metrics) for c in active]
         results = await asyncio.gather(*tasks, return_exceptions=True)
 
