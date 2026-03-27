@@ -502,14 +502,6 @@ sources:
   source_type: rss
   url: https://insse.ro/cms/files/rss_ins_en.xml
 - category: official_publication
-  country: Europe
-  enabled: false
-  keywords_filter: []
-  name: COCERAL Europe
-  scraper_id: scrape_coceral
-  source_type: requests-scraper
-  url: https://www.coceral.com/web/coceral%20crop%20forecast/
-- category: official_publication
   country: Hungary
   enabled: true
   keywords_filter: []
@@ -519,7 +511,7 @@ sources:
   url: https://www.ksh.hu/apps/shop.rss_temakor?p_lang=EN&p_temakor_kod=KSH
 - category: official_publication
   country: Europe
-  enabled: true
+  enabled: false
   keywords_filter: []
   name: Eurostat — Datasets
   scraper_id: ''
@@ -533,14 +525,6 @@ sources:
   scraper_id: ''
   source_type: rss
   url: http://insideclimatenews.org/news/rss-teaser.xml
-- category: official_publication
-  country: France
-  enabled: false
-  keywords_filter: []
-  name: Agreste France
-  scraper_id: scrape_agreste
-  source_type: requests-scraper
-  url: https://agreste.agriculture.gouv.fr/agreste-web/
 - category: media
   country: Europe
   enabled: true
@@ -565,14 +549,6 @@ sources:
   scraper_id: ''
   source_type: rss
   url: https://www.graincentral.com/markets/feed/
-- category: official_publication
-  country: Spain
-  enabled: false
-  keywords_filter: []
-  name: CAA Spain (Cooperativas)
-  scraper_id: scrape_caa
-  source_type: requests-scraper
-  url: https://www.agro-alimentarias.coop/documents?cat_sel=33
 - category: media
   country: Romania
   enabled: true
@@ -599,7 +575,7 @@ sources:
   url: http://www.nass.usda.gov/rss/reports.xml
 - category: official_publication
   country: Turkey
-  enabled: true
+  enabled: false
   keywords_filter: []
   name: TUIK Turkey
   scraper_id: scrape_tuik
@@ -615,7 +591,7 @@ sources:
   url: http://www.precisionag.com/feed/
 - category: media
   country: Global
-  enabled: true
+  enabled: false
   keywords_filter: []
   name: Farm Chemicals Intl
   scraper_id: ''
@@ -637,14 +613,6 @@ sources:
   scraper_id: ''
   source_type: rss
   url: http://agfundernews.com/feed
-- category: official_publication
-  country: Ukraine
-  enabled: false
-  keywords_filter: []
-  name: Stat Gov UA Ukraine
-  scraper_id: scrape_govua
-  source_type: requests-scraper
-  url: https://stat.gov.ua/en/search
 - category: media
   country: France
   enabled: true
@@ -685,14 +653,6 @@ sources:
   scraper_id: ''
   source_type: rss
   url: https://www.farms.com/Portals/_default/RSS_Portal/Featured_Crop.xml
-- category: official_publication
-  country: Hungary
-  enabled: false
-  keywords_filter: []
-  name: KSH Hungary Scraper
-  scraper_id: scrape_ksh
-  source_type: requests-scraper
-  url: https://www.ksh.hu/apps/shop.lista?p_lang=EN&p_temakor_kod=OM
 - category: media
   country: Canada
   enabled: true
@@ -734,16 +694,8 @@ sources:
   source_type: rss
   url: https://www.barchart.com/news/rss/commodities
 - category: official_publication
-  country: Germany
-  enabled: false
-  keywords_filter: []
-  name: Destatis Scraper
-  scraper_id: scrape_destatis
-  source_type: requests-scraper
-  url: https://www.destatis.de/SiteGlobals/Forms/Suche/EN/
-- category: official_publication
   country: Europe
-  enabled: true
+  enabled: false
   keywords_filter: []
   name: Eurostat — News
   scraper_id: ''
@@ -757,14 +709,6 @@ sources:
   scraper_id: ''
   source_type: rss
   url: https://joint-research-centre.ec.europa.eu/node/2/rss_en
-- category: official_publication
-  country: UK
-  enabled: false
-  keywords_filter: []
-  name: DEFRA UK
-  scraper_id: scrape_uk
-  source_type: requests-scraper
-  url: https://www.gov.uk/search/all
 - category: media
   country: France
   enabled: true
@@ -781,14 +725,6 @@ sources:
   scraper_id: ''
   source_type: rss
   url: https://www.futurefarming.com/feed/
-- category: official_publication
-  country: Canada
-  enabled: false
-  keywords_filter: []
-  name: StatCan Scraper
-  scraper_id: scrape_statcan
-  source_type: requests-scraper
-  url: https://www150.statcan.gc.ca/
 - category: media
   country: Spain
   enabled: true
@@ -821,14 +757,6 @@ sources:
   scraper_id: ''
   source_type: rss
   url: https://www.istat.it/en/tema/agriculture/feed/
-- category: official_publication
-  country: Europe
-  enabled: false
-  keywords_filter: []
-  name: JRC MARS Europe
-  scraper_id: scrape_jrc
-  source_type: requests-scraper
-  url: https://publications.jrc.ec.europa.eu/repository/search
 - category: official_publication
   country: Spain
   enabled: true
