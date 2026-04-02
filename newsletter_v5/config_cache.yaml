@@ -509,14 +509,6 @@ sources:
   scraper_id: ''
   source_type: rss
   url: https://www.ksh.hu/apps/shop.rss_temakor?p_lang=EN&p_temakor_kod=KSH
-- category: official_publication
-  country: Europe
-  enabled: false
-  keywords_filter: []
-  name: Eurostat — Datasets
-  scraper_id: ''
-  source_type: rss
-  url: https://ec.europa.eu/eurostat/web/main/home/rss
 - category: media
   country: Global
   enabled: true
@@ -589,14 +581,6 @@ sources:
   scraper_id: ''
   source_type: rss
   url: http://www.precisionag.com/feed/
-- category: media
-  country: Global
-  enabled: false
-  keywords_filter: []
-  name: Farm Chemicals Intl
-  scraper_id: ''
-  source_type: rss
-  url: http://www.farmchemicalsinternational.com/rss/rssfeed.php?pageid=2
 - category: official_publication
   country: Germany
   enabled: true
@@ -693,14 +677,6 @@ sources:
   scraper_id: ''
   source_type: rss
   url: https://www.barchart.com/news/rss/commodities
-- category: official_publication
-  country: Europe
-  enabled: false
-  keywords_filter: []
-  name: Eurostat — News
-  scraper_id: ''
-  source_type: rss
-  url: https://ec.europa.eu/eurostat/web/main/home/rss
 - category: media
   country: Europe
   enabled: true
