@@ -48,9 +48,11 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           LEMLIST_API_KEY: ${{ secrets.LEMLIST_API_KEY }}
           LEMLIST_ADMIN_LEAD_ID: ${{ secrets.LEMLIST_ADMIN_LEAD_ID }}
+        # NOTE: --dry-run on the test branch only. Production cron on main
+        # uses the no-flag command and sends to all active recipients.
         run: |
           cd newsletter_v5
-          python newsletter_v5.py
+          python newsletter_v5.py --dry-run
 
       - name: Persist state (dedup + geocache + config cache)
         if: always()
