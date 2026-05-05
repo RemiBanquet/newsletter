@@ -201,29 +201,20 @@ async def _try_selenium_approach(url: str) -> list[dict]:
     """
     try:
         # Import selenium lazily — only needed when HTTP fetch fails
-        from selenium import webdriver
-        from selenium.webdriver.chrome.service import Service
         from selenium.webdriver.common.by import By
         from selenium.webdriver.support import expected_conditions as EC
         from selenium.webdriver.support.ui import WebDriverWait
-        from webdriver_manager.chrome import ChromeDriverManager
+        from sources._selenium_helper import build_chrome_driver
     except ImportError:
         logger.warning(
             "Agreste: Selenium not available — cannot use browser fallback. "
-            "Install selenium and webdriver-manager for Agreste support."
+            "Install selenium for Agreste support."
         )
         return []
 
     def _run_selenium() -> list[dict]:
         """Blocking Selenium logic — runs in executor thread."""
-        chrome_options = webdriver.ChromeOptions()
-        chrome_options.add_argument("--headless")
-        chrome_options.add_argument("--disable-gpu")
-        chrome_options.add_argument("--no-sandbox")
-        chrome_options.add_argument("--disable-dev-shm-usage")
-
-        service = Service(ChromeDriverManager().install())
-        driver = webdriver.Chrome(service=service, options=chrome_options)
+        driver = build_chrome_driver()
 
         entries = []
         try:

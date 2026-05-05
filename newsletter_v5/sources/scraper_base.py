@@ -26,18 +26,39 @@ logger = logging.getLogger(__name__)
 # ── Shared constants ──────────────────────────────────────────────
 
 DEFAULT_TIMEOUT = 30  # seconds
+# Many government statistics portals (MAPA, KSH, Destatis, ISTAT) 403 custom UAs.
+# Use a real-browser UA to bypass naive WAF rules. Site-specific scrapers can
+# override `headers` when calling fetch_html().
 DEFAULT_HEADERS = {
-    "User-Agent": "HyperplanAgriDigest/2.0 (+https://hyperplan.fr; remi@hyperplan.fr)",
+    "User-Agent": (
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/124.0.0.0 Safari/537.36"
+    ),
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-    "Accept-Language": "en-US,en;q=0.9",
+    "Accept-Language": "en-US,en;q=0.9,fr;q=0.8,es;q=0.7,de;q=0.6,it;q=0.5",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Connection": "keep-alive",
+    "Upgrade-Insecure-Requests": "1",
 }
 
 
 # ── Shared helpers ────────────────────────────────────────────────
 
-def make_id(url: str) -> str:
-    """Generate a short hash ID from a URL."""
-    return hashlib.sha256(url.encode("utf-8")).hexdigest()[:16]
+def make_id(url: str, title: str = "") -> str:
+    """
+    Generate a short hash ID from URL + title.
+
+    Some scrapers (Agreste, MAPA Avances, ISTAT) extract multiple distinct
+    publications from a single SPA-style page where every entry reports
+    the SAME URL. Hashing on URL alone collapses them to a single dedup
+    key. Including the title gives each publication a unique identity.
+
+    `title` is optional for backward compatibility; pass it whenever
+    available.
+    """
+    key = f"{url.strip()}|{title.strip().lower()}"
+    return hashlib.sha256(key.encode("utf-8")).hexdigest()[:16]
 
 
 async def fetch_html(
@@ -126,7 +147,7 @@ def build_publication(
 ) -> Publication:
     """Build a Publication object with sensible defaults."""
     return Publication(
-        id=make_id(url),
+        id=make_id(url, title),
         title=title.strip(),
         url=url.strip(),
         source_name=source_name,

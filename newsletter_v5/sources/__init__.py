@@ -123,14 +123,17 @@ async def run_scraper_sources(
     metrics: RunMetrics,
 ) -> list[Publication]:
     """
-    Run all enabled requests-scraper sources concurrently.
+    Run all enabled scraper sources concurrently — both requests-scraper
+    AND selenium-scraper types.
 
-    For each source with source_type == 'requests-scraper' and a valid
-    scraper_id, dispatches to the registered scraper function.
-    Selenium scrapers are NOT handled here (they need a browser).
+    For each source with a valid scraper_id, dispatches to the registered
+    scraper function. The scraper module itself is responsible for choosing
+    its execution strategy (pure requests, requests-with-Selenium-fallback,
+    or pure Selenium); blocking Selenium calls must run in an executor
+    thread inside the scraper.
 
     Args:
-        sources: All source configs (will be filtered to requests-scrapers)
+        sources: All source configs (will be filtered to scraper types)
         metrics: Run metrics to update
 
     Returns:
@@ -141,16 +144,20 @@ async def run_scraper_sources(
     scraper_sources = [
         s for s in sources
         if s.enabled
-        and s.source_type == SourceType.REQUESTS_SCRAPER
+        and s.source_type in (SourceType.REQUESTS_SCRAPER, SourceType.SELENIUM_SCRAPER)
         and s.scraper_id
     ]
 
     if not scraper_sources:
-        logger.info("No requests-scraper sources to run")
+        logger.info("No scraper sources to run")
         return []
 
+    by_type = {}
+    for s in scraper_sources:
+        by_type.setdefault(s.source_type.value, []).append(s.name)
     logger.info(
-        f"Running {len(scraper_sources)} requests-scraper sources: "
+        f"Running {len(scraper_sources)} scraper sources "
+        f"({', '.join(f'{k}: {len(v)}' for k, v in by_type.items())}): "
         f"{', '.join(s.name for s in scraper_sources)}"
     )
 
@@ -184,9 +191,11 @@ async def run_scraper_sources(
         if isinstance(result, Exception):
             logger.error(f"Scraper error for {source.name}: {result}")
             metrics.source_errors.append(f"{source.name}: {result}")
+            metrics.source_counts[source.name] = 0
         elif isinstance(result, list):
             publications.extend(result)
             metrics.sources_healthy += 1
+            metrics.source_counts[source.name] = len(result)
             logger.info(f"[{source.name}] {len(result)} publications scraped")
 
     metrics.sources_total += len(valid_sources)

@@ -19,9 +19,15 @@ from constants import (
 logger = logging.getLogger(__name__)
 
 
-def make_id(url: str) -> str:
-    """Generate a stable ID from a URL."""
-    return hashlib.sha256(url.encode("utf-8")).hexdigest()[:16]
+def make_id(url: str, title: str = "") -> str:
+    """Generate a stable ID from URL + title.
+
+    Including the title prevents SPA-style scrapers (Agreste, MAPA Avances)
+    from collapsing distinct publications onto a single dedup key when
+    they share the same base URL.
+    """
+    key = f"{url.strip()}|{title.strip().lower()}"
+    return hashlib.sha256(key.encode("utf-8")).hexdigest()[:16]
 
 
 class DedupStore:
@@ -81,7 +87,7 @@ class DeduplicationManager:
         new = []
         dupes = 0
         for article in articles:
-            article.id = make_id(article.url)
+            article.id = make_id(article.url, article.title)
             if self.articles.is_seen(article.id):
                 dupes += 1
             else:
@@ -93,7 +99,7 @@ class DeduplicationManager:
         new = []
         dupes = 0
         for pub in pubs:
-            pub.id = make_id(pub.url)
+            pub.id = make_id(pub.url, pub.title)
             if self.publications.is_seen(pub.id):
                 dupes += 1
             else:
@@ -105,7 +111,7 @@ class DeduplicationManager:
         new = []
         dupes = 0
         for signal in signals:
-            signal.id = make_id(signal.url)
+            signal.id = make_id(signal.url, signal.title)
             if self.signals.is_seen(signal.id):
                 dupes += 1
             else:

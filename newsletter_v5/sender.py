@@ -116,7 +116,14 @@ def send_admin_report(
         return
 
     if success:
-        subject = f"✅ Agri-Digest ran OK — {metrics.articles_accepted} articles, {metrics.publications_accepted} pubs"
+        # Promote subject line to a warning if any source has been silent ≥3 runs
+        warn_prefix = ""
+        if getattr(metrics, "silent_sources", None):
+            warn_prefix = f"⚠️ {len(metrics.silent_sources)} silent source(s) — "
+        subject = (
+            f"{warn_prefix}✅ Agri-Digest ran OK — "
+            f"{metrics.articles_accepted} articles, {metrics.publications_accepted} pubs"
+        )
         body = _build_success_report_html(metrics)
     else:
         subject = f"❌ Agri-Digest FAILED — {error_message[:80]}"
@@ -144,6 +151,11 @@ def _print_admin_report(metrics: RunMetrics, success: bool, error_message: str =
     print(f"Sources:       {metrics.sources_healthy}/{metrics.sources_total} healthy")
     if metrics.source_errors:
         print(f"Source errors:  {', '.join(metrics.source_errors[:5])}")
+    if getattr(metrics, "silent_sources", None):
+        print(
+            "⚠️  Silent sources (≥3 runs): "
+            + ", ".join(f"{s['name']} ({s['streak']} runs)" for s in metrics.silent_sources[:8])
+        )
     print(f"Claude tokens: {metrics.input_tokens:,} in / {metrics.output_tokens:,} out / {metrics.cache_read_tokens:,} cached")
     print(f"Est. cost:     ${metrics.estimated_cost_usd:.3f}")
     print(f"Emails sent:   {metrics.emails_sent}/{metrics.emails_sent + metrics.emails_failed}")
@@ -193,6 +205,41 @@ def _build_success_report_html(metrics: RunMetrics) -> str:
         </table>
 
         {"<h3>Source errors</h3><ul>" + "".join(f"<li>{e}</li>" for e in metrics.source_errors) + "</ul>" if metrics.source_errors else ""}
+
+        {_build_silent_sources_block(metrics) if getattr(metrics, "silent_sources", None) else ""}
+    </div>
+    """
+
+
+def _build_silent_sources_block(metrics: RunMetrics) -> str:
+    """Highlight sources that have returned 0 entries for ≥3 consecutive runs."""
+    rows = "".join(
+        f"<tr>"
+        f"<td style='padding: 6px; border-bottom: 1px solid #eee;'>{s['name']}</td>"
+        f"<td style='padding: 6px; text-align: right; border-bottom: 1px solid #eee; "
+        f"color: #c0392b; font-weight: bold;'>{s['streak']} runs</td>"
+        f"<td style='padding: 6px; border-bottom: 1px solid #eee; color: #666; "
+        f"font-size: 12px;'>last entry: {s.get('last_seen') or 'never'}</td>"
+        f"</tr>"
+        for s in metrics.silent_sources
+    )
+    return f"""
+    <div style="background: #fff8e6; border: 1px solid #f0ad4e; border-radius: 8px; padding: 16px; margin: 16px 0;">
+        <h3 style="margin-top: 0; color: #c0392b;">⚠️ Silent sources (zero entries for ≥3 runs)</h3>
+        <p style="color: #666; font-size: 13px; margin: 0 0 8px 0;">
+            These sources have returned no entries for several consecutive runs.
+            Likely causes: 403 from origin, broken selectors, paywall, or the
+            site has genuinely had no agriculture news. Investigate before
+            assuming the latter.
+        </p>
+        <table style="width: 100%; border-collapse: collapse;">
+            <tr style="background: #f5f5f5;">
+                <th style="padding: 6px; text-align: left;">Source</th>
+                <th style="padding: 6px; text-align: right;">Streak</th>
+                <th style="padding: 6px; text-align: left;">Last successful entry</th>
+            </tr>
+            {rows}
+        </table>
     </div>
     """
 
