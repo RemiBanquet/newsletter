@@ -222,29 +222,20 @@ async def _try_selenium_approach(url: str) -> list[dict]:
     Runs blocking Selenium code in a thread executor to stay async.
     """
     try:
-        from selenium import webdriver
-        from selenium.webdriver.chrome.service import Service
         from selenium.webdriver.common.by import By
         from selenium.webdriver.support import expected_conditions as EC
         from selenium.webdriver.support.ui import WebDriverWait
-        from webdriver_manager.chrome import ChromeDriverManager
+        from sources._selenium_helper import build_chrome_driver
     except ImportError:
         logger.warning(
             "TUIK: Selenium not available — cannot use browser fallback. "
-            "Install selenium and webdriver-manager for TUIK support."
+            "Install selenium for TUIK support."
         )
         return []
 
     def _run_selenium() -> list[dict]:
         """Blocking Selenium logic — mirrors v4.6 scrape_tuik()."""
-        chrome_options = webdriver.ChromeOptions()
-        chrome_options.add_argument("--headless")
-        chrome_options.add_argument("--no-sandbox")
-        chrome_options.add_argument("--disable-gpu")
-        chrome_options.add_argument("--disable-dev-shm-usage")
-
-        service = Service(ChromeDriverManager().install())
-        driver = webdriver.Chrome(service=service, options=chrome_options)
+        driver = build_chrome_driver()
 
         entries = []
         try:

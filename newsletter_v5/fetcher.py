@@ -42,8 +42,10 @@ def _detect_language(text: str) -> str:
         return "en"
 
 
-def _make_id(url: str) -> str:
-    return hashlib.sha256(url.encode("utf-8")).hexdigest()[:16]
+def _make_id(url: str, title: str = "") -> str:
+    """Stable ID from URL + title (title-aware to avoid SPA collisions)."""
+    key = f"{url.strip()}|{title.strip().lower()}"
+    return hashlib.sha256(key.encode("utf-8")).hexdigest()[:16]
 
 
 def _google_news_rss_url(query: str) -> str:
@@ -52,8 +54,17 @@ def _google_news_rss_url(query: str) -> str:
     return f"https://news.google.com/rss/search?q={encoded}&hl=en&gl=US&ceid=US:en"
 
 
+# Government and stat-office RSS endpoints (Destatis, MAPA, KSH, INSSE) often
+# 403 unrecognised UAs. Use a real-browser UA. Switch back to a polite custom
+# UA only if a publisher's robots.txt requires it.
 _FEED_HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "User-Agent": (
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/124.0.0.0 Safari/537.36"
+    ),
+    "Accept": "application/rss+xml, application/xml, text/xml, application/atom+xml, */*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.9",
 }
 
 
@@ -62,8 +73,10 @@ async def _fetch_feed(url: str, session: aiohttp.ClientSession, timeout: int = 3
     try:
         async with session.get(url, headers=_FEED_HEADERS, timeout=aiohttp.ClientTimeout(total=timeout)) as resp:
             if resp.status == 200:
-                text = await resp.text()
-                return feedparser.parse(text)
+                # Pass raw bytes to feedparser so it can read the XML
+                # encoding declaration (Hungarian KSH feed mis-labels charset)
+                data = await resp.read()
+                return feedparser.parse(data)
             else:
                 logger.warning(f"Feed {url} returned status {resp.status}")
                 return None
@@ -73,13 +86,34 @@ async def _fetch_feed(url: str, session: aiohttp.ClientSession, timeout: int = 3
 
 
 def _parse_feed_date(entry: dict) -> Optional[datetime]:
-    """Parse published date from a feed entry."""
+    """Parse published date from a feed entry.
+
+    feedparser usually fills `published_parsed`/`updated_parsed` automatically.
+    When it can't (non-standard date formats from MAPA/Agroes/Destatis), fall
+    back to the raw `published`/`updated`/`pubDate` string fields and try
+    RFC 2822 parsing. Logs at debug when nothing parses, so the next admin
+    report exposes silent date-filtering.
+    """
     published = entry.get("published_parsed") or entry.get("updated_parsed")
     if published:
         try:
             return datetime(*published[:6], tzinfo=timezone.utc)
         except Exception:
             pass
+    # Fallback: try the raw string fields
+    from email.utils import parsedate_to_datetime
+    for field in ("published", "updated", "pubDate", "date"):
+        raw = entry.get(field, "")
+        if raw:
+            try:
+                dt = parsedate_to_datetime(raw)
+                if dt.tzinfo is None:
+                    dt = dt.replace(tzinfo=timezone.utc)
+                return dt
+            except Exception:
+                continue
+    title = entry.get("title", "")[:60]
+    logger.debug(f"_parse_feed_date: no parseable date in entry: {title}")
     return None
 
 
@@ -100,9 +134,15 @@ async def fetch_articles_from_source(
         return []
 
     # Google News RSS dates reflect original article publish time, not indexing time.
-    # Use a wider window (7 days) to avoid filtering out recently indexed older articles.
+    # Use a wider window (14 days) to avoid filtering out recently indexed older articles.
+    # Per-source override (source.lookback_hours) wins if set.
     is_google_news = "news.google.com" in source.url
-    lookback_hours = 336 if is_google_news else ARTICLE_LOOKBACK_HOURS  # 14 days vs 48h
+    if source.lookback_hours and source.lookback_hours > 0:
+        lookback_hours = source.lookback_hours
+    elif is_google_news:
+        lookback_hours = 336
+    else:
+        lookback_hours = ARTICLE_LOOKBACK_HOURS
     cutoff = datetime.now(timezone.utc) - timedelta(hours=lookback_hours)
     articles = []
     total_entries = len(feed.entries)
@@ -149,7 +189,7 @@ async def fetch_articles_from_source(
         metrics.articles_fetched += 1
 
         articles.append(Article(
-            id=_make_id(url),
+            id=_make_id(url, title),
             title=title,
             url=url,
             source_name=source.name,
@@ -182,19 +222,21 @@ async def fetch_all_articles(
     rss_sources = [s for s in sources if s.source_type == SourceType.RSS and s.category == SourceCategory.MEDIA]
     logger.info(f"Fetching articles from {len(rss_sources)} RSS sources")
 
-    async with aiohttp.ClientSession(max_field_size=16384) as session:
+    async with aiohttp.ClientSession() as session:
         tasks = [fetch_articles_from_source(s, session, metrics) for s in rss_sources]
         results = await asyncio.gather(*tasks, return_exceptions=True)
 
     articles = []
     for i, result in enumerate(results):
+        source_name = rss_sources[i].name if i < len(rss_sources) else "unknown"
         if isinstance(result, Exception):
-            source_name = rss_sources[i].name if i < len(rss_sources) else "unknown"
             logger.error(f"Error fetching {source_name}: {result}")
             metrics.source_errors.append(f"{source_name}: {result}")
+            metrics.source_counts[source_name] = 0
         elif isinstance(result, list):
             articles.extend(result)
             metrics.sources_healthy += 1
+            metrics.source_counts[source_name] = len(result)
 
     metrics.sources_total += len(rss_sources)
     logger.info(f"Fetched {len(articles)} articles from {metrics.sources_healthy} healthy sources")
@@ -208,13 +250,19 @@ async def fetch_publications_from_source(
     session: aiohttp.ClientSession,
     metrics: RunMetrics,
 ) -> list[Publication]:
-    """Fetch official publications from an RSS source."""
+    """Fetch official publications from an RSS source.
+
+    Uses source.lookback_hours when set, else 168h (7 days) — stat offices
+    typically publish weekly or less, so the article default of 48h is too
+    tight for this category and was filtering out everything.
+    """
     feed = await _fetch_feed(source.url, session)
     if not feed or not feed.entries:
         metrics.source_errors.append(f"{source.name}: no entries or fetch failed")
         return []
 
-    cutoff = datetime.now(timezone.utc) - timedelta(hours=ARTICLE_LOOKBACK_HOURS)
+    lookback = source.lookback_hours if source.lookback_hours and source.lookback_hours > 0 else 168
+    cutoff = datetime.now(timezone.utc) - timedelta(hours=lookback)
     pubs = []
     total_entries = len(feed.entries)
     skipped_date = 0
@@ -258,7 +306,7 @@ async def fetch_publications_from_source(
         metrics.publications_fetched += 1
 
         pubs.append(Publication(
-            id=_make_id(url),
+            id=_make_id(url, title),
             title=title,
             url=url,
             source_name=source.name,
@@ -287,19 +335,21 @@ async def fetch_all_publications(
     ]
     logger.info(f"Fetching publications from {len(pub_sources)} sources")
 
-    async with aiohttp.ClientSession(max_field_size=16384) as session:
+    async with aiohttp.ClientSession() as session:
         tasks = [fetch_publications_from_source(s, session, metrics) for s in pub_sources]
         results = await asyncio.gather(*tasks, return_exceptions=True)
 
     pubs = []
     for i, result in enumerate(results):
+        source_name = pub_sources[i].name if i < len(pub_sources) else "unknown"
         if isinstance(result, Exception):
-            source_name = pub_sources[i].name if i < len(pub_sources) else "unknown"
             logger.error(f"Error fetching {source_name}: {result}")
             metrics.source_errors.append(f"{source_name}: {result}")
+            metrics.source_counts[source_name] = 0
         elif isinstance(result, list):
             pubs.extend(result)
             metrics.sources_healthy += 1
+            metrics.source_counts[source_name] = len(result)
 
     metrics.sources_total += len(pub_sources)
     logger.info(f"Fetched {len(pubs)} publications")
@@ -359,7 +409,7 @@ async def fetch_company_signals(
         metrics.signals_fetched += 1
 
         signals.append(CompanySignal(
-            id=_make_id(link),
+            id=_make_id(link, title),
             title=title,
             url=link,
             company_name=company.name,
@@ -380,7 +430,7 @@ async def fetch_all_signals(
     active = [c for c in companies if c.enabled]
     logger.info(f"Fetching signals for {len(active)} companies")
 
-    async with aiohttp.ClientSession(max_field_size=16384) as session:
+    async with aiohttp.ClientSession() as session:
         tasks = [fetch_company_signals(c, session, metrics) for c in active]
         results = await asyncio.gather(*tasks, return_exceptions=True)
 

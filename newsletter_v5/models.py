@@ -71,6 +71,10 @@ class SourceConfig:
     keywords_filter: list[str] = field(default_factory=list)
     scraper_id: str = ""  # Python function name for custom scrapers
     notion_id: str = ""   # Notion page ID for reference
+    # Per-source lookback in hours; 0 / None means use the global default.
+    # Stat offices (Destatis, KSH, INSSE) publish weekly or less, so 168h
+    # is a more useful default than the global 48h.
+    lookback_hours: int = 0
 
 
 @dataclass
@@ -245,6 +249,13 @@ class RunMetrics:
     sources_total: int = 0
     sources_healthy: int = 0
     source_errors: list[str] = field(default_factory=list)
+    # Per-source raw output counts for this run. Used by SourceHealthTracker
+    # to detect long zero-entry streaks. Key = source name, value = entries
+    # returned by that source before classifier filtering.
+    source_counts: dict[str, int] = field(default_factory=dict)
+    # Sources flagged as silent for ≥3 consecutive runs (populated at end of
+    # pipeline, surfaced in admin report).
+    silent_sources: list[dict] = field(default_factory=list)
     # LLM
     input_tokens: int = 0
     output_tokens: int = 0

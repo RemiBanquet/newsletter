@@ -9,6 +9,8 @@ feedparser>=6.0.0
 
 # Async HTTP
 aiohttp>=3.9.0
+# Required for aiohttp to decode brotli-compressed responses (gov sites use it)
+Brotli>=1.1.0
 
 # HTML parsing (for scrapers)
 beautifulsoup4>=4.12.0

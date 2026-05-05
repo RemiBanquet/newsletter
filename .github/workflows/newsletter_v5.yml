@@ -2,13 +2,15 @@ name: Daily Agri-News Digest v5
 
 on:
   schedule:
-    - cron: "30 5 * * *"
-  workflow_dispatch:
+    # 07:30 UTC every day (08:30 Paris CET / 09:30 Paris CEST)
+    - cron: "30 7 * * *"
+  workflow_dispatch: # Allow manual trigger
+
+permissions:
+  contents: write
 
 jobs:
   run-newsletter:
-    permissions:
-      contents: write
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -20,12 +22,25 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+          cache: pip
+
+      - name: Set up Chrome (pinned for Selenium scrapers)
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+          install-chromedriver: true
+        id: setup-chrome
 
       - name: Install dependencies
         run: pip install -r newsletter_v5/requirements.txt
 
       - name: Run newsletter pipeline
         env:
+          # Selenium scrapers: only set CHROME_PATH; webdriver-manager
+          # downloads a matched chromedriver at runtime to avoid version mismatches
+          # between setup-chrome's installed Chrome and ChromeDriver.
+          CHROME_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
+          # Notion + LLM + delivery secrets
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           NOTION_SOURCES_DB_ID: ${{ secrets.NOTION_SOURCES_DB_ID }}
           NOTION_RECIPIENTS_DB_ID: ${{ secrets.NOTION_RECIPIENTS_DB_ID }}
@@ -35,7 +50,8 @@ jobs:
           NOTION_PUBLICATIONS_DB_ID: ${{ secrets.NOTION_PUBLICATIONS_DB_ID }}
           NOTION_SIGNALS_DB_ID: ${{ secrets.NOTION_SIGNALS_DB_ID }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          LEMLIST_API_KEY: ${{ secrets.LEMLIST_API_KEY }}
+          LEMLIST_ADMIN_LEAD_ID: ${{ secrets.LEMLIST_ADMIN_LEAD_ID }}
         run: |
           cd newsletter_v5
           python newsletter_v5.py
@@ -47,6 +63,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -f sent_articles.json sent_publications.json sent_signals.json \
-                    geocache.db config_cache.yaml pam_last_year.json 2>/dev/null || true
+                    geocache.db config_cache.yaml pam_last_year.json \
+                    source_health.json 2>/dev/null || true
           git diff --cached --quiet || git commit -m "chore: update pipeline state [skip ci]"
           git push

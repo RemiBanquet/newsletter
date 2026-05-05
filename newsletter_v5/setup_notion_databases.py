@@ -119,6 +119,9 @@ def create_sources_db(parent_id):
                 }
             },
             "Scraper ID": {"rich_text": {}},
+            # Optional per-source lookback. 0 / empty = use global default
+            # (48h for articles, 168h for publications, 336h for Google News).
+            "Lookback Hours": {"number": {"format": "number"}},
             "Notes": {"rich_text": {}},
         },
     })

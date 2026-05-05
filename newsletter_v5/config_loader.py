@@ -50,6 +50,18 @@ def _get_multi_select(props: dict, key: str) -> list[str]:
     return [item["name"] for item in prop.get("multi_select", [])]
 
 
+def _get_number(props: dict, key: str, default: int = 0) -> int:
+    """Extract numeric value from a Notion number property; default if empty."""
+    prop = props.get(key, {})
+    val = prop.get("number")
+    if val is None:
+        return default
+    try:
+        return int(val)
+    except (TypeError, ValueError):
+        return default
+
+
 def load_config_from_notion(
     notion_token: str,
     sources_db_id: str,
@@ -77,6 +89,7 @@ def load_config_from_notion(
                 enabled=_get_bool(props, "Enabled"),
                 keywords_filter=_get_multi_select(props, "Keywords Filter"),
                 scraper_id=_get_text(props, "Scraper ID"),
+                lookback_hours=_get_number(props, "Lookback Hours", default=0),
                 notion_id=page["id"],
             ))
         logger.info(f"Loaded {len(config.sources)} sources from Notion")
@@ -220,6 +233,7 @@ def _serialize_config(config: PipelineConfig) -> dict:
                 "source_type": s.source_type.value, "country": s.country,
                 "enabled": s.enabled, "keywords_filter": s.keywords_filter,
                 "scraper_id": s.scraper_id,
+                "lookback_hours": s.lookback_hours,
             }
             for s in config.sources
         ],
@@ -261,6 +275,7 @@ def _deserialize_config(data: dict) -> PipelineConfig:
             country=s.get("country", ""), enabled=s.get("enabled", True),
             keywords_filter=s.get("keywords_filter", []),
             scraper_id=s.get("scraper_id", ""),
+            lookback_hours=int(s.get("lookback_hours") or 0),
         ))
     for r in data.get("recipients", []):
         config.recipients.append(RecipientConfig(

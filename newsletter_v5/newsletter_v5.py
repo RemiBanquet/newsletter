@@ -10,11 +10,13 @@ Usage:
 
 Environment variables required:
     ANTHROPIC_API_KEY       — Claude API key
+    LEMLIST_API_KEY         — Lemlist API key
     NOTION_TOKEN            — Notion integration token
     NOTION_SOURCES_DB_ID    — Notion "Newsletter Sources" database ID
     NOTION_RECIPIENTS_DB_ID — Notion "Newsletter Recipients" database ID
     NOTION_COMPANIES_DB_ID  — Notion "Tracked Companies" database ID
     NOTION_COUNTRIES_DB_ID  — Notion "Countries of Interest" database ID
+    LEMLIST_ADMIN_LEAD_ID   — Lemlist lead ID for admin reports (optional)
 """
 
 import argparse
@@ -42,6 +44,7 @@ from dedup import DeduplicationManager
 from renderer import render_newsletter
 from sender import send_newsletter, send_admin_report, _print_admin_report
 from notion_archiver import archive_to_notion
+from source_health import SourceHealthTracker
 
 # ── Logging setup ─────────────────────────────────────────────────
 
@@ -139,6 +142,8 @@ async def run_pipeline(args: argparse.Namespace) -> None:
         if eurostat_pubs:
             logger.info(f"Eurostat: {len(eurostat_pubs)} agriculture dataset updates added")
             publications.extend(eurostat_pubs)
+        # Always record Eurostat health (even when 0)
+        metrics.source_counts["Eurostat"] = len(eurostat_pubs or [])
 
         # Merge scraper publications (ISTAT, MAPA Avances, TUIK, etc.)
         if scraper_pubs:
@@ -264,6 +269,28 @@ async def run_pipeline(args: argparse.Namespace) -> None:
         if not args.dry_run:
             dedup.mark_sent(relevant_articles, publications, relevant_signals)
             logger.info("Dedup state saved")
+
+        # ── Step 9b: Update source-health tracker ──
+        # Record per-source counts; flag any source silent for ≥3 runs.
+        if not args.dry_run:
+            tracker = SourceHealthTracker(
+                base_dir=os.path.dirname(os.path.abspath(__file__))
+            )
+            for source_name, count in metrics.source_counts.items():
+                tracker.record(source_name, count)
+            metrics.silent_sources = tracker.silent_sources(min_streak=3)
+            tracker.save()
+            if metrics.silent_sources:
+                logger.warning(
+                    f"⚠️  {len(metrics.silent_sources)} source(s) silent for ≥3 runs: "
+                    f"{', '.join(s['name'] for s in metrics.silent_sources)}"
+                )
+        else:
+            # In dry-run, compute silent sources without writing state
+            tracker = SourceHealthTracker(
+                base_dir=os.path.dirname(os.path.abspath(__file__))
+            )
+            metrics.silent_sources = tracker.silent_sources(min_streak=3)
 
         # ── Step 10: Admin report ──
         metrics.end_time = datetime.now(timezone.utc)
