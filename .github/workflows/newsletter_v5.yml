@@ -6,6 +6,9 @@ on:
     - cron: "30 7 * * *"
   workflow_dispatch: # Allow manual trigger
 
+permissions:
+  contents: write
+
 jobs:
   run-newsletter:
     runs-on: ubuntu-latest
@@ -33,9 +36,10 @@ jobs:
 
       - name: Run newsletter pipeline
         env:
-          # Chrome + ChromeDriver paths for Selenium scrapers
+          # Selenium scrapers: only set CHROME_PATH; webdriver-manager
+          # downloads a matched chromedriver at runtime to avoid version mismatches
+          # between setup-chrome's installed Chrome and ChromeDriver.
           CHROME_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
-          CHROMEDRIVER_PATH: ${{ steps.setup-chrome.outputs.chromedriver-path }}
           # Notion + LLM + delivery secrets
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           NOTION_SOURCES_DB_ID: ${{ secrets.NOTION_SOURCES_DB_ID }}

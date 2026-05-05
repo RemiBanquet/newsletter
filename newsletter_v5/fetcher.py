@@ -73,8 +73,10 @@ async def _fetch_feed(url: str, session: aiohttp.ClientSession, timeout: int = 3
     try:
         async with session.get(url, headers=_FEED_HEADERS, timeout=aiohttp.ClientTimeout(total=timeout)) as resp:
             if resp.status == 200:
-                text = await resp.text()
-                return feedparser.parse(text)
+                # Pass raw bytes to feedparser so it can read the XML
+                # encoding declaration (Hungarian KSH feed mis-labels charset)
+                data = await resp.read()
+                return feedparser.parse(data)
             else:
                 logger.warning(f"Feed {url} returned status {resp.status}")
                 return None
@@ -84,13 +86,34 @@ async def _fetch_feed(url: str, session: aiohttp.ClientSession, timeout: int = 3
 
 
 def _parse_feed_date(entry: dict) -> Optional[datetime]:
-    """Parse published date from a feed entry."""
+    """Parse published date from a feed entry.
+
+    feedparser usually fills `published_parsed`/`updated_parsed` automatically.
+    When it can't (non-standard date formats from MAPA/Agroes/Destatis), fall
+    back to the raw `published`/`updated`/`pubDate` string fields and try
+    RFC 2822 parsing. Logs at debug when nothing parses, so the next admin
+    report exposes silent date-filtering.
+    """
     published = entry.get("published_parsed") or entry.get("updated_parsed")
     if published:
         try:
             return datetime(*published[:6], tzinfo=timezone.utc)
         except Exception:
             pass
+    # Fallback: try the raw string fields
+    from email.utils import parsedate_to_datetime
+    for field in ("published", "updated", "pubDate", "date"):
+        raw = entry.get(field, "")
+        if raw:
+            try:
+                dt = parsedate_to_datetime(raw)
+                if dt.tzinfo is None:
+                    dt = dt.replace(tzinfo=timezone.utc)
+                return dt
+            except Exception:
+                continue
+    title = entry.get("title", "")[:60]
+    logger.debug(f"_parse_feed_date: no parseable date in entry: {title}")
     return None
 
 
