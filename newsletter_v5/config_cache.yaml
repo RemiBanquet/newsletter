@@ -497,6 +497,7 @@ sources:
   country: Romania
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: INSSE Romania
   scraper_id: ''
   source_type: rss
@@ -505,6 +506,7 @@ sources:
   country: Hungary
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: KSH Hungary
   scraper_id: ''
   source_type: rss
@@ -513,6 +515,7 @@ sources:
   country: Global
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: Inside Climate News
   scraper_id: ''
   source_type: rss
@@ -521,6 +524,7 @@ sources:
   country: Europe
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: SeedWorld Europe
   scraper_id: ''
   source_type: rss
@@ -529,6 +533,7 @@ sources:
   country: Global
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: Grain Central — News
   scraper_id: ''
   source_type: rss
@@ -537,6 +542,7 @@ sources:
   country: Global
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: Grain Central — Markets
   scraper_id: ''
   source_type: rss
@@ -545,6 +551,7 @@ sources:
   country: Romania
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: Romania Insider
   scraper_id: ''
   source_type: rss
@@ -553,6 +560,7 @@ sources:
   country: Global
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: FAO Newsroom
   scraper_id: ''
   source_type: rss
@@ -561,6 +569,7 @@ sources:
   country: USA
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: USDA NASS — Reports
   scraper_id: ''
   source_type: rss
@@ -569,6 +578,7 @@ sources:
   country: Turkey
   enabled: false
   keywords_filter: []
+  lookback_hours: 0
   name: TUIK Turkey
   scraper_id: scrape_tuik
   source_type: requests-scraper
@@ -577,6 +587,7 @@ sources:
   country: Global
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: Precision Ag
   scraper_id: ''
   source_type: rss
@@ -585,6 +596,7 @@ sources:
   country: Germany
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: Destatis Germany
   scraper_id: ''
   source_type: rss
@@ -593,6 +605,7 @@ sources:
   country: Global
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: AgFunder News
   scraper_id: ''
   source_type: rss
@@ -601,6 +614,7 @@ sources:
   country: France
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: Min. Agriculture FR
   scraper_id: ''
   source_type: rss
@@ -609,6 +623,7 @@ sources:
   country: France
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: Terre-net
   scraper_id: ''
   source_type: rss
@@ -617,6 +632,7 @@ sources:
   country: Canada
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: StatCan Canada
   scraper_id: ''
   source_type: rss
@@ -625,6 +641,7 @@ sources:
   country: Global
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: TechCrunch AgTech
   scraper_id: ''
   source_type: rss
@@ -633,6 +650,7 @@ sources:
   country: Canada
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: Farms.com
   scraper_id: ''
   source_type: rss
@@ -641,6 +659,7 @@ sources:
   country: Canada
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: Western Producer
   scraper_id: ''
   source_type: rss
@@ -649,6 +668,7 @@ sources:
   country: Global
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: Grain Central — Trade
   scraper_id: ''
   source_type: rss
@@ -657,6 +677,7 @@ sources:
   country: Global
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: Agribusiness Global
   scraper_id: ''
   source_type: rss
@@ -665,6 +686,7 @@ sources:
   country: Global
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: World-Grain
   scraper_id: ''
   source_type: rss
@@ -673,6 +695,7 @@ sources:
   country: Global
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: Barchart Commodities
   scraper_id: ''
   source_type: rss
@@ -681,6 +704,7 @@ sources:
   country: Europe
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: JRC Agriculture News
   scraper_id: ''
   source_type: rss
@@ -689,6 +713,7 @@ sources:
   country: France
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: La France Agricole
   scraper_id: ''
   source_type: rss
@@ -697,6 +722,7 @@ sources:
   country: Global
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: Future Farming
   scraper_id: ''
   source_type: rss
@@ -705,6 +731,7 @@ sources:
   country: Spain
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: Agroes (Spain)
   scraper_id: ''
   source_type: rss
@@ -713,6 +740,7 @@ sources:
   country: Canada
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: Farms.com
   scraper_id: ''
   source_type: rss
@@ -721,6 +749,7 @@ sources:
   country: Global
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: Investopedia Agriculture
   scraper_id: ''
   source_type: rss
@@ -729,6 +758,7 @@ sources:
   country: Italy
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: ISTAT Italy
   scraper_id: ''
   source_type: rss
@@ -737,6 +767,7 @@ sources:
   country: Spain
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: MAPA Spain
   scraper_id: ''
   source_type: rss
@@ -745,6 +776,7 @@ sources:
   country: Global
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: AgWired
   scraper_id: ''
   source_type: rss
@@ -753,6 +785,7 @@ sources:
   country: USA
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: USDA NASS — News
   scraper_id: ''
   source_type: rss
@@ -761,6 +794,7 @@ sources:
   country: Ukraine
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: GovUA Ukraine Scraper
   scraper_id: scrape_govua
   source_type: requests-scraper
@@ -769,6 +803,7 @@ sources:
   country: Spain
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: MAPA Avances Scraper
   scraper_id: scrape_mapa
   source_type: requests-scraper
@@ -777,6 +812,7 @@ sources:
   country: Spain
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: CAA Spain Scraper
   scraper_id: scrape_caa
   source_type: requests-scraper
@@ -785,6 +821,7 @@ sources:
   country: Europe
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: COCERAL Europe Scraper
   scraper_id: scrape_coceral
   source_type: requests-scraper
@@ -793,6 +830,7 @@ sources:
   country: Italy
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: ISTAT Italy Scraper
   scraper_id: scrape_istat
   source_type: requests-scraper
@@ -801,6 +839,7 @@ sources:
   country: Canada
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: StatCan Canada Scraper
   scraper_id: scrape_statcan
   source_type: requests-scraper
@@ -809,6 +848,7 @@ sources:
   country: France
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: Agreste France Scraper
   scraper_id: scrape_agreste
   source_type: requests-scraper
@@ -817,6 +857,7 @@ sources:
   country: United Kingdom
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: DEFRA UK Scraper
   scraper_id: scrape_uk
   source_type: requests-scraper
@@ -825,6 +866,7 @@ sources:
   country: Europe
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: JRC MARS Europe Scraper
   scraper_id: scrape_jrc
   source_type: requests-scraper
@@ -833,6 +875,7 @@ sources:
   country: Germany
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: Destatis Germany Scraper
   scraper_id: scrape_destatis
   source_type: requests-scraper
@@ -841,6 +884,7 @@ sources:
   country: Hungary
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: KSH Hungary Scraper
   scraper_id: scrape_ksh
   source_type: requests-scraper
@@ -849,6 +893,7 @@ sources:
   country: Brazil
   enabled: true
   keywords_filter: []
+  lookback_hours: 0
   name: IBGE PAM Brazil
   scraper_id: scrape_ibge_pam
   source_type: requests-scraper
