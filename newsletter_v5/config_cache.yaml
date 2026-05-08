@@ -837,7 +837,7 @@ sources:
   url: https://www.istat.it/en/statistical-themes/economy/agriculture/
 - category: official_publication
   country: Canada
-  enabled: true
+  enabled: false
   keywords_filter: []
   lookback_hours: 0
   name: StatCan Canada Scraper
@@ -855,7 +855,7 @@ sources:
   url: https://agreste.agriculture.gouv.fr/agreste-web/disaron/!searchurl/4545f1a9-afe6-4c86-a141-693f2c72d550!1b69a349-ca8f-4353-82bb-4c00c502412c!729f399f-53c3-4952-9971-4753794a7c1b!c6be0c43-70a0-4666-853f-80de38a08ec7!0c593aed-b1d0-476e-9359-12d6347d8243!b125c6dc-13b7-4260-9abd-6e9321b2b963!fec0e278-6655-4c48-ac47-aab6d8847e15/search/
 - category: official_publication
   country: United Kingdom
-  enabled: true
+  enabled: false
   keywords_filter: []
   lookback_hours: 0
   name: DEFRA UK Scraper
@@ -898,3 +898,12 @@ sources:
   scraper_id: scrape_ibge_pam
   source_type: requests-scraper
   url: https://apisidra.ibge.gov.br/values/t/5457
+- category: official_publication
+  country: United Kingdom
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  name: DEFRA UK Atom
+  scraper_id: ''
+  source_type: rss
+  url: https://www.gov.uk/search/all.atom?content_purpose_supergroup%5B%5D=research_and_statistics&keywords=crops&organisations%5B%5D=department-for-environment-food-rural-affairs&order=updated-newest
