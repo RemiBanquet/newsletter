@@ -1,19 +1,4 @@
 companies:
-- company_type: prospect
-  enabled: true
-  name: FMC Corporation
-  priority: medium
-  search_keywords: FMC Corporation agriculture crop protection
-- company_type: prospect
-  enabled: false
-  name: De Sangosse
-  priority: medium
-  search_keywords: De Sangosse agriculture biocontrol
-- company_type: client
-  enabled: true
-  name: Syngenta
-  priority: high
-  search_keywords: Syngenta agriculture crop
 - company_type: client
   enabled: true
   name: Certis Belchim
@@ -40,15 +25,30 @@ companies:
   priority: medium
   search_keywords: GDM seeds genetics agriculture
 - company_type: prospect
+  enabled: true
+  name: CHS Inc
+  priority: medium
+  search_keywords: CHS Inc agriculture cooperative grain
+- company_type: prospect
+  enabled: true
+  name: Sumitomo Chemical
+  priority: medium
+  search_keywords: Sumitomo Chemical agriculture crop protection
+- company_type: client
+  enabled: true
+  name: Lidea
+  priority: high
+  search_keywords: Lidea seeds agriculture
+- company_type: prospect
+  enabled: false
+  name: De Sangosse
+  priority: medium
+  search_keywords: De Sangosse agriculture biocontrol
+- company_type: prospect
   enabled: false
   name: K+S AG
   priority: medium
   search_keywords: K+S AG fertilizer potash agriculture
-- company_type: client
-  enabled: true
-  name: ADAMA
-  priority: high
-  search_keywords: ADAMA agriculture crop protection
 - company_type: prospect
   enabled: true
   name: Nutrien
@@ -56,9 +56,39 @@ companies:
   search_keywords: Nutrien agriculture fertilizer
 - company_type: prospect
   enabled: true
-  name: CHS Inc
+  name: ICL Group
   priority: medium
-  search_keywords: CHS Inc agriculture cooperative grain
+  search_keywords: ICL Group fertilizer specialty agriculture
+- company_type: prospect
+  enabled: true
+  name: Mosaic Company
+  priority: high
+  search_keywords: Mosaic Company fertilizer agriculture
+- company_type: prospect
+  enabled: true
+  name: Yara International
+  priority: high
+  search_keywords: Yara International fertilizer agriculture
+- company_type: prospect
+  enabled: true
+  name: OCP Nutricrops
+  priority: high
+  search_keywords: OCP Nutricrops phosphate fertilizer agriculture
+- company_type: prospect
+  enabled: true
+  name: FMC Corporation
+  priority: medium
+  search_keywords: FMC Corporation agriculture crop protection
+- company_type: client
+  enabled: true
+  name: Syngenta
+  priority: high
+  search_keywords: Syngenta agriculture crop
+- company_type: client
+  enabled: true
+  name: ADAMA
+  priority: high
+  search_keywords: ADAMA agriculture crop protection
 - company_type: client
   enabled: true
   name: BASF
@@ -71,29 +101,14 @@ companies:
   search_keywords: Saipol oilseed crushing
 - company_type: prospect
   enabled: true
-  name: Sumitomo Chemical
-  priority: medium
-  search_keywords: Sumitomo Chemical agriculture crop protection
-- company_type: prospect
-  enabled: true
   name: Nufarm
   priority: high
   search_keywords: Nufarm agriculture crop protection
-- company_type: prospect
-  enabled: true
-  name: ICL Group
-  priority: medium
-  search_keywords: ICL Group fertilizer specialty agriculture
 - company_type: client
   enabled: true
   name: KWS
   priority: high
   search_keywords: KWS seeds agriculture crop
-- company_type: prospect
-  enabled: true
-  name: Mosaic Company
-  priority: high
-  search_keywords: Mosaic Company fertilizer agriculture
 - company_type: prospect
   enabled: true
   name: UPL
@@ -104,11 +119,6 @@ companies:
   name: Bayer CropScience
   priority: high
   search_keywords: Bayer CropScience agriculture
-- company_type: prospect
-  enabled: true
-  name: Yara International
-  priority: high
-  search_keywords: Yara International fertilizer agriculture
 - company_type: client
   enabled: true
   name: Corteva Agriscience
@@ -119,16 +129,6 @@ companies:
   name: Limagrain
   priority: high
   search_keywords: Limagrain agriculture seeds
-- company_type: prospect
-  enabled: true
-  name: OCP Nutricrops
-  priority: high
-  search_keywords: OCP Nutricrops phosphate fertilizer agriculture
-- company_type: client
-  enabled: true
-  name: Lidea
-  priority: high
-  search_keywords: Lidea seeds agriculture
 countries:
 - enabled: true
   flag_emoji: 🇸🇪
@@ -494,6 +494,123 @@ recipients:
   name: Rémi Banquet
 sources:
 - category: official_publication
+  country: United Kingdom
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  name: DEFRA UK Atom
+  scraper_id: ''
+  source_type: rss
+  url: https://www.gov.uk/search/all.atom?content_purpose_supergroup%5B%5D=research_and_statistics&keywords=crops&organisations%5B%5D=department-for-environment-food-rural-affairs&order=updated-newest
+- category: official_publication
+  country: Ukraine
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  name: GovUA Ukraine Scraper
+  scraper_id: scrape_govua
+  source_type: requests-scraper
+  url: https://stat.gov.ua/en/search?f%5B0%5D=content_type%3Adataset&f%5B1%5D=topics%3A178&search_api_fulltext=crops&sort_by=created
+- category: official_publication
+  country: Spain
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  name: CAA Spain Scraper
+  scraper_id: scrape_caa
+  source_type: requests-scraper
+  url: https://www.agro-alimentarias.coop/documents?cat_sel=33
+- category: official_publication
+  country: Europe
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  name: COCERAL Europe Scraper
+  scraper_id: scrape_coceral
+  source_type: requests-scraper
+  url: https://www.coceral.com/web/coceral%20crop%20forecast%7C%20june%202025/1011306087/list1187970814/f1.html
+- category: official_publication
+  country: Canada
+  enabled: false
+  keywords_filter: []
+  lookback_hours: 0
+  name: StatCan Canada Scraper
+  scraper_id: scrape_statcan
+  source_type: requests-scraper
+  url: https://www150.statcan.gc.ca/n1/en/subjects/agriculture_and_food/crop_production?count=10
+- category: official_publication
+  country: France
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  name: Agreste France Scraper
+  scraper_id: scrape_agreste
+  source_type: requests-scraper
+  url: https://agreste.agriculture.gouv.fr/agreste-web/disaron/!searchurl/4545f1a9-afe6-4c86-a141-693f2c72d550!1b69a349-ca8f-4353-82bb-4c00c502412c!729f399f-53c3-4952-9971-4753794a7c1b!c6be0c43-70a0-4666-853f-80de38a08ec7!0c593aed-b1d0-476e-9359-12d6347d8243!b125c6dc-13b7-4260-9abd-6e9321b2b963!fec0e278-6655-4c48-ac47-aab6d8847e15/search/
+- category: official_publication
+  country: United Kingdom
+  enabled: false
+  keywords_filter: []
+  lookback_hours: 0
+  name: DEFRA UK Scraper
+  scraper_id: scrape_uk
+  source_type: requests-scraper
+  url: https://www.gov.uk/search/all?content_purpose_supergroup%5B%5D=research_and_statistics&keywords=crops&organisations%5B%5D=department-for-environment-food-rural-affairs&order=updated-newest
+- category: official_publication
+  country: Europe
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  name: JRC MARS Europe Scraper
+  scraper_id: scrape_jrc
+  source_type: requests-scraper
+  url: https://publications.jrc.ec.europa.eu/repository/search?sort=date-desc&filter=SCIENCE_AREA%3AS001%7CGROUP%3AG001&query=JRC+Mars+Bulletin
+- category: official_publication
+  country: Germany
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  name: Destatis Germany Scraper
+  scraper_id: scrape_destatis
+  source_type: requests-scraper
+  url: https://www.destatis.de/SiteGlobals/Forms/Suche/EN/Expertensuche_Formular.html?templateQueryString=crops&cl2Taxonomies_Themen_0=land_forstwirtschaft_fischerei
+- category: official_publication
+  country: Hungary
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  name: KSH Hungary Scraper
+  scraper_id: scrape_ksh
+  source_type: requests-scraper
+  url: https://www.ksh.hu/apps/shop.lista?p_lang=EN&p_temakor_kod=OM
+- category: official_publication
+  country: Spain
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  name: MAPA Avances Scraper
+  scraper_id: scrape_mapa
+  source_type: requests-scraper
+  url: https://www.mapa.gob.es/es/estadistica/temas/estadisticas-agrarias/agricultura/avances-superficies-producciones-agricolas
+- category: official_publication
+  country: Italy
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  name: ISTAT Italy Scraper
+  scraper_id: scrape_istat
+  source_type: requests-scraper
+  url: https://www.istat.it/en/statistical-themes/economy/agriculture/
+- category: official_publication
+  country: Brazil
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  name: IBGE PAM Brazil
+  scraper_id: scrape_ibge_pam
+  source_type: requests-scraper
+  url: https://apisidra.ibge.gov.br/values/t/5457
+- category: official_publication
   country: Romania
   enabled: true
   keywords_filter: []
@@ -511,6 +628,51 @@ sources:
   scraper_id: ''
   source_type: rss
   url: https://www.ksh.hu/apps/shop.rss_temakor?p_lang=EN&p_temakor_kod=KSH
+- category: official_publication
+  country: Turkey
+  enabled: false
+  keywords_filter: []
+  lookback_hours: 0
+  name: TUIK Turkey
+  scraper_id: scrape_tuik
+  source_type: requests-scraper
+  url: https://data.tuik.gov.tr/Kategori/GetKategori?p=tarim-111
+- category: official_publication
+  country: Germany
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  name: Destatis Germany
+  scraper_id: ''
+  source_type: rss
+  url: http://www.destatis.de/Aktuelles.xml
+- category: official_publication
+  country: Canada
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  name: StatCan Canada
+  scraper_id: ''
+  source_type: rss
+  url: https://www150.statcan.gc.ca/n1/rss/dai-quo/32-eng.atom
+- category: official_publication
+  country: Italy
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  name: ISTAT Italy
+  scraper_id: ''
+  source_type: rss
+  url: https://www.istat.it/en/tema/agriculture/feed/
+- category: official_publication
+  country: Spain
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  name: MAPA Spain
+  scraper_id: ''
+  source_type: rss
+  url: https://www.mapa.gob.es/es/agricultura/noticiasRss.aspx
 - category: media
   country: Global
   enabled: true
@@ -574,15 +736,6 @@ sources:
   scraper_id: ''
   source_type: rss
   url: http://www.nass.usda.gov/rss/reports.xml
-- category: official_publication
-  country: Turkey
-  enabled: false
-  keywords_filter: []
-  lookback_hours: 0
-  name: TUIK Turkey
-  scraper_id: scrape_tuik
-  source_type: requests-scraper
-  url: https://data.tuik.gov.tr/Kategori/GetKategori?p=tarim-111
 - category: media
   country: Global
   enabled: true
@@ -592,15 +745,6 @@ sources:
   scraper_id: ''
   source_type: rss
   url: http://www.precisionag.com/feed/
-- category: official_publication
-  country: Germany
-  enabled: true
-  keywords_filter: []
-  lookback_hours: 0
-  name: Destatis Germany
-  scraper_id: ''
-  source_type: rss
-  url: http://www.destatis.de/Aktuelles.xml
 - category: media
   country: Global
   enabled: true
@@ -628,15 +772,6 @@ sources:
   scraper_id: ''
   source_type: rss
   url: http://www.terre-net.fr/actualite-agriculture.html
-- category: official_publication
-  country: Canada
-  enabled: true
-  keywords_filter: []
-  lookback_hours: 0
-  name: StatCan Canada
-  scraper_id: ''
-  source_type: rss
-  url: https://www150.statcan.gc.ca/n1/rss/dai-quo/32-eng.atom
 - category: media
   country: Global
   enabled: true
@@ -754,24 +889,6 @@ sources:
   scraper_id: ''
   source_type: rss
   url: https://feeds-api.dotdashmeredith.com/v1/rss/google/77cb61c1-0387-45bf-80e6-3f2976e90672
-- category: official_publication
-  country: Italy
-  enabled: true
-  keywords_filter: []
-  lookback_hours: 0
-  name: ISTAT Italy
-  scraper_id: ''
-  source_type: rss
-  url: https://www.istat.it/en/tema/agriculture/feed/
-- category: official_publication
-  country: Spain
-  enabled: true
-  keywords_filter: []
-  lookback_hours: 0
-  name: MAPA Spain
-  scraper_id: ''
-  source_type: rss
-  url: https://www.mapa.gob.es/es/agricultura/noticiasRss.aspx
 - category: media
   country: Global
   enabled: true
@@ -790,120 +907,3 @@ sources:
   scraper_id: ''
   source_type: rss
   url: http://www.nass.usda.gov/rss/news.xml
-- category: official_publication
-  country: Ukraine
-  enabled: true
-  keywords_filter: []
-  lookback_hours: 0
-  name: GovUA Ukraine Scraper
-  scraper_id: scrape_govua
-  source_type: requests-scraper
-  url: https://stat.gov.ua/en/search?f%5B0%5D=content_type%3Adataset&f%5B1%5D=topics%3A178&search_api_fulltext=crops&sort_by=created
-- category: official_publication
-  country: Spain
-  enabled: true
-  keywords_filter: []
-  lookback_hours: 0
-  name: MAPA Avances Scraper
-  scraper_id: scrape_mapa
-  source_type: requests-scraper
-  url: https://www.mapa.gob.es/es/estadistica/temas/estadisticas-agrarias/agricultura/avances-superficies-producciones-agricolas
-- category: official_publication
-  country: Spain
-  enabled: true
-  keywords_filter: []
-  lookback_hours: 0
-  name: CAA Spain Scraper
-  scraper_id: scrape_caa
-  source_type: requests-scraper
-  url: https://www.agro-alimentarias.coop/documents?cat_sel=33
-- category: official_publication
-  country: Europe
-  enabled: true
-  keywords_filter: []
-  lookback_hours: 0
-  name: COCERAL Europe Scraper
-  scraper_id: scrape_coceral
-  source_type: requests-scraper
-  url: https://www.coceral.com/web/coceral%20crop%20forecast%7C%20june%202025/1011306087/list1187970814/f1.html
-- category: official_publication
-  country: Italy
-  enabled: true
-  keywords_filter: []
-  lookback_hours: 0
-  name: ISTAT Italy Scraper
-  scraper_id: scrape_istat
-  source_type: requests-scraper
-  url: https://www.istat.it/en/statistical-themes/economy/agriculture/
-- category: official_publication
-  country: Canada
-  enabled: false
-  keywords_filter: []
-  lookback_hours: 0
-  name: StatCan Canada Scraper
-  scraper_id: scrape_statcan
-  source_type: requests-scraper
-  url: https://www150.statcan.gc.ca/n1/en/subjects/agriculture_and_food/crop_production?count=10
-- category: official_publication
-  country: France
-  enabled: true
-  keywords_filter: []
-  lookback_hours: 0
-  name: Agreste France Scraper
-  scraper_id: scrape_agreste
-  source_type: requests-scraper
-  url: https://agreste.agriculture.gouv.fr/agreste-web/disaron/!searchurl/4545f1a9-afe6-4c86-a141-693f2c72d550!1b69a349-ca8f-4353-82bb-4c00c502412c!729f399f-53c3-4952-9971-4753794a7c1b!c6be0c43-70a0-4666-853f-80de38a08ec7!0c593aed-b1d0-476e-9359-12d6347d8243!b125c6dc-13b7-4260-9abd-6e9321b2b963!fec0e278-6655-4c48-ac47-aab6d8847e15/search/
-- category: official_publication
-  country: United Kingdom
-  enabled: false
-  keywords_filter: []
-  lookback_hours: 0
-  name: DEFRA UK Scraper
-  scraper_id: scrape_uk
-  source_type: requests-scraper
-  url: https://www.gov.uk/search/all?content_purpose_supergroup%5B%5D=research_and_statistics&keywords=crops&organisations%5B%5D=department-for-environment-food-rural-affairs&order=updated-newest
-- category: official_publication
-  country: Europe
-  enabled: true
-  keywords_filter: []
-  lookback_hours: 0
-  name: JRC MARS Europe Scraper
-  scraper_id: scrape_jrc
-  source_type: requests-scraper
-  url: https://publications.jrc.ec.europa.eu/repository/search?sort=date-desc&filter=SCIENCE_AREA%3AS001%7CGROUP%3AG001&query=JRC+Mars+Bulletin
-- category: official_publication
-  country: Germany
-  enabled: true
-  keywords_filter: []
-  lookback_hours: 0
-  name: Destatis Germany Scraper
-  scraper_id: scrape_destatis
-  source_type: requests-scraper
-  url: https://www.destatis.de/SiteGlobals/Forms/Suche/EN/Expertensuche_Formular.html?templateQueryString=crops&cl2Taxonomies_Themen_0=land_forstwirtschaft_fischerei
-- category: official_publication
-  country: Hungary
-  enabled: true
-  keywords_filter: []
-  lookback_hours: 0
-  name: KSH Hungary Scraper
-  scraper_id: scrape_ksh
-  source_type: requests-scraper
-  url: https://www.ksh.hu/apps/shop.lista?p_lang=EN&p_temakor_kod=OM
-- category: official_publication
-  country: Brazil
-  enabled: true
-  keywords_filter: []
-  lookback_hours: 0
-  name: IBGE PAM Brazil
-  scraper_id: scrape_ibge_pam
-  source_type: requests-scraper
-  url: https://apisidra.ibge.gov.br/values/t/5457
-- category: official_publication
-  country: United Kingdom
-  enabled: true
-  keywords_filter: []
-  lookback_hours: 0
-  name: DEFRA UK Atom
-  scraper_id: ''
-  source_type: rss
-  url: https://www.gov.uk/search/all.atom?content_purpose_supergroup%5B%5D=research_and_statistics&keywords=crops&organisations%5B%5D=department-for-environment-food-rural-affairs&order=updated-newest
