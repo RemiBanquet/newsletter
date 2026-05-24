@@ -1,57 +1,57 @@
 {
   "AgFunder News": {
     "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115715+00:00",
+    "last_run": "2026-05-24T08:02:57.649235+00:00",
     "last_seen": "2026-05-22T08:35:41.347820+00:00",
-    "streak": 1
+    "streak": 2
   },
   "AgWired": {
     "last_count": 1,
-    "last_run": "2026-05-23T07:46:38.115775+00:00",
-    "last_seen": "2026-05-23T07:46:38.115775+00:00",
+    "last_run": "2026-05-24T08:02:57.649329+00:00",
+    "last_seen": "2026-05-24T08:02:57.649329+00:00",
     "streak": 0
   },
   "Agreste France Scraper": {
-    "last_count": 2,
-    "last_run": "2026-05-23T07:46:38.115650+00:00",
+    "last_count": 0,
+    "last_run": "2026-05-24T08:02:57.649350+00:00",
     "last_seen": "2026-05-23T07:46:38.115650+00:00",
-    "streak": 0
+    "streak": 1
   },
   "Agribusiness Global": {
-    "last_count": 5,
-    "last_run": "2026-05-23T07:46:38.115743+00:00",
-    "last_seen": "2026-05-23T07:46:38.115743+00:00",
+    "last_count": 3,
+    "last_run": "2026-05-24T08:02:57.649267+00:00",
+    "last_seen": "2026-05-24T08:02:57.649267+00:00",
     "streak": 0
   },
   "Agroes (Spain)": {
     "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115768+00:00",
+    "last_run": "2026-05-24T08:02:57.649319+00:00",
     "last_seen": null,
-    "streak": 18
+    "streak": 19
   },
   "Barchart Commodities": {
-    "last_count": 14,
-    "last_run": "2026-05-23T07:46:38.115751+00:00",
-    "last_seen": "2026-05-23T07:46:38.115751+00:00",
+    "last_count": 13,
+    "last_run": "2026-05-24T08:02:57.649276+00:00",
+    "last_seen": "2026-05-24T08:02:57.649276+00:00",
     "streak": 0
   },
   "CAA Spain Scraper": {
     "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115640+00:00",
+    "last_run": "2026-05-24T08:02:57.649342+00:00",
     "last_seen": null,
-    "streak": 18
+    "streak": 19
   },
   "COCERAL Europe Scraper": {
     "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115646+00:00",
+    "last_run": "2026-05-24T08:02:57.649346+00:00",
     "last_seen": null,
-    "streak": 18
+    "streak": 19
   },
   "DEFRA UK Atom": {
     "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115783+00:00",
+    "last_run": "2026-05-24T08:02:57.649381+00:00",
     "last_seen": null,
-    "streak": 16
+    "streak": 17
   },
   "DEFRA UK Scraper": {
     "last_count": 0,
@@ -61,171 +61,171 @@
   },
   "Destatis Germany": {
     "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115795+00:00",
+    "last_run": "2026-05-24T08:02:57.649394+00:00",
     "last_seen": null,
-    "streak": 18
+    "streak": 19
   },
   "Destatis Germany Scraper": {
     "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115660+00:00",
+    "last_run": "2026-05-24T08:02:57.649359+00:00",
     "last_seen": null,
-    "streak": 18
+    "streak": 19
   },
   "Eurostat": {
-    "last_count": 1,
-    "last_run": "2026-05-23T07:46:38.115810+00:00",
-    "last_seen": "2026-05-23T07:46:38.115810+00:00",
+    "last_count": 2,
+    "last_run": "2026-05-24T08:02:57.649411+00:00",
+    "last_seen": "2026-05-24T08:02:57.649411+00:00",
     "streak": 0
   },
   "FAO Newsroom": {
     "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115704+00:00",
+    "last_run": "2026-05-24T08:02:57.649218+00:00",
     "last_seen": null,
-    "streak": 18
+    "streak": 19
   },
   "Farms.com": {
-    "last_count": 1,
-    "last_run": "2026-05-23T07:46:38.115732+00:00",
+    "last_count": 0,
+    "last_run": "2026-05-24T08:02:57.649254+00:00",
     "last_seen": "2026-05-23T07:46:38.115732+00:00",
-    "streak": 0
+    "streak": 1
   },
   "Future Farming": {
     "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115764+00:00",
+    "last_run": "2026-05-24T08:02:57.649289+00:00",
     "last_seen": null,
-    "streak": 18
+    "streak": 19
   },
   "GovUA Ukraine Scraper": {
     "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115627+00:00",
+    "last_run": "2026-05-24T08:02:57.649338+00:00",
     "last_seen": null,
-    "streak": 18
+    "streak": 19
   },
   "Grain Central \u2014 Markets": {
     "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115696+00:00",
+    "last_run": "2026-05-24T08:02:57.649209+00:00",
     "last_seen": null,
-    "streak": 18
+    "streak": 19
   },
   "Grain Central \u2014 News": {
     "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115692+00:00",
+    "last_run": "2026-05-24T08:02:57.649203+00:00",
     "last_seen": null,
-    "streak": 18
+    "streak": 19
   },
   "Grain Central \u2014 Trade": {
     "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115739+00:00",
+    "last_run": "2026-05-24T08:02:57.649263+00:00",
     "last_seen": null,
-    "streak": 18
+    "streak": 19
   },
   "IBGE PAM Brazil": {
     "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115680+00:00",
+    "last_run": "2026-05-24T08:02:57.649377+00:00",
     "last_seen": null,
-    "streak": 18
+    "streak": 19
   },
   "INSSE Romania": {
     "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115787+00:00",
+    "last_run": "2026-05-24T08:02:57.649386+00:00",
     "last_seen": null,
-    "streak": 18
+    "streak": 19
   },
   "ISTAT Italy": {
     "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115803+00:00",
+    "last_run": "2026-05-24T08:02:57.649402+00:00",
     "last_seen": null,
-    "streak": 18
+    "streak": 19
   },
   "ISTAT Italy Scraper": {
     "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115675+00:00",
+    "last_run": "2026-05-24T08:02:57.649373+00:00",
     "last_seen": null,
-    "streak": 18
+    "streak": 19
   },
   "Inside Climate News": {
-    "last_count": 2,
-    "last_run": "2026-05-23T07:46:38.115684+00:00",
-    "last_seen": "2026-05-23T07:46:38.115684+00:00",
+    "last_count": 1,
+    "last_run": "2026-05-24T08:02:57.649185+00:00",
+    "last_seen": "2026-05-24T08:02:57.649185+00:00",
     "streak": 0
   },
   "Investopedia Agriculture": {
     "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115771+00:00",
+    "last_run": "2026-05-24T08:02:57.649324+00:00",
     "last_seen": "2026-05-22T08:35:41.347881+00:00",
-    "streak": 1
+    "streak": 2
   },
   "JRC Agriculture News": {
     "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115755+00:00",
+    "last_run": "2026-05-24T08:02:57.649280+00:00",
     "last_seen": "2026-05-22T08:35:41.347865+00:00",
-    "streak": 1
+    "streak": 2
   },
   "JRC MARS Europe Scraper": {
     "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115655+00:00",
+    "last_run": "2026-05-24T08:02:57.649355+00:00",
     "last_seen": null,
-    "streak": 18
+    "streak": 19
   },
   "KSH Hungary": {
     "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115791+00:00",
+    "last_run": "2026-05-24T08:02:57.649390+00:00",
     "last_seen": null,
-    "streak": 18
+    "streak": 19
   },
   "KSH Hungary Scraper": {
     "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115664+00:00",
+    "last_run": "2026-05-24T08:02:57.649364+00:00",
     "last_seen": null,
-    "streak": 18
+    "streak": 19
   },
   "La France Agricole": {
-    "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115760+00:00",
-    "last_seen": "2026-05-16T09:14:54.285040+00:00",
-    "streak": 7
+    "last_count": 1,
+    "last_run": "2026-05-24T08:02:57.649285+00:00",
+    "last_seen": "2026-05-24T08:02:57.649285+00:00",
+    "streak": 0
   },
   "MAPA Avances Scraper": {
     "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115670+00:00",
+    "last_run": "2026-05-24T08:02:57.649368+00:00",
     "last_seen": null,
-    "streak": 18
+    "streak": 19
   },
   "MAPA Spain": {
     "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115807+00:00",
+    "last_run": "2026-05-24T08:02:57.649406+00:00",
     "last_seen": null,
-    "streak": 18
+    "streak": 19
   },
   "Min. Agriculture FR": {
     "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115720+00:00",
+    "last_run": "2026-05-24T08:02:57.649240+00:00",
     "last_seen": "2026-05-15T10:06:23.774554+00:00",
-    "streak": 8
+    "streak": 9
   },
   "Precision Ag": {
     "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115711+00:00",
+    "last_run": "2026-05-24T08:02:57.649229+00:00",
     "last_seen": null,
-    "streak": 18
+    "streak": 19
   },
   "Romania Insider": {
-    "last_count": 12,
-    "last_run": "2026-05-23T07:46:38.115700+00:00",
-    "last_seen": "2026-05-23T07:46:38.115700+00:00",
+    "last_count": 5,
+    "last_run": "2026-05-24T08:02:57.649213+00:00",
+    "last_seen": "2026-05-24T08:02:57.649213+00:00",
     "streak": 0
   },
   "SeedWorld Europe": {
-    "last_count": 2,
-    "last_run": "2026-05-23T07:46:38.115688+00:00",
+    "last_count": 0,
+    "last_run": "2026-05-24T08:02:57.649197+00:00",
     "last_seen": "2026-05-23T07:46:38.115688+00:00",
-    "streak": 0
+    "streak": 1
   },
   "StatCan Canada": {
     "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115798+00:00",
+    "last_run": "2026-05-24T08:02:57.649398+00:00",
     "last_seen": "2026-05-13T10:08:58.694862+00:00",
-    "streak": 10
+    "streak": 11
   },
   "StatCan Canada Scraper": {
     "last_count": 0,
@@ -235,38 +235,38 @@
   },
   "TechCrunch AgTech": {
     "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115728+00:00",
+    "last_run": "2026-05-24T08:02:57.649249+00:00",
     "last_seen": null,
-    "streak": 18
+    "streak": 19
   },
   "Terre-net": {
     "last_count": 1,
-    "last_run": "2026-05-23T07:46:38.115723+00:00",
-    "last_seen": "2026-05-23T07:46:38.115723+00:00",
+    "last_run": "2026-05-24T08:02:57.649245+00:00",
+    "last_seen": "2026-05-24T08:02:57.649245+00:00",
     "streak": 0
   },
   "USDA NASS \u2014 News": {
     "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115780+00:00",
+    "last_run": "2026-05-24T08:02:57.649334+00:00",
     "last_seen": null,
-    "streak": 18
+    "streak": 19
   },
   "USDA NASS \u2014 Reports": {
     "last_count": 0,
-    "last_run": "2026-05-23T07:46:38.115707+00:00",
+    "last_run": "2026-05-24T08:02:57.649223+00:00",
     "last_seen": null,
-    "streak": 18
+    "streak": 19
   },
   "Western Producer": {
-    "last_count": 5,
-    "last_run": "2026-05-23T07:46:38.115736+00:00",
-    "last_seen": "2026-05-23T07:46:38.115736+00:00",
+    "last_count": 4,
+    "last_run": "2026-05-24T08:02:57.649258+00:00",
+    "last_seen": "2026-05-24T08:02:57.649258+00:00",
     "streak": 0
   },
   "World-Grain": {
-    "last_count": 6,
-    "last_run": "2026-05-23T07:46:38.115747+00:00",
-    "last_seen": "2026-05-23T07:46:38.115747+00:00",
+    "last_count": 3,
+    "last_run": "2026-05-24T08:02:57.649272+00:00",
+    "last_seen": "2026-05-24T08:02:57.649272+00:00",
     "streak": 0
   }
 }
