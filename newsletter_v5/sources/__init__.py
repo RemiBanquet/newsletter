@@ -113,6 +113,32 @@ def _get_scraper_registry() -> dict[str, Callable]:
     except ImportError as e:
         logger.warning(f"Could not import GovUA scraper: {e}")
 
+    # ── New official-data scrapers (added 2026-06-10) ─────────────
+
+    try:
+        from sources.conab import scrape_conab
+        registry["scrape_conab"] = scrape_conab
+    except ImportError as e:
+        logger.warning(f"Could not import CONAB scraper: {e}")
+
+    try:
+        from sources.grainsa import scrape_grainsa
+        registry["scrape_grainsa"] = scrape_grainsa
+    except ImportError as e:
+        logger.warning(f"Could not import Grain SA scraper: {e}")
+
+    try:
+        from sources.bcr import scrape_bcr
+        registry["scrape_bcr"] = scrape_bcr
+    except ImportError as e:
+        logger.warning(f"Could not import BCR scraper: {e}")
+
+    try:
+        from sources.esmis import scrape_esmis
+        registry["scrape_esmis"] = scrape_esmis
+    except ImportError as e:
+        logger.warning(f"Could not import ESMIS scraper: {e}")
+
     return registry
 
 
