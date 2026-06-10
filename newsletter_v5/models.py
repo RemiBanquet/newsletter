@@ -75,6 +75,10 @@ class SourceConfig:
     # Stat offices (Destatis, KSH, INSSE) publish weekly or less, so 168h
     # is a more useful default than the global 48h.
     lookback_hours: int = 0
+    # Days of zero output before this source is flagged in the admin report.
+    # 0 = category default (3 media, 21 official). Set in Notion "Max Silent Days":
+    # 14 weekly offices, 45 monthly, 400 annual (IBGE PAM).
+    max_silent_days: int = 0
 
 
 @dataclass
@@ -253,6 +257,9 @@ class RunMetrics:
     # to detect long zero-entry streaks. Key = source name, value = entries
     # returned by that source before classifier filtering.
     source_counts: dict[str, int] = field(default_factory=dict)
+    # Raw entries returned by each fetch BEFORE date/keyword filtering.
+    # Distinguishes DEAD (fetch broken) from QUIET (nothing matched filters).
+    source_raw_counts: dict[str, int] = field(default_factory=dict)
     # Sources flagged as silent for ≥3 consecutive runs (populated at end of
     # pipeline, surfaced in admin report).
     silent_sources: list[dict] = field(default_factory=list)

@@ -51,6 +51,45 @@ CROP_KEYWORDS = [
     "farm bill", "common agricultural policy", "cap reform",
     "agricultural subsid", "food security", "grain export",
     "export ban", "import tariff",
+    # ── Multilingual crop terms (pre-filter runs on original-language text) ──
+    # Curated for precision: substring matching, so short/ambiguous words are
+    # excluded on purpose (FR "mais"=but, FR "orge" inside "gorge", "korn").
+    # A false positive costs one Haiku call; a false negative costs coverage.
+    # French
+    "blé", "colza", "tournesol", "céréales", "récolte", "moisson", "semis",
+    "engrais", "rendement",
+    # German ("raps" = rapeseed DE+SV; rare match on English "wraps" accepted)
+    "weizen", "gerste", "raps", "getreide", "ernte", "aussaat", "dünger",
+    "ackerbau", "landwirtschaft",
+    # Spanish
+    "trigo", "cebada", "maíz", "girasol", "cosecha", "siembra",
+    "fertilizante", "rendimiento",
+    # Portuguese (trigo/fertilizante shared with ES)
+    "milho", "safra", "colheita", "plantio", "lavoura",
+    # Italian
+    "frumento", "orzo", "raccolto", "semina", "cereali", "concime",
+    # Polish (stems — Slavic nouns inflect: pszenica/pszenicy/pszenicę)
+    "pszenic", "kukurydz", "rzepak", "jęczmie", "zbóż", "zboż", "żniwa",
+    "nawoz", "nawóz", "plon", "upraw", "zbior", "zbiór",
+    # Czech (stems)
+    "pšenic", "kukuřic", "řepk", "ječmen", "obilí", "skliz", "hnojiv", "úrod",
+    # Swedish
+    "vete", "spannmål", "skörd", "sådd", "gödsel", "havre",
+    # Dutch
+    "tarwe", "koolzaad", "graan", "oogst", "akkerbouw", "kunstmest",
+    # Hungarian
+    "búza", "kukorica", "repce", "árpa", "aratás", "műtrágya", "gabona",
+    # Romanian
+    "grâu", "porumb", "rapiță", "recoltă", "îngrășăminte",
+    # Finnish
+    "vehnä", "ohra", "rypsi", "kylvö",
+    # Ukrainian (stems; урожа = RU-style spelling also used in UA media)
+    "пшениц", "кукурудз", "ріпак", "ячмен", "ячмін", "соняшник", "зерн",
+    "врожа", "урожа", "добрив", "посівн",
+    # Turkish
+    "buğday", "mısır", "arpa", "ayçiçeği", "hasat", "gübre", "tahıl", "rekolte",
+    # Arabic
+    "قمح", "ذرة", "شعير", "محصول", "محاصيل", "حصاد", "أسمدة",
 ]
 
 CROP_CONTEXTUAL_KEYWORDS = [

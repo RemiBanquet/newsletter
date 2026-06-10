@@ -32,7 +32,7 @@ from datetime import datetime, timezone
 # Add parent dir to path for imports
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from models import CompanySignal, CompanyType, RunMetrics
+from models import CompanySignal, CompanyType, RunMetrics, SourceCategory
 from config_loader import load_config
 from fetcher import fetch_all_articles, fetch_all_publications, fetch_all_signals
 from psd_fetcher import fetch_psd_data
@@ -44,7 +44,9 @@ from dedup import DeduplicationManager
 from renderer import render_newsletter
 from sender import send_newsletter, send_admin_report, _print_admin_report
 from notion_archiver import archive_to_notion
-from source_health import SourceHealthTracker
+from source_health import (
+    SourceHealthTracker, DEFAULT_THRESHOLD_MEDIA, DEFAULT_THRESHOLD_OFFICIAL,
+)
 
 # ── Logging setup ─────────────────────────────────────────────────
 
@@ -271,26 +273,41 @@ async def run_pipeline(args: argparse.Namespace) -> None:
             logger.info("Dedup state saved")
 
         # ── Step 9b: Update source-health tracker ──
-        # Record per-source counts; flag any source silent for ≥3 runs.
-        if not args.dry_run:
-            tracker = SourceHealthTracker(
-                base_dir=os.path.dirname(os.path.abspath(__file__))
+        # Record per-source counts (passed + raw); flag sources past their
+        # cadence threshold (Notion "Max Silent Days", else category default).
+        tracker = SourceHealthTracker(
+            base_dir=os.path.dirname(os.path.abspath(__file__))
+        )
+        thresholds = {}
+        for s in config.sources:
+            if not s.enabled:
+                continue
+            default = (
+                DEFAULT_THRESHOLD_MEDIA
+                if s.category == SourceCategory.MEDIA
+                else DEFAULT_THRESHOLD_OFFICIAL
             )
+            thresholds[s.name] = s.max_silent_days or default
+
+        if not args.dry_run:
             for source_name, count in metrics.source_counts.items():
-                tracker.record(source_name, count)
-            metrics.silent_sources = tracker.silent_sources(min_streak=3)
+                tracker.record(
+                    source_name, count,
+                    raw_count=metrics.source_raw_counts.get(source_name),
+                )
+            tracker.prune(active_names=set(thresholds) | {"Eurostat"})
+            metrics.silent_sources = tracker.silent_sources(thresholds=thresholds)
             tracker.save()
             if metrics.silent_sources:
+                dead = [s for s in metrics.silent_sources if s["status"] == "DEAD"]
                 logger.warning(
-                    f"⚠️  {len(metrics.silent_sources)} source(s) silent for ≥3 runs: "
+                    f"⚠️  {len(metrics.silent_sources)} source(s) past their "
+                    f"silence threshold ({len(dead)} DEAD): "
                     f"{', '.join(s['name'] for s in metrics.silent_sources)}"
                 )
         else:
             # In dry-run, compute silent sources without writing state
-            tracker = SourceHealthTracker(
-                base_dir=os.path.dirname(os.path.abspath(__file__))
-            )
-            metrics.silent_sources = tracker.silent_sources(min_streak=3)
+            metrics.silent_sources = tracker.silent_sources(thresholds=thresholds)
 
         # ── Step 10: Admin report ──
         metrics.end_time = datetime.now(timezone.utc)

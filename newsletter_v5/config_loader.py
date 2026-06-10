@@ -90,6 +90,7 @@ def load_config_from_notion(
                 keywords_filter=_get_multi_select(props, "Keywords Filter"),
                 scraper_id=_get_text(props, "Scraper ID"),
                 lookback_hours=_get_number(props, "Lookback Hours", default=0),
+                max_silent_days=_get_number(props, "Max Silent Days", default=0),
                 notion_id=page["id"],
             ))
         logger.info(f"Loaded {len(config.sources)} sources from Notion")
@@ -234,6 +235,7 @@ def _serialize_config(config: PipelineConfig) -> dict:
                 "enabled": s.enabled, "keywords_filter": s.keywords_filter,
                 "scraper_id": s.scraper_id,
                 "lookback_hours": s.lookback_hours,
+                "max_silent_days": s.max_silent_days,
             }
             for s in config.sources
         ],
@@ -276,6 +278,7 @@ def _deserialize_config(data: dict) -> PipelineConfig:
             keywords_filter=s.get("keywords_filter", []),
             scraper_id=s.get("scraper_id", ""),
             lookback_hours=int(s.get("lookback_hours") or 0),
+            max_silent_days=int(s.get("max_silent_days") or 0),
         ))
     for r in data.get("recipients", []):
         config.recipients.append(RecipientConfig(

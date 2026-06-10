@@ -112,6 +112,16 @@ def _parse_feed_date(entry: dict) -> Optional[datetime]:
                 return dt
             except Exception:
                 continue
+    # Non-RFC822 fallbacks: MAPA Spain uses DD/MM/YYYY, some feeds use ISO.
+    for field in ("published", "updated", "pubDate", "date"):
+        raw = (entry.get(field) or "").strip()
+        if not raw:
+            continue
+        for fmt in ("%d/%m/%Y", "%d/%m/%Y %H:%M:%S", "%Y-%m-%d", "%Y-%m-%dT%H:%M:%S"):
+            try:
+                return datetime.strptime(raw[:19], fmt).replace(tzinfo=timezone.utc)
+            except ValueError:
+                continue
     title = entry.get("title", "")[:60]
     logger.debug(f"_parse_feed_date: no parseable date in entry: {title}")
     return None
@@ -131,6 +141,7 @@ async def fetch_articles_from_source(
     feed = await _fetch_feed(source.url, session)
     if not feed or not feed.entries:
         metrics.source_errors.append(f"{source.name}: no entries or fetch failed")
+        metrics.source_raw_counts[source.name] = 0
         return []
 
     # Google News RSS dates reflect original article publish time, not indexing time.
@@ -146,6 +157,7 @@ async def fetch_articles_from_source(
     cutoff = datetime.now(timezone.utc) - timedelta(hours=lookback_hours)
     articles = []
     total_entries = len(feed.entries)
+    metrics.source_raw_counts[source.name] = total_entries
     skipped_date = 0
     skipped_keyword = 0
     for entry in feed.entries:
@@ -259,14 +271,17 @@ async def fetch_publications_from_source(
     feed = await _fetch_feed(source.url, session)
     if not feed or not feed.entries:
         metrics.source_errors.append(f"{source.name}: no entries or fetch failed")
+        metrics.source_raw_counts[source.name] = 0
         return []
 
     lookback = source.lookback_hours if source.lookback_hours and source.lookback_hours > 0 else 168
     cutoff = datetime.now(timezone.utc) - timedelta(hours=lookback)
     pubs = []
     total_entries = len(feed.entries)
+    metrics.source_raw_counts[source.name] = total_entries
     skipped_date = 0
     skipped_keyword = 0
+    undated_accepted = 0
     for entry in feed.entries:
         title = entry.get("title", "").strip()
         url = entry.get("link", "").strip()
@@ -279,8 +294,14 @@ async def fetch_publications_from_source(
             skipped_date += 1
             continue
         if pub_date is None:
-            skipped_date += 1
-            continue
+            # Some official feeds (USDA NASS reports.xml) carry no dates at
+            # all. Accept with fetch-date; dedup prevents re-sends. Cap per
+            # source per run to avoid an archival flood on the first run.
+            if undated_accepted >= 25:
+                skipped_date += 1
+                continue
+            undated_accepted += 1
+            pub_date = datetime.now(timezone.utc)
 
         content = entry.get("summary", "") or ""
         combined = f"{title} {content}"
@@ -291,7 +312,7 @@ async def fetch_publications_from_source(
         text_lower = combined.lower()
         has_crop = any(kw in text_lower for kw in CROP_KEYWORDS)
         has_context = any(kw in text_lower for kw in CROP_CONTEXTUAL_KEYWORDS)
-        if not (has_crop and has_context):
+        if not (has_crop or has_context):
             # Fallback: still accept if source has specific keywords configured
             if source.keywords_filter:
                 if not any(kw.lower() in text_lower for kw in source.keywords_filter):

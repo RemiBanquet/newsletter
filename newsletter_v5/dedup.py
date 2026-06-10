@@ -6,6 +6,8 @@ JSON files are committed back to the repo for persistence across runs.
 import hashlib
 import json
 import logging
+import os
+import tempfile
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Optional
@@ -52,8 +54,14 @@ class DedupStore:
             self.data = {}
 
     def save(self):
-        with open(self.filepath, "w") as f:
+        """Atomic write: temp file in the same directory, then rename."""
+        path = Path(self.filepath)
+        fd, tmp_path = tempfile.mkstemp(
+            dir=str(path.parent), prefix=path.name, suffix=".tmp"
+        )
+        with os.fdopen(fd, "w") as f:
             json.dump(self.data, f, indent=2)
+        os.replace(tmp_path, self.filepath)
 
     def is_seen(self, item_id: str) -> bool:
         return item_id in self.data
