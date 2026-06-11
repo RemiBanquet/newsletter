@@ -174,8 +174,21 @@ def _download_dataset(dataset: str) -> pd.DataFrame:
         return pd.read_csv(cache_path)
 
     logger.info(f"Downloading PSD {dataset} data...")
-    resp = requests.get(url, timeout=120)
-    resp.raise_for_status()
+    try:
+        # (connect, read) timeout: fail fast on an unreachable host instead of
+        # burning 2 minutes per dataset. On 2026-06-11 three 120s connect
+        # timeouts to apps.fas.usda.gov ate 6 of 9.2 min of runtime and
+        # dropped the crop snapshot from the edition entirely.
+        resp = requests.get(url, timeout=(15, 90))
+        resp.raise_for_status()
+    except Exception as e:
+        if cache_path.exists():
+            logger.warning(
+                f"PSD {dataset}: download failed ({e}); using stale cache "
+                f"(PSD is monthly — days-old cache is acceptable)"
+            )
+            return pd.read_csv(cache_path)
+        raise
 
     with ZipFile(BytesIO(resp.content)) as z:
         csv_name = z.namelist()[0]
