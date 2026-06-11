@@ -5,5 +5,4 @@ __pycache__/
 *.pyc
 *.pyo
 .DS_Store
-newsletter_v5/.psd_cache/
 newsletter_v5/test_*.html
