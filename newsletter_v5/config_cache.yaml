@@ -332,7 +332,7 @@ countries:
   region: EU
 - enabled: true
   flag_emoji: 🇧🇷
-  has_scraper: false
+  has_scraper: true
   name: Brazil
   pan_regional_sources:
   - usda_fas
@@ -348,7 +348,7 @@ countries:
   region: EU
 - enabled: true
   flag_emoji: 🇮🇹
-  has_scraper: false
+  has_scraper: true
   name: Italy
   pan_regional_sources:
   - eurostat
@@ -494,10 +494,361 @@ recipients:
   name: Rémi Banquet
 sources:
 - category: official_publication
+  country: South Africa
+  enabled: false
+  keywords_filter: []
+  lookback_hours: 840
+  max_silent_days: 45
+  name: Grain SA — CEC Production Reports
+  scraper_id: scrape_grainsa
+  source_type: requests-scraper
+  url: https://www.grainsa.co.za/pages/industry-reports/production-reports
+- category: official_publication
+  country: USA
+  enabled: false
+  keywords_filter: []
+  lookback_hours: 168
+  max_silent_days: 45
+  name: USDA ESMIS — WASDE
+  scraper_id: scrape_esmis
+  source_type: requests-scraper
+  url: https://esmis.nal.usda.gov/publication/world-agricultural-supply-and-demand-estimates
+- category: official_publication
+  country: Argentina
+  enabled: false
+  keywords_filter: []
+  lookback_hours: 960
+  max_silent_days: 45
+  name: BCR Argentina — GEA Estimates
+  scraper_id: scrape_bcr
+  source_type: requests-scraper
+  url: https://www.bcr.com.ar/es/mercados/gea/estimaciones-nacionales-de-produccion/estimaciones
+- category: official_publication
+  country: Brazil
+  enabled: false
+  keywords_filter: []
+  lookback_hours: 168
+  max_silent_days: 45
+  name: CONAB Brazil — Grain Survey News
+  scraper_id: scrape_conab
+  source_type: requests-scraper
+  url: https://www.gov.br/conab/pt-br/assuntos/noticias
+- category: media
+  country: Argentina
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  max_silent_days: 0
+  name: Bichos de Campo
+  scraper_id: ''
+  source_type: rss
+  url: https://bichosdecampo.com/feed/
+- category: media
+  country: India
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  max_silent_days: 0
+  name: Krishi Jagran (EN)
+  scraper_id: ''
+  source_type: rss
+  url: https://krishijagran.com/feeds/rss
+- category: media
+  country: Global
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  max_silent_days: 0
+  name: CropLife
+  scraper_id: ''
+  source_type: rss
+  url: https://www.croplife.com/feed/
+- category: media
+  country: South Africa
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  max_silent_days: 0
+  name: Farmer's Weekly SA
+  scraper_id: ''
+  source_type: rss
+  url: https://www.farmersweekly.co.za/feed/
+- category: media
+  country: Egypt
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  max_silent_days: 0
+  name: Agri2day
+  scraper_id: ''
+  source_type: rss
+  url: https://agri2day.com/feed
+- category: media
+  country: New Zealand
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  max_silent_days: 0
+  name: Rural News Group
+  scraper_id: ''
+  source_type: rss
+  url: https://www.ruralnewsgroup.co.nz/?format=feed&type=rss
+- category: media
+  country: Mexico
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  max_silent_days: 0
+  name: Imagen Agropecuaria
+  scraper_id: ''
+  source_type: rss
+  url: https://imagenagropecuaria.com/feed/
+- category: media
+  country: New Zealand
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  max_silent_days: 0
+  name: Farmers Weekly NZ
+  scraper_id: ''
+  source_type: rss
+  url: https://www.farmersweekly.co.nz/feed/
+- category: media
+  country: Argentina
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  max_silent_days: 0
+  name: Infocampo
+  scraper_id: ''
+  source_type: rss
+  url: https://www.infocampo.com.ar/feed/
+- category: media
+  country: Brazil
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  max_silent_days: 0
+  name: Canal Rural
+  scraper_id: ''
+  source_type: rss
+  url: https://www.canalrural.com.br/feed/
+- category: media
+  country: India
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  max_silent_days: 0
+  name: Rural Voice (EN)
+  scraper_id: ''
+  source_type: rss
+  url: https://eng.ruralvoice.in/rss/latest-posts
+- category: media
+  country: Germany
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  max_silent_days: 0
+  name: Proplanta
+  scraper_id: ''
+  source_type: rss
+  url: https://www.proplanta.de/web/xml/proplanta_rssnewsfeed.xml
+- category: media
+  country: Ukraine
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  max_silent_days: 0
+  name: Latifundist
+  scraper_id: ''
+  source_type: rss
+  url: https://latifundist.com/rss/novosti
+- category: media
+  country: USA
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  max_silent_days: 0
+  name: Farm Progress
+  scraper_id: ''
+  source_type: rss
+  url: https://www.farmprogress.com/rss.xml
+- category: media
+  country: Ukraine
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  max_silent_days: 0
+  name: UkrAgroConsult (EN)
+  scraper_id: ''
+  source_type: rss
+  url: https://ukragroconsult.com/en/feed/
+- category: media
+  country: Poland
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  max_silent_days: 0
+  name: farmer.pl
+  scraper_id: ''
+  source_type: rss
+  url: https://www.farmer.pl/rss/rosliny.xml
+- category: media
+  country: Italy
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  max_silent_days: 0
+  name: Terra e Vita
+  scraper_id: ''
+  source_type: rss
+  url: https://terraevita.edagricole.it/feed/
+- category: media
+  country: Canada
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  max_silent_days: 0
+  name: Grainews
+  scraper_id: ''
+  source_type: rss
+  url: https://www.grainews.ca/feed/
+- category: media
+  country: Germany
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  max_silent_days: 0
+  name: top agrar — Acker
+  scraper_id: ''
+  source_type: rss
+  url: https://www.topagrar.com/top_agrar_Acker-10090726.xml
+- category: media
+  country: Poland
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  max_silent_days: 0
+  name: AgroFakt
+  scraper_id: ''
+  source_type: rss
+  url: https://www.agrofakt.pl/feed/
+- category: media
+  country: USA
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  max_silent_days: 0
+  name: Brownfield Ag News
+  scraper_id: ''
+  source_type: rss
+  url: https://www.brownfieldagnews.com/feed/
+- category: media
+  country: Canada
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 0
+  max_silent_days: 0
+  name: Manitoba Co-operator
+  scraper_id: ''
+  source_type: rss
+  url: https://www.manitobacooperator.ca/feed/
+- category: official_publication
+  country: Finland
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 168
+  max_silent_days: 14
+  name: Luke Finland (EN)
+  scraper_id: ''
+  source_type: rss
+  url: https://www.luke.fi/en/feed
+- category: official_publication
+  country: Belgium
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 168
+  max_silent_days: 14
+  name: Statbel Belgium (EN)
+  scraper_id: ''
+  source_type: rss
+  url: https://statbel.fgov.be/en/rss.xml
+- category: official_publication
+  country: India
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 72
+  max_silent_days: 7
+  name: PIB India — All Ministries (EN)
+  scraper_id: ''
+  source_type: rss
+  url: https://www.pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=3&reg=3
+- category: official_publication
+  country: Czechia
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 168
+  max_silent_days: 14
+  name: CZSO Czechia — News (EN)
+  scraper_id: ''
+  source_type: rss
+  url: https://csu.gov.cz/rss/aktuality?webKod=statistika,produkty,rychle-informace&jazyk=EN
+- category: official_publication
+  country: Canada
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 168
+  max_silent_days: 14
+  name: AAFC Canada — News Releases (Atom)
+  scraper_id: ''
+  source_type: rss
+  url: https://api.io.canada.ca/io-server/gc/news/en/v2?dept=departmentofagricultureandagrifood&type=newsreleases&format=atom&atomtitle=AAFC
+- category: official_publication
+  country: Netherlands
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 168
+  max_silent_days: 14
+  name: CBS Netherlands — Landbouw
+  scraper_id: ''
+  source_type: rss
+  url: https://www.cbs.nl/nl-nl/rss-feeds/landbouw
+- category: official_publication
+  country: Sweden
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 168
+  max_silent_days: 14
+  name: SCB Sweden — Statistiknyheter
+  scraper_id: ''
+  source_type: rss
+  url: https://www.scb.se/Feed/statistiknyheter/
+- category: official_publication
+  country: Czechia
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 168
+  max_silent_days: 14
+  name: CZSO Czechia — Rapid Information
+  scraper_id: ''
+  source_type: rss
+  url: https://csu.gov.cz/rss/produkty?kodVlastnostiVystupu=RI&jazyk=CS
+- category: official_publication
+  country: Poland
+  enabled: true
+  keywords_filter: []
+  lookback_hours: 168
+  max_silent_days: 14
+  name: GUS Poland — Signal Releases
+  scraper_id: ''
+  source_type: rss
+  url: https://stat.gov.pl/rss/pl/5438/8.xml
+- category: official_publication
   country: United Kingdom
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 14
   name: DEFRA UK Atom
   scraper_id: ''
   source_type: rss
@@ -507,6 +858,7 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 45
   name: GovUA Ukraine Scraper
   scraper_id: scrape_govua
   source_type: requests-scraper
@@ -516,24 +868,27 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 0
   name: CAA Spain Scraper
   scraper_id: scrape_caa
-  source_type: requests-scraper
+  source_type: selenium-scraper
   url: https://www.agro-alimentarias.coop/documents?cat_sel=33
 - category: official_publication
   country: Europe
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 100
   name: COCERAL Europe Scraper
   scraper_id: scrape_coceral
   source_type: requests-scraper
-  url: https://www.coceral.com/web/coceral%20crop%20forecast%7C%20june%202025/1011306087/list1187970814/f1.html
+  url: https://www.coceral.com/web/coceral/1011306087/list1187970814/f1.html
 - category: official_publication
   country: Canada
   enabled: false
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 0
   name: StatCan Canada Scraper
   scraper_id: scrape_statcan
   source_type: requests-scraper
@@ -543,6 +898,7 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 0
   name: Agreste France Scraper
   scraper_id: scrape_agreste
   source_type: requests-scraper
@@ -552,6 +908,7 @@ sources:
   enabled: false
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 0
   name: DEFRA UK Scraper
   scraper_id: scrape_uk
   source_type: requests-scraper
@@ -561,15 +918,17 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 45
   name: JRC MARS Europe Scraper
   scraper_id: scrape_jrc
-  source_type: requests-scraper
+  source_type: selenium-scraper
   url: https://publications.jrc.ec.europa.eu/repository/search?sort=date-desc&filter=SCIENCE_AREA%3AS001%7CGROUP%3AG001&query=JRC+Mars+Bulletin
 - category: official_publication
   country: Germany
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 45
   name: Destatis Germany Scraper
   scraper_id: scrape_destatis
   source_type: requests-scraper
@@ -579,6 +938,7 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 45
   name: KSH Hungary Scraper
   scraper_id: scrape_ksh
   source_type: requests-scraper
@@ -588,6 +948,7 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 60
   name: MAPA Avances Scraper
   scraper_id: scrape_mapa
   source_type: requests-scraper
@@ -597,6 +958,7 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 90
   name: ISTAT Italy Scraper
   scraper_id: scrape_istat
   source_type: requests-scraper
@@ -605,7 +967,8 @@ sources:
   country: Brazil
   enabled: true
   keywords_filter: []
-  lookback_hours: 0
+  lookback_hours: 720
+  max_silent_days: 400
   name: IBGE PAM Brazil
   scraper_id: scrape_ibge_pam
   source_type: requests-scraper
@@ -615,6 +978,7 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 14
   name: INSSE Romania
   scraper_id: ''
   source_type: rss
@@ -624,6 +988,7 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 14
   name: KSH Hungary
   scraper_id: ''
   source_type: rss
@@ -633,6 +998,7 @@ sources:
   enabled: false
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 0
   name: TUIK Turkey
   scraper_id: scrape_tuik
   source_type: requests-scraper
@@ -642,15 +1008,17 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 14
   name: Destatis Germany
   scraper_id: ''
   source_type: rss
-  url: http://www.destatis.de/Aktuelles.xml
+  url: https://www.destatis.de/SiteGlobals/Functions/RSSFeed/DE/RSSNewsfeed/Aktuell.xml
 - category: official_publication
   country: Canada
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 14
   name: StatCan Canada
   scraper_id: ''
   source_type: rss
@@ -659,7 +1027,8 @@ sources:
   country: Italy
   enabled: true
   keywords_filter: []
-  lookback_hours: 0
+  lookback_hours: 720
+  max_silent_days: 90
   name: ISTAT Italy
   scraper_id: ''
   source_type: rss
@@ -669,15 +1038,17 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 14
   name: MAPA Spain
   scraper_id: ''
   source_type: rss
-  url: https://www.mapa.gob.es/es/agricultura/noticiasRss.aspx
+  url: https://www.mapa.gob.es/es/agricultura/noticiasrss
 - category: media
   country: Global
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 0
   name: Inside Climate News
   scraper_id: ''
   source_type: rss
@@ -687,6 +1058,7 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 14
   name: SeedWorld Europe
   scraper_id: ''
   source_type: rss
@@ -696,6 +1068,7 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 0
   name: Grain Central — News
   scraper_id: ''
   source_type: rss
@@ -705,6 +1078,7 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 0
   name: Grain Central — Markets
   scraper_id: ''
   source_type: rss
@@ -714,6 +1088,7 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 0
   name: Romania Insider
   scraper_id: ''
   source_type: rss
@@ -723,15 +1098,17 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 14
   name: FAO Newsroom
   scraper_id: ''
   source_type: rss
   url: https://www.fao.org/feeds/fao-newsroom-rss
-- category: media
+- category: official_publication
   country: USA
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 14
   name: USDA NASS — Reports
   scraper_id: ''
   source_type: rss
@@ -741,15 +1118,17 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
-  name: Precision Ag
+  max_silent_days: 0
+  name: Global Ag Tech Initiative (ex-Precision Ag)
   scraper_id: ''
   source_type: rss
-  url: http://www.precisionag.com/feed/
+  url: https://www.globalagtechinitiative.com/feed/
 - category: media
   country: Global
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 0
   name: AgFunder News
   scraper_id: ''
   source_type: rss
@@ -759,6 +1138,7 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 0
   name: Min. Agriculture FR
   scraper_id: ''
   source_type: rss
@@ -768,6 +1148,7 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 0
   name: Terre-net
   scraper_id: ''
   source_type: rss
@@ -777,6 +1158,7 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 45
   name: TechCrunch AgTech
   scraper_id: ''
   source_type: rss
@@ -786,6 +1168,7 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 0
   name: Farms.com
   scraper_id: ''
   source_type: rss
@@ -795,6 +1178,7 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 0
   name: Western Producer
   scraper_id: ''
   source_type: rss
@@ -804,6 +1188,7 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 30
   name: Grain Central — Trade
   scraper_id: ''
   source_type: rss
@@ -813,6 +1198,7 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 0
   name: Agribusiness Global
   scraper_id: ''
   source_type: rss
@@ -822,6 +1208,7 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 0
   name: World-Grain
   scraper_id: ''
   source_type: rss
@@ -831,6 +1218,7 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 0
   name: Barchart Commodities
   scraper_id: ''
   source_type: rss
@@ -840,6 +1228,7 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 0
   name: JRC Agriculture News
   scraper_id: ''
   source_type: rss
@@ -849,6 +1238,7 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 0
   name: La France Agricole
   scraper_id: ''
   source_type: rss
@@ -858,15 +1248,17 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 0
   name: Future Farming
   scraper_id: ''
   source_type: rss
   url: https://www.futurefarming.com/feed/
 - category: media
   country: Spain
-  enabled: true
+  enabled: false
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 0
   name: Agroes (Spain)
   scraper_id: ''
   source_type: rss
@@ -876,6 +1268,7 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 0
   name: Farms.com
   scraper_id: ''
   source_type: rss
@@ -885,6 +1278,7 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 14
   name: Investopedia Agriculture
   scraper_id: ''
   source_type: rss
@@ -894,15 +1288,17 @@ sources:
   enabled: true
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 14
   name: AgWired
   scraper_id: ''
   source_type: rss
   url: http://agwired.com/feed/
 - category: media
   country: USA
-  enabled: true
+  enabled: false
   keywords_filter: []
   lookback_hours: 0
+  max_silent_days: 0
   name: USDA NASS — News
   scraper_id: ''
   source_type: rss
