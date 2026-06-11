@@ -165,6 +165,28 @@ def _save_last_psd_month(month: int, year: int):
 
 # ── Data download & parsing ───────────────────────────────────────
 
+# Cache trimming: the full PSD CSVs are 40-65 MB (history to 1960, all
+# attributes, all commodities). The newsletter needs only the configured
+# commodities and recent years. Trimming the cached copy to ~1-2 MB makes
+# it small enough to commit to the repo, which is what gives the
+# stale-cache fallback something to fall back on in CI.
+_CACHE_KEEP_CODES = {c["code"] for c in COMMODITIES.values()}
+
+
+def _trim_for_cache(df: pd.DataFrame) -> pd.DataFrame:
+    try:
+        out = df
+        if "Market_Year" in out.columns:
+            out = out[out["Market_Year"] >= datetime.now(timezone.utc).year - 4]
+        if "Commodity_Code" in out.columns:
+            trimmed = out[out["Commodity_Code"].isin(_CACHE_KEEP_CODES)]
+            if len(trimmed) > 0:  # eu_disagg codes may differ; never trim to zero
+                out = trimmed
+        return out
+    except Exception:
+        return df
+
+
 def _download_dataset(dataset: str) -> pd.DataFrame:
     url = PSD_URLS[dataset]
     cache_path = _cache_path(dataset)
@@ -196,8 +218,9 @@ def _download_dataset(dataset: str) -> pd.DataFrame:
             df = pd.read_csv(f)
 
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
-    df.to_csv(cache_path, index=False)
-    logger.info(f"PSD {dataset}: {len(df)} rows, cached")
+    cached = _trim_for_cache(df)
+    cached.to_csv(cache_path, index=False)
+    logger.info(f"PSD {dataset}: {len(df)} rows ({len(cached)} cached)")
     return df
 
 
