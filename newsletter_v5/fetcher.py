@@ -247,7 +247,11 @@ async def fetch_all_articles(
             metrics.source_counts[source_name] = 0
         elif isinstance(result, list):
             articles.extend(result)
-            metrics.sources_healthy += 1
+            # Healthy = the fetch itself returned entries (raw), not merely
+            # "didn't crash". Before this fix the report showed 72/72 healthy
+            # next to 21 fetch errors.
+            if metrics.source_raw_counts.get(source_name, 0) > 0:
+                metrics.sources_healthy += 1
             metrics.source_counts[source_name] = len(result)
 
     metrics.sources_total += len(rss_sources)
@@ -369,7 +373,8 @@ async def fetch_all_publications(
             metrics.source_counts[source_name] = 0
         elif isinstance(result, list):
             pubs.extend(result)
-            metrics.sources_healthy += 1
+            if metrics.source_raw_counts.get(source_name, 0) > 0:
+                metrics.sources_healthy += 1
             metrics.source_counts[source_name] = len(result)
 
     metrics.sources_total += len(pub_sources)
@@ -424,7 +429,23 @@ async def fetch_company_signals(
             "ag tech", "agtech", "agrochemical", "plant science", "precision ag",
             "digital farming", "agriculture", "agribusiness", "farm", "farming",
         ])
-        if not (has_crop or has_context or has_ag_input):
+        # Company-name match: a headline naming the company is signal-worthy
+        # even without an ag keyword in the title (earnings, M&A, leadership
+        # changes). Claude makes the final relevance call downstream.
+        _generic = {
+            "the", "inc", "inc.", "ltd", "ltd.", "group", "company",
+            "corporation", "international", "industries", "chemical",
+            "chemicals", "agro",
+        }
+        _tokens = [
+            t for t in company.name.lower().replace(",", " ").split()
+            if len(t) >= 3 and t not in _generic
+        ]
+        has_company = (
+            company.name.lower() in signal_text
+            or bool(_tokens and _tokens[0] in signal_text)
+        )
+        if not (has_company or has_crop or has_context or has_ag_input):
             continue
 
         metrics.signals_fetched += 1

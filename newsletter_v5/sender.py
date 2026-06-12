@@ -119,7 +119,11 @@ def send_admin_report(
         # Promote subject line to a warning if any source has been silent ≥3 runs
         warn_prefix = ""
         if getattr(metrics, "silent_sources", None):
-            warn_prefix = f"⚠️ {len(metrics.silent_sources)} silent source(s) — "
+            dead = [s for s in metrics.silent_sources if s.get("status") == "DEAD"]
+            if dead:
+                warn_prefix = f"🔴 {len(dead)} DEAD source(s) — "
+            else:
+                warn_prefix = f"⚠️ {len(metrics.silent_sources)} quiet source(s) — "
         subject = (
             f"{warn_prefix}✅ Agri-Digest ran OK — "
             f"{metrics.articles_accepted} articles, {metrics.publications_accepted} pubs"
@@ -213,11 +217,15 @@ def _build_success_report_html(metrics: RunMetrics) -> str:
 
 def _build_silent_sources_block(metrics: RunMetrics) -> str:
     """Highlight sources that have returned 0 entries for ≥3 consecutive runs."""
+    _status_colors = {"DEAD": "#c0392b", "QUIET": "#e67e22", "SILENT": "#888888"}
     rows = "".join(
         f"<tr>"
         f"<td style='padding: 6px; border-bottom: 1px solid #eee;'>{s['name']}</td>"
-        f"<td style='padding: 6px; text-align: right; border-bottom: 1px solid #eee; "
-        f"color: #c0392b; font-weight: bold;'>{s['streak']} runs</td>"
+        f"<td style='padding: 6px; border-bottom: 1px solid #eee; font-weight: bold; "
+        f"color: {_status_colors.get(s.get('status') or 'SILENT', '#888888')};'>"
+        f"{s.get('status') or 'SILENT'}</td>"
+        f"<td style='padding: 6px; text-align: right; border-bottom: 1px solid #eee;'>"
+        f"{s['streak']} runs (limit {s.get('threshold', '?')})</td>"
         f"<td style='padding: 6px; border-bottom: 1px solid #eee; color: #666; "
         f"font-size: 12px;'>last entry: {s.get('last_seen') or 'never'}</td>"
         f"</tr>"
@@ -225,16 +233,19 @@ def _build_silent_sources_block(metrics: RunMetrics) -> str:
     )
     return f"""
     <div style="background: #fff8e6; border: 1px solid #f0ad4e; border-radius: 8px; padding: 16px; margin: 16px 0;">
-        <h3 style="margin-top: 0; color: #c0392b;">⚠️ Silent sources (zero entries for ≥3 runs)</h3>
+        <h3 style="margin-top: 0; color: #c0392b;">⚠️ Sources past their silence threshold</h3>
         <p style="color: #666; font-size: 13px; margin: 0 0 8px 0;">
-            These sources have returned no entries for several consecutive runs.
-            Likely causes: 403 from origin, broken selectors, paywall, or the
-            site has genuinely had no agriculture news. Investigate before
-            assuming the latter.
+            <b style="color: #c0392b;">DEAD</b> = the fetch itself returns nothing
+            (broken URL, bot block, dead feed) — act on these.
+            <b style="color: #e67e22;">QUIET</b> = the feed is fetched fine but no
+            item passed the filters for longer than its expected cadence — check
+            keywords or accept. <b style="color: #888;">SILENT</b> = scraper with
+            no raw-count tracking — judge case by case.
         </p>
         <table style="width: 100%; border-collapse: collapse;">
             <tr style="background: #f5f5f5;">
                 <th style="padding: 6px; text-align: left;">Source</th>
+                <th style="padding: 6px; text-align: left;">Status</th>
                 <th style="padding: 6px; text-align: right;">Streak</th>
                 <th style="padding: 6px; text-align: left;">Last successful entry</th>
             </tr>
