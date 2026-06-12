@@ -505,7 +505,7 @@ sources:
   url: https://www.grainsa.co.za/pages/industry-reports/production-reports
 - category: official_publication
   country: USA
-  enabled: false
+  enabled: true
   keywords_filter: []
   lookback_hours: 168
   max_silent_days: 45
