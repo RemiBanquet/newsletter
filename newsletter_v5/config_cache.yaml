@@ -495,7 +495,7 @@ recipients:
 sources:
 - category: official_publication
   country: South Africa
-  enabled: false
+  enabled: true
   keywords_filter: []
   lookback_hours: 840
   max_silent_days: 45
@@ -515,7 +515,7 @@ sources:
   url: https://esmis.nal.usda.gov/publication/world-agricultural-supply-and-demand-estimates
 - category: official_publication
   country: Argentina
-  enabled: false
+  enabled: true
   keywords_filter: []
   lookback_hours: 960
   max_silent_days: 45
@@ -525,7 +525,7 @@ sources:
   url: https://www.bcr.com.ar/es/mercados/gea/estimaciones-nacionales-de-produccion/estimaciones
 - category: official_publication
   country: Brazil
-  enabled: false
+  enabled: true
   keywords_filter: []
   lookback_hours: 168
   max_silent_days: 45
