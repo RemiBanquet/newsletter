@@ -1,0 +1,38 @@
+name: Diagnose blocked feeds
+
+# Manual-only. Runs diagnose_feed.py on the GitHub Actions runner (the IP that
+# gets blocked) and prints the result to the log. Does NOT touch Notion, the
+# LLM, or email — no newsletter is sent. Safe to run anytime.
+#
+# Upload to: .github/workflows/diagnose_feeds.yml
+# Then: Actions tab → "Diagnose blocked feeds" → Run workflow.
+# Optional "urls" input lets you probe ad-hoc feeds instead of the default two.
+
+on:
+  workflow_dispatch:
+    inputs:
+      urls:
+        description: "Space-separated feed URLs to probe (blank = the 2 silent feeds)"
+        required: false
+        default: ""
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install minimal deps
+        run: pip install curl_cffi feedparser
+
+      - name: Run feed diagnostic
+        run: |
+          cd newsletter_v5
+          python diagnose_feed.py ${{ github.event.inputs.urls }}
