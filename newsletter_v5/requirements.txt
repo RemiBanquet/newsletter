@@ -11,6 +11,10 @@ feedparser>=6.0.0
 aiohttp>=3.9.0
 # Required for aiohttp to decode brotli-compressed responses (gov sites use it)
 Brotli>=1.1.0
+# Chrome TLS-fingerprint impersonation — fallback for Cloudflare-fronted feeds
+# (Grain Central, Grainews, Future Farming) that 403 the runner IP. See
+# _impersonate_fetch in fetcher.py.
+curl_cffi>=0.7.0
 
 # HTML parsing (for scrapers)
 beautifulsoup4>=4.12.0

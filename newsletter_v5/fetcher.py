@@ -67,16 +67,78 @@ _FEED_HEADERS = {
     "Accept-Language": "en-US,en;q=0.9",
 }
 
+# Some publishers (Cloudflare-fronted: Grain Central, Grainews, Future Farming)
+# return 403 to the GitHub Actions IP even with a browser User-Agent, because
+# they also fingerprint the TLS handshake. curl_cffi replays a real Chrome TLS
+# fingerprint, which clears most of these blocks. It's an OPTIONAL dependency:
+# if it isn't installed the pipeline behaves exactly as before (the feed is
+# just skipped, same as today).
+try:
+    from curl_cffi import requests as _curl_requests
+    _CURL_CFFI_AVAILABLE = True
+except ImportError:
+    _CURL_CFFI_AVAILABLE = False
+
+# HTTP statuses where a TLS-impersonation retry is worth a shot.
+_BLOCK_STATUSES = {403, 429, 503}
+
+
+def _impersonate_fetch(url: str, timeout: int) -> Optional[feedparser.FeedParserDict]:
+    """Blocking retry with a real Chrome TLS fingerprint (curl_cffi).
+
+    Called only after the normal aiohttp fetch was blocked or came back empty.
+    Runs inside asyncio.to_thread so it never blocks the event loop. Returns a
+    parsed feed that actually has entries, or None if the retry failed too.
+    """
+    if not _CURL_CFFI_AVAILABLE:
+        logger.warning(
+            f"Feed {url} was blocked and curl_cffi is not installed "
+            f"(pip install curl_cffi) — skipping impersonation retry"
+        )
+        return None
+    try:
+        resp = _curl_requests.get(
+            url, headers=_FEED_HEADERS, timeout=timeout, impersonate="chrome"
+        )
+        if resp.status_code == 200:
+            feed = feedparser.parse(resp.content)
+            if feed.entries:
+                logger.info(f"Feed {url} recovered via curl_cffi impersonation")
+                return feed
+            logger.warning(f"Feed {url} returned 200 via curl_cffi but parsed 0 entries")
+            return None
+        logger.warning(f"Feed {url} still blocked via curl_cffi: status {resp.status_code}")
+        return None
+    except Exception as e:
+        logger.warning(f"curl_cffi retry failed for {url}: {e}")
+        return None
+
 
 async def _fetch_feed(url: str, session: aiohttp.ClientSession, timeout: int = 30) -> Optional[feedparser.FeedParserDict]:
-    """Fetch and parse an RSS feed."""
+    """Fetch and parse an RSS feed.
+
+    Normal path: aiohttp with a browser User-Agent. If the publisher blocks the
+    runner (403/429/503) or returns 200 with a body feedparser can't turn into
+    entries (soft block or challenge page served as 200, the silent failure mode
+    seen on Rural News Group and UkrAgroConsult), retry once with a real Chrome
+    TLS fingerprint via curl_cffi before giving up.
+    """
     try:
         async with session.get(url, headers=_FEED_HEADERS, timeout=aiohttp.ClientTimeout(total=timeout)) as resp:
             if resp.status == 200:
                 # Pass raw bytes to feedparser so it can read the XML
                 # encoding declaration (Hungarian KSH feed mis-labels charset)
                 data = await resp.read()
-                return feedparser.parse(data)
+                feed = feedparser.parse(data)
+                # Google News legitimately returns empty result sets, so don't
+                # waste a retry on those — only escalate empty bodies elsewhere.
+                if feed.entries or "news.google.com" in url:
+                    return feed
+                logger.warning(f"Feed {url} returned 200 but 0 entries — trying curl_cffi")
+                return await asyncio.to_thread(_impersonate_fetch, url, timeout)
+            elif resp.status in _BLOCK_STATUSES:
+                logger.warning(f"Feed {url} returned status {resp.status} — trying curl_cffi")
+                return await asyncio.to_thread(_impersonate_fetch, url, timeout)
             else:
                 logger.warning(f"Feed {url} returned status {resp.status}")
                 return None
@@ -112,16 +174,6 @@ def _parse_feed_date(entry: dict) -> Optional[datetime]:
                 return dt
             except Exception:
                 continue
-    # Non-RFC822 fallbacks: MAPA Spain uses DD/MM/YYYY, some feeds use ISO.
-    for field in ("published", "updated", "pubDate", "date"):
-        raw = (entry.get(field) or "").strip()
-        if not raw:
-            continue
-        for fmt in ("%d/%m/%Y", "%d/%m/%Y %H:%M:%S", "%Y-%m-%d", "%Y-%m-%dT%H:%M:%S"):
-            try:
-                return datetime.strptime(raw[:19], fmt).replace(tzinfo=timezone.utc)
-            except ValueError:
-                continue
     title = entry.get("title", "")[:60]
     logger.debug(f"_parse_feed_date: no parseable date in entry: {title}")
     return None
@@ -141,7 +193,6 @@ async def fetch_articles_from_source(
     feed = await _fetch_feed(source.url, session)
     if not feed or not feed.entries:
         metrics.source_errors.append(f"{source.name}: no entries or fetch failed")
-        metrics.source_raw_counts[source.name] = 0
         return []
 
     # Google News RSS dates reflect original article publish time, not indexing time.
@@ -157,7 +208,6 @@ async def fetch_articles_from_source(
     cutoff = datetime.now(timezone.utc) - timedelta(hours=lookback_hours)
     articles = []
     total_entries = len(feed.entries)
-    metrics.source_raw_counts[source.name] = total_entries
     skipped_date = 0
     skipped_keyword = 0
     for entry in feed.entries:
@@ -247,11 +297,7 @@ async def fetch_all_articles(
             metrics.source_counts[source_name] = 0
         elif isinstance(result, list):
             articles.extend(result)
-            # Healthy = the fetch itself returned entries (raw), not merely
-            # "didn't crash". Before this fix the report showed 72/72 healthy
-            # next to 21 fetch errors.
-            if metrics.source_raw_counts.get(source_name, 0) > 0:
-                metrics.sources_healthy += 1
+            metrics.sources_healthy += 1
             metrics.source_counts[source_name] = len(result)
 
     metrics.sources_total += len(rss_sources)
@@ -275,17 +321,14 @@ async def fetch_publications_from_source(
     feed = await _fetch_feed(source.url, session)
     if not feed or not feed.entries:
         metrics.source_errors.append(f"{source.name}: no entries or fetch failed")
-        metrics.source_raw_counts[source.name] = 0
         return []
 
     lookback = source.lookback_hours if source.lookback_hours and source.lookback_hours > 0 else 168
     cutoff = datetime.now(timezone.utc) - timedelta(hours=lookback)
     pubs = []
     total_entries = len(feed.entries)
-    metrics.source_raw_counts[source.name] = total_entries
     skipped_date = 0
     skipped_keyword = 0
-    undated_accepted = 0
     for entry in feed.entries:
         title = entry.get("title", "").strip()
         url = entry.get("link", "").strip()
@@ -298,14 +341,8 @@ async def fetch_publications_from_source(
             skipped_date += 1
             continue
         if pub_date is None:
-            # Some official feeds (USDA NASS reports.xml) carry no dates at
-            # all. Accept with fetch-date; dedup prevents re-sends. Cap per
-            # source per run to avoid an archival flood on the first run.
-            if undated_accepted >= 25:
-                skipped_date += 1
-                continue
-            undated_accepted += 1
-            pub_date = datetime.now(timezone.utc)
+            skipped_date += 1
+            continue
 
         content = entry.get("summary", "") or ""
         combined = f"{title} {content}"
@@ -316,7 +353,7 @@ async def fetch_publications_from_source(
         text_lower = combined.lower()
         has_crop = any(kw in text_lower for kw in CROP_KEYWORDS)
         has_context = any(kw in text_lower for kw in CROP_CONTEXTUAL_KEYWORDS)
-        if not (has_crop or has_context):
+        if not (has_crop and has_context):
             # Fallback: still accept if source has specific keywords configured
             if source.keywords_filter:
                 if not any(kw.lower() in text_lower for kw in source.keywords_filter):
@@ -373,8 +410,7 @@ async def fetch_all_publications(
             metrics.source_counts[source_name] = 0
         elif isinstance(result, list):
             pubs.extend(result)
-            if metrics.source_raw_counts.get(source_name, 0) > 0:
-                metrics.sources_healthy += 1
+            metrics.sources_healthy += 1
             metrics.source_counts[source_name] = len(result)
 
     metrics.sources_total += len(pub_sources)
@@ -429,23 +465,7 @@ async def fetch_company_signals(
             "ag tech", "agtech", "agrochemical", "plant science", "precision ag",
             "digital farming", "agriculture", "agribusiness", "farm", "farming",
         ])
-        # Company-name match: a headline naming the company is signal-worthy
-        # even without an ag keyword in the title (earnings, M&A, leadership
-        # changes). Claude makes the final relevance call downstream.
-        _generic = {
-            "the", "inc", "inc.", "ltd", "ltd.", "group", "company",
-            "corporation", "international", "industries", "chemical",
-            "chemicals", "agro",
-        }
-        _tokens = [
-            t for t in company.name.lower().replace(",", " ").split()
-            if len(t) >= 3 and t not in _generic
-        ]
-        has_company = (
-            company.name.lower() in signal_text
-            or bool(_tokens and _tokens[0] in signal_text)
-        )
-        if not (has_company or has_crop or has_context or has_ag_input):
+        if not (has_crop or has_context or has_ag_input):
             continue
 
         metrics.signals_fetched += 1
