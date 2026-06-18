@@ -143,8 +143,15 @@ async def _fetch_feed(url: str, session: aiohttp.ClientSession, timeout: int = 3
                 logger.warning(f"Feed {url} returned status {resp.status}")
                 return None
     except Exception as e:
-        logger.warning(f"Failed to fetch feed {url}: {e}")
-        return None
+        # aiohttp aborts when a single response header exceeds its 8190-byte
+        # limit ("Got more than 8190 bytes when reading", e.g. FAO Newsroom's
+        # oversized CSP header) and on some TLS/SSL quirks. libcurl has no such
+        # small limit, so give curl_cffi a shot before giving up.
+        logger.warning(f"Failed to fetch feed {url}: {e} — trying curl_cffi")
+        try:
+            return await asyncio.to_thread(_impersonate_fetch, url, timeout)
+        except Exception:
+            return None
 
 
 def _parse_feed_date(entry: dict) -> Optional[datetime]:
@@ -153,8 +160,8 @@ def _parse_feed_date(entry: dict) -> Optional[datetime]:
     feedparser usually fills `published_parsed`/`updated_parsed` automatically.
     When it can't (non-standard date formats from MAPA/Agroes/Destatis), fall
     back to the raw `published`/`updated`/`pubDate` string fields and try
-    RFC 2822 parsing. Logs at debug when nothing parses, so the next admin
-    report exposes silent date-filtering.
+    RFC 2822 then a few explicit formats. Logs at debug when nothing parses, so
+    the next admin report exposes silent date-filtering.
     """
     published = entry.get("published_parsed") or entry.get("updated_parsed")
     if published:
@@ -162,7 +169,7 @@ def _parse_feed_date(entry: dict) -> Optional[datetime]:
             return datetime(*published[:6], tzinfo=timezone.utc)
         except Exception:
             pass
-    # Fallback: try the raw string fields
+    # Fallback: try the raw string fields with RFC 2822 parsing
     from email.utils import parsedate_to_datetime
     for field in ("published", "updated", "pubDate", "date"):
         raw = entry.get(field, "")
@@ -173,6 +180,16 @@ def _parse_feed_date(entry: dict) -> Optional[datetime]:
                     dt = dt.replace(tzinfo=timezone.utc)
                 return dt
             except Exception:
+                continue
+    # Non-RFC822 fallbacks: MAPA Spain uses DD/MM/YYYY, some feeds use ISO.
+    for field in ("published", "updated", "pubDate", "date"):
+        raw = (entry.get(field) or "").strip()
+        if not raw:
+            continue
+        for fmt in ("%d/%m/%Y", "%d/%m/%Y %H:%M:%S", "%Y-%m-%d", "%Y-%m-%dT%H:%M:%S"):
+            try:
+                return datetime.strptime(raw[:19], fmt).replace(tzinfo=timezone.utc)
+            except ValueError:
                 continue
     title = entry.get("title", "")[:60]
     logger.debug(f"_parse_feed_date: no parseable date in entry: {title}")
@@ -193,6 +210,9 @@ async def fetch_articles_from_source(
     feed = await _fetch_feed(source.url, session)
     if not feed or not feed.entries:
         metrics.source_errors.append(f"{source.name}: no entries or fetch failed")
+        # Zero raw entries = the fetch itself failed. Record it so the health
+        # tracker's fetch_streak climbs and the source flags DEAD, not QUIET.
+        metrics.source_raw_counts[source.name] = 0
         return []
 
     # Google News RSS dates reflect original article publish time, not indexing time.
@@ -208,6 +228,7 @@ async def fetch_articles_from_source(
     cutoff = datetime.now(timezone.utc) - timedelta(hours=lookback_hours)
     articles = []
     total_entries = len(feed.entries)
+    metrics.source_raw_counts[source.name] = total_entries
     skipped_date = 0
     skipped_keyword = 0
     for entry in feed.entries:
@@ -295,6 +316,8 @@ async def fetch_all_articles(
             logger.error(f"Error fetching {source_name}: {result}")
             metrics.source_errors.append(f"{source_name}: {result}")
             metrics.source_counts[source_name] = 0
+            # An exception means the fetch never completed — treat as a dead fetch.
+            metrics.source_raw_counts[source_name] = 0
         elif isinstance(result, list):
             articles.extend(result)
             metrics.sources_healthy += 1
@@ -321,39 +344,51 @@ async def fetch_publications_from_source(
     feed = await _fetch_feed(source.url, session)
     if not feed or not feed.entries:
         metrics.source_errors.append(f"{source.name}: no entries or fetch failed")
+        # Zero raw entries = the fetch itself failed. Record it so a dead
+        # publication feed (FAO, INSSE) flags DEAD instead of hiding as QUIET.
+        metrics.source_raw_counts[source.name] = 0
         return []
 
     lookback = source.lookback_hours if source.lookback_hours and source.lookback_hours > 0 else 168
     cutoff = datetime.now(timezone.utc) - timedelta(hours=lookback)
     pubs = []
     total_entries = len(feed.entries)
+    metrics.source_raw_counts[source.name] = total_entries
     skipped_date = 0
     skipped_keyword = 0
+    undated_accepted = 0
     for entry in feed.entries:
         title = entry.get("title", "").strip()
         url = entry.get("link", "").strip()
         if not title or not url:
             continue
 
-        # Date filter: skip publications older than ARTICLE_LOOKBACK_HOURS
+        # Date filter: skip publications older than the lookback window
         pub_date = _parse_feed_date(entry)
         if pub_date and pub_date < cutoff:
             skipped_date += 1
             continue
         if pub_date is None:
-            skipped_date += 1
-            continue
+            # Some official feeds (USDA NASS reports.xml) carry no dates at all.
+            # Accept with fetch-date; dedup prevents re-sends. Cap per source per
+            # run to avoid an archival flood on the first run.
+            if undated_accepted >= 25:
+                skipped_date += 1
+                continue
+            undated_accepted += 1
+            pub_date = datetime.now(timezone.utc)
 
         content = entry.get("summary", "") or ""
         combined = f"{title} {content}"
 
-        # Keyword pre-filter: for publication sources (statistical offices),
-        # require BOTH a crop keyword AND a contextual keyword to avoid
-        # non-agricultural statistics (housing prices, CPI, etc.)
+        # Keyword pre-filter: stat-office titles are short ("Getreideernte 2026")
+        # and rarely carry both a crop AND a context word; their non-ag releases
+        # (CPI, housing) carry neither. OR loses almost no precision here and
+        # Claude makes the final relevance call anyway.
         text_lower = combined.lower()
         has_crop = any(kw in text_lower for kw in CROP_KEYWORDS)
         has_context = any(kw in text_lower for kw in CROP_CONTEXTUAL_KEYWORDS)
-        if not (has_crop and has_context):
+        if not (has_crop or has_context):
             # Fallback: still accept if source has specific keywords configured
             if source.keywords_filter:
                 if not any(kw.lower() in text_lower for kw in source.keywords_filter):
@@ -408,6 +443,8 @@ async def fetch_all_publications(
             logger.error(f"Error fetching {source_name}: {result}")
             metrics.source_errors.append(f"{source_name}: {result}")
             metrics.source_counts[source_name] = 0
+            # An exception means the fetch never completed — treat as a dead fetch.
+            metrics.source_raw_counts[source_name] = 0
         elif isinstance(result, list):
             pubs.extend(result)
             metrics.sources_healthy += 1
