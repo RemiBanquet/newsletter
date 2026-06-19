@@ -223,9 +223,32 @@ async def run_pipeline(args: argparse.Namespace) -> None:
         client_signals = [s for s in relevant_signals if s.company_type == CompanyType.CLIENT]
         prospect_signals = [s for s in relevant_signals if s.company_type == CompanyType.PROSPECT]
 
+        # ── Step 6b: Generate market brief (fail-open) ──
+        # Sits on top of the digest. If generation or verification fails, the
+        # digest ships without it rather than with a wrong claim.
+        today = datetime.now(timezone.utc).strftime("%A, %d %B %Y")
+        market_brief = None
+        try:
+            logger.info("Generating market brief...")
+            from market_brief import MarketBriefGenerator
+            brief_gen = MarketBriefGenerator(api_key=api_key, metrics=metrics)
+            market_brief = await brief_gen.generate(
+                date=today,
+                articles=relevant_articles,
+                client_signals=client_signals,
+                prospect_signals=prospect_signals,
+                publications=publications,
+            )
+            if market_brief:
+                logger.info(f"Market brief ready: {len(market_brief.sections)} sections")
+            else:
+                logger.warning("Market brief unavailable — sending digest without it")
+        except Exception as e:
+            logger.warning(f"Market brief generation failed, sending without it: {e}")
+            market_brief = None
+
         # ── Step 7: Render newsletter HTML ──
         logger.info("Rendering newsletter...")
-        today = datetime.now(timezone.utc).strftime("%A, %d %B %Y")
         html = render_newsletter(
             date=today,
             articles=relevant_articles,
@@ -233,6 +256,7 @@ async def run_pipeline(args: argparse.Namespace) -> None:
             client_signals=client_signals,
             prospect_signals=prospect_signals,
             psd_data=psd_data,
+            market_brief=market_brief,
         )
 
         # Save HTML to file if requested

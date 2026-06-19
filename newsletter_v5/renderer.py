@@ -9,7 +9,7 @@ from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader
 
-from models import Article, CompanySignal, CompanyType, Publication
+from models import Article, CompanySignal, CompanyType, Publication, MarketBrief
 from constants import CATEGORY_EMOJI, SIGNAL_TYPE_EMOJI, SENDER_EMAIL
 
 logger = logging.getLogger(__name__)
@@ -79,6 +79,7 @@ def render_newsletter(
     client_signals: list[CompanySignal],
     prospect_signals: list[CompanySignal],
     psd_data: dict = None,
+    market_brief: MarketBrief = None,
 ) -> str:
     """Render the full newsletter HTML."""
     env = Environment(
@@ -109,6 +110,7 @@ def render_newsletter(
         signal_type_emoji=SIGNAL_TYPE_EMOJI,
         sender_email=SENDER_EMAIL,
         psd_data=psd_ns,
+        market_brief=market_brief,
     )
 
     logger.info(

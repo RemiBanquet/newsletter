@@ -185,7 +185,7 @@ class Article:
     source_name: str
     published_at: Optional[datetime] = None
     original_language: str = "en"
-    summary: str = ""                # 3-bullet English summary
+    summary: str = ""                # 1-sentence summary (2 sentences for markets)
     category: ArticleCategory = ArticleCategory.OTHER
     tags: list[str] = field(default_factory=list)
     location: GeoLocation = field(default_factory=GeoLocation)
@@ -218,11 +218,31 @@ class CompanySignal:
     company_name: str
     company_type: CompanyType
     signal_type: SignalType = SignalType.OTHER
-    summary: str = ""                # 2-bullet summary
+    summary: str = ""                # 1-sentence summary
     source_name: str = ""
     published_at: Optional[datetime] = None
     original_language: str = "en"
     location: GeoLocation = field(default_factory=GeoLocation)
+
+
+# ── Market brief ───────────────────────────────────────────────────
+
+@dataclass
+class BriefSection:
+    """One labelled block of the market brief (e.g. 'Markets')."""
+    label: str
+    text: str
+
+
+@dataclass
+class MarketBrief:
+    """The day-in-90-seconds summary that sits on top of the digest."""
+    takeaway: str = ""                       # 2-sentence top-line
+    sections: list[BriefSection] = field(default_factory=list)
+
+    @property
+    def has_content(self) -> bool:
+        return bool(self.takeaway and self.sections)
 
 
 # ── Run metrics ────────────────────────────────────────────────────

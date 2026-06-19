@@ -50,7 +50,7 @@ RULES — RELEVANCE:
 
 RULES — OUTPUT:
 - The summary MUST be in English regardless of the article's original language.
-- The summary should be exactly 3 bullet points, each 1 sentence. Lead with the most important fact or data point.
+- The summary is plain prose, not bullets: 1 sentence carrying the key insight. For markets-category articles only, you may use up to 2 sentences. Lead with the most important fact or data point. Do not start lines with "• ".
 - For location: extract the most specific place mentioned (city > region > country). If multiple locations, pick the primary one the article is about.
 - For country_iso: use ISO 3166-1 alpha-2 (FR, DE, US, BR, etc.).
 
@@ -124,11 +124,11 @@ Other field crops: potato, coffee, alfalfa, forage, pasture/meadows
 
 SUMMARY WRITING GUIDELINES:
 - Always lead with the most important quantitative fact or decision
-- Each bullet should be a complete, standalone sentence
+- Write one complete, standalone sentence (two only for markets-category articles). No bullet markers, no leading "• ".
 - Include specific numbers, dates, percentages, or named entities when available
 - Avoid vague language: instead of "production is expected to change", say "production forecast revised down 3% to 145M tonnes"
-- If the article is in a non-English language, translate the key facts accurately — do not transliterate or leave untranslated terms
-- Three bullets maximum, prioritized by newsworthiness to the audience described above"""
+- If the article is in a non-English language, translate the key facts accurately, do not transliterate or leave untranslated terms
+- Keep it tight: one sentence for most articles, at most two for markets, prioritized by newsworthiness to the audience described above"""
 
 SIGNAL_SYSTEM_PROMPT = """You are a market intelligence analyst for Hyperplan, an agri-tech company.
 Your job: classify news about a specific company and determine if it's a relevant market signal for the agricultural inputs industry.
@@ -138,7 +138,7 @@ IMPORTANT: You are classifying from HEADLINES ONLY (no article body). Base your 
 RULES — RELEVANCE:
 - Set relevant=true ONLY if the headline clearly indicates the article is about the company's agricultural business: crop protection, seeds, fertilizers, digital farming, ag biotech, or ag-related M&A/partnerships.
 - Set relevant=false for: unrelated divisions (pharma, materials science, consumer products), general stock price movements without ag context, employee stories without strategic relevance, generic corporate news without clear ag connection.
-- The summary MUST be in English, exactly 2 bullet points, each 1 sentence. Base these on what the headline tells you — do not fabricate details not present in the headline.
+- The summary MUST be in English, 1 sentence, plain prose with no bullet markers. Base it on what the headline tells you, do not fabricate details not present in the headline.
 
 SIGNAL TYPE DEFINITIONS WITH EXAMPLES:
 
@@ -214,7 +214,7 @@ CLASSIFY_ARTICLE_TOOL = {
             },
             "summary": {
                 "type": "string",
-                "description": "3-bullet English summary. Each bullet on its own line starting with '• '.",
+                "description": "English summary in plain prose (no bullets): 1 sentence carrying the key insight, or up to 2 sentences for markets-category articles.",
             },
             "place_name": {
                 "type": "string",
@@ -262,7 +262,7 @@ CLASSIFY_ARTICLE_BATCH_TOOL = {
                         },
                         "summary": {
                             "type": "string",
-                            "description": "3-bullet English summary. Each bullet on its own line starting with '• '.",
+                            "description": "English summary in plain prose (no bullets): 1 sentence carrying the key insight, or up to 2 sentences for markets-category articles.",
                         },
                         "place_name": {
                             "type": "string",
@@ -346,7 +346,7 @@ CLASSIFY_SIGNAL_TOOL = {
             },
             "summary": {
                 "type": "string",
-                "description": "2-bullet English summary. Each bullet on its own line starting with '• '.",
+                "description": "English summary in plain prose (no bullets): 1 sentence carrying the key insight.",
             },
             "place_name": {
                 "type": "string",
