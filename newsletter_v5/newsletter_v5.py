@@ -239,13 +239,15 @@ async def run_pipeline(args: argparse.Namespace) -> None:
                 prospect_signals=prospect_signals,
                 publications=publications,
             )
+            metrics.brief_status = brief_gen.last_status
             if market_brief:
                 logger.info(f"Market brief ready: {len(market_brief.sections)} sections")
             else:
-                logger.warning("Market brief unavailable — sending digest without it")
+                logger.warning(f"Market brief unavailable — {brief_gen.last_status}")
         except Exception as e:
             logger.warning(f"Market brief generation failed, sending without it: {e}")
             market_brief = None
+            metrics.brief_status = f"omitted (error: {type(e).__name__})"
 
         # ── Step 7: Render newsletter HTML ──
         logger.info("Rendering newsletter...")

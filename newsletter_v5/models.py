@@ -291,6 +291,8 @@ class RunMetrics:
     # Delivery
     emails_sent: int = 0
     emails_failed: int = 0
+    # Market brief outcome (for the admin report)
+    brief_status: str = ""
     # Timing
     start_time: Optional[datetime] = None
     end_time: Optional[datetime] = None

@@ -163,6 +163,7 @@ def _print_admin_report(metrics: RunMetrics, success: bool, error_message: str =
     print(f"Claude tokens: {metrics.input_tokens:,} in / {metrics.output_tokens:,} out / {metrics.cache_read_tokens:,} cached")
     print(f"Est. cost:     ${metrics.estimated_cost_usd:.3f}")
     print(f"Emails sent:   {metrics.emails_sent}/{metrics.emails_sent + metrics.emails_failed}")
+    print(f"Market brief:  {metrics.brief_status or 'n/a'}")
     print(f"Runtime:       {metrics.runtime_display}")
     print("=" * 60 + "\n")
 
@@ -204,6 +205,8 @@ def _build_success_report_html(metrics: RunMetrics) -> str:
                 <td style="padding: 6px; text-align: right; border-bottom: 1px solid #eee; font-weight: bold;">${metrics.estimated_cost_usd:.3f}</td></tr>
             <tr><td style="padding: 6px; border-bottom: 1px solid #eee;">Emails sent</td>
                 <td style="padding: 6px; text-align: right; border-bottom: 1px solid #eee;">{metrics.emails_sent}/{metrics.emails_sent + metrics.emails_failed}</td></tr>
+            <tr><td style="padding: 6px; border-bottom: 1px solid #eee;">Market brief</td>
+                <td style="padding: 6px; text-align: right; border-bottom: 1px solid #eee;">{metrics.brief_status or 'n/a'}</td></tr>
             <tr style="background: #f0f9f0;"><td style="padding: 6px; font-weight: bold;">Runtime</td>
                 <td style="padding: 6px; text-align: right; font-weight: bold;">{metrics.runtime_display}</td></tr>
         </table>

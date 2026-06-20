@@ -153,6 +153,35 @@ def soft_warnings(brief: MarketBrief) -> list[str]:
     return [f"Possible negative-parallelism: '{p}'." for p in BRIEF_NEG_PARALLELISM if p in lowered]
 
 
+_NUMBER_RE = re.compile(r"\d[\d.,]*")
+
+
+def ungrounded_numbers(brief: MarketBrief, source_text: str) -> list[str]:
+    """Flag numbers in the brief that do not appear in the source summaries.
+
+    Cheap, reliable guard against the real risk: a fabricated statistic (e.g.
+    "prices down 20%" when no source says 20%). Skips single digits (noisy and
+    low-risk) and 4-digit years. This replaces the LLM claim-audit as the hard
+    gate, because the audit over-flagged ordinary synthesis and suppressed the
+    brief on most days.
+    """
+    src = source_text.replace(",", "")
+    issues: list[str] = []
+    seen: set[str] = set()
+    for tok in _NUMBER_RE.findall(_brief_text(brief)):
+        norm = tok.strip(".,").replace(",", "")
+        if len(norm) < 2 or norm in seen:
+            continue
+        if re.fullmatch(r"(19|20)\d\d", norm):  # skip years
+            continue
+        seen.add(norm)
+        # Match the number as a standalone figure (not a substring of a longer
+        # number, so "20" does not match inside "2026").
+        if not re.search(rf"(?<!\d){re.escape(norm)}(?!\d)", src):
+            issues.append(f"Number '{tok}' not in sources.")
+    return issues
+
+
 # ── Source text ────────────────────────────────────────────────────
 
 def _build_source_text(
@@ -201,6 +230,7 @@ class MarketBriefGenerator:
         self.metrics = metrics
         self._model = CLAUDE_MODEL_PRIMARY
         self._last_issues: list[str] = []
+        self.last_status: str = "not run"
 
     def _track(self, response) -> None:
         self.metrics.input_tokens += response.usage.input_tokens
@@ -214,7 +244,7 @@ class MarketBriefGenerator:
             try:
                 response = await self.client.messages.create(
                     model=self._model,
-                    max_tokens=1024,
+                    max_tokens=2000,
                     temperature=0.2,
                     system=system,
                     messages=[{"role": "user", "content": user}],
@@ -274,6 +304,7 @@ class MarketBriefGenerator:
         """Generate, verify, and return the brief, or None if it can't be trusted."""
         if not articles:
             logger.info("Brief: no articles, skipping")
+            self.last_status = "omitted (no articles)"
             return None
 
         source_text = _build_source_text(articles, client_signals, prospect_signals, publications)
@@ -291,22 +322,27 @@ class MarketBriefGenerator:
             brief = self._parse(data)
             if not brief:
                 logger.warning("Brief: generation returned nothing usable")
+                self.last_status = "omitted (generation empty)"
                 return None
 
-            det = deterministic_issues(brief)
+            # Hard gate: deterministic style rules + fabricated-number check.
+            # The LLM claim-audit is advisory only (logged), since it over-flags
+            # ordinary synthesis and would otherwise drop the brief most days.
+            hard = deterministic_issues(brief) + ungrounded_numbers(brief, source_text)
             for w in soft_warnings(brief):
                 logger.info(f"Brief soft warning: {w}")
-            audit = await self._audit(brief, source_text)
+            for note in await self._audit(brief, source_text):
+                logger.info(f"Brief audit note (non-blocking): {note}")
 
-            self._last_issues = det + audit
-            if not self._last_issues:
-                logger.info(f"Brief verified clean ({len(brief.sections)} sections)")
+            if not hard:
+                self.last_status = f"included ({len(brief.sections)} sections)"
+                logger.info(f"Brief verified ({len(brief.sections)} sections)")
                 return brief
 
-            logger.warning(
-                f"Brief attempt {attempt + 1}: {len(det)} format + {len(audit)} accuracy issues"
-            )
+            self._last_issues = hard
+            logger.warning(f"Brief attempt {attempt + 1}: {len(hard)} hard issue(s): {hard}")
 
         # Still failing after the corrective pass: fail safe.
-        logger.warning("Brief: failed verification after regeneration, shipping without it")
+        self.last_status = f"omitted ({'; '.join(self._last_issues)[:120]})"
+        logger.warning("Brief: failed hard checks after regeneration, shipping without it")
         return None

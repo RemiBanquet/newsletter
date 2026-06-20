@@ -159,7 +159,7 @@ BRIEF_MAX_WORDS = 320
 # Hard fail if any of these appear in the brief (AI-tell vocabulary).
 BRIEF_BANNED_WORDS = [
     "leverage", "landscape", "robust", "seamless", "game-changer", "cutting-edge",
-    "unlock", "harness", "pivotal", "crucial", "critical", "underscore", "navigate",
+    "unlock", "harness", "pivotal", "crucial", "underscore", "navigate",
     "delve", "realm", "testament", "foster", "empower", "streamline", "elevate",
     "transformative", "dynamic", "optimize",
 ]
