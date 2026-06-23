@@ -155,31 +155,173 @@ def soft_warnings(brief: MarketBrief) -> list[str]:
 
 _NUMBER_RE = re.compile(r"\d[\d.,]*")
 
+# Sentence splitter for salvage. Keeps the delimiter off; good enough for the
+# short, plain sentences the brief produces.
+_SENTENCE_RE = re.compile(r"(?<=[.!?])\s+")
 
-def ungrounded_numbers(brief: MarketBrief, source_text: str) -> list[str]:
-    """Flag numbers in the brief that do not appear in the source summaries.
+# Style-only banned words mapped to neutral equivalents. A single banned word
+# is a style slip, never an accuracy problem, so we rewrite it in place instead
+# of dropping the brief. Words with no clean synonym are removed.
+BANNED_WORD_REPLACEMENTS = {
+    "leverage": "use",
+    "landscape": "market",
+    "robust": "strong",
+    "seamless": "smooth",
+    "game-changer": "major shift",
+    "cutting-edge": "advanced",
+    "unlock": "open up",
+    "harness": "use",
+    "pivotal": "key",
+    "crucial": "key",
+    "underscore": "show",
+    "navigate": "handle",
+    "delve": "look",
+    "realm": "area",
+    "testament": "sign",
+    "foster": "support",
+    "empower": "enable",
+    "streamline": "simplify",
+    "elevate": "raise",
+    "transformative": "major",
+    "dynamic": "shifting",
+    "optimize": "improve",
+}
 
-    Cheap, reliable guard against the real risk: a fabricated statistic (e.g.
-    "prices down 20%" when no source says 20%). Skips single digits (noisy and
-    low-risk) and 4-digit years. This replaces the LLM claim-audit as the hard
-    gate, because the audit over-flagged ordinary synthesis and suppressed the
-    brief on most days.
+
+def _number_is_grounded(norm: str, src_nospace: str) -> bool:
+    """True if a normalized number figure is supported by the source text.
+
+    Tolerant on purpose: exact standalone match, or the same value with a
+    trailing ".0" dropped, or an integer that the source carries with a decimal
+    tail (brief rounds "2.3" to "2"). Reverse rounding is not accepted, since
+    inventing a decimal that no source states is the risk we guard against.
     """
-    src = source_text.replace(",", "")
-    issues: list[str] = []
+    # Exact standalone figure (not a substring of a longer number).
+    if re.search(rf"(?<!\d){re.escape(norm)}(?!\d)", src_nospace):
+        return True
+    # "5.0" grounded by "5".
+    if norm.endswith(".0"):
+        base = norm[:-2]
+        if re.search(rf"(?<!\d){re.escape(base)}(?!\d)", src_nospace):
+            return True
+    # Integer in the brief grounded by a decimal in the source ("2" from "2.3").
+    if "." not in norm and re.search(rf"(?<!\d){re.escape(norm)}\.\d", src_nospace):
+        return True
+    return False
+
+
+def _structural_number(tok: str, text: str) -> bool:
+    """True for reading-aid numbers that are not statistics.
+
+    Quarters (Q3), halves (H1), top-N lists, group labels (G7, G20), and
+    duration phrases (3-week, 2-day) are structure, not claims, so they should
+    not be checked against the sources.
+    """
+    esc = re.escape(tok)
+    patterns = [
+        rf"[QH]{esc}\b",                              # Q3, H1
+        rf"\btop[\s-]{esc}\b",                        # top 10
+        rf"\bG{esc}\b",                               # G7, G20
+        rf"{esc}[\s-](?:week|day|month|year|quarter)", # 3-week
+    ]
+    return any(re.search(p, text, re.IGNORECASE) for p in patterns)
+
+
+def _ungrounded_tokens(text: str, src_nospace: str) -> list[str]:
+    """Return the original number tokens in `text` not supported by the source."""
+    out: list[str] = []
     seen: set[str] = set()
-    for tok in _NUMBER_RE.findall(_brief_text(brief)):
+    for tok in _NUMBER_RE.findall(text):
         norm = tok.strip(".,").replace(",", "")
         if len(norm) < 2 or norm in seen:
             continue
-        if re.fullmatch(r"(19|20)\d\d", norm):  # skip years
+        if re.fullmatch(r"(19|20)\d\d", norm):       # skip years
             continue
         seen.add(norm)
-        # Match the number as a standalone figure (not a substring of a longer
-        # number, so "20" does not match inside "2026").
-        if not re.search(rf"(?<!\d){re.escape(norm)}(?!\d)", src):
-            issues.append(f"Number '{tok}' not in sources.")
-    return issues
+        if _structural_number(tok, text):
+            continue
+        if not _number_is_grounded(norm, src_nospace):
+            out.append(tok)
+    return out
+
+
+def ungrounded_numbers(brief: MarketBrief, source_text: str) -> list[str]:
+    """Flag numbers in the brief that the source summaries do not support.
+
+    Cheap, reliable guard against the real risk: a fabricated statistic (e.g.
+    "prices down 20%" when no source says 20%). This is the only hard accuracy
+    gate; the LLM claim-audit is advisory because it over-flagged ordinary
+    synthesis and suppressed the brief on most days.
+    """
+    src = source_text.replace(",", "")
+    return [f"Number '{t}' not in sources." for t in _ungrounded_tokens(_brief_text(brief), src)]
+
+
+# ── Deterministic auto-fixes (style only, never a reason to drop) ────
+
+def _autofix_style(brief: MarketBrief) -> MarketBrief:
+    """Repair style-only violations in place so they never drop the brief.
+
+    Handles em/en dashes and banned AI-tell vocabulary (rewritten to neutral
+    equivalents), then trims trailing sections if the brief runs over length.
+    Accuracy is untouched: no numbers, names, or claims are changed.
+    """
+    def fix(text: str) -> str:
+        text = text.replace("—", ", ").replace("–", ", ")
+        for word, repl in BANNED_WORD_REPLACEMENTS.items():
+            def _sub(m: re.Match) -> str:
+                w = m.group(0)
+                return repl.capitalize() if w[0].isupper() else repl
+            text = re.sub(rf"\b{re.escape(word)}\b", _sub, text, flags=re.IGNORECASE)
+        # Any banned word without a mapping: drop it.
+        for word in BRIEF_BANNED_WORDS:
+            if word not in BANNED_WORD_REPLACEMENTS:
+                text = re.sub(rf"\b{re.escape(word)}\b", "", text, flags=re.IGNORECASE)
+        # Clean up spacing left behind by replacements.
+        text = re.sub(r"\s+,", ",", text)
+        text = re.sub(r",\s*,", ",", text)
+        text = re.sub(r"\s{2,}", " ", text).strip()
+        return text
+
+    brief.takeaway = fix(brief.takeaway)
+    for s in brief.sections:
+        s.text = fix(s.text)
+
+    # Length: trim whole sections from the end until under the cap. The
+    # takeaway is always kept.
+    while len(_brief_text(brief).split()) > BRIEF_MAX_WORDS and brief.sections:
+        brief.sections.pop()
+
+    return brief
+
+
+def _strip_ungrounded_sentences(brief: MarketBrief, source_text: str) -> Optional[MarketBrief]:
+    """Remove only the sentences carrying an ungrounded number, keep the rest.
+
+    Last-resort salvage so one bad figure does not kill the whole brief. Returns
+    a brief if anything material survives (a non-empty takeaway and at least one
+    section), otherwise None.
+    """
+    src = source_text.replace(",", "")
+
+    def clean(text: str) -> str:
+        kept = [s for s in _SENTENCE_RE.split(text) if s and not _ungrounded_tokens(s, src)]
+        return " ".join(kept).strip()
+
+    takeaway = clean(brief.takeaway)
+    sections = []
+    for s in brief.sections:
+        t = clean(s.text)
+        if t:
+            sections.append(BriefSection(label=s.label, text=t))
+
+    # If the takeaway lost all its sentences, promote the first surviving
+    # section's text so the brief still opens with a line.
+    if not takeaway and sections:
+        takeaway = sections[0].text
+
+    salvaged = MarketBrief(takeaway=takeaway, sections=sections)
+    return salvaged if salvaged.has_content else None
 
 
 # ── Source text ────────────────────────────────────────────────────
@@ -207,6 +349,18 @@ def _build_source_text(
         for a in items:
             summary = a.summary.replace("\n", " ").strip()
             parts.append(f"- {a.title} | {summary}")
+
+    # Official publications carry the acreage / yield / production figures the
+    # brief is asked to cover under "Acreage and crop shifts". They must be in
+    # the grounding text, otherwise any number the brief quotes from them gets
+    # flagged as ungrounded and the whole brief is dropped on publication-heavy
+    # days. This was the main cause of the brief going missing.
+    if publications:
+        parts.append("\nOFFICIAL PUBLICATIONS:")
+        for p in publications:
+            summary = (p.summary or "").replace("\n", " ").strip()
+            country = f" [{p.country}]" if p.country else ""
+            parts.append(f"- {p.title}{country} | {summary}")
 
     if client_signals:
         parts.append("\nCLIENT SIGNALS:")
@@ -310,12 +464,15 @@ class MarketBriefGenerator:
         source_text = _build_source_text(articles, client_signals, prospect_signals, publications)
         base_user = f"Today is {date}.\n\nWrite the market brief from these sources:\n\n{source_text}"
 
-        for attempt in range(2):  # one generation + one corrective regeneration
+        last_brief: Optional[MarketBrief] = None
+        attempts = 3  # one generation + two corrective regenerations
+        for attempt in range(attempts):
             user = base_user
-            if attempt == 1 and self._last_issues:
+            if attempt > 0 and self._last_issues:
                 user += (
-                    "\n\nYour previous draft had these problems. Fix them: remove or correct "
-                    "each, and do not introduce new claims:\n- " + "\n- ".join(self._last_issues)
+                    "\n\nYour previous draft quoted numbers the sources do not support. "
+                    "Rewrite so every figure comes straight from a source summary, or drop "
+                    "the figure. Do not introduce new claims:\n- " + "\n- ".join(self._last_issues)
                 )
 
             data = await self._call(BRIEF_SYSTEM_PROMPT, user, WRITE_BRIEF_TOOL, "write_brief")
@@ -325,24 +482,39 @@ class MarketBriefGenerator:
                 self.last_status = "omitted (generation empty)"
                 return None
 
-            # Hard gate: deterministic style rules + fabricated-number check.
-            # The LLM claim-audit is advisory only (logged), since it over-flags
-            # ordinary synthesis and would otherwise drop the brief most days.
-            hard = deterministic_issues(brief) + ungrounded_numbers(brief, source_text)
+            # Style is repaired deterministically (em dash, banned words,
+            # length): a style slip is never a reason to drop the brief.
+            brief = _autofix_style(brief)
+            last_brief = brief
+
             for w in soft_warnings(brief):
                 logger.info(f"Brief soft warning: {w}")
             for note in await self._audit(brief, source_text):
                 logger.info(f"Brief audit note (non-blocking): {note}")
 
-            if not hard:
+            # Only accuracy (ungrounded numbers) gates the brief.
+            accuracy = ungrounded_numbers(brief, source_text)
+            if not accuracy:
                 self.last_status = f"included ({len(brief.sections)} sections)"
                 logger.info(f"Brief verified ({len(brief.sections)} sections)")
                 return brief
 
-            self._last_issues = hard
-            logger.warning(f"Brief attempt {attempt + 1}: {len(hard)} hard issue(s): {hard}")
+            self._last_issues = accuracy
+            logger.warning(f"Brief attempt {attempt + 1}: {len(accuracy)} ungrounded number(s): {accuracy}")
 
-        # Still failing after the corrective pass: fail safe.
+        # Regeneration did not clear every figure. Rather than drop the whole
+        # brief, strip only the sentences carrying an ungrounded number and ship
+        # the rest. A trimmed-but-true brief beats no brief on busy days.
+        if last_brief is not None:
+            salvaged = _strip_ungrounded_sentences(last_brief, source_text)
+            if salvaged is not None:
+                salvaged = _autofix_style(salvaged)
+                if not ungrounded_numbers(salvaged, source_text):
+                    self.last_status = f"included (salvaged, {len(salvaged.sections)} sections)"
+                    logger.info("Brief: shipped salvaged version with ungrounded sentences removed")
+                    return salvaged
+
+        # Nothing material survived the salvage: fail safe.
         self.last_status = f"omitted ({'; '.join(self._last_issues)[:120]})"
-        logger.warning("Brief: failed hard checks after regeneration, shipping without it")
+        logger.warning("Brief: no groundable content after salvage, shipping without it")
         return None
