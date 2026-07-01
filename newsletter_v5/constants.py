@@ -202,6 +202,14 @@ DEDUP_SIGNALS_FILE = "sent_signals.json"
 SIGNAL_LOOKBACK_DAYS = 7  # Company signals: 7-day rolling window
 ARTICLE_LOOKBACK_HOURS = 48  # Articles/publications: 48h to catch late entries
 
+# ── LinkedIn signals (via Google News site: query) ────────────────
+# Second signal query per company: '"{name}" site:linkedin.com'.
+# Google News indexes LinkedIn sparsely, so yield may be low — check
+# the "LinkedIn signals" raw count in source health after a week and
+# disable here if it stays at zero.
+SIGNAL_LINKEDIN_ENABLED = True
+SIGNAL_LINKEDIN_MAX_PER_COMPANY = 10  # Cap: these skip the ag-keyword pre-filter
+
 # ── Email sender config ──────────────────────────────────────────
 
 SENDER_EMAIL = "remi.banquet@gmail.com"

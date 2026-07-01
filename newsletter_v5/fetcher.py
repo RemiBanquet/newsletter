@@ -20,6 +20,7 @@ from models import (
 )
 from constants import (
     ARTICLE_LOOKBACK_HOURS, CROP_KEYWORDS, CROP_CONTEXTUAL_KEYWORDS,
+    SIGNAL_LINKEDIN_ENABLED, SIGNAL_LINKEDIN_MAX_PER_COMPANY,
     SIGNAL_LOOKBACK_DAYS,
 )
 
@@ -457,23 +458,36 @@ async def fetch_all_publications(
 
 # ── Company signal fetching ───────────────────────────────────────
 
-async def fetch_company_signals(
+# Ag-input terms specific to tracked companies' core business domains.
+AG_INPUT_KEYWORDS = [
+    "crop protection", "pesticide", "herbicide", "fungicide", "insecticide",
+    "fertilizer", "fertiliser", "seed", "seeds", "biotech", "biostimulant",
+    "ag tech", "agtech", "agrochemical", "plant science", "precision ag",
+    "digital farming", "agriculture", "agribusiness", "farm", "farming",
+]
+
+
+def _parse_signal_entries(
+    feed: feedparser.FeedParserDict,
     company: CompanyConfig,
-    session: aiohttp.ClientSession,
     metrics: RunMetrics,
+    require_ag_keywords: bool = True,
+    max_entries: int = 0,
 ) -> list[CompanySignal]:
-    """Fetch signals for a single company via Google News RSS (7-day lookback)."""
-    query = company.search_keywords or f"{company.name} agriculture"
-    url = _google_news_rss_url(query)
+    """Turn Google News feed entries into CompanySignals for one company.
 
-    feed = await _fetch_feed(url, session)
-    if not feed or not feed.entries:
-        return []
-
+    require_ag_keywords: apply the ag/crop keyword pre-filter (used for
+    press results; skipped for LinkedIn results, where post titles rarely
+    contain ag terms — the Haiku classifier handles relevance instead).
+    max_entries: 0 = no cap.
+    """
     cutoff = datetime.now(timezone.utc) - timedelta(days=SIGNAL_LOOKBACK_DAYS)
     signals = []
 
     for entry in feed.entries:
+        if max_entries and len(signals) >= max_entries:
+            break
+
         title = entry.get("title", "").strip()
         link = entry.get("link", "").strip()
         if not title or not link:
@@ -490,20 +504,16 @@ async def fetch_company_signals(
             title = parts[0].strip()
             source_name = parts[1].strip()
 
-        # Keyword pre-filter: signal must mention ag/crop/input terms.
-        # More lenient than article filter — OR logic (crop OR context keyword),
-        # plus ag-input-specific terms (the company's core business domains).
-        signal_text = title.lower()
-        has_crop = any(kw in signal_text for kw in CROP_KEYWORDS)
-        has_context = any(kw in signal_text for kw in CROP_CONTEXTUAL_KEYWORDS)
-        has_ag_input = any(kw in signal_text for kw in [
-            "crop protection", "pesticide", "herbicide", "fungicide", "insecticide",
-            "fertilizer", "fertiliser", "seed", "seeds", "biotech", "biostimulant",
-            "ag tech", "agtech", "agrochemical", "plant science", "precision ag",
-            "digital farming", "agriculture", "agribusiness", "farm", "farming",
-        ])
-        if not (has_crop or has_context or has_ag_input):
-            continue
+        if require_ag_keywords:
+            # Keyword pre-filter: signal must mention ag/crop/input terms.
+            # More lenient than article filter — OR logic (crop OR context
+            # keyword), plus ag-input-specific terms.
+            signal_text = title.lower()
+            has_crop = any(kw in signal_text for kw in CROP_KEYWORDS)
+            has_context = any(kw in signal_text for kw in CROP_CONTEXTUAL_KEYWORDS)
+            has_ag_input = any(kw in signal_text for kw in AG_INPUT_KEYWORDS)
+            if not (has_crop or has_context or has_ag_input):
+                continue
 
         metrics.signals_fetched += 1
 
@@ -517,6 +527,47 @@ async def fetch_company_signals(
             published_at=pub_date,
             original_language=_detect_language(title),
         ))
+
+    return signals
+
+
+async def fetch_company_signals(
+    company: CompanyConfig,
+    session: aiohttp.ClientSession,
+    metrics: RunMetrics,
+) -> list[CompanySignal]:
+    """Fetch signals for a single company via Google News RSS (7-day lookback).
+
+    Two queries per company:
+    1. Press: the company's search_keywords (ag-keyword pre-filter applied).
+    2. LinkedIn: '"{name}" site:linkedin.com' (no pre-filter, capped) —
+       catches company-page posts and pulse articles Google News indexes.
+    """
+    query = company.search_keywords or f"{company.name} agriculture"
+    url = _google_news_rss_url(query)
+
+    feed = await _fetch_feed(url, session)
+    signals = []
+    if feed and feed.entries:
+        signals = _parse_signal_entries(feed, company, metrics)
+
+    if SIGNAL_LINKEDIN_ENABLED:
+        li_query = f'"{company.name}" site:linkedin.com when:{SIGNAL_LOOKBACK_DAYS}d'
+        li_feed = await _fetch_feed(_google_news_rss_url(li_query), session)
+        if li_feed and li_feed.entries:
+            li_signals = _parse_signal_entries(
+                li_feed, company, metrics,
+                require_ag_keywords=False,
+                max_entries=SIGNAL_LINKEDIN_MAX_PER_COMPANY,
+            )
+            for s in li_signals:
+                s.source_name = s.source_name or "LinkedIn"
+            # Aggregate raw count so source health shows LinkedIn yield.
+            key = "LinkedIn signals"
+            metrics.source_raw_counts[key] = (
+                metrics.source_raw_counts.get(key, 0) + len(li_feed.entries)
+            )
+            signals.extend(li_signals)
 
     return signals
 
