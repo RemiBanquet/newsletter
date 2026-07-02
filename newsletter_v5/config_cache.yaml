@@ -1,4 +1,124 @@
 companies:
+- company_type: prospect
+  enabled: true
+  name: Ameropa
+  priority: medium
+  search_keywords: Ameropa grain trader fertilizer
+- company_type: prospect
+  enabled: true
+  name: Agravis
+  priority: high
+  search_keywords: Agravis Raiffeisen agriculture
+- company_type: prospect
+  enabled: true
+  name: Sollio Agriculture
+  priority: medium
+  search_keywords: Sollio Agriculture cooperative Canada
+- company_type: prospect
+  enabled: true
+  name: BayWa
+  priority: high
+  search_keywords: BayWa agriculture trading Germany
+- company_type: prospect
+  enabled: true
+  name: Grupo AN
+  priority: medium
+  search_keywords: Grupo AN cooperativa agricultura España
+- company_type: client
+  enabled: true
+  name: Terrena
+  priority: high
+  search_keywords: Terrena coopérative agricole
+- company_type: client
+  enabled: true
+  name: Maiz'Europ
+  priority: medium
+  search_keywords: Maiz'Europ AGPM maïs
+- company_type: client
+  enabled: true
+  name: ValFrance
+  priority: low
+  search_keywords: ValFrance coopérative agricole
+- company_type: client
+  enabled: true
+  name: LORCA
+  priority: low
+  search_keywords: LORCA coopérative Lorraine
+- company_type: client
+  enabled: true
+  name: Axereal
+  priority: high
+  search_keywords: Axereal coopérative céréales
+- company_type: client
+  enabled: true
+  name: Vivescia
+  priority: high
+  search_keywords: Vivescia coopérative céréales Champagne
+- company_type: client
+  enabled: true
+  name: Ternoveo
+  priority: medium
+  search_keywords: Ternoveo négoce agricole
+- company_type: client
+  enabled: true
+  name: UNPT
+  priority: medium
+  search_keywords: UNPT producteurs pomme de terre
+- company_type: client
+  enabled: true
+  name: Sana Terra
+  priority: low
+  search_keywords: Sana Terra coopérative agricole
+- company_type: client
+  enabled: true
+  name: Actura
+  priority: medium
+  search_keywords: Actura distribution agricole
+- company_type: client
+  enabled: true
+  name: ASP
+  priority: medium
+  search_keywords: Agence de services et de paiement ASP agriculture
+- company_type: client
+  enabled: true
+  name: Groupe CAL
+  priority: low
+  search_keywords: CAL coopérative agricole Lorraine
+- company_type: client
+  enabled: true
+  name: Lur Berri
+  priority: medium
+  search_keywords: Lur Berri coopérative
+- company_type: client
+  enabled: true
+  name: RAGT Plateau Central
+  priority: low
+  search_keywords: RAGT semences Plateau Central
+- company_type: client
+  enabled: true
+  name: Calipso
+  priority: low
+  search_keywords: Calipso coopérative agricole
+- company_type: client
+  enabled: true
+  name: Ceremis
+  priority: low
+  search_keywords: Ceremis coopérative agricole
+- company_type: client
+  enabled: true
+  name: Arterris
+  priority: medium
+  search_keywords: Arterris coopérative agricole
+- company_type: client
+  enabled: true
+  name: Agora
+  priority: low
+  search_keywords: Agora coopérative agricole
+- company_type: client
+  enabled: true
+  name: Unéal
+  priority: medium
+  search_keywords: Unéal Advitam coopérative
 - company_type: client
   enabled: true
   name: Certis Belchim
@@ -104,7 +224,7 @@ companies:
   name: Nufarm
   priority: high
   search_keywords: Nufarm agriculture crop protection
-- company_type: client
+- company_type: prospect
   enabled: true
   name: KWS
   priority: high
