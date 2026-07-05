@@ -170,13 +170,18 @@ async def run_pipeline(args: argparse.Namespace) -> None:
             f"{len(signals)} signals"
         )
 
-        # ── Step 4: Classify with Claude (concurrent) ──
+        # ── Step 4: Classify with Claude ──
+        # One pass for all three item types: submitted together through the
+        # Batch API (50% token pricing) with a streaming fallback.
         logger.info("Classifying with Claude...")
         api_key = os.environ["ANTHROPIC_API_KEY"]
         classifier = ArticleClassifier(api_key=api_key, metrics=metrics)
 
-        articles = await classifier.classify_articles_batch(articles)
-        signals = await classifier.classify_signals_batch(signals)
+        await classifier.classify_everything(articles, signals, publications)
+
+        # Keep the full (pre-filter) lists: step 9 marks every classified
+        # item as seen so rejected items are never re-classified.
+        all_articles, all_signals, all_publications = articles, signals, publications
 
         # Filter to relevant only
         relevant_articles = [a for a in articles if a.relevant]
@@ -185,7 +190,7 @@ async def run_pipeline(args: argparse.Namespace) -> None:
         metrics.articles_rejected = irrelevant_count
 
         # Filter signals: remove those marked irrelevant (signal_type is None)
-        relevant_signals = [s for s in signals if s.signal_type is not None]
+        relevant_signals = [s for s in signals if s.classified and s.signal_type is not None]
 
         # Cross-company signal dedup (same article appearing for multiple companies)
         relevant_signals = dedup_signals_cross_company(relevant_signals)
@@ -193,8 +198,7 @@ async def run_pipeline(args: argparse.Namespace) -> None:
         metrics.signals_accepted = len(relevant_signals)
         metrics.signals_rejected = len(signals) - len(relevant_signals)
 
-        # Classify publications (relevance filter + translation in one step)
-        publications = await classifier.classify_publications_batch(publications)
+        # Publications: relevance filter (translation happens in the same call)
         relevant_publications = [p for p in publications if p.relevant]
         metrics.publications_accepted = len(relevant_publications)
         metrics.publications_rejected = len(publications) - len(relevant_publications)
@@ -293,8 +297,12 @@ async def run_pipeline(args: argparse.Namespace) -> None:
             subject = f"🛰️ Daily Agri-News Digest — {datetime.now(timezone.utc).strftime('%d %b %Y')}"
             send_newsletter(config, subject, html, metrics, test_mode=args.test)
 
-        # ── Step 9: Mark sent items and save dedup state ──
+        # ── Step 9: Mark processed + sent items and save dedup state ──
         if not args.dry_run:
+            # Every classified item (relevant or not) is marked seen so
+            # rejected items are never re-classified on later runs. Items
+            # whose API call failed stay unmarked and retry tomorrow.
+            dedup.mark_processed(all_articles, all_publications, all_signals)
             dedup.mark_sent(relevant_articles, publications, relevant_signals)
             logger.info("Dedup state saved")
 

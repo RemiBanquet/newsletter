@@ -160,7 +160,17 @@ def _print_admin_report(metrics: RunMetrics, success: bool, error_message: str =
             "⚠️  Silent sources (≥3 runs): "
             + ", ".join(f"{s['name']} ({s['streak']} runs)" for s in metrics.silent_sources[:8])
         )
-    print(f"Claude tokens: {metrics.input_tokens:,} in / {metrics.output_tokens:,} out / {metrics.cache_read_tokens:,} cached")
+    print(f"Claude tokens: {metrics.input_tokens:,} in / {metrics.output_tokens:,} out / "
+          f"{metrics.cache_read_tokens:,} cache-read / {metrics.cache_write_tokens:,} cache-write")
+    if metrics.stage_usage:
+        print("Cost by stage:")
+        for stage, su in sorted(metrics.stage_usage.items(), key=lambda x: -x[1].cost_usd):
+            print(f"  {stage:<13} ${su.cost_usd:.3f}  ({su.calls} calls, "
+                  f"{su.input_tokens:,} in / {su.output_tokens:,} out / "
+                  f"{su.cache_read_tokens:,} cr / {su.cache_write_tokens:,} cw)")
+    if metrics.model_calls:
+        models = ", ".join(f"{m}: {n}" for m, n in metrics.model_calls.items())
+        print(f"Models used:   {models} ({metrics.batch_calls} via Batch API)")
     print(f"Est. cost:     ${metrics.estimated_cost_usd:.3f}")
     print(f"Emails sent:   {metrics.emails_sent}/{metrics.emails_sent + metrics.emails_failed}")
     print(f"Market brief:  {metrics.brief_status or 'n/a'}")
@@ -199,8 +209,10 @@ def _build_success_report_html(metrics: RunMetrics) -> str:
                 <td style="padding: 6px; text-align: right; border-bottom: 1px solid #eee;">{metrics.geocoding_rate}</td></tr>
             <tr><td style="padding: 6px; border-bottom: 1px solid #eee;">Sources healthy</td>
                 <td style="padding: 6px; text-align: right; border-bottom: 1px solid #eee;">{metrics.sources_healthy}/{metrics.sources_total}</td></tr>
-            <tr><td style="padding: 6px; border-bottom: 1px solid #eee;">Claude tokens (in/out/cached)</td>
-                <td style="padding: 6px; text-align: right; border-bottom: 1px solid #eee;">{metrics.input_tokens:,} / {metrics.output_tokens:,} / {metrics.cache_read_tokens:,}</td></tr>
+            <tr><td style="padding: 6px; border-bottom: 1px solid #eee;">Claude tokens (in/out/cache-r/cache-w)</td>
+                <td style="padding: 6px; text-align: right; border-bottom: 1px solid #eee;">{metrics.input_tokens:,} / {metrics.output_tokens:,} / {metrics.cache_read_tokens:,} / {metrics.cache_write_tokens:,}</td></tr>
+            <tr><td style="padding: 6px; border-bottom: 1px solid #eee;">Models used</td>
+                <td style="padding: 6px; text-align: right; border-bottom: 1px solid #eee;">{", ".join(f"{m.split('-2')[0]}: {n}" for m, n in metrics.model_calls.items()) or "n/a"} ({metrics.batch_calls} batched)</td></tr>
             <tr><td style="padding: 6px; border-bottom: 1px solid #eee;">Estimated cost</td>
                 <td style="padding: 6px; text-align: right; border-bottom: 1px solid #eee; font-weight: bold;">${metrics.estimated_cost_usd:.3f}</td></tr>
             <tr><td style="padding: 6px; border-bottom: 1px solid #eee;">Emails sent</td>
@@ -211,10 +223,41 @@ def _build_success_report_html(metrics: RunMetrics) -> str:
                 <td style="padding: 6px; text-align: right; font-weight: bold;">{metrics.runtime_display}</td></tr>
         </table>
 
+        {_build_stage_cost_block(metrics) if metrics.stage_usage else ""}
+
         {"<h3>Source errors</h3><ul>" + "".join(f"<li>{e}</li>" for e in metrics.source_errors) + "</ul>" if metrics.source_errors else ""}
 
         {_build_silent_sources_block(metrics) if getattr(metrics, "silent_sources", None) else ""}
     </div>
+    """
+
+
+def _build_stage_cost_block(metrics: RunMetrics) -> str:
+    """Per-stage LLM cost table: where the money went this run."""
+    rows = "".join(
+        f"<tr>"
+        f"<td style='padding: 6px; border-bottom: 1px solid #eee;'>{stage}</td>"
+        f"<td style='padding: 6px; text-align: right; border-bottom: 1px solid #eee;'>{su.calls}</td>"
+        f"<td style='padding: 6px; text-align: right; border-bottom: 1px solid #eee;'>{su.input_tokens:,}</td>"
+        f"<td style='padding: 6px; text-align: right; border-bottom: 1px solid #eee;'>{su.output_tokens:,}</td>"
+        f"<td style='padding: 6px; text-align: right; border-bottom: 1px solid #eee;'>{su.cache_read_tokens:,} / {su.cache_write_tokens:,}</td>"
+        f"<td style='padding: 6px; text-align: right; border-bottom: 1px solid #eee; font-weight: bold;'>${su.cost_usd:.3f}</td>"
+        f"</tr>"
+        for stage, su in sorted(metrics.stage_usage.items(), key=lambda x: -x[1].cost_usd)
+    )
+    return f"""
+    <h3 style="margin-bottom: 4px;">Cost by stage</h3>
+    <table style="width: 100%; border-collapse: collapse; margin: 8px 0 16px 0;">
+        <tr style="background: #f5f5f5;">
+            <th style="padding: 6px; text-align: left;">Stage</th>
+            <th style="padding: 6px; text-align: right;">Calls</th>
+            <th style="padding: 6px; text-align: right;">In</th>
+            <th style="padding: 6px; text-align: right;">Out</th>
+            <th style="padding: 6px; text-align: right;">Cache r/w</th>
+            <th style="padding: 6px; text-align: right;">Cost</th>
+        </tr>
+        {rows}
+    </table>
     """
 
 

@@ -144,3 +144,34 @@ class DeduplicationManager:
         self.articles.save()
         self.publications.save()
         self.signals.save()
+
+    def mark_processed(self, articles: list[Article], pubs: list[Publication], signals: list[CompanySignal]):
+        """Mark every successfully classified item as seen, relevant or not.
+
+        This is the single biggest cost fix in the pipeline: before it, only
+        SENT items were marked, so every REJECTED item came back through the
+        classifier on later runs for as long as it stayed inside its source's
+        lookback window (up to 7 days for signals and publications). Items
+        whose classification call failed keep classified=False and are NOT
+        marked, so they get retried on the next run.
+
+        Call this together with mark_sent(); saving happens there.
+        """
+        skipped = 0
+        for a in articles:
+            if a.classified:
+                self.articles.mark_seen(a.id)
+            else:
+                skipped += 1
+        for p in pubs:
+            if p.classified:
+                self.publications.mark_seen(p.id)
+            else:
+                skipped += 1
+        for s in signals:
+            if s.classified:
+                self.signals.mark_seen(s.id)
+            else:
+                skipped += 1
+        if skipped:
+            logger.info(f"Dedup: {skipped} unclassified item(s) left unmarked for retry next run")

@@ -191,6 +191,11 @@ class Article:
     location: GeoLocation = field(default_factory=GeoLocation)
     relevant: bool = False
     raw_content: str = ""            # Original text fed to Claude
+    # True once Claude returned a classification for this item. Rejected items
+    # with classified=True are marked seen in dedup so they are never
+    # re-classified on later runs; items where the API call failed stay
+    # unmarked and get retried next run.
+    classified: bool = False
 
 
 @dataclass
@@ -207,6 +212,7 @@ class Publication:
     summary: str = ""
     relevant: bool = True            # Set by LLM classification
     location: GeoLocation = field(default_factory=GeoLocation)
+    classified: bool = False         # See Article.classified
 
 
 @dataclass
@@ -223,6 +229,7 @@ class CompanySignal:
     published_at: Optional[datetime] = None
     original_language: str = "en"
     location: GeoLocation = field(default_factory=GeoLocation)
+    classified: bool = False         # See Article.classified
 
 
 # ── Market brief ───────────────────────────────────────────────────
@@ -246,6 +253,17 @@ class MarketBrief:
 
 
 # ── Run metrics ────────────────────────────────────────────────────
+
+@dataclass
+class StageUsage:
+    """Token usage and cost for one pipeline stage (articles, signals, ...)."""
+    calls: int = 0
+    input_tokens: int = 0
+    output_tokens: int = 0
+    cache_read_tokens: int = 0
+    cache_write_tokens: int = 0
+    cost_usd: float = 0.0
+
 
 @dataclass
 class RunMetrics:
@@ -283,11 +301,19 @@ class RunMetrics:
     # Sources flagged as silent for ≥3 consecutive runs (populated at end of
     # pipeline, surfaced in admin report).
     silent_sources: list[dict] = field(default_factory=list)
-    # LLM
+    # LLM — run totals (kept for backward compatibility with the report)
     input_tokens: int = 0
     output_tokens: int = 0
     cache_read_tokens: int = 0
+    cache_write_tokens: int = 0
     estimated_cost_usd: float = 0.0
+    # LLM — per-stage attribution. Keys: "articles", "signals",
+    # "publications", "translation", "brief".
+    stage_usage: dict[str, StageUsage] = field(default_factory=dict)
+    # Calls per actual model used (catches silent Sonnet fallbacks).
+    model_calls: dict[str, int] = field(default_factory=dict)
+    # Calls that went through the Batch API (billed at 50%).
+    batch_calls: int = 0
     # Delivery
     emails_sent: int = 0
     emails_failed: int = 0
@@ -317,10 +343,50 @@ class RunMetrics:
         pct = (self.geocoding_succeeded / self.geocoding_attempted) * 100
         return f"{pct:.0f}% ({self.geocoding_succeeded}/{self.geocoding_attempted})"
 
-    def estimate_cost(self):
-        """Estimate cost based on Haiku 4.5 pricing ($0.80/M input, $4/M output, $0.08/M cached)."""
-        self.estimated_cost_usd = (
-            (self.input_tokens / 1_000_000) * 0.80
-            + (self.output_tokens / 1_000_000) * 4.00
-            + (self.cache_read_tokens / 1_000_000) * 0.08
+    def add_usage(self, stage: str, model: str, usage, batch: bool = False):
+        """Record one API response's token usage against a pipeline stage.
+
+        `usage` is the anthropic response.usage object. Cost is computed at
+        the actual model's price (so a Sonnet fallback is priced as Sonnet),
+        includes cache writes (1.25x input), and applies the 50% Batch API
+        discount when batch=True.
+        """
+        from constants import (
+            MODEL_PRICING, MODEL_PRICING_DEFAULT,
+            CACHE_READ_MULTIPLIER, CACHE_WRITE_MULTIPLIER, BATCH_API_DISCOUNT,
         )
+        in_t = usage.input_tokens or 0
+        out_t = usage.output_tokens or 0
+        cr = getattr(usage, "cache_read_input_tokens", None) or 0
+        cw = getattr(usage, "cache_creation_input_tokens", None) or 0
+
+        su = self.stage_usage.setdefault(stage, StageUsage())
+        su.calls += 1
+        su.input_tokens += in_t
+        su.output_tokens += out_t
+        su.cache_read_tokens += cr
+        su.cache_write_tokens += cw
+
+        self.input_tokens += in_t
+        self.output_tokens += out_t
+        self.cache_read_tokens += cr
+        self.cache_write_tokens += cw
+        self.model_calls[model] = self.model_calls.get(model, 0) + 1
+        if batch:
+            self.batch_calls += 1
+
+        price = MODEL_PRICING.get(model, MODEL_PRICING_DEFAULT)
+        discount = BATCH_API_DISCOUNT if batch else 1.0
+        cost = discount * (
+            in_t * price["input"]
+            + out_t * price["output"]
+            + cr * price["input"] * CACHE_READ_MULTIPLIER
+            + cw * price["input"] * CACHE_WRITE_MULTIPLIER
+        ) / 1_000_000
+        su.cost_usd += cost
+        self.estimated_cost_usd += cost
+
+    def estimate_cost(self):
+        """Kept for backward compatibility: cost is now accumulated per call
+        in add_usage() at the actual model's price. Nothing to recompute."""
+        return self.estimated_cost_usd

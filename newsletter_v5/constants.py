@@ -188,6 +188,42 @@ CLAUDE_MAX_CONCURRENT = 2  # Max parallel API calls (keep low to avoid 429s on T
 CLAUDE_MAX_RETRIES = 3
 CLAUDE_TIMEOUT_SECONDS = 30
 
+# ── Claude pricing (USD per million tokens) ────────────────────────
+# Source: https://platform.claude.com/docs/en/about-claude/pricing
+# (checked 2026-07-05). Cache write = 1.25x input (5-min TTL), cache
+# read = 0.10x input, Batch API = 50% off all token types. Unknown
+# models fall back to Sonnet pricing on purpose: better to over-report
+# spend than to hide it.
+MODEL_PRICING = {
+    "claude-haiku-4-5-20251001": {"input": 1.00, "output": 5.00},
+    "claude-haiku-4-5": {"input": 1.00, "output": 5.00},
+    "claude-sonnet-4-6": {"input": 3.00, "output": 15.00},
+}
+MODEL_PRICING_DEFAULT = {"input": 3.00, "output": 15.00}
+CACHE_WRITE_MULTIPLIER = 1.25
+CACHE_READ_MULTIPLIER = 0.10
+BATCH_API_DISCOUNT = 0.50
+
+# ── Batch API (bulk classification) ────────────────────────────────
+# The digest is a daily cron, so latency does not matter: bulk
+# classification (articles, signals, publications) goes through the
+# Message Batches API at 50% of streaming price. If the batch has not
+# finished within the timeout, it is cancelled and the run falls back
+# to the streaming path so the digest always ships.
+USE_BATCH_API = True
+BATCH_POLL_SECONDS = 15
+BATCH_TIMEOUT_MINUTES = 20
+
+# Items per request (multi-item tool calls).
+ARTICLE_BATCH_SIZE = 5
+SIGNAL_BATCH_SIZE = 8
+PUBLICATION_BATCH_SIZE = 8
+
+# Max chars of article body sent to the classifier. 1,200 chars
+# (~300 tokens) carries the lede and first paragraphs, which is what
+# the category decision and 1-sentence summary are based on.
+ARTICLE_CONTENT_MAX_CHARS = 1200
+
 # ── Geocoding config ──────────────────────────────────────────────
 
 NOMINATIM_URL = "https://nominatim.openstreetmap.org/search"

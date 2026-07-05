@@ -12,7 +12,10 @@ permissions:
 jobs:
   run-newsletter:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    # Classification runs through the Message Batches API (50% token price).
+    # Batches usually finish in minutes but the pipeline waits up to 20 min
+    # before falling back to streaming, so give the job headroom.
+    timeout-minutes: 45
 
     steps:
       - name: Checkout

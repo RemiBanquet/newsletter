@@ -2,13 +2,19 @@
 Claude-based article classification with structured output via tool-use.
 Handles articles, publications, and company signals.
 
-Supports batch classification: multiple articles per API call to reduce
-total calls and avoid rate limiting on Tier 1 accounts.
+Cost design:
+- All bulk classification goes through the Message Batches API (50% off
+  every token) with a streaming fallback so the digest always ships.
+- Items are classified in multi-item chunks (articles 5, signals 8,
+  publications 8) so the big system prompts are paid once per chunk,
+  not once per item, and cache reads cover the rest.
+- Every response is attributed to a pipeline stage via
+  metrics.add_usage(stage, model, usage), priced at the actual model used.
 """
 
 import asyncio
-import json
 import logging
+import time
 from typing import Optional
 
 import anthropic
@@ -19,11 +25,11 @@ from models import (
 )
 from constants import (
     CLAUDE_MODEL_PRIMARY, CLAUDE_MODEL_FALLBACK, CLAUDE_MAX_CONCURRENT,
-    CLAUDE_MAX_RETRIES, CLAUDE_TIMEOUT_SECONDS,
+    CLAUDE_MAX_RETRIES,
+    USE_BATCH_API, BATCH_POLL_SECONDS, BATCH_TIMEOUT_MINUTES,
+    ARTICLE_BATCH_SIZE, SIGNAL_BATCH_SIZE, PUBLICATION_BATCH_SIZE,
+    ARTICLE_CONTENT_MAX_CHARS,
 )
-
-# How many articles to classify per single API call
-ARTICLE_BATCH_SIZE = 5
 
 logger = logging.getLogger(__name__)
 
@@ -361,310 +367,400 @@ CLASSIFY_SIGNAL_TOOL = {
     },
 }
 
+CLASSIFY_SIGNAL_BATCH_TOOL = {
+    "name": "classify_signals_batch",
+    "description": "Classify a batch of company market signals. Return one result per signal.",
+    "cache_control": {"type": "ephemeral"},
+    "input_schema": {
+        "type": "object",
+        "properties": {
+            "results": {
+                "type": "array",
+                "description": "One classification result per signal, in the same order as the input.",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "item_index": {
+                            "type": "integer",
+                            "description": "0-based index of the signal in the input list.",
+                        },
+                        "relevant": {
+                            "type": "boolean",
+                            "description": "True if the signal is about the company's ag business per the rules.",
+                        },
+                        "signal_type": {
+                            "type": "string",
+                            "enum": [s.value for s in SignalType],
+                            "description": "Type of market signal.",
+                        },
+                        "summary": {
+                            "type": "string",
+                            "description": "English summary in plain prose (no bullets): 1 sentence carrying the key insight.",
+                        },
+                        "place_name": {
+                            "type": "string",
+                            "description": "Most specific geographic location mentioned.",
+                        },
+                        "country_iso": {
+                            "type": "string",
+                            "description": "ISO 3166-1 alpha-2 country code.",
+                        },
+                    },
+                    "required": ["item_index", "relevant", "signal_type", "summary", "place_name", "country_iso"],
+                },
+            },
+        },
+        "required": ["results"],
+    },
+}
+
+CLASSIFY_PUBLICATION_BATCH_TOOL = {
+    "name": "classify_publications_batch",
+    "description": "Classify a batch of official statistical publications for field crop relevance and translate to English. Return one result per publication.",
+    "cache_control": {"type": "ephemeral"},
+    "input_schema": {
+        "type": "object",
+        "properties": {
+            "results": {
+                "type": "array",
+                "description": "One result per publication, in the same order as the input.",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "item_index": {
+                            "type": "integer",
+                            "description": "0-based index of the publication in the input list.",
+                        },
+                        "relevant": {
+                            "type": "boolean",
+                            "description": "True if about major field crops per the rules. False for specialty crops, livestock, non-ag.",
+                        },
+                        "title_en": {
+                            "type": "string",
+                            "description": "English translation of the title (or original if already English).",
+                        },
+                        "summary_en": {
+                            "type": "string",
+                            "description": "English translation of the summary (or original if already English). 1-2 sentences max. Empty string if no summary.",
+                        },
+                    },
+                    "required": ["item_index", "relevant", "title_en", "summary_en"],
+                },
+            },
+        },
+        "required": ["results"],
+    },
+}
+
 
 # ── Classifier class ──────────────────────────────────────────────
 
 class ArticleClassifier:
-    """Classifies articles using Claude with structured output and prompt caching."""
+    """Classifies articles, signals, and publications with Claude.
+
+    One code path builds the request for a chunk of items; the same request
+    is sent either through the Message Batches API (preferred, 50% price)
+    or the streaming API (fallback). Every successfully parsed item gets
+    item.classified = True so the pipeline can mark it seen in dedup even
+    when it is rejected.
+    """
 
     def __init__(self, api_key: str, metrics: RunMetrics):
         self.client = anthropic.AsyncAnthropic(api_key=api_key)
         self.metrics = metrics
         self.semaphore = asyncio.Semaphore(CLAUDE_MAX_CONCURRENT)
-        self._model = CLAUDE_MODEL_PRIMARY
 
-    async def classify_article(self, article: Article) -> Article:
-        """Classify a single article. Returns the article with fields populated."""
+    # ── Request building (shared by batch and streaming paths) ────
+
+    def _chunk_params(self, kind: str, chunk: list, model: str) -> dict:
+        """Build messages.create kwargs for one chunk of items."""
+        if kind == "articles":
+            parts = [
+                f"--- ARTICLE {i} ---\nTitle: {a.title}\n\nContent:\n{a.raw_content[:ARTICLE_CONTENT_MAX_CHARS]}"
+                for i, a in enumerate(chunk)
+            ]
+            return dict(
+                model=model,
+                max_tokens=512 * len(chunk),
+                system=[{
+                    "type": "text",
+                    "text": ARTICLE_SYSTEM_PROMPT,
+                    "cache_control": {"type": "ephemeral"},
+                }],
+                messages=[{
+                    "role": "user",
+                    "content": (
+                        f"Classify each of the following {len(chunk)} articles. "
+                        f"Return one result per article.\n\n" + "\n\n".join(parts)
+                    ),
+                }],
+                tools=[CLASSIFY_ARTICLE_BATCH_TOOL],
+                tool_choice={"type": "tool", "name": "classify_articles_batch"},
+            )
+
+        if kind == "signals":
+            parts = [
+                f"--- SIGNAL {i} ---\nCompany: {s.company_name}\nHeadline: {s.title}\nSource: {s.source_name}"
+                for i, s in enumerate(chunk)
+            ]
+            return dict(
+                model=model,
+                max_tokens=384 * len(chunk),
+                system=[{
+                    "type": "text",
+                    "text": SIGNAL_SYSTEM_PROMPT,
+                    "cache_control": {"type": "ephemeral"},
+                }],
+                messages=[{
+                    "role": "user",
+                    "content": (
+                        f"Classify each of the following {len(chunk)} company signals. "
+                        f"Return one result per signal.\n\n" + "\n\n".join(parts)
+                    ),
+                }],
+                tools=[CLASSIFY_SIGNAL_BATCH_TOOL],
+                tool_choice={"type": "tool", "name": "classify_signals_batch"},
+            )
+
+        if kind == "publications":
+            parts = []
+            for i, p in enumerate(chunk):
+                text = f"--- PUBLICATION {i} ---\nTitle: {p.title}"
+                if p.summary:
+                    text += f"\nSummary: {p.summary}"
+                text += f"\nSource: {p.source_name} ({p.country})"
+                parts.append(text)
+            return dict(
+                model=model,
+                max_tokens=256 * len(chunk),
+                system=[{
+                    "type": "text",
+                    "text": PUBLICATION_SYSTEM_PROMPT,
+                    "cache_control": {"type": "ephemeral"},
+                }],
+                messages=[{
+                    "role": "user",
+                    "content": (
+                        f"Classify each of the following {len(chunk)} publications. "
+                        f"Return one result per publication.\n\n" + "\n\n".join(parts)
+                    ),
+                }],
+                tools=[CLASSIFY_PUBLICATION_BATCH_TOOL],
+                tool_choice={"type": "tool", "name": "classify_publications_batch"},
+            )
+
+        raise ValueError(f"Unknown chunk kind: {kind}")
+
+    # ── Result application ─────────────────────────────────────────
+
+    def _apply_result(self, kind: str, item, data: dict) -> None:
+        """Populate one item from its classification result."""
+        if kind == "articles":
+            item.relevant = bool(data.get("relevant", False))
+            try:
+                item.category = ArticleCategory(data.get("category", "other"))
+            except ValueError:
+                item.category = ArticleCategory.OTHER
+            item.tags = data.get("tags", [])
+            item.summary = data.get("summary", "")
+            item.location = GeoLocation(
+                place_name=data.get("place_name", ""),
+                country_iso=data.get("country_iso", ""),
+            )
+        elif kind == "signals":
+            try:
+                item.signal_type = SignalType(data.get("signal_type", "other"))
+            except ValueError:
+                item.signal_type = SignalType.OTHER
+            item.summary = data.get("summary", "")
+            item.location = GeoLocation(
+                place_name=data.get("place_name", ""),
+                country_iso=data.get("country_iso", ""),
+            )
+            if not data.get("relevant", False):
+                item.signal_type = None  # Mark as irrelevant
+        elif kind == "publications":
+            item.relevant = bool(data.get("relevant", True))
+            if data.get("title_en"):
+                item.title = data["title_en"]
+            if data.get("summary_en"):
+                item.summary = data["summary_en"]
+            if not item.relevant:
+                logger.info(f"Publication filtered: {item.title[:80]}")
+        item.classified = True
+
+    def _apply_chunk_results(self, kind: str, chunk: list, data: Optional[dict]) -> None:
+        """Map a multi-item tool result back onto the chunk's items."""
+        if not data or "results" not in data:
+            logger.warning(f"{kind}: chunk of {len(chunk)} returned no usable results")
+            return
+        for result in data["results"]:
+            # Article tool historically uses "article_index"; newer tools use "item_index".
+            idx = result.get("item_index", result.get("article_index", -1))
+            if 0 <= idx < len(chunk):
+                self._apply_result(kind, chunk[idx], result)
+        missing = sum(1 for item in chunk if not item.classified)
+        if missing:
+            logger.warning(f"{kind}: {missing}/{len(chunk)} items missing from chunk result")
+
+    # ── Streaming path (fallback) ──────────────────────────────────
+
+    async def _classify_chunk_streaming(self, kind: str, chunk: list) -> None:
+        """Classify one chunk via the streaming API.
+
+        Retries on rate limits. On repeated API errors, retries THIS CALL
+        once on the fallback model; it never switches the rest of the run
+        (a permanent switch to Sonnet quadruples cost silently).
+        """
         async with self.semaphore:
-            for attempt in range(CLAUDE_MAX_RETRIES):
-                try:
-                    response = await self.client.messages.create(
-                        model=self._model,
-                        max_tokens=512,
-                        system=[{
-                            "type": "text",
-                            "text": ARTICLE_SYSTEM_PROMPT,
-                            "cache_control": {"type": "ephemeral"},
-                        }],
-                        messages=[{
-                            "role": "user",
-                            "content": f"Title: {article.title}\n\nContent:\n{article.raw_content[:3000]}",
-                        }],
-                        tools=[CLASSIFY_ARTICLE_TOOL],
-                        tool_choice={"type": "tool", "name": "classify_article"},
-                    )
-
-                    # Track tokens
-                    self.metrics.input_tokens += response.usage.input_tokens
-                    self.metrics.output_tokens += response.usage.output_tokens
-                    cache_read = getattr(response.usage, "cache_read_input_tokens", None) or 0
-                    cache_create = getattr(response.usage, "cache_creation_input_tokens", None) or 0
-                    self.metrics.cache_read_tokens += cache_read
-                    if cache_read or cache_create:
-                        logger.debug(f"Cache tokens — read: {cache_read}, created: {cache_create}")
-
-                    # Parse tool use result
-                    tool_block = next(
-                        (b for b in response.content if b.type == "tool_use"), None
-                    )
-                    if tool_block:
-                        data = tool_block.input
-                        article.relevant = data["relevant"]
-                        article.category = ArticleCategory(data.get("category", "other"))
-                        article.tags = data.get("tags", [])
-                        article.summary = data.get("summary", "")
-                        article.location = GeoLocation(
-                            place_name=data.get("place_name", ""),
-                            country_iso=data.get("country_iso", ""),
+            for model in (CLAUDE_MODEL_PRIMARY, CLAUDE_MODEL_FALLBACK):
+                for attempt in range(CLAUDE_MAX_RETRIES):
+                    try:
+                        response = await self.client.messages.create(
+                            **self._chunk_params(kind, chunk, model)
                         )
-                    return article
-
-                except anthropic.RateLimitError:
-                    wait = 2 ** (attempt + 1)
-                    logger.warning(f"Rate limited, retrying in {wait}s (attempt {attempt + 1})")
-                    await asyncio.sleep(wait)
-                except anthropic.APIError as e:
-                    if attempt == CLAUDE_MAX_RETRIES - 1:
-                        logger.error(f"Claude API error classifying '{article.title}': {e}")
-                        # Try fallback model on last attempt
-                        if self._model != CLAUDE_MODEL_FALLBACK:
-                            self._model = CLAUDE_MODEL_FALLBACK
-                            logger.info(f"Switching to fallback model: {CLAUDE_MODEL_FALLBACK}")
-                            return await self.classify_article(article)
-                        return article
-                    await asyncio.sleep(1)
-                except Exception as e:
-                    logger.error(f"Unexpected error classifying '{article.title}': {e}")
-                    return article
-
-        return article
-
-    async def classify_signal(self, signal: CompanySignal) -> CompanySignal:
-        """Classify a single company signal."""
-        async with self.semaphore:
-            for attempt in range(CLAUDE_MAX_RETRIES):
-                try:
-                    response = await self.client.messages.create(
-                        model=self._model,
-                        max_tokens=384,
-                        system=[{
-                            "type": "text",
-                            "text": SIGNAL_SYSTEM_PROMPT,
-                            "cache_control": {"type": "ephemeral"},
-                        }],
-                        messages=[{
-                            "role": "user",
-                            "content": (
-                                f"Company: {signal.company_name}\n"
-                                f"Headline: {signal.title}\n"
-                                f"Source: {signal.source_name}"
-                            ),
-                        }],
-                        tools=[CLASSIFY_SIGNAL_TOOL],
-                        tool_choice={"type": "tool", "name": "classify_signal"},
-                    )
-
-                    self.metrics.input_tokens += response.usage.input_tokens
-                    self.metrics.output_tokens += response.usage.output_tokens
-                    cache_read = getattr(response.usage, "cache_read_input_tokens", None) or 0
-                    cache_create = getattr(response.usage, "cache_creation_input_tokens", None) or 0
-                    self.metrics.cache_read_tokens += cache_read
-                    if cache_read or cache_create:
-                        logger.debug(f"Signal cache tokens — read: {cache_read}, created: {cache_create}")
-
-                    tool_block = next(
-                        (b for b in response.content if b.type == "tool_use"), None
-                    )
-                    if tool_block:
-                        data = tool_block.input
-                        signal.signal_type = SignalType(data.get("signal_type", "other"))
-                        signal.summary = data.get("summary", "")
-                        signal.location = GeoLocation(
-                            place_name=data.get("place_name", ""),
-                            country_iso=data.get("country_iso", ""),
+                        self.metrics.add_usage(kind, model, response.usage)
+                        block = next(
+                            (b for b in response.content if b.type == "tool_use"), None
                         )
-                        if not data.get("relevant", False):
-                            signal.signal_type = None  # Mark as irrelevant
-                    return signal
+                        self._apply_chunk_results(kind, chunk, block.input if block else None)
+                        return
+                    except anthropic.RateLimitError:
+                        wait = 2 ** (attempt + 1)
+                        logger.warning(f"{kind}: rate limited, retry in {wait}s (attempt {attempt + 1})")
+                        await asyncio.sleep(wait)
+                    except anthropic.APIError as e:
+                        if attempt == CLAUDE_MAX_RETRIES - 1:
+                            logger.error(f"{kind}: API error on {model}: {e}")
+                        else:
+                            await asyncio.sleep(1)
+                    except Exception as e:
+                        logger.error(f"{kind}: unexpected error: {e}")
+                        return
+                if model == CLAUDE_MODEL_PRIMARY:
+                    logger.info(f"{kind}: retrying this chunk once on fallback model {CLAUDE_MODEL_FALLBACK}")
+        logger.error(f"{kind}: chunk of {len(chunk)} left unclassified (will retry next run)")
 
-                except anthropic.RateLimitError:
-                    wait = 2 ** (attempt + 1)
-                    logger.warning(f"Rate limited, retrying in {wait}s")
-                    await asyncio.sleep(wait)
-                except Exception as e:
-                    logger.error(f"Error classifying signal '{signal.title}': {e}")
-                    return signal
+    # ── Batch API path (preferred) ─────────────────────────────────
 
-        return signal
+    async def _classify_via_batch_api(self, chunks: list[tuple]) -> list[tuple]:
+        """Submit all chunks as one message batch and apply the results.
 
-    async def _classify_article_batch_chunk(self, chunk: list[Article]) -> list[Article]:
-        """Classify a chunk of articles in a single API call."""
-        if len(chunk) == 1:
-            return [await self.classify_article(chunk[0])]
+        chunks: list of (custom_id, kind, chunk). Returns the subset that
+        still needs the streaming fallback (errored items, or everything
+        if the batch itself fails or times out).
+        """
+        try:
+            requests = [
+                {
+                    "custom_id": cid,
+                    "params": self._chunk_params(kind, chunk, CLAUDE_MODEL_PRIMARY),
+                }
+                for cid, kind, chunk in chunks
+            ]
+            batch = await self.client.messages.batches.create(requests=requests)
+            n_items = sum(len(chunk) for _, _, chunk in chunks)
+            logger.info(
+                f"Batch {batch.id}: {len(requests)} requests / {n_items} items submitted "
+                f"(50% token pricing)"
+            )
 
-        # Build the batched user message
-        parts = []
-        for i, article in enumerate(chunk):
-            parts.append(f"--- ARTICLE {i} ---\nTitle: {article.title}\n\nContent:\n{article.raw_content[:2000]}")
-        user_msg = "\n\n".join(parts)
-
-        async with self.semaphore:
-            for attempt in range(CLAUDE_MAX_RETRIES):
-                try:
-                    response = await self.client.messages.create(
-                        model=self._model,
-                        max_tokens=512 * len(chunk),
-                        system=[{
-                            "type": "text",
-                            "text": ARTICLE_SYSTEM_PROMPT,
-                            "cache_control": {"type": "ephemeral"},
-                        }],
-                        messages=[{
-                            "role": "user",
-                            "content": f"Classify each of the following {len(chunk)} articles. Return one result per article.\n\n{user_msg}",
-                        }],
-                        tools=[CLASSIFY_ARTICLE_BATCH_TOOL],
-                        tool_choice={"type": "tool", "name": "classify_articles_batch"},
+            deadline = time.monotonic() + BATCH_TIMEOUT_MINUTES * 60
+            while batch.processing_status != "ended":
+                if time.monotonic() > deadline:
+                    logger.warning(
+                        f"Batch {batch.id} not finished after {BATCH_TIMEOUT_MINUTES} min, "
+                        f"cancelling and falling back to streaming"
                     )
+                    try:
+                        await self.client.messages.batches.cancel(batch.id)
+                    except Exception:
+                        pass
+                    return list(chunks)
+                await asyncio.sleep(BATCH_POLL_SECONDS)
+                batch = await self.client.messages.batches.retrieve(batch.id)
 
-                    self.metrics.input_tokens += response.usage.input_tokens
-                    self.metrics.output_tokens += response.usage.output_tokens
-                    cache_read = getattr(response.usage, "cache_read_input_tokens", None) or 0
-                    cache_create = getattr(response.usage, "cache_creation_input_tokens", None) or 0
-                    self.metrics.cache_read_tokens += cache_read
-                    if cache_read or cache_create:
-                        logger.debug(f"Cache tokens — read: {cache_read}, created: {cache_create}")
-
-                    tool_block = next(
-                        (b for b in response.content if b.type == "tool_use"), None
+            by_id = {cid: (kind, chunk) for cid, kind, chunk in chunks}
+            failed: list[tuple] = []
+            result_stream = await self.client.messages.batches.results(batch.id)
+            async for entry in result_stream:
+                pair = by_id.pop(entry.custom_id, None)
+                if pair is None:
+                    continue
+                kind, chunk = pair
+                if entry.result.type == "succeeded":
+                    msg = entry.result.message
+                    self.metrics.add_usage(kind, msg.model, msg.usage, batch=True)
+                    block = next((b for b in msg.content if b.type == "tool_use"), None)
+                    self._apply_chunk_results(kind, chunk, block.input if block else None)
+                else:
+                    logger.warning(
+                        f"Batch item {entry.custom_id}: {entry.result.type}, retrying via streaming"
                     )
-                    if tool_block and "results" in tool_block.input:
-                        for result in tool_block.input["results"]:
-                            idx = result.get("article_index", -1)
-                            if 0 <= idx < len(chunk):
-                                article = chunk[idx]
-                                article.relevant = result["relevant"]
-                                article.category = ArticleCategory(result.get("category", "other"))
-                                article.tags = result.get("tags", [])
-                                article.summary = result.get("summary", "")
-                                article.location = GeoLocation(
-                                    place_name=result.get("place_name", ""),
-                                    country_iso=result.get("country_iso", ""),
-                                )
-                    return chunk
+                    failed.append((entry.custom_id, kind, chunk))
+            # Requests missing from the result stream entirely → retry too.
+            failed.extend((cid, kind, chunk) for cid, (kind, chunk) in by_id.items())
+            return failed
 
-                except anthropic.RateLimitError:
-                    wait = 2 ** (attempt + 1)
-                    logger.warning(f"Rate limited on batch, retrying in {wait}s (attempt {attempt + 1})")
-                    await asyncio.sleep(wait)
-                except anthropic.APIError as e:
-                    if attempt == CLAUDE_MAX_RETRIES - 1:
-                        logger.error(f"Claude API error on batch: {e}")
-                        # Fallback: classify individually
-                        logger.info("Falling back to individual classification for this batch")
-                        tasks = [self.classify_article(a) for a in chunk]
-                        return list(await asyncio.gather(*tasks))
-                    await asyncio.sleep(1)
-                except Exception as e:
-                    logger.error(f"Unexpected error on batch: {e}")
-                    # Fallback to individual classification
-                    tasks = [self.classify_article(a) for a in chunk]
-                    return list(await asyncio.gather(*tasks))
+        except Exception as e:
+            logger.warning(f"Batch API unavailable ({type(e).__name__}: {e}), falling back to streaming")
+            return list(chunks)
 
-        return chunk
+    # ── Public entry points ────────────────────────────────────────
+
+    async def classify_everything(
+        self,
+        articles: list[Article],
+        signals: list[CompanySignal],
+        publications: list[Publication],
+    ) -> None:
+        """Classify all items in one pass, in place.
+
+        Batch API first (50% price), streaming fallback for anything the
+        batch could not process.
+        """
+        chunks: list[tuple] = []
+        for i in range(0, len(articles), ARTICLE_BATCH_SIZE):
+            chunks.append((f"articles-{i}", "articles", articles[i:i + ARTICLE_BATCH_SIZE]))
+        for i in range(0, len(signals), SIGNAL_BATCH_SIZE):
+            chunks.append((f"signals-{i}", "signals", signals[i:i + SIGNAL_BATCH_SIZE]))
+        for i in range(0, len(publications), PUBLICATION_BATCH_SIZE):
+            chunks.append((f"publications-{i}", "publications", publications[i:i + PUBLICATION_BATCH_SIZE]))
+
+        if not chunks:
+            logger.info("Nothing to classify")
+            return
+
+        logger.info(
+            f"Classifying {len(articles)} articles, {len(signals)} signals, "
+            f"{len(publications)} publications in {len(chunks)} requests"
+        )
+
+        pending = chunks
+        if USE_BATCH_API:
+            pending = await self._classify_via_batch_api(chunks)
+        if pending:
+            if USE_BATCH_API:
+                logger.info(f"Streaming fallback for {len(pending)} chunk(s)")
+            tasks = [self._classify_chunk_streaming(kind, chunk) for _, kind, chunk in pending]
+            await asyncio.gather(*tasks)
+
+    # Kept for compatibility with older call sites and tests: these now
+    # simply run the streaming path for one category.
 
     async def classify_articles_batch(self, articles: list[Article]) -> list[Article]:
-        """Classify multiple articles using batched API calls.
-
-        Groups articles into chunks of ARTICLE_BATCH_SIZE and sends each
-        chunk as a single API call, drastically reducing total calls.
-        """
-        if not articles:
-            return []
-
-        # Split into chunks
-        chunks = [
-            articles[i:i + ARTICLE_BATCH_SIZE]
-            for i in range(0, len(articles), ARTICLE_BATCH_SIZE)
-        ]
-        logger.info(f"Classifying {len(articles)} articles in {len(chunks)} batches of up to {ARTICLE_BATCH_SIZE}")
-
-        # Process chunks concurrently (limited by semaphore)
-        tasks = [self._classify_article_batch_chunk(chunk) for chunk in chunks]
-        results = await asyncio.gather(*tasks)
-
-        # Flatten
-        classified = []
-        for chunk_result in results:
-            classified.extend(chunk_result)
-        return classified
+        await self.classify_everything(articles, [], [])
+        return articles
 
     async def classify_signals_batch(self, signals: list[CompanySignal]) -> list[CompanySignal]:
-        """Classify multiple signals concurrently."""
-        tasks = [self.classify_signal(s) for s in signals]
-        return await asyncio.gather(*tasks)
-
-    async def classify_publication(self, pub: Publication) -> Publication:
-        """Classify a single publication for field crop relevance + translate."""
-        async with self.semaphore:
-            for attempt in range(CLAUDE_MAX_RETRIES):
-                try:
-                    user_content = f"Title: {pub.title}"
-                    if pub.summary:
-                        user_content += f"\nSummary: {pub.summary}"
-                    user_content += f"\nSource: {pub.source_name} ({pub.country})"
-
-                    response = await self.client.messages.create(
-                        model=self._model,
-                        max_tokens=256,
-                        system=[{
-                            "type": "text",
-                            "text": PUBLICATION_SYSTEM_PROMPT,
-                        }],
-                        messages=[{"role": "user", "content": user_content}],
-                        tools=[CLASSIFY_PUBLICATION_TOOL],
-                        tool_choice={"type": "tool", "name": "classify_publication"},
-                    )
-
-                    self.metrics.input_tokens += response.usage.input_tokens
-                    self.metrics.output_tokens += response.usage.output_tokens
-
-                    tool_block = next(
-                        (b for b in response.content if b.type == "tool_use"), None
-                    )
-                    if tool_block:
-                        data = tool_block.input
-                        pub.relevant = data.get("relevant", True)
-                        title_en = data.get("title_en", "")
-                        summary_en = data.get("summary_en", "")
-                        if title_en:
-                            pub.title = title_en
-                        if summary_en:
-                            pub.summary = summary_en
-                        if not pub.relevant:
-                            logger.info(f"Publication filtered: {pub.title[:80]}")
-                    return pub
-
-                except anthropic.RateLimitError:
-                    if attempt < CLAUDE_MAX_RETRIES - 1:
-                        wait = 2 ** attempt
-                        logger.warning(f"Rate limited on publication, retrying in {wait}s")
-                        await asyncio.sleep(wait)
-                    else:
-                        logger.error(f"Rate limit exhausted for publication: {pub.title[:60]}")
-                        return pub
-                except Exception as e:
-                    logger.error(f"Publication classification error: {e}")
-                    return pub
-        return pub
+        await self.classify_everything([], signals, [])
+        return signals
 
     async def classify_publications_batch(self, publications: list[Publication]) -> list[Publication]:
-        """Classify multiple publications concurrently."""
-        if not publications:
-            return publications
-        logger.info(f"Classifying {len(publications)} publications")
-        tasks = [self.classify_publication(p) for p in publications]
-        return await asyncio.gather(*tasks)
+        await self.classify_everything([], [], publications)
+        return publications
+
+    # ── Translation (single consolidated call) ─────────────────────
 
     async def translate_non_english(
         self,
@@ -672,13 +768,11 @@ class ArticleClassifier:
         articles: Optional[list[Article]] = None,
         signals: Optional[list[CompanySignal]] = None,
     ) -> None:
-        """Translate non-English titles and summaries to English in-place.
+        """Translate non-English titles to English in-place.
 
-        Batches all non-English items into a single API call for efficiency.
-        Modifies items in-place (title, summary fields).
+        Batches all non-English items into a single API call.
+        NOTE: publications are already translated by classification, skip them here.
         """
-        # Collect items needing translation
-        # NOTE: publications are already translated by classify_publication(), skip them here
         items_to_translate: list[dict] = []
         if articles:
             for i, art in enumerate(articles):
@@ -705,15 +799,11 @@ class ArticleClassifier:
 
         logger.info(f"Translating {len(items_to_translate)} non-English items to English")
 
-        # Build a single prompt with all items
         lines = []
         for idx, item in enumerate(items_to_translate):
             lines.append(f"--- ITEM {idx} ---")
             lines.append(f"Title: {item['title']}")
-            if item.get("summary"):
-                lines.append(f"Summary: {item['summary']}")
             lines.append("")
-
         user_msg = "\n".join(lines)
 
         translate_tool = {
@@ -729,9 +819,8 @@ class ArticleClassifier:
                             "properties": {
                                 "item_index": {"type": "integer"},
                                 "title_en": {"type": "string", "description": "English translation of the title."},
-                                "summary_en": {"type": "string", "description": "English translation of the summary. Empty string if no summary provided."},
                             },
-                            "required": ["item_index", "title_en", "summary_en"],
+                            "required": ["item_index", "title_en"],
                         },
                     },
                 },
@@ -744,13 +833,13 @@ class ArticleClassifier:
                 # ~60-80 tokens per translated item; pad generously to avoid truncation
                 translation_max_tokens = max(2048, len(items_to_translate) * 100)
                 response = await self.client.messages.create(
-                    model=self._model,
+                    model=CLAUDE_MODEL_PRIMARY,
                     max_tokens=translation_max_tokens,
                     system=[{
                         "type": "text",
                         "text": (
                             "You are a professional translator for agricultural news. "
-                            "Translate each item's title and summary to clear, concise English. "
+                            "Translate each item's title to clear, concise English. "
                             "Keep agricultural terminology precise (crop names, technical terms). "
                             "Do not add or remove information — translate faithfully."
                         ),
@@ -763,8 +852,7 @@ class ArticleClassifier:
                     tool_choice={"type": "tool", "name": "translate_items"},
                 )
 
-                self.metrics.input_tokens += response.usage.input_tokens
-                self.metrics.output_tokens += response.usage.output_tokens
+                self.metrics.add_usage("translation", CLAUDE_MODEL_PRIMARY, response.usage)
 
                 tool_block = next(
                     (b for b in response.content if b.type == "tool_use"), None
@@ -776,16 +864,13 @@ class ArticleClassifier:
                             item = items_to_translate[idx]
                             original_idx = item["index"]
                             title_en = t.get("title_en", "")
-                            summary_en = t.get("summary_en", "")
 
                             if item["type"] == "article" and title_en and articles:
                                 articles[original_idx].title = title_en
-                                logger.debug(f"Translated article title: {item['title'][:50]} → {title_en[:50]}")
                             elif item["type"] == "signal" and title_en and signals:
                                 signals[original_idx].title = title_en
-                                logger.debug(f"Translated signal title: {item['title'][:50]} → {title_en[:50]}")
 
-                    translated_count = len(tool_block.input['translations'])
+                    translated_count = len(tool_block.input["translations"])
                     if translated_count < len(items_to_translate):
                         logger.warning(
                             f"Translation gap: got {translated_count}/{len(items_to_translate)} items. "
