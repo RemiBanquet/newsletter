@@ -1,10 +1,9 @@
-name: Verify branch
+name: Verify
 
-# Verification for the source-diagnostics branch: does the code parse, do the
-# modules import, and does a full pipeline pass complete against the real
-# sources? Runs on push to this branch (not workflow_dispatch alone, because a
-# dispatch-only workflow doesn't appear in the Actions UI until it's on the
-# default branch, which would mean merging before verifying).
+# Manual-only sanity check. Run it on main, or pick any branch in the
+# "Run workflow" dialog. Answers: does the code parse, do the modules import,
+# does the scraper metrics dispatch resolve, and does a full pipeline pass
+# complete against the real sources?
 #
 # Safe by construction:
 #   - the pipeline runs with --dry-run, which skips the email send, the Notion
@@ -12,15 +11,10 @@ name: Verify branch
 #     sent_signals.json, source_health.json)
 #   - there is no "Persist state" step here, so nothing is committed back
 #
-# Not free: --dry-run still classifies through the Anthropic Batch API, so it
-# spends a small amount of tokens (the 2026-07-28 production run classified 210
-# items at 50% batch pricing).
-#
-# Delete this file once the branch is merged.
+# Not free: --dry-run still classifies through the Anthropic Batch API. The
+# 2026-07-28 run cost about $0.05.
 
 on:
-  push:
-    branches: [source-diagnostics]
   workflow_dispatch: {}
 
 jobs:
