@@ -23,7 +23,7 @@ from urllib.parse import urljoin
 
 import aiohttp
 
-from models import GeoLocation, Publication, SourceConfig
+from models import GeoLocation, Publication, RunMetrics, SourceConfig
 from sources.scraper_base import (
     build_publication,
     fetch_html,
@@ -76,6 +76,7 @@ def _is_agriculture_related(text: str) -> bool:
 async def scrape_mapa(
     source: SourceConfig,
     session: aiohttp.ClientSession,
+    metrics: RunMetrics | None = None,
 ) -> list[Publication]:
     """
     Scrape MAPA Spain for crop area and production advance reports.
@@ -89,7 +90,7 @@ async def scrape_mapa(
     cutoff = datetime.now(timezone.utc) - timedelta(hours=168)  # 7-day lookback (monthly reports)
 
     # ── Approach 1: Avances page ──
-    avances_pubs = await _scrape_avances_page(source, session, cutoff)
+    avances_pubs, avances_candidates = await _scrape_avances_page(source, session, cutoff)
     publications.extend(avances_pubs)
 
     # ── Approach 2: Novedades (statistics news) page ──
@@ -105,7 +106,16 @@ async def scrape_mapa(
             unique.append(pub)
     publications = unique
 
-    logger.info(f"MAPA: found {len(publications)} agriculture publications")
+    if metrics is not None:
+        # Data-file links found on the Avances page before any date or dedup
+        # filtering. 0 → the page or the /dam/ link pattern changed
+        # (source_health → DEAD). Non-zero with nothing published → the 7-day
+        # window is rejecting a monthly publisher (→ QUIET).
+        metrics.source_raw_counts[source.name] = avances_candidates
+    logger.info(
+        f"MAPA: {avances_candidates} data-file links on Avances page → "
+        f"{len(publications)} agriculture publications"
+    )
     return publications
 
 
@@ -122,7 +132,7 @@ async def _scrape_avances_page(
     source: SourceConfig,
     session: aiohttp.ClientSession,
     cutoff: datetime,
-) -> list[Publication]:
+) -> tuple[list[Publication], int]:
     """
     Scrape the Avances de Superficies page for PDF/Excel data links.
 
@@ -138,6 +148,9 @@ async def _scrape_avances_page(
       2. Extract year from URL path — skip if year < current_year - 1
       3. Skip non-data items (methodology notes, glossaries)
       4. Deduplicate PDF vs Excel variants of the same report
+
+    Returns (publications, candidate_count) where candidate_count is the number
+    of structurally-valid data-file links seen before date/dedup filtering.
     """
     publications = []
     url = source.url if source.url != MAPA_AVANCES_URL else MAPA_AVANCES_URL
@@ -145,9 +158,10 @@ async def _scrape_avances_page(
     html = await fetch_html(MAPA_AVANCES_URL, session)
     if not html:
         logger.warning("MAPA: could not fetch Avances page")
-        return publications
+        return publications, 0
 
     soup = parse_html(html)
+    candidates = 0
     now = datetime.now(timezone.utc)
     # Accept reports from current year and previous year only
     min_year = now.year - 1
@@ -173,6 +187,8 @@ async def _scrape_avances_page(
         # Skip non-data items (methodology notes, glossaries)
         if _SKIP_TITLES.search(title) or _SKIP_TITLES.search(href):
             continue
+
+        candidates += 1
 
         # Make URL absolute
         if href.startswith("/"):
@@ -215,7 +231,7 @@ async def _scrape_avances_page(
             location=MAPA_GEOLOCATION,
         ))
 
-    return publications
+    return publications, candidates
 
 
 async def _scrape_novedades_page(
