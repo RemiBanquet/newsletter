@@ -17,7 +17,7 @@ from urllib.parse import urljoin
 
 import aiohttp
 
-from models import GeoLocation, Publication, SourceConfig
+from models import GeoLocation, Publication, RunMetrics, SourceConfig
 from sources.scraper_base import (
     build_publication,
     fetch_html,
@@ -27,7 +27,7 @@ from sources.scraper_base import (
 
 logger = logging.getLogger(__name__)
 
-# ── Config ────────────────────────────────────────────────────────
+# ── Config ──────────────────────────────────────────────────────
 
 JRC_BASE = "https://publications.jrc.ec.europa.eu"
 JRC_MARS_URL = (
@@ -53,6 +53,7 @@ MARS_BULLETIN_PATTERNS = [
 async def scrape_jrc(
     source: SourceConfig,
     session: aiohttp.ClientSession,
+    metrics: RunMetrics | None = None,
 ) -> list[Publication]:
     """
     Scrape JRC MARS crop monitoring bulletins.
@@ -70,12 +71,22 @@ async def scrape_jrc(
     html = await fetch_html(source.url or JRC_MARS_URL, session)
     if not html:
         logger.warning("JRC: could not fetch MARS search page")
+        if metrics is not None:
+            metrics.source_raw_counts[source.name] = 0
         return publications
 
     soup = parse_html(html)
 
     # Find all bulletin title links
-    for link in soup.find_all("a", class_="search-entry-title"):
+    title_links = soup.find_all("a", class_="search-entry-title")
+    if metrics is not None:
+        # Pre-filter count. 0 here means the page or the a.search-entry-title
+        # selector changed (source_health -> DEAD). A non-zero count with no
+        # publications means the filters below rejected everything (-> QUIET).
+        metrics.source_raw_counts[source.name] = len(title_links)
+
+    matched = skipped_old = skipped_undated = 0
+    for link in title_links:
         title = link.get_text(strip=True)
         href = link.get("href", "").strip()
 
@@ -86,6 +97,7 @@ async def scrape_jrc(
         if not _is_valid_mars_title(title):
             logger.debug(f"JRC: skipping non-MARS bulletin: {title[:60]}")
             continue
+        matched += 1
 
         # Make URL absolute
         if href.startswith("/"):
@@ -96,11 +108,13 @@ async def scrape_jrc(
 
         # Apply cutoff
         if pub_date and pub_date < cutoff:
+            skipped_old += 1
             continue
 
         # If no date could be extracted, skip
         if not pub_date:
             logger.debug(f"JRC: skipping undated bulletin: {title[:60]}")
+            skipped_undated += 1
             continue
 
         publications.append(build_publication(
@@ -108,13 +122,17 @@ async def scrape_jrc(
             url=href,
             source_name="JRC MARS",
             country="Europe",
-            flag_emoji="🇪🇺",
+            flag_emoji="\U0001F1EA\U0001F1FA",
             published_at=pub_date,
             language="en",
             location=JRC_GEOLOCATION,
         ))
 
-    logger.info(f"JRC: found {len(publications)} MARS bulletins")
+    logger.info(
+        f"JRC: {len(title_links)} result rows, {matched} MARS-titled, "
+        f"{skipped_old} outside 7d window, {skipped_undated} undated -> "
+        f"{len(publications)} published"
+    )
     return publications
 
 

@@ -16,7 +16,7 @@ feed — keep the source, the curl_cffi fallback handles it. If both attempts
 return 200 but 0 entries, the body isn't valid RSS (challenge page, redirect,
 or a malformed feed) and the source needs a real fix or a swap.
 
-    python diagnose_feed.py                      # checks the two silent feeds
+    python diagnose_feed.py                      # checks the six failing feeds
     python diagnose_feed.py https://some/feed     # checks ad-hoc URL(s)
 """
 import sys
@@ -37,11 +37,24 @@ HEADERS = {
     "Accept-Language": "en-US,en;q=0.9",
 }
 
-# The two feeds that fail silently (200 but no parsed entries, per the run log).
-# Edit this list as sources come and go.
+# The six feeds that failed in the 2026-07-28 production run.
+#
+# The first four returned HTTP 200 with 0 parsed entries on BOTH the plain and
+# the Chrome-impersonated path. Per the decision rule in the docstring above
+# that means the body is not parseable RSS — so the useful output for these is
+# the "first 300B" line, which distinguishes a WAF interstitial served with an
+# RSS content-type from an undecoded compressed body.
+#
+# The last two are hard failures, kept for contrast: Grainews 403s on both
+# paths, INSSE times out at 30s on both (the runner's address range looks
+# blocked at the network level, which no client-side change will fix).
 DEFAULT_URLS = [
-    "https://www.ruralnewsgroup.co.nz/?format=feed&type=rss",
+    "https://api.io.canada.ca/io-server/gc/news/en/v2?dept=departmentofagricultureandagrifood&type=newsreleases&format=atom&atomtitle=AAFC",
+    "https://statbel.fgov.be/en/rss.xml",
     "https://ukragroconsult.com/en/feed/",
+    "https://www.ruralnewsgroup.co.nz/?format=feed&type=rss",
+    "https://www.grainews.ca/feed/",
+    "https://insse.ro/cms/files/rss_ins_en.xml",
 ]
 
 

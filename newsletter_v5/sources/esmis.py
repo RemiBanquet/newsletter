@@ -25,7 +25,7 @@ from urllib.parse import urljoin
 
 import aiohttp
 
-from models import GeoLocation, Publication, SourceConfig
+from models import GeoLocation, Publication, RunMetrics, SourceConfig
 from sources.scraper_base import build_publication, fetch_html, parse_html
 
 logger = logging.getLogger(__name__)
@@ -75,11 +75,14 @@ def _best_file_link(node, base_url: str) -> str | None:
 async def scrape_esmis(
     source: SourceConfig,
     session: aiohttp.ClientSession,
+    metrics: RunMetrics | None = None,
 ) -> list[Publication]:
     """Scan a USDA ESMIS publication page for new releases."""
     url = source.url or DEFAULT_URL
     html = await fetch_html(url, session)
     if not html:
+        if metrics is not None:
+            metrics.source_raw_counts[source.name] = 0
         return []
 
     soup = parse_html(html)
@@ -92,6 +95,7 @@ async def scrape_esmis(
 
     pubs = []
     seen_keys = set()
+    all_dates = set()
 
     # Scan table rows first (the canonical layout), then generic blocks
     candidates = soup.find_all("tr") or []
@@ -103,7 +107,13 @@ async def scrape_esmis(
         if not text or len(text) > 600:
             continue
         release_date = _parse_us_date(text)
-        if not release_date or release_date < cutoff:
+        if not release_date:
+            continue
+        # Every dated release on the page, regardless of the lookback window.
+        # WASDE is monthly, so this is the number that says whether the page
+        # still parses at all versus whether the window is simply too tight.
+        all_dates.add(release_date.strftime("%Y-%m-%d"))
+        if release_date < cutoff:
             continue
         key = release_date.strftime("%Y-%m-%d")
         if key in seen_keys:
@@ -116,14 +126,19 @@ async def scrape_esmis(
             url=link,
             source_name="USDA",
             country="USA",
-            flag_emoji="🇺🇸",
+            flag_emoji="\U0001F1FA\U0001F1F8",
             published_at=release_date,
             summary="",
             language="en",
             location=USA_GEO,
         ))
 
-    logger.info(f"ESMIS [{pub_name}]: {len(pubs)} releases within lookback window")
+    if metrics is not None:
+        metrics.source_raw_counts[source.name] = len(all_dates)
+    logger.info(
+        f"ESMIS [{pub_name}]: {len(all_dates)} dated releases on page, "
+        f"{len(pubs)} within {lookback_hours}h lookback window"
+    )
     return pubs
 
 

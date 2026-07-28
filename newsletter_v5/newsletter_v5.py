@@ -48,7 +48,7 @@ from source_health import (
     SourceHealthTracker, DEFAULT_THRESHOLD_MEDIA, DEFAULT_THRESHOLD_OFFICIAL,
 )
 
-# ── Logging setup ─────────────────────────────────────────────────
+# ── Logging setup ──────────────────────────────────────────────
 
 logging.basicConfig(
     level=logging.INFO,
@@ -94,7 +94,7 @@ def dedup_signals_cross_company(signals: list[CompanySignal]) -> list[CompanySig
     return unique
 
 
-# ── Main pipeline ─────────────────────────────────────────────────
+# ── Main pipeline ──────────────────────────────────────────────
 
 async def run_pipeline(args: argparse.Namespace) -> None:
     """Execute the full newsletter pipeline."""
@@ -132,13 +132,28 @@ async def run_pipeline(args: argparse.Namespace) -> None:
         loop = asyncio.get_event_loop()
         psd_future = loop.run_in_executor(None, fetch_psd_data)
 
-        articles, publications, signals, eurostat_pubs, scraper_pubs = await asyncio.gather(
+        _branches = await asyncio.gather(
             fetch_all_articles(config.active_sources, metrics),
             fetch_all_publications(config.active_sources, metrics),
             fetch_all_signals(config.companies, metrics),
             fetch_eurostat_publications(),
             run_scraper_sources(config.active_sources, metrics),
+            return_exceptions=True,
         )
+        # The per-source helpers already isolate individual feeds, but this
+        # gather had no return_exceptions, so a branch raising before it
+        # returned (fetch_eurostat_publications has no internal guard) would
+        # abort the whole run and send no digest at all.
+        _branch_names = ("articles", "publications", "signals", "eurostat", "scrapers")
+        _clean = []
+        for _name, _result in zip(_branch_names, _branches):
+            if isinstance(_result, BaseException):
+                logger.error(f"Fetch branch '{_name}' failed: {_result}")
+                metrics.source_errors.append(f"{_name} branch: {_result}")
+                _clean.append([])
+            else:
+                _clean.append(_result)
+        articles, publications, signals, eurostat_pubs, scraper_pubs = _clean
 
         # Merge Eurostat agriculture dataset updates into publications
         if eurostat_pubs:
@@ -152,7 +167,21 @@ async def run_pipeline(args: argparse.Namespace) -> None:
             logger.info(f"Scrapers: {len(scraper_pubs)} publications added")
             publications.extend(scraper_pubs)
 
-        psd_data = await psd_future
+        # Same reasoning as the branches above: PSD is a nice-to-have block in
+        # the digest, not a reason to ship nothing.
+        #
+        # Empty dict, not {"available": False}: renderer.py does
+        # `psd_ns = _dict_to_namespace(psd_data) if psd_data else None`, and
+        # _Namespace.__bool__ always returns True — so a non-empty dict would
+        # make the template treat the PSD block as present. {} is falsy, so the
+        # section is skipped cleanly, and {}.get("available") is still None for
+        # the log line below.
+        try:
+            psd_data = await psd_future
+        except Exception as e:
+            logger.error(f"PSD fetch failed, continuing without it: {e}")
+            metrics.source_errors.append(f"PSD: {e}")
+            psd_data = {}
         logger.info(
             f"Fetched: {len(articles)} articles, {len(publications)} publications "
             f"(incl. {len(eurostat_pubs)} Eurostat, {len(scraper_pubs)} scraped), "
@@ -366,7 +395,7 @@ async def run_pipeline(args: argparse.Namespace) -> None:
         sys.exit(1)
 
 
-# ── CLI ───────────────────────────────────────────────────────────
+# ── CLI ───────────────────────────────────────────────────────
 
 def main():
     parser = argparse.ArgumentParser(description="Daily Agri-News Digest v5")
