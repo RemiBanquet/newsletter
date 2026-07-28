@@ -6,6 +6,9 @@ Each scraper function has the signature:
 
     async def scrape_xxx(source: SourceConfig, session: aiohttp.ClientSession) -> list[Publication]
 
+A scraper may optionally also declare a `metrics: RunMetrics | None = None`
+parameter; see _run_single_scraper for why that matters.
+
 To add a new scraper:
 1. Create a new file in sources/ (e.g., sources/my_source.py)
 2. Implement the async scraper function
@@ -16,6 +19,7 @@ correct scraper based on source.scraper_id.
 """
 
 import asyncio
+import inspect
 import logging
 from typing import Callable, Awaitable
 
@@ -203,7 +207,7 @@ async def run_scraper_sources(
                 )
                 continue
 
-            tasks.append(_run_single_scraper(scraper_fn, source, session))
+            tasks.append(_run_single_scraper(scraper_fn, source, session, metrics))
             valid_sources.append(source)
 
         if not tasks:
@@ -233,10 +237,26 @@ async def _run_single_scraper(
     scraper_fn: Callable,
     source: SourceConfig,
     session: aiohttp.ClientSession,
+    metrics: RunMetrics,
 ) -> list[Publication]:
-    """Run a single scraper with error isolation."""
+    """Run a single scraper with error isolation.
+
+    A scraper that wants to report a pre-filter item count declares a
+    `metrics` parameter and sets metrics.source_raw_counts[source.name].
+    Without a raw count, source_health has nothing to judge a scraper on
+    besides its post-filter streak, so every scraper is classified SILENT
+    forever and the DEAD detector is blind to them — which is why a
+    "found 0" log line could never be read as either a broken selector or
+    an over-tight filter.
+
+    Scrapers that don't declare `metrics` are called with the original
+    two-argument signature, so no existing scraper needs to change.
+    """
+    kwargs = {}
+    if "metrics" in inspect.signature(scraper_fn).parameters:
+        kwargs["metrics"] = metrics
     try:
-        return await scraper_fn(source, session)
+        return await scraper_fn(source, session, **kwargs)
     except Exception as e:
         logger.error(f"Scraper '{source.scraper_id}' ({source.name}) failed: {e}")
         raise
