@@ -1,0 +1,82 @@
+name: Verify branch
+
+# Verification for the source-diagnostics branch: does the code parse, do the
+# modules import, and does a full pipeline pass complete against the real
+# sources? Runs on push to this branch (not workflow_dispatch alone, because a
+# dispatch-only workflow doesn't appear in the Actions UI until it's on the
+# default branch, which would mean merging before verifying).
+#
+# Safe by construction:
+#   - the pipeline runs with --dry-run, which skips the email send, the Notion
+#     archive, and every state write (sent_articles.json, sent_publications.json,
+#     sent_signals.json, source_health.json)
+#   - there is no "Persist state" step here, so nothing is committed back
+#
+# Not free: --dry-run still classifies through the Anthropic Batch API, so it
+# spends a small amount of tokens (the 2026-07-28 production run classified 210
+# items at 50% batch pricing).
+#
+# Delete this file once the branch is merged.
+
+on:
+  push:
+    branches: [source-diagnostics]
+  workflow_dispatch: {}
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      # Step 1 needs no dependencies: it only asks whether every file parses.
+      # This is the check that catches transcription damage.
+      - name: Syntax check every Python file
+        run: python -c "import ast,pathlib; files=sorted(pathlib.Path('newsletter_v5').rglob('*.py')); [ast.parse(p.read_text(encoding='utf-8'), filename=str(p)) for p in files]; print(f'OK: {len(files)} files parsed')"
+
+      - name: Install dependencies
+        run: pip install -r newsletter_v5/requirements.txt
+
+      # Step 2 catches what a syntax check can't: bad imports, wrong symbol
+      # names, signature changes that don't line up.
+      - name: Import check
+        run: |
+          cd newsletter_v5
+          python -c "import fetcher, newsletter_v5, source_health, sources, sources.jrc, sources.esmis, sources.mapa; print('imports OK')"
+
+      # Step 3 confirms the scraper dispatch change actually resolves: the three
+      # instrumented scrapers must be detected as accepting `metrics`, and the
+      # rest must not.
+      - name: Check scraper metrics dispatch
+        run: |
+          cd newsletter_v5
+          python -c "import inspect; from sources import _get_scraper_registry; r=_get_scraper_registry(); w=[k for k,v in sorted(r.items()) if 'metrics' in inspect.signature(v).parameters]; print(f'{len(r)} scrapers registered'); print('accept metrics:', w)"
+
+      - name: Set up Chrome (pinned for Selenium scrapers)
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+          install-chromedriver: true
+        id: setup-chrome
+
+      - name: Pipeline dry run (no email, no Notion write, no state commit)
+        env:
+          CHROME_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_SOURCES_DB_ID: ${{ secrets.NOTION_SOURCES_DB_ID }}
+          NOTION_RECIPIENTS_DB_ID: ${{ secrets.NOTION_RECIPIENTS_DB_ID }}
+          NOTION_COMPANIES_DB_ID: ${{ secrets.NOTION_COMPANIES_DB_ID }}
+          NOTION_COUNTRIES_DB_ID: ${{ secrets.NOTION_COUNTRIES_DB_ID }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          cd newsletter_v5
+          python newsletter_v5.py --dry-run
