@@ -41,8 +41,8 @@ jobs:
       # Step 1 needs no dependencies: it only asks whether every file parses.
       # This is the check that catches transcription damage.
       - name: Syntax check every Python file
-        run: python -c "import ast,pathlib; files=sorted(pathlib.Path('newsletter_v5').rglob('*.py')); [ast.parse(p.read_text(encoding='utf-8'), filename=str(p)) for p in files]; print(f'OK: {len(files)} files parsed')"
-
+        run: |
+          python -c "import ast,pathlib; files=sorted(pathlib.Path('newsletter_v5').rglob('*.py')); [ast.parse(p.read_text(encoding='utf-8'), filename=str(p)) for p in files]; print(f'OK: {len(files)} files parsed')"
       - name: Install dependencies
         run: pip install -r newsletter_v5/requirements.txt
 
