@@ -86,8 +86,12 @@ try:
 except ImportError:
     _CURL_CFFI_AVAILABLE = False
 
-# HTTP statuses where a TLS-impersonation retry is worth a shot.
-_BLOCK_STATUSES = {403, 429, 503}
+# HTTP statuses where a TLS-impersonation retry is worth a shot. The 520-527
+# range is Cloudflare's origin-error family: 520/522/524 (unreachable, timeout)
+# often clear on a retry. 526 (Cloudflare can't validate the origin's
+# certificate) probably won't, but it costs one request, and Grain Central threw
+# 526 on all three feeds on 2026-07-28 with no retry attempted at all.
+_BLOCK_STATUSES = {403, 429, 503, 520, 521, 522, 523, 524, 525, 526, 527}
 
 
 def _impersonate_fetch(url: str, timeout: int) -> Optional[feedparser.FeedParserDict]:
