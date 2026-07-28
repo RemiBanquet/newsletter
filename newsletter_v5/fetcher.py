@@ -66,6 +66,12 @@ _FEED_HEADERS = {
     ),
     "Accept": "application/rss+xml, application/xml, text/xml, application/atom+xml, */*;q=0.8",
     "Accept-Language": "en-US,en;q=0.9",
+    # Pinned deliberately. Left unset, aiohttp and curl_cffi each advertise
+    # whatever their build supports (br, and zstd when impersonating Chrome).
+    # If the server then uses an encoding the client can't decode, the body
+    # reaches feedparser as binary, parses to 0 entries, and the source is
+    # reported DEAD despite a clean HTTP 200. gzip/deflate are universally safe.
+    "Accept-Encoding": "gzip, deflate",
 }
 
 # Some publishers (Cloudflare-fronted: Grain Central, Grainews, Future Farming)
@@ -197,7 +203,7 @@ def _parse_feed_date(entry: dict) -> Optional[datetime]:
     return None
 
 
-# ── Article fetching ──────────────────────────────────────────────
+# ── Article fetching ─────────────────────────────────────────────
 
 async def fetch_articles_from_source(
     source: SourceConfig,
@@ -231,6 +237,7 @@ async def fetch_articles_from_source(
     total_entries = len(feed.entries)
     metrics.source_raw_counts[source.name] = total_entries
     skipped_date = 0
+    skipped_nodate = 0
     skipped_keyword = 0
     for entry in feed.entries:
         title = entry.get("title", "").strip()
@@ -242,15 +249,20 @@ async def fetch_articles_from_source(
         pub_date = _parse_feed_date(entry)
         if pub_date and pub_date < cutoff:
             skipped_date += 1
-            if is_google_news and skipped_date <= 3:  # Log first 3 skips for debugging
+            # First 3 per source is enough to tell a stale feed from a
+            # mis-parsed one. Previously gated on is_google_news, which meant
+            # every other source's date rejections were invisible at any level.
+            if skipped_date <= 3:
                 age_days = (datetime.now(timezone.utc) - pub_date).total_seconds() / 86400
                 logger.debug(f"[{source.name}] date-skipped (age={age_days:.1f}d): {title[:80]}")
             continue
         # Skip entries with no parseable date — almost always archival content
         if pub_date is None:
-            skipped_date += 1
-            if is_google_news:
-                logger.debug(f"[{source.name}] no-date-skipped: {title[:80]}")
+            # Counted separately: "too old" is the filter working as intended,
+            # "undated" is _parse_feed_date failing. Sharing one counter made
+            # the two indistinguishable in the run log.
+            skipped_nodate += 1
+            logger.debug(f"[{source.name}] no-date-skipped: {title[:80]}")
             continue
 
         # Get content for keyword matching
@@ -292,8 +304,8 @@ async def fetch_articles_from_source(
 
     logger.info(
         f"[{source.name}] {total_entries} entries → "
-        f"{len(articles)} passed, {skipped_date} date-filtered, "
-        f"{skipped_keyword} keyword-filtered"
+        f"{len(articles)} passed, {skipped_date} too-old, "
+        f"{skipped_nodate} undated, {skipped_keyword} keyword-filtered"
     )
     return articles
 
@@ -329,7 +341,7 @@ async def fetch_all_articles(
     return articles
 
 
-# ── Publication fetching ──────────────────────────────────────────
+# ── Publication fetching ─────────────────────────────────────────
 
 async def fetch_publications_from_source(
     source: SourceConfig,
@@ -417,7 +429,8 @@ async def fetch_publications_from_source(
     logger.info(
         f"[{source.name}] {total_entries} entries → "
         f"{len(pubs)} passed, {skipped_date} date-filtered, "
-        f"{skipped_keyword} keyword-filtered"
+        f"{skipped_keyword} keyword-filtered, "
+        f"{undated_accepted} undated-accepted"
     )
     return pubs
 
@@ -456,7 +469,7 @@ async def fetch_all_publications(
     return pubs
 
 
-# ── Company signal fetching ───────────────────────────────────────
+# ── Company signal fetching ──────────────────────────────────────
 
 # Ag-input terms specific to tracked companies' core business domains.
 AG_INPUT_KEYWORDS = [
