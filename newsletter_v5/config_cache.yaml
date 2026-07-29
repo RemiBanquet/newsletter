@@ -627,7 +627,7 @@ sources:
   country: USA
   enabled: true
   keywords_filter: []
-  lookback_hours: 168
+  lookback_hours: 1080
   max_silent_days: 45
   name: USDA ESMIS — WASDE
   scraper_id: scrape_esmis
@@ -705,7 +705,7 @@ sources:
   url: https://agri2day.com/feed
 - category: media
   country: New Zealand
-  enabled: true
+  enabled: false
   keywords_filter: []
   lookback_hours: 0
   max_silent_days: 0
@@ -825,7 +825,7 @@ sources:
   url: https://terraevita.edagricole.it/feed/
 - category: media
   country: Canada
-  enabled: true
+  enabled: false
   keywords_filter: []
   lookback_hours: 0
   max_silent_days: 0
@@ -927,8 +927,8 @@ sources:
   country: Netherlands
   enabled: true
   keywords_filter: []
-  lookback_hours: 168
-  max_silent_days: 14
+  lookback_hours: 720
+  max_silent_days: 90
   name: CBS Netherlands — Landbouw
   scraper_id: ''
   source_type: rss
@@ -1095,7 +1095,7 @@ sources:
   url: https://apisidra.ibge.gov.br/values/t/5457
 - category: official_publication
   country: Romania
-  enabled: true
+  enabled: false
   keywords_filter: []
   lookback_hours: 0
   max_silent_days: 14
@@ -1165,7 +1165,7 @@ sources:
   url: https://www.mapa.gob.es/es/agricultura/noticiasrss
 - category: media
   country: Global
-  enabled: true
+  enabled: false
   keywords_filter: []
   lookback_hours: 0
   max_silent_days: 0
@@ -1275,7 +1275,7 @@ sources:
   url: http://www.terre-net.fr/actualite-agriculture.html
 - category: media
   country: Global
-  enabled: true
+  enabled: false
   keywords_filter: []
   lookback_hours: 0
   max_silent_days: 45
@@ -1305,7 +1305,7 @@ sources:
   url: http://feeds.feedburner.com/westernproducer
 - category: media
   country: Global
-  enabled: true
+  enabled: false
   keywords_filter: []
   lookback_hours: 0
   max_silent_days: 30
