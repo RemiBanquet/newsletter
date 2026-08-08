@@ -565,12 +565,6 @@ recipients:
   lead_id: ''
   name: JB
 - active: true
-  email: victoria@hyperplan.fr
-  group: internal
-  is_primary: false
-  lead_id: ''
-  name: Victoria
-- active: true
   email: thomas.beaugendre@demeter-im.com
   group: external
   is_primary: false
@@ -611,7 +605,7 @@ recipients:
   group: internal
   is_primary: false
   lead_id: lea_yyJNZzei2udyP3agF
-  name: Rémi Banquet
+  name: Rémi
 sources:
 - category: official_publication
   country: South Africa
