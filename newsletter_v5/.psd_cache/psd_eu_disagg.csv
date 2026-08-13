@@ -7,8 +7,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 430000,Barley,AU,Austria,2024,2025,4,28,Production,8,(1000 MT),716.0
 430000,Barley,AU,Austria,2025,2026,4,4,Area Harvested,4,(1000 HA),122.0
 430000,Barley,AU,Austria,2025,2026,4,28,Production,8,(1000 MT),825.0
-430000,Barley,AU,Austria,2026,2026,7,4,Area Harvested,4,(1000 HA),122.0
-430000,Barley,AU,Austria,2026,2026,7,28,Production,8,(1000 MT),780.0
+430000,Barley,AU,Austria,2026,2026,8,4,Area Harvested,4,(1000 HA),122.0
+430000,Barley,AU,Austria,2026,2026,8,28,Production,8,(1000 MT),775.0
 430000,Barley,BE,Belgium-Luxembourg,2022,2024,4,4,Area Harvested,4,(1000 HA),53.0
 430000,Barley,BE,Belgium-Luxembourg,2022,2024,4,28,Production,8,(1000 MT),411.0
 430000,Barley,BE,Belgium-Luxembourg,2023,2024,12,4,Area Harvested,4,(1000 HA),55.0
@@ -17,8 +17,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 430000,Barley,BE,Belgium-Luxembourg,2024,2026,4,28,Production,8,(1000 MT),334.0
 430000,Barley,BE,Belgium-Luxembourg,2025,2026,4,4,Area Harvested,4,(1000 HA),44.0
 430000,Barley,BE,Belgium-Luxembourg,2025,2026,4,28,Production,8,(1000 MT),311.0
-430000,Barley,BE,Belgium-Luxembourg,2026,2026,7,4,Area Harvested,4,(1000 HA),48.0
-430000,Barley,BE,Belgium-Luxembourg,2026,2026,7,28,Production,8,(1000 MT),330.0
+430000,Barley,BE,Belgium-Luxembourg,2026,2026,8,4,Area Harvested,4,(1000 HA),48.0
+430000,Barley,BE,Belgium-Luxembourg,2026,2026,8,28,Production,8,(1000 MT),330.0
 430000,Barley,BU,Bulgaria,2022,2023,8,4,Area Harvested,4,(1000 HA),122.0
 430000,Barley,BU,Bulgaria,2022,2023,8,28,Production,8,(1000 MT),625.0
 430000,Barley,BU,Bulgaria,2023,2025,4,4,Area Harvested,4,(1000 HA),150.0
@@ -27,8 +27,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 430000,Barley,BU,Bulgaria,2024,2026,4,28,Production,8,(1000 MT),1102.0
 430000,Barley,BU,Bulgaria,2025,2026,4,4,Area Harvested,4,(1000 HA),194.0
 430000,Barley,BU,Bulgaria,2025,2026,4,28,Production,8,(1000 MT),1136.0
-430000,Barley,BU,Bulgaria,2026,2026,7,4,Area Harvested,4,(1000 HA),203.0
-430000,Barley,BU,Bulgaria,2026,2026,7,28,Production,8,(1000 MT),1140.0
+430000,Barley,BU,Bulgaria,2026,2026,8,4,Area Harvested,4,(1000 HA),208.0
+430000,Barley,BU,Bulgaria,2026,2026,8,28,Production,8,(1000 MT),1200.0
 430000,Barley,HR,Croatia,2022,2024,4,4,Area Harvested,4,(1000 HA),63.0
 430000,Barley,HR,Croatia,2022,2024,4,28,Production,8,(1000 MT),318.0
 430000,Barley,HR,Croatia,2023,2024,12,4,Area Harvested,4,(1000 HA),73.0
@@ -37,8 +37,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 430000,Barley,HR,Croatia,2024,2026,4,28,Production,8,(1000 MT),298.0
 430000,Barley,HR,Croatia,2025,2026,4,4,Area Harvested,4,(1000 HA),61.0
 430000,Barley,HR,Croatia,2025,2026,4,28,Production,8,(1000 MT),317.0
-430000,Barley,HR,Croatia,2026,2026,7,4,Area Harvested,4,(1000 HA),70.0
-430000,Barley,HR,Croatia,2026,2026,7,28,Production,8,(1000 MT),330.0
+430000,Barley,HR,Croatia,2026,2026,8,4,Area Harvested,4,(1000 HA),70.0
+430000,Barley,HR,Croatia,2026,2026,8,28,Production,8,(1000 MT),330.0
 430000,Barley,CY,Cyprus,2022,2023,4,4,Area Harvested,4,(1000 HA),23.0
 430000,Barley,CY,Cyprus,2022,2023,4,28,Production,8,(1000 MT),44.0
 430000,Barley,CY,Cyprus,2023,2024,4,4,Area Harvested,4,(1000 HA),23.0
@@ -47,8 +47,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 430000,Barley,CY,Cyprus,2024,2025,4,28,Production,8,(1000 MT),44.0
 430000,Barley,CY,Cyprus,2025,2026,4,4,Area Harvested,4,(1000 HA),23.0
 430000,Barley,CY,Cyprus,2025,2026,4,28,Production,8,(1000 MT),44.0
-430000,Barley,CY,Cyprus,2026,2026,7,4,Area Harvested,4,(1000 HA),23.0
-430000,Barley,CY,Cyprus,2026,2026,7,28,Production,8,(1000 MT),44.0
+430000,Barley,CY,Cyprus,2026,2026,8,4,Area Harvested,4,(1000 HA),23.0
+430000,Barley,CY,Cyprus,2026,2026,8,28,Production,8,(1000 MT),44.0
 430000,Barley,EZ,Czech Republic,2022,2025,11,4,Area Harvested,4,(1000 HA),334.0
 430000,Barley,EZ,Czech Republic,2022,2025,11,28,Production,8,(1000 MT),1877.0
 430000,Barley,EZ,Czech Republic,2023,2025,11,4,Area Harvested,4,(1000 HA),321.0
@@ -57,8 +57,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 430000,Barley,EZ,Czech Republic,2024,2025,11,28,Production,8,(1000 MT),1672.0
 430000,Barley,EZ,Czech Republic,2025,2026,4,4,Area Harvested,4,(1000 HA),295.0
 430000,Barley,EZ,Czech Republic,2025,2026,4,28,Production,8,(1000 MT),1850.0
-430000,Barley,EZ,Czech Republic,2026,2026,7,4,Area Harvested,4,(1000 HA),320.0
-430000,Barley,EZ,Czech Republic,2026,2026,7,28,Production,8,(1000 MT),1730.0
+430000,Barley,EZ,Czech Republic,2026,2026,8,4,Area Harvested,4,(1000 HA),320.0
+430000,Barley,EZ,Czech Republic,2026,2026,8,28,Production,8,(1000 MT),1730.0
 430000,Barley,DA,Denmark,2022,2024,8,4,Area Harvested,4,(1000 HA),612.0
 430000,Barley,DA,Denmark,2022,2024,8,28,Production,8,(1000 MT),4162.0
 430000,Barley,DA,Denmark,2023,2024,8,4,Area Harvested,4,(1000 HA),561.0
@@ -67,8 +67,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 430000,Barley,DA,Denmark,2024,2025,4,28,Production,8,(1000 MT),3198.0
 430000,Barley,DA,Denmark,2025,2026,4,4,Area Harvested,4,(1000 HA),549.0
 430000,Barley,DA,Denmark,2025,2026,4,28,Production,8,(1000 MT),3880.0
-430000,Barley,DA,Denmark,2026,2026,7,4,Area Harvested,4,(1000 HA),600.0
-430000,Barley,DA,Denmark,2026,2026,7,28,Production,8,(1000 MT),3726.0
+430000,Barley,DA,Denmark,2026,2026,8,4,Area Harvested,4,(1000 HA),575.0
+430000,Barley,DA,Denmark,2026,2026,8,28,Production,8,(1000 MT),3426.0
 430000,Barley,EN,Estonia,2022,2024,8,4,Area Harvested,4,(1000 HA),116.0
 430000,Barley,EN,Estonia,2022,2024,8,28,Production,8,(1000 MT),490.0
 430000,Barley,EN,Estonia,2023,2024,4,4,Area Harvested,4,(1000 HA),111.0
@@ -77,8 +77,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 430000,Barley,EN,Estonia,2024,2026,4,28,Production,8,(1000 MT),320.0
 430000,Barley,EN,Estonia,2025,2026,4,4,Area Harvested,4,(1000 HA),80.0
 430000,Barley,EN,Estonia,2025,2026,4,28,Production,8,(1000 MT),310.0
-430000,Barley,EN,Estonia,2026,2026,7,4,Area Harvested,4,(1000 HA),80.0
-430000,Barley,EN,Estonia,2026,2026,7,28,Production,8,(1000 MT),320.0
+430000,Barley,EN,Estonia,2026,2026,8,4,Area Harvested,4,(1000 HA),80.0
+430000,Barley,EN,Estonia,2026,2026,8,28,Production,8,(1000 MT),320.0
 430000,Barley,FI,Finland,2022,2024,8,4,Area Harvested,4,(1000 HA),379.0
 430000,Barley,FI,Finland,2022,2024,8,28,Production,8,(1000 MT),1448.0
 430000,Barley,FI,Finland,2023,2024,12,4,Area Harvested,4,(1000 HA),341.0
@@ -87,8 +87,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 430000,Barley,FI,Finland,2024,2026,4,28,Production,8,(1000 MT),1163.0
 430000,Barley,FI,Finland,2025,2026,4,4,Area Harvested,4,(1000 HA),321.0
 430000,Barley,FI,Finland,2025,2026,4,28,Production,8,(1000 MT),1220.0
-430000,Barley,FI,Finland,2026,2026,7,4,Area Harvested,4,(1000 HA),325.0
-430000,Barley,FI,Finland,2026,2026,7,28,Production,8,(1000 MT),1203.0
+430000,Barley,FI,Finland,2026,2026,8,4,Area Harvested,4,(1000 HA),310.0
+430000,Barley,FI,Finland,2026,2026,8,28,Production,8,(1000 MT),1130.0
 430000,Barley,FR,France,2022,2024,8,4,Area Harvested,4,(1000 HA),1867.0
 430000,Barley,FR,France,2022,2024,8,28,Production,8,(1000 MT),11418.0
 430000,Barley,FR,France,2023,2025,4,4,Area Harvested,4,(1000 HA),1815.0
@@ -97,8 +97,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 430000,Barley,FR,France,2024,2025,11,28,Production,8,(1000 MT),9797.0
 430000,Barley,FR,France,2025,2026,4,4,Area Harvested,4,(1000 HA),1790.0
 430000,Barley,FR,France,2025,2026,4,28,Production,8,(1000 MT),11844.0
-430000,Barley,FR,France,2026,2026,7,4,Area Harvested,4,(1000 HA),1850.0
-430000,Barley,FR,France,2026,2026,7,28,Production,8,(1000 MT),11650.0
+430000,Barley,FR,France,2026,2026,8,4,Area Harvested,4,(1000 HA),1770.0
+430000,Barley,FR,France,2026,2026,8,28,Production,8,(1000 MT),11250.0
 430000,Barley,GM,Germany,2022,2025,11,4,Area Harvested,4,(1000 HA),1583.0
 430000,Barley,GM,Germany,2022,2025,11,28,Production,8,(1000 MT),11207.0
 430000,Barley,GM,Germany,2023,2025,11,4,Area Harvested,4,(1000 HA),1612.0
@@ -107,8 +107,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 430000,Barley,GM,Germany,2024,2025,11,28,Production,8,(1000 MT),10610.0
 430000,Barley,GM,Germany,2025,2026,4,4,Area Harvested,4,(1000 HA),1523.0
 430000,Barley,GM,Germany,2025,2026,4,28,Production,8,(1000 MT),11337.0
-430000,Barley,GM,Germany,2026,2026,7,4,Area Harvested,4,(1000 HA),1560.0
-430000,Barley,GM,Germany,2026,2026,7,28,Production,8,(1000 MT),10750.0
+430000,Barley,GM,Germany,2026,2026,8,4,Area Harvested,4,(1000 HA),1560.0
+430000,Barley,GM,Germany,2026,2026,8,28,Production,8,(1000 MT),11000.0
 430000,Barley,GR,Greece,2022,2024,4,4,Area Harvested,4,(1000 HA),130.0
 430000,Barley,GR,Greece,2022,2024,4,28,Production,8,(1000 MT),260.0
 430000,Barley,GR,Greece,2023,2024,12,4,Area Harvested,4,(1000 HA),130.0
@@ -117,8 +117,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 430000,Barley,GR,Greece,2024,2026,4,28,Production,8,(1000 MT),230.0
 430000,Barley,GR,Greece,2025,2026,4,4,Area Harvested,4,(1000 HA),129.0
 430000,Barley,GR,Greece,2025,2026,4,28,Production,8,(1000 MT),240.0
-430000,Barley,GR,Greece,2026,2026,7,4,Area Harvested,4,(1000 HA),125.0
-430000,Barley,GR,Greece,2026,2026,7,28,Production,8,(1000 MT),260.0
+430000,Barley,GR,Greece,2026,2026,8,4,Area Harvested,4,(1000 HA),125.0
+430000,Barley,GR,Greece,2026,2026,8,28,Production,8,(1000 MT),260.0
 430000,Barley,HU,Hungary,2022,2024,4,4,Area Harvested,4,(1000 HA),331.0
 430000,Barley,HU,Hungary,2022,2024,4,28,Production,8,(1000 MT),1591.0
 430000,Barley,HU,Hungary,2023,2025,4,4,Area Harvested,4,(1000 HA),413.0
@@ -127,8 +127,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 430000,Barley,HU,Hungary,2024,2026,4,28,Production,8,(1000 MT),1555.0
 430000,Barley,HU,Hungary,2025,2026,4,4,Area Harvested,4,(1000 HA),291.0
 430000,Barley,HU,Hungary,2025,2026,4,28,Production,8,(1000 MT),1695.0
-430000,Barley,HU,Hungary,2026,2026,7,4,Area Harvested,4,(1000 HA),330.0
-430000,Barley,HU,Hungary,2026,2026,7,28,Production,8,(1000 MT),1800.0
+430000,Barley,HU,Hungary,2026,2026,8,4,Area Harvested,4,(1000 HA),355.0
+430000,Barley,HU,Hungary,2026,2026,8,28,Production,8,(1000 MT),1700.0
 430000,Barley,EI,Ireland,2022,2024,4,4,Area Harvested,4,(1000 HA),190.0
 430000,Barley,EI,Ireland,2022,2024,4,28,Production,8,(1000 MT),1585.0
 430000,Barley,EI,Ireland,2023,2024,12,4,Area Harvested,4,(1000 HA),186.0
@@ -137,8 +137,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 430000,Barley,EI,Ireland,2024,2026,4,28,Production,8,(1000 MT),1363.0
 430000,Barley,EI,Ireland,2025,2026,4,4,Area Harvested,4,(1000 HA),175.0
 430000,Barley,EI,Ireland,2025,2026,4,28,Production,8,(1000 MT),1360.0
-430000,Barley,EI,Ireland,2026,2026,7,4,Area Harvested,4,(1000 HA),170.0
-430000,Barley,EI,Ireland,2026,2026,7,28,Production,8,(1000 MT),1345.0
+430000,Barley,EI,Ireland,2026,2026,8,4,Area Harvested,4,(1000 HA),170.0
+430000,Barley,EI,Ireland,2026,2026,8,28,Production,8,(1000 MT),1345.0
 430000,Barley,IT,Italy,2022,2023,4,4,Area Harvested,4,(1000 HA),260.0
 430000,Barley,IT,Italy,2022,2023,4,28,Production,8,(1000 MT),990.0
 430000,Barley,IT,Italy,2023,2024,8,4,Area Harvested,4,(1000 HA),270.0
@@ -147,8 +147,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 430000,Barley,IT,Italy,2024,2025,4,28,Production,8,(1000 MT),1000.0
 430000,Barley,IT,Italy,2025,2026,4,4,Area Harvested,4,(1000 HA),250.0
 430000,Barley,IT,Italy,2025,2026,4,28,Production,8,(1000 MT),990.0
-430000,Barley,IT,Italy,2026,2026,7,4,Area Harvested,4,(1000 HA),245.0
-430000,Barley,IT,Italy,2026,2026,7,28,Production,8,(1000 MT),940.0
+430000,Barley,IT,Italy,2026,2026,8,4,Area Harvested,4,(1000 HA),250.0
+430000,Barley,IT,Italy,2026,2026,8,28,Production,8,(1000 MT),975.0
 430000,Barley,LG,Latvia,2022,2024,4,4,Area Harvested,4,(1000 HA),77.0
 430000,Barley,LG,Latvia,2022,2024,4,28,Production,8,(1000 MT),282.0
 430000,Barley,LG,Latvia,2023,2024,4,4,Area Harvested,4,(1000 HA),87.0
@@ -157,8 +157,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 430000,Barley,LG,Latvia,2024,2025,4,28,Production,8,(1000 MT),253.0
 430000,Barley,LG,Latvia,2025,2026,4,4,Area Harvested,4,(1000 HA),52.0
 430000,Barley,LG,Latvia,2025,2026,4,28,Production,8,(1000 MT),190.0
-430000,Barley,LG,Latvia,2026,2026,7,4,Area Harvested,4,(1000 HA),58.0
-430000,Barley,LG,Latvia,2026,2026,7,28,Production,8,(1000 MT),220.0
+430000,Barley,LG,Latvia,2026,2026,8,4,Area Harvested,4,(1000 HA),58.0
+430000,Barley,LG,Latvia,2026,2026,8,28,Production,8,(1000 MT),220.0
 430000,Barley,LH,Lithuania,2022,2023,4,4,Area Harvested,4,(1000 HA),133.0
 430000,Barley,LH,Lithuania,2022,2023,4,28,Production,8,(1000 MT),522.0
 430000,Barley,LH,Lithuania,2023,2025,4,4,Area Harvested,4,(1000 HA),160.0
@@ -167,8 +167,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 430000,Barley,LH,Lithuania,2024,2025,4,28,Production,8,(1000 MT),750.0
 430000,Barley,LH,Lithuania,2025,2026,4,4,Area Harvested,4,(1000 HA),150.0
 430000,Barley,LH,Lithuania,2025,2026,4,28,Production,8,(1000 MT),700.0
-430000,Barley,LH,Lithuania,2026,2026,7,4,Area Harvested,4,(1000 HA),160.0
-430000,Barley,LH,Lithuania,2026,2026,7,28,Production,8,(1000 MT),680.0
+430000,Barley,LH,Lithuania,2026,2026,8,4,Area Harvested,4,(1000 HA),150.0
+430000,Barley,LH,Lithuania,2026,2026,8,28,Production,8,(1000 MT),600.0
 430000,Barley,MT,Malta,2022,2023,4,4,Area Harvested,4,(1000 HA),1.0
 430000,Barley,MT,Malta,2022,2023,4,28,Production,8,(1000 MT),3.0
 430000,Barley,NL,Netherlands,2022,2024,4,4,Area Harvested,4,(1000 HA),36.0
@@ -179,8 +179,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 430000,Barley,NL,Netherlands,2024,2025,4,28,Production,8,(1000 MT),254.0
 430000,Barley,NL,Netherlands,2025,2026,4,4,Area Harvested,4,(1000 HA),35.0
 430000,Barley,NL,Netherlands,2025,2026,4,28,Production,8,(1000 MT),280.0
-430000,Barley,NL,Netherlands,2026,2026,7,4,Area Harvested,4,(1000 HA),35.0
-430000,Barley,NL,Netherlands,2026,2026,7,28,Production,8,(1000 MT),265.0
+430000,Barley,NL,Netherlands,2026,2026,8,4,Area Harvested,4,(1000 HA),40.0
+430000,Barley,NL,Netherlands,2026,2026,8,28,Production,8,(1000 MT),300.0
 430000,Barley,PL,Poland,2022,2024,4,4,Area Harvested,4,(1000 HA),639.0
 430000,Barley,PL,Poland,2022,2024,4,28,Production,8,(1000 MT),2835.0
 430000,Barley,PL,Poland,2023,2024,8,4,Area Harvested,4,(1000 HA),648.0
@@ -189,8 +189,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 430000,Barley,PL,Poland,2024,2026,4,28,Production,8,(1000 MT),2900.0
 430000,Barley,PL,Poland,2025,2026,4,4,Area Harvested,4,(1000 HA),620.0
 430000,Barley,PL,Poland,2025,2026,4,28,Production,8,(1000 MT),3070.0
-430000,Barley,PL,Poland,2026,2026,7,4,Area Harvested,4,(1000 HA),630.0
-430000,Barley,PL,Poland,2026,2026,7,28,Production,8,(1000 MT),2900.0
+430000,Barley,PL,Poland,2026,2026,8,4,Area Harvested,4,(1000 HA),630.0
+430000,Barley,PL,Poland,2026,2026,8,28,Production,8,(1000 MT),2900.0
 430000,Barley,PO,Portugal,2022,2024,4,4,Area Harvested,4,(1000 HA),19.0
 430000,Barley,PO,Portugal,2022,2024,4,28,Production,8,(1000 MT),25.0
 430000,Barley,PO,Portugal,2023,2025,4,4,Area Harvested,4,(1000 HA),11.0
@@ -199,8 +199,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 430000,Barley,PO,Portugal,2024,2026,4,28,Production,8,(1000 MT),50.0
 430000,Barley,PO,Portugal,2025,2026,4,4,Area Harvested,4,(1000 HA),12.0
 430000,Barley,PO,Portugal,2025,2026,4,28,Production,8,(1000 MT),30.0
-430000,Barley,PO,Portugal,2026,2026,7,4,Area Harvested,4,(1000 HA),10.0
-430000,Barley,PO,Portugal,2026,2026,7,28,Production,8,(1000 MT),30.0
+430000,Barley,PO,Portugal,2026,2026,8,4,Area Harvested,4,(1000 HA),10.0
+430000,Barley,PO,Portugal,2026,2026,8,28,Production,8,(1000 MT),30.0
 430000,Barley,RO,Romania,2022,2024,4,4,Area Harvested,4,(1000 HA),426.0
 430000,Barley,RO,Romania,2022,2024,4,28,Production,8,(1000 MT),1800.0
 430000,Barley,RO,Romania,2023,2025,4,4,Area Harvested,4,(1000 HA),482.0
@@ -209,8 +209,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 430000,Barley,RO,Romania,2024,2026,4,28,Production,8,(1000 MT),2650.0
 430000,Barley,RO,Romania,2025,2026,4,4,Area Harvested,4,(1000 HA),625.0
 430000,Barley,RO,Romania,2025,2026,4,28,Production,8,(1000 MT),3300.0
-430000,Barley,RO,Romania,2026,2026,7,4,Area Harvested,4,(1000 HA),635.0
-430000,Barley,RO,Romania,2026,2026,7,28,Production,8,(1000 MT),3200.0
+430000,Barley,RO,Romania,2026,2026,8,4,Area Harvested,4,(1000 HA),635.0
+430000,Barley,RO,Romania,2026,2026,8,28,Production,8,(1000 MT),3400.0
 430000,Barley,LO,Slovakia,2022,2024,4,4,Area Harvested,4,(1000 HA),106.0
 430000,Barley,LO,Slovakia,2022,2024,4,28,Production,8,(1000 MT),557.0
 430000,Barley,LO,Slovakia,2023,2025,4,4,Area Harvested,4,(1000 HA),109.0
@@ -219,8 +219,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 430000,Barley,LO,Slovakia,2024,2026,4,28,Production,8,(1000 MT),595.0
 430000,Barley,LO,Slovakia,2025,2026,4,4,Area Harvested,4,(1000 HA),117.0
 430000,Barley,LO,Slovakia,2025,2026,4,28,Production,8,(1000 MT),717.0
-430000,Barley,LO,Slovakia,2026,2026,7,4,Area Harvested,4,(1000 HA),120.0
-430000,Barley,LO,Slovakia,2026,2026,7,28,Production,8,(1000 MT),630.0
+430000,Barley,LO,Slovakia,2026,2026,8,4,Area Harvested,4,(1000 HA),120.0
+430000,Barley,LO,Slovakia,2026,2026,8,28,Production,8,(1000 MT),630.0
 430000,Barley,SI,Slovenia,2022,2024,4,4,Area Harvested,4,(1000 HA),23.0
 430000,Barley,SI,Slovenia,2022,2024,4,28,Production,8,(1000 MT),112.0
 430000,Barley,SI,Slovenia,2023,2024,4,4,Area Harvested,4,(1000 HA),22.0
@@ -229,8 +229,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 430000,Barley,SI,Slovenia,2024,2026,4,28,Production,8,(1000 MT),101.0
 430000,Barley,SI,Slovenia,2025,2026,4,4,Area Harvested,4,(1000 HA),20.0
 430000,Barley,SI,Slovenia,2025,2026,4,28,Production,8,(1000 MT),115.0
-430000,Barley,SI,Slovenia,2026,2026,7,4,Area Harvested,4,(1000 HA),20.0
-430000,Barley,SI,Slovenia,2026,2026,7,28,Production,8,(1000 MT),105.0
+430000,Barley,SI,Slovenia,2026,2026,8,4,Area Harvested,4,(1000 HA),20.0
+430000,Barley,SI,Slovenia,2026,2026,8,28,Production,8,(1000 MT),105.0
 430000,Barley,SP,Spain,2022,2024,4,4,Area Harvested,4,(1000 HA),2398.0
 430000,Barley,SP,Spain,2022,2024,4,28,Production,8,(1000 MT),6717.0
 430000,Barley,SP,Spain,2023,2025,4,4,Area Harvested,4,(1000 HA),2351.0
@@ -239,8 +239,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 430000,Barley,SP,Spain,2024,2026,4,28,Production,8,(1000 MT),8300.0
 430000,Barley,SP,Spain,2025,2026,4,4,Area Harvested,4,(1000 HA),2292.0
 430000,Barley,SP,Spain,2025,2026,4,28,Production,8,(1000 MT),9199.0
-430000,Barley,SP,Spain,2026,2026,7,4,Area Harvested,4,(1000 HA),2151.0
-430000,Barley,SP,Spain,2026,2026,7,28,Production,8,(1000 MT),7522.0
+430000,Barley,SP,Spain,2026,2026,8,4,Area Harvested,4,(1000 HA),2151.0
+430000,Barley,SP,Spain,2026,2026,8,28,Production,8,(1000 MT),7000.0
 430000,Barley,SW,Sweden,2022,2024,4,4,Area Harvested,4,(1000 HA),275.0
 430000,Barley,SW,Sweden,2022,2024,4,28,Production,8,(1000 MT),1509.0
 430000,Barley,SW,Sweden,2023,2024,12,4,Area Harvested,4,(1000 HA),260.0
@@ -249,18 +249,18 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 430000,Barley,SW,Sweden,2024,2026,4,28,Production,8,(1000 MT),1264.0
 430000,Barley,SW,Sweden,2025,2026,4,4,Area Harvested,4,(1000 HA),251.0
 430000,Barley,SW,Sweden,2025,2026,4,28,Production,8,(1000 MT),1427.0
-430000,Barley,SW,Sweden,2026,2026,7,4,Area Harvested,4,(1000 HA),260.0
-430000,Barley,SW,Sweden,2026,2026,7,28,Production,8,(1000 MT),1250.0
-440000,Corn,AU,Austria,2022,2023,4,4,Area Harvested,4,(1000 HA),215.0
-440000,Corn,AU,Austria,2022,2023,4,28,Production,8,(1000 MT),2114.0
-440000,Corn,AU,Austria,2023,2024,4,4,Area Harvested,4,(1000 HA),212.0
-440000,Corn,AU,Austria,2023,2024,4,28,Production,8,(1000 MT),2105.0
-440000,Corn,AU,Austria,2024,2025,4,4,Area Harvested,4,(1000 HA),208.0
-440000,Corn,AU,Austria,2024,2025,4,28,Production,8,(1000 MT),2059.0
-440000,Corn,AU,Austria,2025,2026,4,4,Area Harvested,4,(1000 HA),226.0
-440000,Corn,AU,Austria,2025,2026,4,28,Production,8,(1000 MT),2521.0
-440000,Corn,AU,Austria,2026,2026,7,4,Area Harvested,4,(1000 HA),220.0
-440000,Corn,AU,Austria,2026,2026,7,28,Production,8,(1000 MT),2240.0
+430000,Barley,SW,Sweden,2026,2026,8,4,Area Harvested,4,(1000 HA),260.0
+430000,Barley,SW,Sweden,2026,2026,8,28,Production,8,(1000 MT),1250.0
+440000,Corn,AU,Austria,2022,2026,8,4,Area Harvested,4,(1000 HA),215.0
+440000,Corn,AU,Austria,2022,2026,8,28,Production,8,(1000 MT),2114.0
+440000,Corn,AU,Austria,2023,2026,8,4,Area Harvested,4,(1000 HA),212.0
+440000,Corn,AU,Austria,2023,2026,8,28,Production,8,(1000 MT),2105.0
+440000,Corn,AU,Austria,2024,2026,8,4,Area Harvested,4,(1000 HA),208.0
+440000,Corn,AU,Austria,2024,2026,8,28,Production,8,(1000 MT),2059.0
+440000,Corn,AU,Austria,2025,2026,8,4,Area Harvested,4,(1000 HA),226.0
+440000,Corn,AU,Austria,2025,2026,8,28,Production,8,(1000 MT),2521.0
+440000,Corn,AU,Austria,2026,2026,8,4,Area Harvested,4,(1000 HA),220.0
+440000,Corn,AU,Austria,2026,2026,8,28,Production,8,(1000 MT),2000.0
 440000,Corn,BE,Belgium-Luxembourg,2022,2024,4,4,Area Harvested,4,(1000 HA),63.0
 440000,Corn,BE,Belgium-Luxembourg,2022,2024,4,28,Production,8,(1000 MT),501.0
 440000,Corn,BE,Belgium-Luxembourg,2023,2024,12,4,Area Harvested,4,(1000 HA),53.0
@@ -269,8 +269,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 440000,Corn,BE,Belgium-Luxembourg,2024,2026,4,28,Production,8,(1000 MT),503.0
 440000,Corn,BE,Belgium-Luxembourg,2025,2026,4,4,Area Harvested,4,(1000 HA),53.0
 440000,Corn,BE,Belgium-Luxembourg,2025,2026,4,28,Production,8,(1000 MT),506.0
-440000,Corn,BE,Belgium-Luxembourg,2026,2026,7,4,Area Harvested,4,(1000 HA),55.0
-440000,Corn,BE,Belgium-Luxembourg,2026,2026,7,28,Production,8,(1000 MT),500.0
+440000,Corn,BE,Belgium-Luxembourg,2026,2026,8,4,Area Harvested,4,(1000 HA),55.0
+440000,Corn,BE,Belgium-Luxembourg,2026,2026,8,28,Production,8,(1000 MT),500.0
 440000,Corn,BU,Bulgaria,2022,2025,8,4,Area Harvested,4,(1000 HA),520.0
 440000,Corn,BU,Bulgaria,2022,2025,8,28,Production,8,(1000 MT),2554.0
 440000,Corn,BU,Bulgaria,2023,2025,8,4,Area Harvested,4,(1000 HA),533.0
@@ -279,8 +279,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 440000,Corn,BU,Bulgaria,2024,2026,4,28,Production,8,(1000 MT),1635.0
 440000,Corn,BU,Bulgaria,2025,2026,4,4,Area Harvested,4,(1000 HA),410.0
 440000,Corn,BU,Bulgaria,2025,2026,4,28,Production,8,(1000 MT),1000.0
-440000,Corn,BU,Bulgaria,2026,2026,7,4,Area Harvested,4,(1000 HA),350.0
-440000,Corn,BU,Bulgaria,2026,2026,7,28,Production,8,(1000 MT),1500.0
+440000,Corn,BU,Bulgaria,2026,2026,8,4,Area Harvested,4,(1000 HA),350.0
+440000,Corn,BU,Bulgaria,2026,2026,8,28,Production,8,(1000 MT),2000.0
 440000,Corn,HR,Croatia,2022,2024,4,4,Area Harvested,4,(1000 HA),268.0
 440000,Corn,HR,Croatia,2022,2024,4,28,Production,8,(1000 MT),1642.0
 440000,Corn,HR,Croatia,2023,2024,12,4,Area Harvested,4,(1000 HA),269.0
@@ -289,8 +289,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 440000,Corn,HR,Croatia,2024,2026,4,28,Production,8,(1000 MT),2067.0
 440000,Corn,HR,Croatia,2025,2026,4,4,Area Harvested,4,(1000 HA),270.0
 440000,Corn,HR,Croatia,2025,2026,4,28,Production,8,(1000 MT),1911.0
-440000,Corn,HR,Croatia,2026,2026,7,4,Area Harvested,4,(1000 HA),250.0
-440000,Corn,HR,Croatia,2026,2026,7,28,Production,8,(1000 MT),1800.0
+440000,Corn,HR,Croatia,2026,2026,8,4,Area Harvested,4,(1000 HA),250.0
+440000,Corn,HR,Croatia,2026,2026,8,28,Production,8,(1000 MT),1800.0
 440000,Corn,EZ,Czech Republic,2022,2023,4,4,Area Harvested,4,(1000 HA),80.0
 440000,Corn,EZ,Czech Republic,2022,2023,4,28,Production,8,(1000 MT),639.0
 440000,Corn,EZ,Czech Republic,2023,2024,4,4,Area Harvested,4,(1000 HA),64.0
@@ -299,8 +299,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 440000,Corn,EZ,Czech Republic,2024,2025,4,28,Production,8,(1000 MT),712.0
 440000,Corn,EZ,Czech Republic,2025,2026,4,4,Area Harvested,4,(1000 HA),82.0
 440000,Corn,EZ,Czech Republic,2025,2026,4,28,Production,8,(1000 MT),667.0
-440000,Corn,EZ,Czech Republic,2026,2026,7,4,Area Harvested,4,(1000 HA),86.0
-440000,Corn,EZ,Czech Republic,2026,2026,7,28,Production,8,(1000 MT),700.0
+440000,Corn,EZ,Czech Republic,2026,2026,8,4,Area Harvested,4,(1000 HA),86.0
+440000,Corn,EZ,Czech Republic,2026,2026,8,28,Production,8,(1000 MT),675.0
 440000,Corn,DA,Denmark,2022,2024,8,4,Area Harvested,4,(1000 HA),8.0
 440000,Corn,DA,Denmark,2022,2024,8,28,Production,8,(1000 MT),58.0
 440000,Corn,DA,Denmark,2023,2024,12,4,Area Harvested,4,(1000 HA),8.0
@@ -309,8 +309,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 440000,Corn,DA,Denmark,2024,2025,4,28,Production,8,(1000 MT),64.0
 440000,Corn,DA,Denmark,2025,2026,4,4,Area Harvested,4,(1000 HA),9.0
 440000,Corn,DA,Denmark,2025,2026,4,28,Production,8,(1000 MT),80.0
-440000,Corn,DA,Denmark,2026,2026,7,4,Area Harvested,4,(1000 HA),9.0
-440000,Corn,DA,Denmark,2026,2026,7,28,Production,8,(1000 MT),64.0
+440000,Corn,DA,Denmark,2026,2026,8,4,Area Harvested,4,(1000 HA),9.0
+440000,Corn,DA,Denmark,2026,2026,8,28,Production,8,(1000 MT),64.0
 440000,Corn,FR,France,2022,2025,5,4,Area Harvested,4,(1000 HA),1456.0
 440000,Corn,FR,France,2022,2025,5,28,Production,8,(1000 MT),11005.0
 440000,Corn,FR,France,2023,2025,5,4,Area Harvested,4,(1000 HA),1315.0
@@ -319,8 +319,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 440000,Corn,FR,France,2024,2026,4,28,Production,8,(1000 MT),14843.0
 440000,Corn,FR,France,2025,2026,4,4,Area Harvested,4,(1000 HA),1595.0
 440000,Corn,FR,France,2025,2026,4,28,Production,8,(1000 MT),13600.0
-440000,Corn,FR,France,2026,2026,7,4,Area Harvested,4,(1000 HA),1310.0
-440000,Corn,FR,France,2026,2026,7,28,Production,8,(1000 MT),10000.0
+440000,Corn,FR,France,2026,2026,8,4,Area Harvested,4,(1000 HA),1230.0
+440000,Corn,FR,France,2026,2026,8,28,Production,8,(1000 MT),8500.0
 440000,Corn,GM,Germany,2022,2023,4,4,Area Harvested,4,(1000 HA),457.0
 440000,Corn,GM,Germany,2022,2023,4,28,Production,8,(1000 MT),3837.0
 440000,Corn,GM,Germany,2023,2024,8,4,Area Harvested,4,(1000 HA),466.0
@@ -329,8 +329,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 440000,Corn,GM,Germany,2024,2025,4,28,Production,8,(1000 MT),5011.0
 440000,Corn,GM,Germany,2025,2026,4,4,Area Harvested,4,(1000 HA),490.0
 440000,Corn,GM,Germany,2025,2026,4,28,Production,8,(1000 MT),4845.0
-440000,Corn,GM,Germany,2026,2026,7,4,Area Harvested,4,(1000 HA),470.0
-440000,Corn,GM,Germany,2026,2026,7,28,Production,8,(1000 MT),4500.0
+440000,Corn,GM,Germany,2026,2026,8,4,Area Harvested,4,(1000 HA),500.0
+440000,Corn,GM,Germany,2026,2026,8,28,Production,8,(1000 MT),4450.0
 440000,Corn,GR,Greece,2022,2024,12,4,Area Harvested,4,(1000 HA),125.0
 440000,Corn,GR,Greece,2022,2024,12,28,Production,8,(1000 MT),1200.0
 440000,Corn,GR,Greece,2023,2025,4,4,Area Harvested,4,(1000 HA),130.0
@@ -339,8 +339,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 440000,Corn,GR,Greece,2024,2026,4,28,Production,8,(1000 MT),970.0
 440000,Corn,GR,Greece,2025,2026,4,4,Area Harvested,4,(1000 HA),115.0
 440000,Corn,GR,Greece,2025,2026,4,28,Production,8,(1000 MT),960.0
-440000,Corn,GR,Greece,2026,2026,7,4,Area Harvested,4,(1000 HA),120.0
-440000,Corn,GR,Greece,2026,2026,7,28,Production,8,(1000 MT),1090.0
+440000,Corn,GR,Greece,2026,2026,8,4,Area Harvested,4,(1000 HA),120.0
+440000,Corn,GR,Greece,2026,2026,8,28,Production,8,(1000 MT),1100.0
 440000,Corn,HU,Hungary,2022,2024,6,4,Area Harvested,4,(1000 HA),817.0
 440000,Corn,HU,Hungary,2022,2024,6,28,Production,8,(1000 MT),2766.0
 440000,Corn,HU,Hungary,2023,2024,12,4,Area Harvested,4,(1000 HA),771.0
@@ -349,8 +349,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 440000,Corn,HU,Hungary,2024,2026,4,28,Production,8,(1000 MT),5298.0
 440000,Corn,HU,Hungary,2025,2026,4,4,Area Harvested,4,(1000 HA),744.0
 440000,Corn,HU,Hungary,2025,2026,4,28,Production,8,(1000 MT),3773.0
-440000,Corn,HU,Hungary,2026,2026,7,4,Area Harvested,4,(1000 HA),650.0
-440000,Corn,HU,Hungary,2026,2026,7,28,Production,8,(1000 MT),3575.0
+440000,Corn,HU,Hungary,2026,2026,8,4,Area Harvested,4,(1000 HA),590.0
+440000,Corn,HU,Hungary,2026,2026,8,28,Production,8,(1000 MT),2350.0
 440000,Corn,IT,Italy,2022,2023,4,4,Area Harvested,4,(1000 HA),575.0
 440000,Corn,IT,Italy,2022,2023,4,28,Production,8,(1000 MT),4030.0
 440000,Corn,IT,Italy,2023,2024,4,4,Area Harvested,4,(1000 HA),520.0
@@ -359,8 +359,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 440000,Corn,IT,Italy,2024,2025,4,28,Production,8,(1000 MT),4660.0
 440000,Corn,IT,Italy,2025,2026,4,4,Area Harvested,4,(1000 HA),490.0
 440000,Corn,IT,Italy,2025,2026,4,28,Production,8,(1000 MT),4750.0
-440000,Corn,IT,Italy,2026,2026,7,4,Area Harvested,4,(1000 HA),490.0
-440000,Corn,IT,Italy,2026,2026,7,28,Production,8,(1000 MT),4775.0
+440000,Corn,IT,Italy,2026,2026,8,4,Area Harvested,4,(1000 HA),500.0
+440000,Corn,IT,Italy,2026,2026,8,28,Production,8,(1000 MT),4700.0
 440000,Corn,LH,Lithuania,2022,2023,4,4,Area Harvested,4,(1000 HA),19.0
 440000,Corn,LH,Lithuania,2022,2023,4,28,Production,8,(1000 MT),100.0
 440000,Corn,LH,Lithuania,2023,2025,4,4,Area Harvested,4,(1000 HA),11.0
@@ -369,8 +369,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 440000,Corn,LH,Lithuania,2024,2026,4,28,Production,8,(1000 MT),112.0
 440000,Corn,LH,Lithuania,2025,2026,4,4,Area Harvested,4,(1000 HA),17.0
 440000,Corn,LH,Lithuania,2025,2026,4,28,Production,8,(1000 MT),122.0
-440000,Corn,LH,Lithuania,2026,2026,7,4,Area Harvested,4,(1000 HA),17.0
-440000,Corn,LH,Lithuania,2026,2026,7,28,Production,8,(1000 MT),120.0
+440000,Corn,LH,Lithuania,2026,2026,8,4,Area Harvested,4,(1000 HA),17.0
+440000,Corn,LH,Lithuania,2026,2026,8,28,Production,8,(1000 MT),120.0
 440000,Corn,NL,Netherlands,2022,2024,4,4,Area Harvested,4,(1000 HA),14.0
 440000,Corn,NL,Netherlands,2022,2024,4,28,Production,8,(1000 MT),168.0
 440000,Corn,NL,Netherlands,2023,2024,4,4,Area Harvested,4,(1000 HA),12.0
@@ -379,8 +379,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 440000,Corn,NL,Netherlands,2024,2025,4,28,Production,8,(1000 MT),144.0
 440000,Corn,NL,Netherlands,2025,2026,4,4,Area Harvested,4,(1000 HA),9.0
 440000,Corn,NL,Netherlands,2025,2026,4,28,Production,8,(1000 MT),111.0
-440000,Corn,NL,Netherlands,2026,2026,7,4,Area Harvested,4,(1000 HA),8.0
-440000,Corn,NL,Netherlands,2026,2026,7,28,Production,8,(1000 MT),104.0
+440000,Corn,NL,Netherlands,2026,2026,8,4,Area Harvested,4,(1000 HA),8.0
+440000,Corn,NL,Netherlands,2026,2026,8,28,Production,8,(1000 MT),104.0
 440000,Corn,PL,Poland,2022,2025,9,4,Area Harvested,4,(1000 HA),1196.0
 440000,Corn,PL,Poland,2022,2025,9,28,Production,8,(1000 MT),8000.0
 440000,Corn,PL,Poland,2023,2025,9,4,Area Harvested,4,(1000 HA),1250.0
@@ -389,8 +389,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 440000,Corn,PL,Poland,2024,2025,9,28,Production,8,(1000 MT),8700.0
 440000,Corn,PL,Poland,2025,2026,4,4,Area Harvested,4,(1000 HA),1250.0
 440000,Corn,PL,Poland,2025,2026,4,28,Production,8,(1000 MT),9300.0
-440000,Corn,PL,Poland,2026,2026,7,4,Area Harvested,4,(1000 HA),1300.0
-440000,Corn,PL,Poland,2026,2026,7,28,Production,8,(1000 MT),9500.0
+440000,Corn,PL,Poland,2026,2026,8,4,Area Harvested,4,(1000 HA),1240.0
+440000,Corn,PL,Poland,2026,2026,8,28,Production,8,(1000 MT),9020.0
 440000,Corn,PO,Portugal,2022,2024,4,4,Area Harvested,4,(1000 HA),74.0
 440000,Corn,PO,Portugal,2022,2024,4,28,Production,8,(1000 MT),713.0
 440000,Corn,PO,Portugal,2023,2025,4,4,Area Harvested,4,(1000 HA),75.0
@@ -399,8 +399,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 440000,Corn,PO,Portugal,2024,2026,4,28,Production,8,(1000 MT),722.0
 440000,Corn,PO,Portugal,2025,2026,4,4,Area Harvested,4,(1000 HA),65.0
 440000,Corn,PO,Portugal,2025,2026,4,28,Production,8,(1000 MT),618.0
-440000,Corn,PO,Portugal,2026,2026,7,4,Area Harvested,4,(1000 HA),70.0
-440000,Corn,PO,Portugal,2026,2026,7,28,Production,8,(1000 MT),620.0
+440000,Corn,PO,Portugal,2026,2026,8,4,Area Harvested,4,(1000 HA),70.0
+440000,Corn,PO,Portugal,2026,2026,8,28,Production,8,(1000 MT),620.0
 440000,Corn,RO,Romania,2022,2025,9,4,Area Harvested,4,(1000 HA),2431.0
 440000,Corn,RO,Romania,2022,2025,9,28,Production,8,(1000 MT),8500.0
 440000,Corn,RO,Romania,2023,2025,9,4,Area Harvested,4,(1000 HA),2164.0
@@ -409,18 +409,18 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 440000,Corn,RO,Romania,2024,2026,4,28,Production,8,(1000 MT),7100.0
 440000,Corn,RO,Romania,2025,2026,4,4,Area Harvested,4,(1000 HA),1850.0
 440000,Corn,RO,Romania,2025,2026,4,28,Production,8,(1000 MT),6500.0
-440000,Corn,RO,Romania,2026,2026,7,4,Area Harvested,4,(1000 HA),1680.0
-440000,Corn,RO,Romania,2026,2026,7,28,Production,8,(1000 MT),7237.0
-440000,Corn,LO,Slovakia,2022,2024,4,4,Area Harvested,4,(1000 HA),176.0
-440000,Corn,LO,Slovakia,2022,2024,4,28,Production,8,(1000 MT),684.0
-440000,Corn,LO,Slovakia,2023,2024,8,4,Area Harvested,4,(1000 HA),138.0
-440000,Corn,LO,Slovakia,2023,2024,8,28,Production,8,(1000 MT),1106.0
-440000,Corn,LO,Slovakia,2024,2026,4,4,Area Harvested,4,(1000 HA),148.0
-440000,Corn,LO,Slovakia,2024,2026,4,28,Production,8,(1000 MT),1064.0
-440000,Corn,LO,Slovakia,2025,2026,4,4,Area Harvested,4,(1000 HA),150.0
-440000,Corn,LO,Slovakia,2025,2026,4,28,Production,8,(1000 MT),1138.0
-440000,Corn,LO,Slovakia,2026,2026,7,4,Area Harvested,4,(1000 HA),160.0
-440000,Corn,LO,Slovakia,2026,2026,7,28,Production,8,(1000 MT),1140.0
+440000,Corn,RO,Romania,2026,2026,8,4,Area Harvested,4,(1000 HA),1680.0
+440000,Corn,RO,Romania,2026,2026,8,28,Production,8,(1000 MT),7237.0
+440000,Corn,LO,Slovakia,2022,2026,8,4,Area Harvested,4,(1000 HA),176.0
+440000,Corn,LO,Slovakia,2022,2026,8,28,Production,8,(1000 MT),684.0
+440000,Corn,LO,Slovakia,2023,2026,8,4,Area Harvested,4,(1000 HA),138.0
+440000,Corn,LO,Slovakia,2023,2026,8,28,Production,8,(1000 MT),1106.0
+440000,Corn,LO,Slovakia,2024,2026,8,4,Area Harvested,4,(1000 HA),148.0
+440000,Corn,LO,Slovakia,2024,2026,8,28,Production,8,(1000 MT),1064.0
+440000,Corn,LO,Slovakia,2025,2026,8,4,Area Harvested,4,(1000 HA),150.0
+440000,Corn,LO,Slovakia,2025,2026,8,28,Production,8,(1000 MT),1138.0
+440000,Corn,LO,Slovakia,2026,2026,8,4,Area Harvested,4,(1000 HA),160.0
+440000,Corn,LO,Slovakia,2026,2026,8,28,Production,8,(1000 MT),750.0
 440000,Corn,SI,Slovenia,2022,2024,4,4,Area Harvested,4,(1000 HA),42.0
 440000,Corn,SI,Slovenia,2022,2024,4,28,Production,8,(1000 MT),278.0
 440000,Corn,SI,Slovenia,2023,2025,4,4,Area Harvested,4,(1000 HA),44.0
@@ -429,8 +429,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 440000,Corn,SI,Slovenia,2024,2026,4,28,Production,8,(1000 MT),385.0
 440000,Corn,SI,Slovenia,2025,2026,4,4,Area Harvested,4,(1000 HA),43.0
 440000,Corn,SI,Slovenia,2025,2026,4,28,Production,8,(1000 MT),341.0
-440000,Corn,SI,Slovenia,2026,2026,7,4,Area Harvested,4,(1000 HA),40.0
-440000,Corn,SI,Slovenia,2026,2026,7,28,Production,8,(1000 MT),360.0
+440000,Corn,SI,Slovenia,2026,2026,8,4,Area Harvested,4,(1000 HA),40.0
+440000,Corn,SI,Slovenia,2026,2026,8,28,Production,8,(1000 MT),360.0
 440000,Corn,SP,Spain,2022,2024,10,4,Area Harvested,4,(1000 HA),314.0
 440000,Corn,SP,Spain,2022,2024,10,28,Production,8,(1000 MT),3590.0
 440000,Corn,SP,Spain,2023,2024,10,4,Area Harvested,4,(1000 HA),248.0
@@ -439,8 +439,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 440000,Corn,SP,Spain,2024,2026,4,28,Production,8,(1000 MT),3542.0
 440000,Corn,SP,Spain,2025,2026,4,4,Area Harvested,4,(1000 HA),322.0
 440000,Corn,SP,Spain,2025,2026,4,28,Production,8,(1000 MT),4056.0
-440000,Corn,SP,Spain,2026,2026,7,4,Area Harvested,4,(1000 HA),325.0
-440000,Corn,SP,Spain,2026,2026,7,28,Production,8,(1000 MT),3950.0
+440000,Corn,SP,Spain,2026,2026,8,4,Area Harvested,4,(1000 HA),325.0
+440000,Corn,SP,Spain,2026,2026,8,28,Production,8,(1000 MT),3850.0
 2631000,Cotton,BU,Bulgaria,2022,2023,4,4,Area Harvested,4,(1000 HA),2.0
 2631000,Cotton,BU,Bulgaria,2022,2023,4,28,Production,27,1000 480 lb. Bales,10.0
 2631000,Cotton,BU,Bulgaria,2023,2024,4,4,Area Harvested,4,(1000 HA),2.0
@@ -449,28 +449,28 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2631000,Cotton,BU,Bulgaria,2024,2025,4,28,Production,27,1000 480 lb. Bales,10.0
 2631000,Cotton,BU,Bulgaria,2025,2026,4,4,Area Harvested,4,(1000 HA),2.0
 2631000,Cotton,BU,Bulgaria,2025,2026,4,28,Production,27,1000 480 lb. Bales,10.0
-2631000,Cotton,BU,Bulgaria,2026,2026,7,4,Area Harvested,4,(1000 HA),2.0
-2631000,Cotton,BU,Bulgaria,2026,2026,7,28,Production,27,1000 480 lb. Bales,10.0
+2631000,Cotton,BU,Bulgaria,2026,2026,8,4,Area Harvested,4,(1000 HA),2.0
+2631000,Cotton,BU,Bulgaria,2026,2026,8,28,Production,27,1000 480 lb. Bales,10.0
 2631000,Cotton,GR,Greece,2022,2025,4,4,Area Harvested,4,(1000 HA),256.0
 2631000,Cotton,GR,Greece,2022,2025,4,28,Production,27,1000 480 lb. Bales,1450.0
-2631000,Cotton,GR,Greece,2023,2024,4,4,Area Harvested,4,(1000 HA),200.0
-2631000,Cotton,GR,Greece,2023,2024,4,28,Production,27,1000 480 lb. Bales,950.0
-2631000,Cotton,GR,Greece,2024,2025,5,4,Area Harvested,4,(1000 HA),224.0
-2631000,Cotton,GR,Greece,2024,2025,5,28,Production,27,1000 480 lb. Bales,1080.0
-2631000,Cotton,GR,Greece,2025,2026,4,4,Area Harvested,4,(1000 HA),200.0
-2631000,Cotton,GR,Greece,2025,2026,4,28,Production,27,1000 480 lb. Bales,1020.0
-2631000,Cotton,GR,Greece,2026,2026,7,4,Area Harvested,4,(1000 HA),190.0
-2631000,Cotton,GR,Greece,2026,2026,7,28,Production,27,1000 480 lb. Bales,1000.0
+2631000,Cotton,GR,Greece,2023,2026,8,4,Area Harvested,4,(1000 HA),200.0
+2631000,Cotton,GR,Greece,2023,2026,8,28,Production,27,1000 480 lb. Bales,1050.0
+2631000,Cotton,GR,Greece,2024,2026,8,4,Area Harvested,4,(1000 HA),224.0
+2631000,Cotton,GR,Greece,2024,2026,8,28,Production,27,1000 480 lb. Bales,1125.0
+2631000,Cotton,GR,Greece,2025,2026,8,4,Area Harvested,4,(1000 HA),200.0
+2631000,Cotton,GR,Greece,2025,2026,8,28,Production,27,1000 480 lb. Bales,1050.0
+2631000,Cotton,GR,Greece,2026,2026,8,4,Area Harvested,4,(1000 HA),190.0
+2631000,Cotton,GR,Greece,2026,2026,8,28,Production,27,1000 480 lb. Bales,1050.0
 2631000,Cotton,SP,Spain,2022,2025,4,4,Area Harvested,4,(1000 HA),52.0
 2631000,Cotton,SP,Spain,2022,2025,4,28,Production,27,1000 480 lb. Bales,183.0
-2631000,Cotton,SP,Spain,2023,2024,11,4,Area Harvested,4,(1000 HA),52.0
-2631000,Cotton,SP,Spain,2023,2024,11,28,Production,27,1000 480 lb. Bales,75.0
-2631000,Cotton,SP,Spain,2024,2025,4,4,Area Harvested,4,(1000 HA),51.0
-2631000,Cotton,SP,Spain,2024,2025,4,28,Production,27,1000 480 lb. Bales,154.0
-2631000,Cotton,SP,Spain,2025,2026,4,4,Area Harvested,4,(1000 HA),47.0
-2631000,Cotton,SP,Spain,2025,2026,4,28,Production,27,1000 480 lb. Bales,166.0
-2631000,Cotton,SP,Spain,2026,2026,7,4,Area Harvested,4,(1000 HA),55.0
-2631000,Cotton,SP,Spain,2026,2026,7,28,Production,27,1000 480 lb. Bales,190.0
+2631000,Cotton,SP,Spain,2023,2026,8,4,Area Harvested,4,(1000 HA),52.0
+2631000,Cotton,SP,Spain,2023,2026,8,28,Production,27,1000 480 lb. Bales,80.0
+2631000,Cotton,SP,Spain,2024,2026,8,4,Area Harvested,4,(1000 HA),51.0
+2631000,Cotton,SP,Spain,2024,2026,8,28,Production,27,1000 480 lb. Bales,165.0
+2631000,Cotton,SP,Spain,2025,2026,8,4,Area Harvested,4,(1000 HA),47.0
+2631000,Cotton,SP,Spain,2025,2026,8,28,Production,27,1000 480 lb. Bales,170.0
+2631000,Cotton,SP,Spain,2026,2026,8,4,Area Harvested,4,(1000 HA),55.0
+2631000,Cotton,SP,Spain,2026,2026,8,28,Production,27,1000 480 lb. Bales,190.0
 2226000,"Oilseed, Rapeseed",AU,Austria,2022,2024,7,4,Area Harvested,4,(1000 HA),28.0
 2226000,"Oilseed, Rapeseed",AU,Austria,2022,2024,7,28,Production,8,(1000 MT),91.0
 2226000,"Oilseed, Rapeseed",AU,Austria,2023,2024,7,4,Area Harvested,4,(1000 HA),27.0
@@ -479,8 +479,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2226000,"Oilseed, Rapeseed",AU,Austria,2024,2025,4,28,Production,8,(1000 MT),71.0
 2226000,"Oilseed, Rapeseed",AU,Austria,2025,2026,4,4,Area Harvested,4,(1000 HA),20.0
 2226000,"Oilseed, Rapeseed",AU,Austria,2025,2026,4,28,Production,8,(1000 MT),65.0
-2226000,"Oilseed, Rapeseed",AU,Austria,2026,2026,7,4,Area Harvested,4,(1000 HA),20.0
-2226000,"Oilseed, Rapeseed",AU,Austria,2026,2026,7,28,Production,8,(1000 MT),65.0
+2226000,"Oilseed, Rapeseed",AU,Austria,2026,2026,8,4,Area Harvested,4,(1000 HA),20.0
+2226000,"Oilseed, Rapeseed",AU,Austria,2026,2026,8,28,Production,8,(1000 MT),65.0
 2226000,"Oilseed, Rapeseed",BE,Belgium-Luxembourg,2022,2024,4,4,Area Harvested,4,(1000 HA),9.0
 2226000,"Oilseed, Rapeseed",BE,Belgium-Luxembourg,2022,2024,4,28,Production,8,(1000 MT),36.0
 2226000,"Oilseed, Rapeseed",BE,Belgium-Luxembourg,2023,2025,4,4,Area Harvested,4,(1000 HA),15.0
@@ -489,8 +489,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2226000,"Oilseed, Rapeseed",BE,Belgium-Luxembourg,2024,2026,4,28,Production,8,(1000 MT),60.0
 2226000,"Oilseed, Rapeseed",BE,Belgium-Luxembourg,2025,2026,4,4,Area Harvested,4,(1000 HA),15.0
 2226000,"Oilseed, Rapeseed",BE,Belgium-Luxembourg,2025,2026,4,28,Production,8,(1000 MT),55.0
-2226000,"Oilseed, Rapeseed",BE,Belgium-Luxembourg,2026,2026,7,4,Area Harvested,4,(1000 HA),13.0
-2226000,"Oilseed, Rapeseed",BE,Belgium-Luxembourg,2026,2026,7,28,Production,8,(1000 MT),52.0
+2226000,"Oilseed, Rapeseed",BE,Belgium-Luxembourg,2026,2026,8,4,Area Harvested,4,(1000 HA),13.0
+2226000,"Oilseed, Rapeseed",BE,Belgium-Luxembourg,2026,2026,8,28,Production,8,(1000 MT),52.0
 2226000,"Oilseed, Rapeseed",BU,Bulgaria,2022,2025,4,4,Area Harvested,4,(1000 HA),129.0
 2226000,"Oilseed, Rapeseed",BU,Bulgaria,2022,2025,4,28,Production,8,(1000 MT),300.0
 2226000,"Oilseed, Rapeseed",BU,Bulgaria,2023,2025,4,4,Area Harvested,4,(1000 HA),80.0
@@ -499,8 +499,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2226000,"Oilseed, Rapeseed",BU,Bulgaria,2024,2026,1,28,Production,8,(1000 MT),160.0
 2226000,"Oilseed, Rapeseed",BU,Bulgaria,2025,2026,4,4,Area Harvested,4,(1000 HA),106.0
 2226000,"Oilseed, Rapeseed",BU,Bulgaria,2025,2026,4,28,Production,8,(1000 MT),295.0
-2226000,"Oilseed, Rapeseed",BU,Bulgaria,2026,2026,7,4,Area Harvested,4,(1000 HA),160.0
-2226000,"Oilseed, Rapeseed",BU,Bulgaria,2026,2026,7,28,Production,8,(1000 MT),450.0
+2226000,"Oilseed, Rapeseed",BU,Bulgaria,2026,2026,8,4,Area Harvested,4,(1000 HA),160.0
+2226000,"Oilseed, Rapeseed",BU,Bulgaria,2026,2026,8,28,Production,8,(1000 MT),450.0
 2226000,"Oilseed, Rapeseed",HR,Croatia,2022,2024,4,4,Area Harvested,4,(1000 HA),22.0
 2226000,"Oilseed, Rapeseed",HR,Croatia,2022,2024,4,28,Production,8,(1000 MT),58.0
 2226000,"Oilseed, Rapeseed",HR,Croatia,2023,2024,4,4,Area Harvested,4,(1000 HA),15.0
@@ -509,8 +509,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2226000,"Oilseed, Rapeseed",HR,Croatia,2024,2025,4,28,Production,8,(1000 MT),53.0
 2226000,"Oilseed, Rapeseed",HR,Croatia,2025,2026,4,4,Area Harvested,4,(1000 HA),18.0
 2226000,"Oilseed, Rapeseed",HR,Croatia,2025,2026,4,28,Production,8,(1000 MT),53.0
-2226000,"Oilseed, Rapeseed",HR,Croatia,2026,2026,7,4,Area Harvested,4,(1000 HA),20.0
-2226000,"Oilseed, Rapeseed",HR,Croatia,2026,2026,7,28,Production,8,(1000 MT),56.0
+2226000,"Oilseed, Rapeseed",HR,Croatia,2026,2026,8,4,Area Harvested,4,(1000 HA),20.0
+2226000,"Oilseed, Rapeseed",HR,Croatia,2026,2026,8,28,Production,8,(1000 MT),56.0
 2226000,"Oilseed, Rapeseed",EZ,Czech Republic,2022,2024,6,4,Area Harvested,4,(1000 HA),344.0
 2226000,"Oilseed, Rapeseed",EZ,Czech Republic,2022,2024,6,28,Production,8,(1000 MT),1166.0
 2226000,"Oilseed, Rapeseed",EZ,Czech Republic,2023,2024,6,4,Area Harvested,4,(1000 HA),380.0
@@ -519,8 +519,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2226000,"Oilseed, Rapeseed",EZ,Czech Republic,2024,2025,11,28,Production,8,(1000 MT),947.0
 2226000,"Oilseed, Rapeseed",EZ,Czech Republic,2025,2026,4,4,Area Harvested,4,(1000 HA),335.0
 2226000,"Oilseed, Rapeseed",EZ,Czech Republic,2025,2026,4,28,Production,8,(1000 MT),1026.0
-2226000,"Oilseed, Rapeseed",EZ,Czech Republic,2026,2026,7,4,Area Harvested,4,(1000 HA),312.0
-2226000,"Oilseed, Rapeseed",EZ,Czech Republic,2026,2026,7,28,Production,8,(1000 MT),945.0
+2226000,"Oilseed, Rapeseed",EZ,Czech Republic,2026,2026,8,4,Area Harvested,4,(1000 HA),312.0
+2226000,"Oilseed, Rapeseed",EZ,Czech Republic,2026,2026,8,28,Production,8,(1000 MT),945.0
 2226000,"Oilseed, Rapeseed",DA,Denmark,2022,2025,5,4,Area Harvested,4,(1000 HA),198.0
 2226000,"Oilseed, Rapeseed",DA,Denmark,2022,2025,5,28,Production,8,(1000 MT),889.0
 2226000,"Oilseed, Rapeseed",DA,Denmark,2023,2025,5,4,Area Harvested,4,(1000 HA),211.0
@@ -529,8 +529,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2226000,"Oilseed, Rapeseed",DA,Denmark,2024,2026,4,28,Production,8,(1000 MT),706.0
 2226000,"Oilseed, Rapeseed",DA,Denmark,2025,2026,4,4,Area Harvested,4,(1000 HA),161.0
 2226000,"Oilseed, Rapeseed",DA,Denmark,2025,2026,4,28,Production,8,(1000 MT),752.0
-2226000,"Oilseed, Rapeseed",DA,Denmark,2026,2026,7,4,Area Harvested,4,(1000 HA),165.0
-2226000,"Oilseed, Rapeseed",DA,Denmark,2026,2026,7,28,Production,8,(1000 MT),702.0
+2226000,"Oilseed, Rapeseed",DA,Denmark,2026,2026,8,4,Area Harvested,4,(1000 HA),165.0
+2226000,"Oilseed, Rapeseed",DA,Denmark,2026,2026,8,28,Production,8,(1000 MT),702.0
 2226000,"Oilseed, Rapeseed",EN,Estonia,2022,2023,4,4,Area Harvested,4,(1000 HA),86.0
 2226000,"Oilseed, Rapeseed",EN,Estonia,2022,2023,4,28,Production,8,(1000 MT),219.0
 2226000,"Oilseed, Rapeseed",EN,Estonia,2023,2024,4,4,Area Harvested,4,(1000 HA),75.0
@@ -539,8 +539,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2226000,"Oilseed, Rapeseed",EN,Estonia,2024,2025,4,28,Production,8,(1000 MT),96.0
 2226000,"Oilseed, Rapeseed",EN,Estonia,2025,2026,4,4,Area Harvested,4,(1000 HA),62.0
 2226000,"Oilseed, Rapeseed",EN,Estonia,2025,2026,4,28,Production,8,(1000 MT),169.0
-2226000,"Oilseed, Rapeseed",EN,Estonia,2026,2026,7,4,Area Harvested,4,(1000 HA),60.0
-2226000,"Oilseed, Rapeseed",EN,Estonia,2026,2026,7,28,Production,8,(1000 MT),130.0
+2226000,"Oilseed, Rapeseed",EN,Estonia,2026,2026,8,4,Area Harvested,4,(1000 HA),60.0
+2226000,"Oilseed, Rapeseed",EN,Estonia,2026,2026,8,28,Production,8,(1000 MT),130.0
 2226000,"Oilseed, Rapeseed",FI,Finland,2022,2024,4,4,Area Harvested,4,(1000 HA),41.0
 2226000,"Oilseed, Rapeseed",FI,Finland,2022,2024,4,28,Production,8,(1000 MT),56.0
 2226000,"Oilseed, Rapeseed",FI,Finland,2023,2025,4,4,Area Harvested,4,(1000 HA),44.0
@@ -549,8 +549,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2226000,"Oilseed, Rapeseed",FI,Finland,2024,2025,4,28,Production,8,(1000 MT),48.0
 2226000,"Oilseed, Rapeseed",FI,Finland,2025,2026,4,4,Area Harvested,4,(1000 HA),57.0
 2226000,"Oilseed, Rapeseed",FI,Finland,2025,2026,4,28,Production,8,(1000 MT),63.0
-2226000,"Oilseed, Rapeseed",FI,Finland,2026,2026,7,4,Area Harvested,4,(1000 HA),70.0
-2226000,"Oilseed, Rapeseed",FI,Finland,2026,2026,7,28,Production,8,(1000 MT),98.0
+2226000,"Oilseed, Rapeseed",FI,Finland,2026,2026,8,4,Area Harvested,4,(1000 HA),70.0
+2226000,"Oilseed, Rapeseed",FI,Finland,2026,2026,8,28,Production,8,(1000 MT),98.0
 2226000,"Oilseed, Rapeseed",FR,France,2022,2025,7,4,Area Harvested,4,(1000 HA),1230.0
 2226000,"Oilseed, Rapeseed",FR,France,2022,2025,7,28,Production,8,(1000 MT),4529.0
 2226000,"Oilseed, Rapeseed",FR,France,2023,2025,7,4,Area Harvested,4,(1000 HA),1346.0
@@ -559,8 +559,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2226000,"Oilseed, Rapeseed",FR,France,2024,2026,4,28,Production,8,(1000 MT),3941.0
 2226000,"Oilseed, Rapeseed",FR,France,2025,2026,4,4,Area Harvested,4,(1000 HA),1263.0
 2226000,"Oilseed, Rapeseed",FR,France,2025,2026,4,28,Production,8,(1000 MT),4500.0
-2226000,"Oilseed, Rapeseed",FR,France,2026,2026,7,4,Area Harvested,4,(1000 HA),1300.0
-2226000,"Oilseed, Rapeseed",FR,France,2026,2026,7,28,Production,8,(1000 MT),4475.0
+2226000,"Oilseed, Rapeseed",FR,France,2026,2026,8,4,Area Harvested,4,(1000 HA),1300.0
+2226000,"Oilseed, Rapeseed",FR,France,2026,2026,8,28,Production,8,(1000 MT),4475.0
 2226000,"Oilseed, Rapeseed",GM,Germany,2022,2024,4,4,Area Harvested,4,(1000 HA),1088.0
 2226000,"Oilseed, Rapeseed",GM,Germany,2022,2024,4,28,Production,8,(1000 MT),4295.0
 2226000,"Oilseed, Rapeseed",GM,Germany,2023,2025,4,4,Area Harvested,4,(1000 HA),1175.0
@@ -569,8 +569,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2226000,"Oilseed, Rapeseed",GM,Germany,2024,2026,4,28,Production,8,(1000 MT),3632.0
 2226000,"Oilseed, Rapeseed",GM,Germany,2025,2026,4,4,Area Harvested,4,(1000 HA),1094.0
 2226000,"Oilseed, Rapeseed",GM,Germany,2025,2026,4,28,Production,8,(1000 MT),3980.0
-2226000,"Oilseed, Rapeseed",GM,Germany,2026,2026,7,4,Area Harvested,4,(1000 HA),1148.0
-2226000,"Oilseed, Rapeseed",GM,Germany,2026,2026,7,28,Production,8,(1000 MT),4000.0
+2226000,"Oilseed, Rapeseed",GM,Germany,2026,2026,8,4,Area Harvested,4,(1000 HA),1148.0
+2226000,"Oilseed, Rapeseed",GM,Germany,2026,2026,8,28,Production,8,(1000 MT),4000.0
 2226000,"Oilseed, Rapeseed",GR,Greece,2022,2024,4,4,Area Harvested,4,(1000 HA),16.0
 2226000,"Oilseed, Rapeseed",GR,Greece,2022,2024,4,28,Production,8,(1000 MT),30.0
 2226000,"Oilseed, Rapeseed",GR,Greece,2023,2025,4,4,Area Harvested,4,(1000 HA),9.0
@@ -579,8 +579,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2226000,"Oilseed, Rapeseed",GR,Greece,2024,2026,4,28,Production,8,(1000 MT),11.0
 2226000,"Oilseed, Rapeseed",GR,Greece,2025,2026,4,4,Area Harvested,4,(1000 HA),6.0
 2226000,"Oilseed, Rapeseed",GR,Greece,2025,2026,4,28,Production,8,(1000 MT),12.0
-2226000,"Oilseed, Rapeseed",GR,Greece,2026,2026,7,4,Area Harvested,4,(1000 HA),6.0
-2226000,"Oilseed, Rapeseed",GR,Greece,2026,2026,7,28,Production,8,(1000 MT),13.0
+2226000,"Oilseed, Rapeseed",GR,Greece,2026,2026,8,4,Area Harvested,4,(1000 HA),6.0
+2226000,"Oilseed, Rapeseed",GR,Greece,2026,2026,8,28,Production,8,(1000 MT),13.0
 2226000,"Oilseed, Rapeseed",HU,Hungary,2022,2024,4,4,Area Harvested,4,(1000 HA),205.0
 2226000,"Oilseed, Rapeseed",HU,Hungary,2022,2024,4,28,Production,8,(1000 MT),505.0
 2226000,"Oilseed, Rapeseed",HU,Hungary,2023,2025,4,4,Area Harvested,4,(1000 HA),189.0
@@ -589,8 +589,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2226000,"Oilseed, Rapeseed",HU,Hungary,2024,2026,4,28,Production,8,(1000 MT),450.0
 2226000,"Oilseed, Rapeseed",HU,Hungary,2025,2026,4,4,Area Harvested,4,(1000 HA),144.0
 2226000,"Oilseed, Rapeseed",HU,Hungary,2025,2026,4,28,Production,8,(1000 MT),417.0
-2226000,"Oilseed, Rapeseed",HU,Hungary,2026,2026,7,4,Area Harvested,4,(1000 HA),154.0
-2226000,"Oilseed, Rapeseed",HU,Hungary,2026,2026,7,28,Production,8,(1000 MT),435.0
+2226000,"Oilseed, Rapeseed",HU,Hungary,2026,2026,8,4,Area Harvested,4,(1000 HA),154.0
+2226000,"Oilseed, Rapeseed",HU,Hungary,2026,2026,8,28,Production,8,(1000 MT),435.0
 2226000,"Oilseed, Rapeseed",EI,Ireland,2022,2024,4,4,Area Harvested,4,(1000 HA),20.0
 2226000,"Oilseed, Rapeseed",EI,Ireland,2022,2024,4,28,Production,8,(1000 MT),78.0
 2226000,"Oilseed, Rapeseed",EI,Ireland,2023,2025,4,4,Area Harvested,4,(1000 HA),21.0
@@ -599,8 +599,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2226000,"Oilseed, Rapeseed",EI,Ireland,2024,2026,4,28,Production,8,(1000 MT),67.0
 2226000,"Oilseed, Rapeseed",EI,Ireland,2025,2026,4,4,Area Harvested,4,(1000 HA),12.0
 2226000,"Oilseed, Rapeseed",EI,Ireland,2025,2026,4,28,Production,8,(1000 MT),58.0
-2226000,"Oilseed, Rapeseed",EI,Ireland,2026,2026,7,4,Area Harvested,4,(1000 HA),18.0
-2226000,"Oilseed, Rapeseed",EI,Ireland,2026,2026,7,28,Production,8,(1000 MT),80.0
+2226000,"Oilseed, Rapeseed",EI,Ireland,2026,2026,8,4,Area Harvested,4,(1000 HA),18.0
+2226000,"Oilseed, Rapeseed",EI,Ireland,2026,2026,8,28,Production,8,(1000 MT),80.0
 2226000,"Oilseed, Rapeseed",IT,Italy,2022,2024,4,4,Area Harvested,4,(1000 HA),19.0
 2226000,"Oilseed, Rapeseed",IT,Italy,2022,2024,4,28,Production,8,(1000 MT),53.0
 2226000,"Oilseed, Rapeseed",IT,Italy,2023,2024,4,4,Area Harvested,4,(1000 HA),30.0
@@ -609,8 +609,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2226000,"Oilseed, Rapeseed",IT,Italy,2024,2025,4,28,Production,8,(1000 MT),78.0
 2226000,"Oilseed, Rapeseed",IT,Italy,2025,2026,4,4,Area Harvested,4,(1000 HA),20.0
 2226000,"Oilseed, Rapeseed",IT,Italy,2025,2026,4,28,Production,8,(1000 MT),53.0
-2226000,"Oilseed, Rapeseed",IT,Italy,2026,2026,7,4,Area Harvested,4,(1000 HA),23.0
-2226000,"Oilseed, Rapeseed",IT,Italy,2026,2026,7,28,Production,8,(1000 MT),66.0
+2226000,"Oilseed, Rapeseed",IT,Italy,2026,2026,8,4,Area Harvested,4,(1000 HA),23.0
+2226000,"Oilseed, Rapeseed",IT,Italy,2026,2026,8,28,Production,8,(1000 MT),66.0
 2226000,"Oilseed, Rapeseed",LG,Latvia,2022,2023,4,4,Area Harvested,4,(1000 HA),160.0
 2226000,"Oilseed, Rapeseed",LG,Latvia,2022,2023,4,28,Production,8,(1000 MT),355.0
 2226000,"Oilseed, Rapeseed",LG,Latvia,2023,2024,4,4,Area Harvested,4,(1000 HA),151.0
@@ -619,8 +619,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2226000,"Oilseed, Rapeseed",LG,Latvia,2024,2025,4,28,Production,8,(1000 MT),249.0
 2226000,"Oilseed, Rapeseed",LG,Latvia,2025,2026,4,4,Area Harvested,4,(1000 HA),130.0
 2226000,"Oilseed, Rapeseed",LG,Latvia,2025,2026,4,28,Production,8,(1000 MT),369.0
-2226000,"Oilseed, Rapeseed",LG,Latvia,2026,2026,7,4,Area Harvested,4,(1000 HA),130.0
-2226000,"Oilseed, Rapeseed",LG,Latvia,2026,2026,7,28,Production,8,(1000 MT),335.0
+2226000,"Oilseed, Rapeseed",LG,Latvia,2026,2026,8,4,Area Harvested,4,(1000 HA),130.0
+2226000,"Oilseed, Rapeseed",LG,Latvia,2026,2026,8,28,Production,8,(1000 MT),335.0
 2226000,"Oilseed, Rapeseed",LH,Lithuania,2022,2023,4,4,Area Harvested,4,(1000 HA),348.0
 2226000,"Oilseed, Rapeseed",LH,Lithuania,2022,2023,4,28,Production,8,(1000 MT),896.0
 2226000,"Oilseed, Rapeseed",LH,Lithuania,2023,2024,4,4,Area Harvested,4,(1000 HA),305.0
@@ -629,8 +629,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2226000,"Oilseed, Rapeseed",LH,Lithuania,2024,2025,4,28,Production,8,(1000 MT),863.0
 2226000,"Oilseed, Rapeseed",LH,Lithuania,2025,2026,4,4,Area Harvested,4,(1000 HA),351.0
 2226000,"Oilseed, Rapeseed",LH,Lithuania,2025,2026,4,28,Production,8,(1000 MT),933.0
-2226000,"Oilseed, Rapeseed",LH,Lithuania,2026,2026,7,4,Area Harvested,4,(1000 HA),300.0
-2226000,"Oilseed, Rapeseed",LH,Lithuania,2026,2026,7,28,Production,8,(1000 MT),790.0
+2226000,"Oilseed, Rapeseed",LH,Lithuania,2026,2026,8,4,Area Harvested,4,(1000 HA),300.0
+2226000,"Oilseed, Rapeseed",LH,Lithuania,2026,2026,8,28,Production,8,(1000 MT),790.0
 2226000,"Oilseed, Rapeseed",NL,Netherlands,2022,2023,4,4,Area Harvested,4,(1000 HA),3.0
 2226000,"Oilseed, Rapeseed",NL,Netherlands,2022,2023,4,28,Production,8,(1000 MT),11.0
 2226000,"Oilseed, Rapeseed",NL,Netherlands,2023,2024,4,4,Area Harvested,4,(1000 HA),2.0
@@ -639,8 +639,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2226000,"Oilseed, Rapeseed",NL,Netherlands,2024,2025,4,28,Production,8,(1000 MT),5.0
 2226000,"Oilseed, Rapeseed",NL,Netherlands,2025,2026,4,4,Area Harvested,4,(1000 HA),2.0
 2226000,"Oilseed, Rapeseed",NL,Netherlands,2025,2026,4,28,Production,8,(1000 MT),6.0
-2226000,"Oilseed, Rapeseed",NL,Netherlands,2026,2026,7,4,Area Harvested,4,(1000 HA),2.0
-2226000,"Oilseed, Rapeseed",NL,Netherlands,2026,2026,7,28,Production,8,(1000 MT),6.0
+2226000,"Oilseed, Rapeseed",NL,Netherlands,2026,2026,8,4,Area Harvested,4,(1000 HA),2.0
+2226000,"Oilseed, Rapeseed",NL,Netherlands,2026,2026,8,28,Production,8,(1000 MT),6.0
 2226000,"Oilseed, Rapeseed",PL,Poland,2022,2024,4,4,Area Harvested,4,(1000 HA),1078.0
 2226000,"Oilseed, Rapeseed",PL,Poland,2022,2024,4,28,Production,8,(1000 MT),3647.0
 2226000,"Oilseed, Rapeseed",PL,Poland,2023,2025,4,4,Area Harvested,4,(1000 HA),1103.0
@@ -649,8 +649,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2226000,"Oilseed, Rapeseed",PL,Poland,2024,2025,4,28,Production,8,(1000 MT),3268.0
 2226000,"Oilseed, Rapeseed",PL,Poland,2025,2026,4,4,Area Harvested,4,(1000 HA),1098.0
 2226000,"Oilseed, Rapeseed",PL,Poland,2025,2026,4,28,Production,8,(1000 MT),3633.0
-2226000,"Oilseed, Rapeseed",PL,Poland,2026,2026,7,4,Area Harvested,4,(1000 HA),1000.0
-2226000,"Oilseed, Rapeseed",PL,Poland,2026,2026,7,28,Production,8,(1000 MT),3200.0
+2226000,"Oilseed, Rapeseed",PL,Poland,2026,2026,8,4,Area Harvested,4,(1000 HA),1000.0
+2226000,"Oilseed, Rapeseed",PL,Poland,2026,2026,8,28,Production,8,(1000 MT),3200.0
 2226000,"Oilseed, Rapeseed",RO,Romania,2022,2023,5,4,Area Harvested,4,(1000 HA),520.0
 2226000,"Oilseed, Rapeseed",RO,Romania,2022,2023,5,28,Production,8,(1000 MT),1300.0
 2226000,"Oilseed, Rapeseed",RO,Romania,2023,2025,4,4,Area Harvested,4,(1000 HA),700.0
@@ -659,8 +659,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2226000,"Oilseed, Rapeseed",RO,Romania,2024,2026,4,28,Production,8,(1000 MT),1390.0
 2226000,"Oilseed, Rapeseed",RO,Romania,2025,2026,4,4,Area Harvested,4,(1000 HA),900.0
 2226000,"Oilseed, Rapeseed",RO,Romania,2025,2026,4,28,Production,8,(1000 MT),3000.0
-2226000,"Oilseed, Rapeseed",RO,Romania,2026,2026,7,4,Area Harvested,4,(1000 HA),1050.0
-2226000,"Oilseed, Rapeseed",RO,Romania,2026,2026,7,28,Production,8,(1000 MT),3525.0
+2226000,"Oilseed, Rapeseed",RO,Romania,2026,2026,8,4,Area Harvested,4,(1000 HA),1050.0
+2226000,"Oilseed, Rapeseed",RO,Romania,2026,2026,8,28,Production,8,(1000 MT),3525.0
 2226000,"Oilseed, Rapeseed",LO,Slovakia,2022,2024,4,4,Area Harvested,4,(1000 HA),142.0
 2226000,"Oilseed, Rapeseed",LO,Slovakia,2022,2024,4,28,Production,8,(1000 MT),442.0
 2226000,"Oilseed, Rapeseed",LO,Slovakia,2023,2025,4,4,Area Harvested,4,(1000 HA),149.0
@@ -669,8 +669,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2226000,"Oilseed, Rapeseed",LO,Slovakia,2024,2026,4,28,Production,8,(1000 MT),398.0
 2226000,"Oilseed, Rapeseed",LO,Slovakia,2025,2026,4,4,Area Harvested,4,(1000 HA),129.0
 2226000,"Oilseed, Rapeseed",LO,Slovakia,2025,2026,4,28,Production,8,(1000 MT),447.0
-2226000,"Oilseed, Rapeseed",LO,Slovakia,2026,2026,7,4,Area Harvested,4,(1000 HA),128.0
-2226000,"Oilseed, Rapeseed",LO,Slovakia,2026,2026,7,28,Production,8,(1000 MT),425.0
+2226000,"Oilseed, Rapeseed",LO,Slovakia,2026,2026,8,4,Area Harvested,4,(1000 HA),128.0
+2226000,"Oilseed, Rapeseed",LO,Slovakia,2026,2026,8,28,Production,8,(1000 MT),425.0
 2226000,"Oilseed, Rapeseed",SI,Slovenia,2022,2023,4,4,Area Harvested,4,(1000 HA),3.0
 2226000,"Oilseed, Rapeseed",SI,Slovenia,2022,2023,4,28,Production,8,(1000 MT),8.0
 2226000,"Oilseed, Rapeseed",SI,Slovenia,2023,2024,4,4,Area Harvested,4,(1000 HA),3.0
@@ -679,8 +679,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2226000,"Oilseed, Rapeseed",SI,Slovenia,2024,2025,4,28,Production,8,(1000 MT),8.0
 2226000,"Oilseed, Rapeseed",SI,Slovenia,2025,2026,4,4,Area Harvested,4,(1000 HA),2.0
 2226000,"Oilseed, Rapeseed",SI,Slovenia,2025,2026,4,28,Production,8,(1000 MT),6.0
-2226000,"Oilseed, Rapeseed",SI,Slovenia,2026,2026,7,4,Area Harvested,4,(1000 HA),3.0
-2226000,"Oilseed, Rapeseed",SI,Slovenia,2026,2026,7,28,Production,8,(1000 MT),7.0
+2226000,"Oilseed, Rapeseed",SI,Slovenia,2026,2026,8,4,Area Harvested,4,(1000 HA),3.0
+2226000,"Oilseed, Rapeseed",SI,Slovenia,2026,2026,8,28,Production,8,(1000 MT),7.0
 2226000,"Oilseed, Rapeseed",SP,Spain,2022,2024,4,4,Area Harvested,4,(1000 HA),130.0
 2226000,"Oilseed, Rapeseed",SP,Spain,2022,2024,4,28,Production,8,(1000 MT),255.0
 2226000,"Oilseed, Rapeseed",SP,Spain,2023,2025,11,4,Area Harvested,4,(1000 HA),106.0
@@ -689,8 +689,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2226000,"Oilseed, Rapeseed",SP,Spain,2024,2026,4,28,Production,8,(1000 MT),225.0
 2226000,"Oilseed, Rapeseed",SP,Spain,2025,2026,4,4,Area Harvested,4,(1000 HA),97.0
 2226000,"Oilseed, Rapeseed",SP,Spain,2025,2026,4,28,Production,8,(1000 MT),268.0
-2226000,"Oilseed, Rapeseed",SP,Spain,2026,2026,7,4,Area Harvested,4,(1000 HA),98.0
-2226000,"Oilseed, Rapeseed",SP,Spain,2026,2026,7,28,Production,8,(1000 MT),260.0
+2226000,"Oilseed, Rapeseed",SP,Spain,2026,2026,8,4,Area Harvested,4,(1000 HA),98.0
+2226000,"Oilseed, Rapeseed",SP,Spain,2026,2026,8,28,Production,8,(1000 MT),260.0
 2226000,"Oilseed, Rapeseed",SW,Sweden,2022,2023,4,4,Area Harvested,4,(1000 HA),105.0
 2226000,"Oilseed, Rapeseed",SW,Sweden,2022,2023,4,28,Production,8,(1000 MT),394.0
 2226000,"Oilseed, Rapeseed",SW,Sweden,2023,2024,4,4,Area Harvested,4,(1000 HA),125.0
@@ -699,8 +699,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2226000,"Oilseed, Rapeseed",SW,Sweden,2024,2025,4,28,Production,8,(1000 MT),347.0
 2226000,"Oilseed, Rapeseed",SW,Sweden,2025,2026,4,4,Area Harvested,4,(1000 HA),115.0
 2226000,"Oilseed, Rapeseed",SW,Sweden,2025,2026,4,28,Production,8,(1000 MT),362.0
-2226000,"Oilseed, Rapeseed",SW,Sweden,2026,2026,7,4,Area Harvested,4,(1000 HA),120.0
-2226000,"Oilseed, Rapeseed",SW,Sweden,2026,2026,7,28,Production,8,(1000 MT),385.0
+2226000,"Oilseed, Rapeseed",SW,Sweden,2026,2026,8,4,Area Harvested,4,(1000 HA),120.0
+2226000,"Oilseed, Rapeseed",SW,Sweden,2026,2026,8,28,Production,8,(1000 MT),385.0
 2222000,"Oilseed, Soybean",AU,Austria,2022,2025,4,4,Area Harvested,4,(1000 HA),94.0
 2222000,"Oilseed, Soybean",AU,Austria,2022,2025,4,28,Production,8,(1000 MT),246.0
 2222000,"Oilseed, Soybean",AU,Austria,2023,2025,4,4,Area Harvested,4,(1000 HA),88.0
@@ -709,8 +709,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2222000,"Oilseed, Soybean",AU,Austria,2024,2025,4,28,Production,8,(1000 MT),246.0
 2222000,"Oilseed, Soybean",AU,Austria,2025,2026,4,4,Area Harvested,4,(1000 HA),88.0
 2222000,"Oilseed, Soybean",AU,Austria,2025,2026,4,28,Production,8,(1000 MT),280.0
-2222000,"Oilseed, Soybean",AU,Austria,2026,2026,7,4,Area Harvested,4,(1000 HA),90.0
-2222000,"Oilseed, Soybean",AU,Austria,2026,2026,7,28,Production,8,(1000 MT),274.0
+2222000,"Oilseed, Soybean",AU,Austria,2026,2026,8,4,Area Harvested,4,(1000 HA),90.0
+2222000,"Oilseed, Soybean",AU,Austria,2026,2026,8,28,Production,8,(1000 MT),264.0
 2222000,"Oilseed, Soybean",BU,Bulgaria,2022,2024,4,4,Area Harvested,4,(1000 HA),10.0
 2222000,"Oilseed, Soybean",BU,Bulgaria,2022,2024,4,28,Production,8,(1000 MT),10.0
 2222000,"Oilseed, Soybean",BU,Bulgaria,2023,2024,10,4,Area Harvested,4,(1000 HA),4.0
@@ -719,8 +719,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2222000,"Oilseed, Soybean",BU,Bulgaria,2024,2025,4,28,Production,8,(1000 MT),1.0
 2222000,"Oilseed, Soybean",BU,Bulgaria,2025,2026,4,4,Area Harvested,4,(1000 HA),1.0
 2222000,"Oilseed, Soybean",BU,Bulgaria,2025,2026,4,28,Production,8,(1000 MT),1.0
-2222000,"Oilseed, Soybean",BU,Bulgaria,2026,2026,7,4,Area Harvested,4,(1000 HA),1.0
-2222000,"Oilseed, Soybean",BU,Bulgaria,2026,2026,7,28,Production,8,(1000 MT),1.0
+2222000,"Oilseed, Soybean",BU,Bulgaria,2026,2026,8,4,Area Harvested,4,(1000 HA),1.0
+2222000,"Oilseed, Soybean",BU,Bulgaria,2026,2026,8,28,Production,8,(1000 MT),1.0
 2222000,"Oilseed, Soybean",HR,Croatia,2022,2024,4,4,Area Harvested,4,(1000 HA),91.0
 2222000,"Oilseed, Soybean",HR,Croatia,2022,2024,4,28,Production,8,(1000 MT),195.0
 2222000,"Oilseed, Soybean",HR,Croatia,2023,2025,4,4,Area Harvested,4,(1000 HA),77.0
@@ -729,8 +729,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2222000,"Oilseed, Soybean",HR,Croatia,2024,2026,4,28,Production,8,(1000 MT),255.0
 2222000,"Oilseed, Soybean",HR,Croatia,2025,2026,4,4,Area Harvested,4,(1000 HA),90.0
 2222000,"Oilseed, Soybean",HR,Croatia,2025,2026,4,28,Production,8,(1000 MT),216.0
-2222000,"Oilseed, Soybean",HR,Croatia,2026,2026,7,4,Area Harvested,4,(1000 HA),90.0
-2222000,"Oilseed, Soybean",HR,Croatia,2026,2026,7,28,Production,8,(1000 MT),225.0
+2222000,"Oilseed, Soybean",HR,Croatia,2026,2026,8,4,Area Harvested,4,(1000 HA),90.0
+2222000,"Oilseed, Soybean",HR,Croatia,2026,2026,8,28,Production,8,(1000 MT),235.0
 2222000,"Oilseed, Soybean",EZ,Czech Republic,2022,2023,4,4,Area Harvested,4,(1000 HA),29.0
 2222000,"Oilseed, Soybean",EZ,Czech Republic,2022,2023,4,28,Production,8,(1000 MT),66.0
 2222000,"Oilseed, Soybean",EZ,Czech Republic,2023,2024,4,4,Area Harvested,4,(1000 HA),27.0
@@ -739,8 +739,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2222000,"Oilseed, Soybean",EZ,Czech Republic,2024,2026,4,28,Production,8,(1000 MT),74.0
 2222000,"Oilseed, Soybean",EZ,Czech Republic,2025,2026,4,4,Area Harvested,4,(1000 HA),34.0
 2222000,"Oilseed, Soybean",EZ,Czech Republic,2025,2026,4,28,Production,8,(1000 MT),84.0
-2222000,"Oilseed, Soybean",EZ,Czech Republic,2026,2026,7,4,Area Harvested,4,(1000 HA),37.0
-2222000,"Oilseed, Soybean",EZ,Czech Republic,2026,2026,7,28,Production,8,(1000 MT),96.0
+2222000,"Oilseed, Soybean",EZ,Czech Republic,2026,2026,8,4,Area Harvested,4,(1000 HA),37.0
+2222000,"Oilseed, Soybean",EZ,Czech Republic,2026,2026,8,28,Production,8,(1000 MT),96.0
 2222000,"Oilseed, Soybean",FR,France,2022,2024,4,4,Area Harvested,4,(1000 HA),184.0
 2222000,"Oilseed, Soybean",FR,France,2022,2024,4,28,Production,8,(1000 MT),376.0
 2222000,"Oilseed, Soybean",FR,France,2023,2024,11,4,Area Harvested,4,(1000 HA),158.0
@@ -749,8 +749,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2222000,"Oilseed, Soybean",FR,France,2024,2026,4,28,Production,8,(1000 MT),388.0
 2222000,"Oilseed, Soybean",FR,France,2025,2026,4,4,Area Harvested,4,(1000 HA),153.0
 2222000,"Oilseed, Soybean",FR,France,2025,2026,4,28,Production,8,(1000 MT),399.0
-2222000,"Oilseed, Soybean",FR,France,2026,2026,7,4,Area Harvested,4,(1000 HA),155.0
-2222000,"Oilseed, Soybean",FR,France,2026,2026,7,28,Production,8,(1000 MT),370.0
+2222000,"Oilseed, Soybean",FR,France,2026,2026,8,4,Area Harvested,4,(1000 HA),155.0
+2222000,"Oilseed, Soybean",FR,France,2026,2026,8,28,Production,8,(1000 MT),330.0
 2222000,"Oilseed, Soybean",GM,Germany,2022,2024,4,4,Area Harvested,4,(1000 HA),52.0
 2222000,"Oilseed, Soybean",GM,Germany,2022,2024,4,28,Production,8,(1000 MT),121.0
 2222000,"Oilseed, Soybean",GM,Germany,2023,2024,9,4,Area Harvested,4,(1000 HA),45.0
@@ -759,8 +759,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2222000,"Oilseed, Soybean",GM,Germany,2024,2026,4,28,Production,8,(1000 MT),120.0
 2222000,"Oilseed, Soybean",GM,Germany,2025,2026,4,4,Area Harvested,4,(1000 HA),43.0
 2222000,"Oilseed, Soybean",GM,Germany,2025,2026,4,28,Production,8,(1000 MT),131.0
-2222000,"Oilseed, Soybean",GM,Germany,2026,2026,7,4,Area Harvested,4,(1000 HA),43.0
-2222000,"Oilseed, Soybean",GM,Germany,2026,2026,7,28,Production,8,(1000 MT),130.0
+2222000,"Oilseed, Soybean",GM,Germany,2026,2026,8,4,Area Harvested,4,(1000 HA),43.0
+2222000,"Oilseed, Soybean",GM,Germany,2026,2026,8,28,Production,8,(1000 MT),130.0
 2222000,"Oilseed, Soybean",GR,Greece,2022,2023,4,4,Area Harvested,4,(1000 HA),3.0
 2222000,"Oilseed, Soybean",GR,Greece,2022,2023,4,28,Production,8,(1000 MT),10.0
 2222000,"Oilseed, Soybean",GR,Greece,2023,2025,4,4,Area Harvested,4,(1000 HA),2.0
@@ -769,8 +769,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2222000,"Oilseed, Soybean",GR,Greece,2024,2026,4,28,Production,8,(1000 MT),5.0
 2222000,"Oilseed, Soybean",GR,Greece,2025,2026,4,4,Area Harvested,4,(1000 HA),3.0
 2222000,"Oilseed, Soybean",GR,Greece,2025,2026,4,28,Production,8,(1000 MT),8.0
-2222000,"Oilseed, Soybean",GR,Greece,2026,2026,7,4,Area Harvested,4,(1000 HA),3.0
-2222000,"Oilseed, Soybean",GR,Greece,2026,2026,7,28,Production,8,(1000 MT),8.0
+2222000,"Oilseed, Soybean",GR,Greece,2026,2026,8,4,Area Harvested,4,(1000 HA),3.0
+2222000,"Oilseed, Soybean",GR,Greece,2026,2026,8,28,Production,8,(1000 MT),8.0
 2222000,"Oilseed, Soybean",HU,Hungary,2022,2024,4,4,Area Harvested,4,(1000 HA),66.0
 2222000,"Oilseed, Soybean",HU,Hungary,2022,2024,4,28,Production,8,(1000 MT),135.0
 2222000,"Oilseed, Soybean",HU,Hungary,2023,2025,4,4,Area Harvested,4,(1000 HA),58.0
@@ -779,8 +779,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2222000,"Oilseed, Soybean",HU,Hungary,2024,2026,4,28,Production,8,(1000 MT),259.0
 2222000,"Oilseed, Soybean",HU,Hungary,2025,2026,4,4,Area Harvested,4,(1000 HA),79.0
 2222000,"Oilseed, Soybean",HU,Hungary,2025,2026,4,28,Production,8,(1000 MT),170.0
-2222000,"Oilseed, Soybean",HU,Hungary,2026,2026,7,4,Area Harvested,4,(1000 HA),80.0
-2222000,"Oilseed, Soybean",HU,Hungary,2026,2026,7,28,Production,8,(1000 MT),195.0
+2222000,"Oilseed, Soybean",HU,Hungary,2026,2026,8,4,Area Harvested,4,(1000 HA),80.0
+2222000,"Oilseed, Soybean",HU,Hungary,2026,2026,8,28,Production,8,(1000 MT),180.0
 2222000,"Oilseed, Soybean",IT,Italy,2022,2024,4,4,Area Harvested,4,(1000 HA),330.0
 2222000,"Oilseed, Soybean",IT,Italy,2022,2024,4,28,Production,8,(1000 MT),1000.0
 2222000,"Oilseed, Soybean",IT,Italy,2023,2025,4,4,Area Harvested,4,(1000 HA),340.0
@@ -789,8 +789,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2222000,"Oilseed, Soybean",IT,Italy,2024,2026,4,28,Production,8,(1000 MT),1070.0
 2222000,"Oilseed, Soybean",IT,Italy,2025,2026,4,4,Area Harvested,4,(1000 HA),335.0
 2222000,"Oilseed, Soybean",IT,Italy,2025,2026,4,28,Production,8,(1000 MT),1080.0
-2222000,"Oilseed, Soybean",IT,Italy,2026,2026,7,4,Area Harvested,4,(1000 HA),335.0
-2222000,"Oilseed, Soybean",IT,Italy,2026,2026,7,28,Production,8,(1000 MT),1090.0
+2222000,"Oilseed, Soybean",IT,Italy,2026,2026,8,4,Area Harvested,4,(1000 HA),335.0
+2222000,"Oilseed, Soybean",IT,Italy,2026,2026,8,28,Production,8,(1000 MT),1090.0
 2222000,"Oilseed, Soybean",LH,Lithuania,2022,2023,4,4,Area Harvested,4,(1000 HA),2.0
 2222000,"Oilseed, Soybean",LH,Lithuania,2022,2023,4,28,Production,8,(1000 MT),2.0
 2222000,"Oilseed, Soybean",LH,Lithuania,2023,2024,4,4,Area Harvested,4,(1000 HA),1.0
@@ -799,8 +799,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2222000,"Oilseed, Soybean",LH,Lithuania,2024,2026,4,28,Production,8,(1000 MT),2.0
 2222000,"Oilseed, Soybean",LH,Lithuania,2025,2026,4,4,Area Harvested,4,(1000 HA),2.0
 2222000,"Oilseed, Soybean",LH,Lithuania,2025,2026,4,28,Production,8,(1000 MT),3.0
-2222000,"Oilseed, Soybean",LH,Lithuania,2026,2026,7,4,Area Harvested,4,(1000 HA),2.0
-2222000,"Oilseed, Soybean",LH,Lithuania,2026,2026,7,28,Production,8,(1000 MT),3.0
+2222000,"Oilseed, Soybean",LH,Lithuania,2026,2026,8,4,Area Harvested,4,(1000 HA),2.0
+2222000,"Oilseed, Soybean",LH,Lithuania,2026,2026,8,28,Production,8,(1000 MT),3.0
 2222000,"Oilseed, Soybean",PL,Poland,2022,2024,4,4,Area Harvested,4,(1000 HA),48.0
 2222000,"Oilseed, Soybean",PL,Poland,2022,2024,4,28,Production,8,(1000 MT),100.0
 2222000,"Oilseed, Soybean",PL,Poland,2023,2025,4,4,Area Harvested,4,(1000 HA),18.0
@@ -809,8 +809,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2222000,"Oilseed, Soybean",PL,Poland,2024,2025,4,28,Production,8,(1000 MT),80.0
 2222000,"Oilseed, Soybean",PL,Poland,2025,2026,4,4,Area Harvested,4,(1000 HA),40.0
 2222000,"Oilseed, Soybean",PL,Poland,2025,2026,4,28,Production,8,(1000 MT),100.0
-2222000,"Oilseed, Soybean",PL,Poland,2026,2026,7,4,Area Harvested,4,(1000 HA),50.0
-2222000,"Oilseed, Soybean",PL,Poland,2026,2026,7,28,Production,8,(1000 MT),130.0
+2222000,"Oilseed, Soybean",PL,Poland,2026,2026,8,4,Area Harvested,4,(1000 HA),50.0
+2222000,"Oilseed, Soybean",PL,Poland,2026,2026,8,28,Production,8,(1000 MT),130.0
 2222000,"Oilseed, Soybean",RO,Romania,2022,2024,4,4,Area Harvested,4,(1000 HA),136.0
 2222000,"Oilseed, Soybean",RO,Romania,2022,2024,4,28,Production,8,(1000 MT),244.0
 2222000,"Oilseed, Soybean",RO,Romania,2023,2024,4,4,Area Harvested,4,(1000 HA),145.0
@@ -819,8 +819,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2222000,"Oilseed, Soybean",RO,Romania,2024,2026,4,28,Production,8,(1000 MT),240.0
 2222000,"Oilseed, Soybean",RO,Romania,2025,2026,4,4,Area Harvested,4,(1000 HA),126.0
 2222000,"Oilseed, Soybean",RO,Romania,2025,2026,4,28,Production,8,(1000 MT),200.0
-2222000,"Oilseed, Soybean",RO,Romania,2026,2026,7,4,Area Harvested,4,(1000 HA),143.0
-2222000,"Oilseed, Soybean",RO,Romania,2026,2026,7,28,Production,8,(1000 MT),270.0
+2222000,"Oilseed, Soybean",RO,Romania,2026,2026,8,4,Area Harvested,4,(1000 HA),143.0
+2222000,"Oilseed, Soybean",RO,Romania,2026,2026,8,28,Production,8,(1000 MT),310.0
 2222000,"Oilseed, Soybean",LO,Slovakia,2022,2024,4,4,Area Harvested,4,(1000 HA),68.0
 2222000,"Oilseed, Soybean",LO,Slovakia,2022,2024,4,28,Production,8,(1000 MT),97.0
 2222000,"Oilseed, Soybean",LO,Slovakia,2023,2024,4,4,Area Harvested,4,(1000 HA),49.0
@@ -829,8 +829,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2222000,"Oilseed, Soybean",LO,Slovakia,2024,2026,4,28,Production,8,(1000 MT),149.0
 2222000,"Oilseed, Soybean",LO,Slovakia,2025,2026,4,4,Area Harvested,4,(1000 HA),62.0
 2222000,"Oilseed, Soybean",LO,Slovakia,2025,2026,4,28,Production,8,(1000 MT),159.0
-2222000,"Oilseed, Soybean",LO,Slovakia,2026,2026,7,4,Area Harvested,4,(1000 HA),62.0
-2222000,"Oilseed, Soybean",LO,Slovakia,2026,2026,7,28,Production,8,(1000 MT),160.0
+2222000,"Oilseed, Soybean",LO,Slovakia,2026,2026,8,4,Area Harvested,4,(1000 HA),62.0
+2222000,"Oilseed, Soybean",LO,Slovakia,2026,2026,8,28,Production,8,(1000 MT),150.0
 2222000,"Oilseed, Soybean",SI,Slovenia,2022,2024,4,4,Area Harvested,4,(1000 HA),2.0
 2222000,"Oilseed, Soybean",SI,Slovenia,2022,2024,4,28,Production,8,(1000 MT),5.0
 2222000,"Oilseed, Soybean",SI,Slovenia,2023,2024,4,4,Area Harvested,4,(1000 HA),3.0
@@ -839,8 +839,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2222000,"Oilseed, Soybean",SI,Slovenia,2024,2026,4,28,Production,8,(1000 MT),12.0
 2222000,"Oilseed, Soybean",SI,Slovenia,2025,2026,4,4,Area Harvested,4,(1000 HA),5.0
 2222000,"Oilseed, Soybean",SI,Slovenia,2025,2026,4,28,Production,8,(1000 MT),11.0
-2222000,"Oilseed, Soybean",SI,Slovenia,2026,2026,7,4,Area Harvested,4,(1000 HA),5.0
-2222000,"Oilseed, Soybean",SI,Slovenia,2026,2026,7,28,Production,8,(1000 MT),11.0
+2222000,"Oilseed, Soybean",SI,Slovenia,2026,2026,8,4,Area Harvested,4,(1000 HA),5.0
+2222000,"Oilseed, Soybean",SI,Slovenia,2026,2026,8,28,Production,8,(1000 MT),11.0
 2222000,"Oilseed, Soybean",SP,Spain,2022,2023,4,4,Area Harvested,4,(1000 HA),1.0
 2222000,"Oilseed, Soybean",SP,Spain,2022,2023,4,28,Production,8,(1000 MT),3.0
 2222000,"Oilseed, Soybean",SP,Spain,2023,2025,11,4,Area Harvested,4,(1000 HA),2.0
@@ -849,8 +849,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2222000,"Oilseed, Soybean",SP,Spain,2024,2026,4,28,Production,8,(1000 MT),10.0
 2222000,"Oilseed, Soybean",SP,Spain,2025,2026,4,4,Area Harvested,4,(1000 HA),3.0
 2222000,"Oilseed, Soybean",SP,Spain,2025,2026,4,28,Production,8,(1000 MT),12.0
-2222000,"Oilseed, Soybean",SP,Spain,2026,2026,7,4,Area Harvested,4,(1000 HA),4.0
-2222000,"Oilseed, Soybean",SP,Spain,2026,2026,7,28,Production,8,(1000 MT),12.0
+2222000,"Oilseed, Soybean",SP,Spain,2026,2026,8,4,Area Harvested,4,(1000 HA),4.0
+2222000,"Oilseed, Soybean",SP,Spain,2026,2026,8,28,Production,8,(1000 MT),12.0
 2224000,"Oilseed, Sunflowerseed",AU,Austria,2022,2023,4,4,Area Harvested,4,(1000 HA),24.0
 2224000,"Oilseed, Sunflowerseed",AU,Austria,2022,2023,4,28,Production,8,(1000 MT),56.0
 2224000,"Oilseed, Sunflowerseed",AU,Austria,2023,2024,4,4,Area Harvested,4,(1000 HA),24.0
@@ -859,8 +859,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2224000,"Oilseed, Sunflowerseed",AU,Austria,2024,2025,4,28,Production,8,(1000 MT),53.0
 2224000,"Oilseed, Sunflowerseed",AU,Austria,2025,2026,4,4,Area Harvested,4,(1000 HA),26.0
 2224000,"Oilseed, Sunflowerseed",AU,Austria,2025,2026,4,28,Production,8,(1000 MT),78.0
-2224000,"Oilseed, Sunflowerseed",AU,Austria,2026,2026,7,4,Area Harvested,4,(1000 HA),30.0
-2224000,"Oilseed, Sunflowerseed",AU,Austria,2026,2026,7,28,Production,8,(1000 MT),78.0
+2224000,"Oilseed, Sunflowerseed",AU,Austria,2026,2026,8,4,Area Harvested,4,(1000 HA),30.0
+2224000,"Oilseed, Sunflowerseed",AU,Austria,2026,2026,8,28,Production,8,(1000 MT),68.0
 2224000,"Oilseed, Sunflowerseed",BU,Bulgaria,2022,2024,10,4,Area Harvested,4,(1000 HA),917.0
 2224000,"Oilseed, Sunflowerseed",BU,Bulgaria,2022,2024,10,28,Production,8,(1000 MT),2141.0
 2224000,"Oilseed, Sunflowerseed",BU,Bulgaria,2023,2025,4,4,Area Harvested,4,(1000 HA),870.0
@@ -869,8 +869,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2224000,"Oilseed, Sunflowerseed",BU,Bulgaria,2024,2026,1,28,Production,8,(1000 MT),1645.0
 2224000,"Oilseed, Sunflowerseed",BU,Bulgaria,2025,2026,4,4,Area Harvested,4,(1000 HA),949.0
 2224000,"Oilseed, Sunflowerseed",BU,Bulgaria,2025,2026,4,28,Production,8,(1000 MT),1522.0
-2224000,"Oilseed, Sunflowerseed",BU,Bulgaria,2026,2026,7,4,Area Harvested,4,(1000 HA),960.0
-2224000,"Oilseed, Sunflowerseed",BU,Bulgaria,2026,2026,7,28,Production,8,(1000 MT),1900.0
+2224000,"Oilseed, Sunflowerseed",BU,Bulgaria,2026,2026,8,4,Area Harvested,4,(1000 HA),956.0
+2224000,"Oilseed, Sunflowerseed",BU,Bulgaria,2026,2026,8,28,Production,8,(1000 MT),2150.0
 2224000,"Oilseed, Sunflowerseed",HR,Croatia,2022,2024,4,4,Area Harvested,4,(1000 HA),51.0
 2224000,"Oilseed, Sunflowerseed",HR,Croatia,2022,2024,4,28,Production,8,(1000 MT),153.0
 2224000,"Oilseed, Sunflowerseed",HR,Croatia,2023,2025,4,4,Area Harvested,4,(1000 HA),60.0
@@ -879,8 +879,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2224000,"Oilseed, Sunflowerseed",HR,Croatia,2024,2026,4,28,Production,8,(1000 MT),180.0
 2224000,"Oilseed, Sunflowerseed",HR,Croatia,2025,2026,4,4,Area Harvested,4,(1000 HA),67.0
 2224000,"Oilseed, Sunflowerseed",HR,Croatia,2025,2026,4,28,Production,8,(1000 MT),201.0
-2224000,"Oilseed, Sunflowerseed",HR,Croatia,2026,2026,7,4,Area Harvested,4,(1000 HA),62.0
-2224000,"Oilseed, Sunflowerseed",HR,Croatia,2026,2026,7,28,Production,8,(1000 MT),190.0
+2224000,"Oilseed, Sunflowerseed",HR,Croatia,2026,2026,8,4,Area Harvested,4,(1000 HA),62.0
+2224000,"Oilseed, Sunflowerseed",HR,Croatia,2026,2026,8,28,Production,8,(1000 MT),190.0
 2224000,"Oilseed, Sunflowerseed",EZ,Czech Republic,2022,2024,4,4,Area Harvested,4,(1000 HA),23.0
 2224000,"Oilseed, Sunflowerseed",EZ,Czech Republic,2022,2024,4,28,Production,8,(1000 MT),60.0
 2224000,"Oilseed, Sunflowerseed",EZ,Czech Republic,2023,2025,4,4,Area Harvested,4,(1000 HA),19.0
@@ -889,8 +889,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2224000,"Oilseed, Sunflowerseed",EZ,Czech Republic,2024,2026,4,28,Production,8,(1000 MT),41.0
 2224000,"Oilseed, Sunflowerseed",EZ,Czech Republic,2025,2026,4,4,Area Harvested,4,(1000 HA),21.0
 2224000,"Oilseed, Sunflowerseed",EZ,Czech Republic,2025,2026,4,28,Production,8,(1000 MT),58.0
-2224000,"Oilseed, Sunflowerseed",EZ,Czech Republic,2026,2026,7,4,Area Harvested,4,(1000 HA),21.0
-2224000,"Oilseed, Sunflowerseed",EZ,Czech Republic,2026,2026,7,28,Production,8,(1000 MT),60.0
+2224000,"Oilseed, Sunflowerseed",EZ,Czech Republic,2026,2026,8,4,Area Harvested,4,(1000 HA),21.0
+2224000,"Oilseed, Sunflowerseed",EZ,Czech Republic,2026,2026,8,28,Production,8,(1000 MT),51.0
 2224000,"Oilseed, Sunflowerseed",FR,France,2022,2025,11,4,Area Harvested,4,(1000 HA),870.0
 2224000,"Oilseed, Sunflowerseed",FR,France,2022,2025,11,28,Production,8,(1000 MT),1783.0
 2224000,"Oilseed, Sunflowerseed",FR,France,2023,2025,11,4,Area Harvested,4,(1000 HA),822.0
@@ -899,8 +899,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2224000,"Oilseed, Sunflowerseed",FR,France,2024,2026,4,28,Production,8,(1000 MT),1480.0
 2224000,"Oilseed, Sunflowerseed",FR,France,2025,2026,4,4,Area Harvested,4,(1000 HA),690.0
 2224000,"Oilseed, Sunflowerseed",FR,France,2025,2026,4,28,Production,8,(1000 MT),1440.0
-2224000,"Oilseed, Sunflowerseed",FR,France,2026,2026,7,4,Area Harvested,4,(1000 HA),775.0
-2224000,"Oilseed, Sunflowerseed",FR,France,2026,2026,7,28,Production,8,(1000 MT),1516.0
+2224000,"Oilseed, Sunflowerseed",FR,France,2026,2026,8,4,Area Harvested,4,(1000 HA),775.0
+2224000,"Oilseed, Sunflowerseed",FR,France,2026,2026,8,28,Production,8,(1000 MT),1150.0
 2224000,"Oilseed, Sunflowerseed",GM,Germany,2022,2024,4,4,Area Harvested,4,(1000 HA),86.0
 2224000,"Oilseed, Sunflowerseed",GM,Germany,2022,2024,4,28,Production,8,(1000 MT),161.0
 2224000,"Oilseed, Sunflowerseed",GM,Germany,2023,2024,9,4,Area Harvested,4,(1000 HA),69.0
@@ -909,8 +909,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2224000,"Oilseed, Sunflowerseed",GM,Germany,2024,2025,4,28,Production,8,(1000 MT),134.0
 2224000,"Oilseed, Sunflowerseed",GM,Germany,2025,2026,4,4,Area Harvested,4,(1000 HA),62.0
 2224000,"Oilseed, Sunflowerseed",GM,Germany,2025,2026,4,28,Production,8,(1000 MT),143.0
-2224000,"Oilseed, Sunflowerseed",GM,Germany,2026,2026,7,4,Area Harvested,4,(1000 HA),60.0
-2224000,"Oilseed, Sunflowerseed",GM,Germany,2026,2026,7,28,Production,8,(1000 MT),140.0
+2224000,"Oilseed, Sunflowerseed",GM,Germany,2026,2026,8,4,Area Harvested,4,(1000 HA),60.0
+2224000,"Oilseed, Sunflowerseed",GM,Germany,2026,2026,8,28,Production,8,(1000 MT),135.0
 2224000,"Oilseed, Sunflowerseed",GR,Greece,2022,2024,4,4,Area Harvested,4,(1000 HA),90.0
 2224000,"Oilseed, Sunflowerseed",GR,Greece,2022,2024,4,28,Production,8,(1000 MT),180.0
 2224000,"Oilseed, Sunflowerseed",GR,Greece,2023,2025,4,4,Area Harvested,4,(1000 HA),85.0
@@ -919,8 +919,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2224000,"Oilseed, Sunflowerseed",GR,Greece,2024,2026,4,28,Production,8,(1000 MT),170.0
 2224000,"Oilseed, Sunflowerseed",GR,Greece,2025,2026,4,4,Area Harvested,4,(1000 HA),90.0
 2224000,"Oilseed, Sunflowerseed",GR,Greece,2025,2026,4,28,Production,8,(1000 MT),170.0
-2224000,"Oilseed, Sunflowerseed",GR,Greece,2026,2026,7,4,Area Harvested,4,(1000 HA),90.0
-2224000,"Oilseed, Sunflowerseed",GR,Greece,2026,2026,7,28,Production,8,(1000 MT),180.0
+2224000,"Oilseed, Sunflowerseed",GR,Greece,2026,2026,8,4,Area Harvested,4,(1000 HA),90.0
+2224000,"Oilseed, Sunflowerseed",GR,Greece,2026,2026,8,28,Production,8,(1000 MT),180.0
 2224000,"Oilseed, Sunflowerseed",HU,Hungary,2022,2024,4,4,Area Harvested,4,(1000 HA),679.0
 2224000,"Oilseed, Sunflowerseed",HU,Hungary,2022,2024,4,28,Production,8,(1000 MT),1286.0
 2224000,"Oilseed, Sunflowerseed",HU,Hungary,2023,2025,4,4,Area Harvested,4,(1000 HA),674.0
@@ -929,8 +929,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2224000,"Oilseed, Sunflowerseed",HU,Hungary,2024,2026,4,28,Production,8,(1000 MT),1799.0
 2224000,"Oilseed, Sunflowerseed",HU,Hungary,2025,2026,4,4,Area Harvested,4,(1000 HA),711.0
 2224000,"Oilseed, Sunflowerseed",HU,Hungary,2025,2026,4,28,Production,8,(1000 MT),1686.0
-2224000,"Oilseed, Sunflowerseed",HU,Hungary,2026,2026,7,4,Area Harvested,4,(1000 HA),730.0
-2224000,"Oilseed, Sunflowerseed",HU,Hungary,2026,2026,7,28,Production,8,(1000 MT),2000.0
+2224000,"Oilseed, Sunflowerseed",HU,Hungary,2026,2026,8,4,Area Harvested,4,(1000 HA),730.0
+2224000,"Oilseed, Sunflowerseed",HU,Hungary,2026,2026,8,28,Production,8,(1000 MT),1600.0
 2224000,"Oilseed, Sunflowerseed",IT,Italy,2022,2023,4,4,Area Harvested,4,(1000 HA),111.0
 2224000,"Oilseed, Sunflowerseed",IT,Italy,2022,2023,4,28,Production,8,(1000 MT),264.0
 2224000,"Oilseed, Sunflowerseed",IT,Italy,2023,2024,4,4,Area Harvested,4,(1000 HA),122.0
@@ -939,8 +939,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2224000,"Oilseed, Sunflowerseed",IT,Italy,2024,2025,4,28,Production,8,(1000 MT),286.0
 2224000,"Oilseed, Sunflowerseed",IT,Italy,2025,2026,4,4,Area Harvested,4,(1000 HA),109.0
 2224000,"Oilseed, Sunflowerseed",IT,Italy,2025,2026,4,28,Production,8,(1000 MT),290.0
-2224000,"Oilseed, Sunflowerseed",IT,Italy,2026,2026,7,4,Area Harvested,4,(1000 HA),115.0
-2224000,"Oilseed, Sunflowerseed",IT,Italy,2026,2026,7,28,Production,8,(1000 MT),290.0
+2224000,"Oilseed, Sunflowerseed",IT,Italy,2026,2026,8,4,Area Harvested,4,(1000 HA),115.0
+2224000,"Oilseed, Sunflowerseed",IT,Italy,2026,2026,8,28,Production,8,(1000 MT),290.0
 2224000,"Oilseed, Sunflowerseed",PL,Poland,2022,2024,4,4,Area Harvested,4,(1000 HA),65.0
 2224000,"Oilseed, Sunflowerseed",PL,Poland,2022,2024,4,28,Production,8,(1000 MT),100.0
 2224000,"Oilseed, Sunflowerseed",PL,Poland,2023,2025,4,4,Area Harvested,4,(1000 HA),26.0
@@ -949,8 +949,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2224000,"Oilseed, Sunflowerseed",PL,Poland,2024,2025,4,28,Production,8,(1000 MT),43.0
 2224000,"Oilseed, Sunflowerseed",PL,Poland,2025,2026,4,4,Area Harvested,4,(1000 HA),20.0
 2224000,"Oilseed, Sunflowerseed",PL,Poland,2025,2026,4,28,Production,8,(1000 MT),45.0
-2224000,"Oilseed, Sunflowerseed",PL,Poland,2026,2026,7,4,Area Harvested,4,(1000 HA),25.0
-2224000,"Oilseed, Sunflowerseed",PL,Poland,2026,2026,7,28,Production,8,(1000 MT),55.0
+2224000,"Oilseed, Sunflowerseed",PL,Poland,2026,2026,8,4,Area Harvested,4,(1000 HA),25.0
+2224000,"Oilseed, Sunflowerseed",PL,Poland,2026,2026,8,28,Production,8,(1000 MT),55.0
 2224000,"Oilseed, Sunflowerseed",PO,Portugal,2022,2023,4,4,Area Harvested,4,(1000 HA),6.0
 2224000,"Oilseed, Sunflowerseed",PO,Portugal,2022,2023,4,28,Production,8,(1000 MT),10.0
 2224000,"Oilseed, Sunflowerseed",PO,Portugal,2023,2024,4,4,Area Harvested,4,(1000 HA),6.0
@@ -959,18 +959,18 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2224000,"Oilseed, Sunflowerseed",PO,Portugal,2024,2025,4,28,Production,8,(1000 MT),11.0
 2224000,"Oilseed, Sunflowerseed",PO,Portugal,2025,2026,4,4,Area Harvested,4,(1000 HA),3.0
 2224000,"Oilseed, Sunflowerseed",PO,Portugal,2025,2026,4,28,Production,8,(1000 MT),8.0
-2224000,"Oilseed, Sunflowerseed",PO,Portugal,2026,2026,7,4,Area Harvested,4,(1000 HA),5.0
-2224000,"Oilseed, Sunflowerseed",PO,Portugal,2026,2026,7,28,Production,8,(1000 MT),10.0
-2224000,"Oilseed, Sunflowerseed",RO,Romania,2022,2023,8,4,Area Harvested,4,(1000 HA),1093.0
-2224000,"Oilseed, Sunflowerseed",RO,Romania,2022,2023,8,28,Production,8,(1000 MT),2200.0
-2224000,"Oilseed, Sunflowerseed",RO,Romania,2023,2025,4,4,Area Harvested,4,(1000 HA),1072.0
-2224000,"Oilseed, Sunflowerseed",RO,Romania,2023,2025,4,28,Production,8,(1000 MT),2300.0
-2224000,"Oilseed, Sunflowerseed",RO,Romania,2024,2026,4,4,Area Harvested,4,(1000 HA),1243.0
-2224000,"Oilseed, Sunflowerseed",RO,Romania,2024,2026,4,28,Production,8,(1000 MT),1800.0
-2224000,"Oilseed, Sunflowerseed",RO,Romania,2025,2026,4,4,Area Harvested,4,(1000 HA),1150.0
-2224000,"Oilseed, Sunflowerseed",RO,Romania,2025,2026,4,28,Production,8,(1000 MT),2000.0
-2224000,"Oilseed, Sunflowerseed",RO,Romania,2026,2026,7,4,Area Harvested,4,(1000 HA),1220.0
-2224000,"Oilseed, Sunflowerseed",RO,Romania,2026,2026,7,28,Production,8,(1000 MT),2280.0
+2224000,"Oilseed, Sunflowerseed",PO,Portugal,2026,2026,8,4,Area Harvested,4,(1000 HA),5.0
+2224000,"Oilseed, Sunflowerseed",PO,Portugal,2026,2026,8,28,Production,8,(1000 MT),10.0
+2224000,"Oilseed, Sunflowerseed",RO,Romania,2022,2026,8,4,Area Harvested,4,(1000 HA),1093.0
+2224000,"Oilseed, Sunflowerseed",RO,Romania,2022,2026,8,28,Production,8,(1000 MT),2200.0
+2224000,"Oilseed, Sunflowerseed",RO,Romania,2023,2026,8,4,Area Harvested,4,(1000 HA),1072.0
+2224000,"Oilseed, Sunflowerseed",RO,Romania,2023,2026,8,28,Production,8,(1000 MT),2300.0
+2224000,"Oilseed, Sunflowerseed",RO,Romania,2024,2026,8,4,Area Harvested,4,(1000 HA),1243.0
+2224000,"Oilseed, Sunflowerseed",RO,Romania,2024,2026,8,28,Production,8,(1000 MT),1800.0
+2224000,"Oilseed, Sunflowerseed",RO,Romania,2025,2026,8,4,Area Harvested,4,(1000 HA),1150.0
+2224000,"Oilseed, Sunflowerseed",RO,Romania,2025,2026,8,28,Production,8,(1000 MT),2000.0
+2224000,"Oilseed, Sunflowerseed",RO,Romania,2026,2026,8,4,Area Harvested,4,(1000 HA),1220.0
+2224000,"Oilseed, Sunflowerseed",RO,Romania,2026,2026,8,28,Production,8,(1000 MT),2600.0
 2224000,"Oilseed, Sunflowerseed",LO,Slovakia,2022,2024,4,4,Area Harvested,4,(1000 HA),73.0
 2224000,"Oilseed, Sunflowerseed",LO,Slovakia,2022,2024,4,28,Production,8,(1000 MT),171.0
 2224000,"Oilseed, Sunflowerseed",LO,Slovakia,2023,2025,4,4,Area Harvested,4,(1000 HA),62.0
@@ -979,8 +979,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2224000,"Oilseed, Sunflowerseed",LO,Slovakia,2024,2026,4,28,Production,8,(1000 MT),162.0
 2224000,"Oilseed, Sunflowerseed",LO,Slovakia,2025,2026,4,4,Area Harvested,4,(1000 HA),67.0
 2224000,"Oilseed, Sunflowerseed",LO,Slovakia,2025,2026,4,28,Production,8,(1000 MT),180.0
-2224000,"Oilseed, Sunflowerseed",LO,Slovakia,2026,2026,7,4,Area Harvested,4,(1000 HA),70.0
-2224000,"Oilseed, Sunflowerseed",LO,Slovakia,2026,2026,7,28,Production,8,(1000 MT),190.0
+2224000,"Oilseed, Sunflowerseed",LO,Slovakia,2026,2026,8,4,Area Harvested,4,(1000 HA),70.0
+2224000,"Oilseed, Sunflowerseed",LO,Slovakia,2026,2026,8,28,Production,8,(1000 MT),170.0
 2224000,"Oilseed, Sunflowerseed",SI,Slovenia,2022,2024,5,4,Area Harvested,4,(1000 HA),2.0
 2224000,"Oilseed, Sunflowerseed",SI,Slovenia,2022,2024,5,28,Production,8,(1000 MT),1.0
 2224000,"Oilseed, Sunflowerseed",SI,Slovenia,2023,2025,4,4,Area Harvested,4,(1000 HA),1.0
@@ -989,8 +989,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2224000,"Oilseed, Sunflowerseed",SI,Slovenia,2024,2025,4,28,Production,8,(1000 MT),1.0
 2224000,"Oilseed, Sunflowerseed",SI,Slovenia,2025,2026,4,4,Area Harvested,4,(1000 HA),1.0
 2224000,"Oilseed, Sunflowerseed",SI,Slovenia,2025,2026,4,28,Production,8,(1000 MT),1.0
-2224000,"Oilseed, Sunflowerseed",SI,Slovenia,2026,2026,7,4,Area Harvested,4,(1000 HA),1.0
-2224000,"Oilseed, Sunflowerseed",SI,Slovenia,2026,2026,7,28,Production,8,(1000 MT),1.0
+2224000,"Oilseed, Sunflowerseed",SI,Slovenia,2026,2026,8,4,Area Harvested,4,(1000 HA),1.0
+2224000,"Oilseed, Sunflowerseed",SI,Slovenia,2026,2026,8,28,Production,8,(1000 MT),1.0
 2224000,"Oilseed, Sunflowerseed",SP,Spain,2022,2025,11,4,Area Harvested,4,(1000 HA),877.0
 2224000,"Oilseed, Sunflowerseed",SP,Spain,2022,2025,11,28,Production,8,(1000 MT),820.0
 2224000,"Oilseed, Sunflowerseed",SP,Spain,2023,2025,11,4,Area Harvested,4,(1000 HA),774.0
@@ -999,8 +999,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 2224000,"Oilseed, Sunflowerseed",SP,Spain,2024,2026,4,28,Production,8,(1000 MT),840.0
 2224000,"Oilseed, Sunflowerseed",SP,Spain,2025,2026,4,4,Area Harvested,4,(1000 HA),662.0
 2224000,"Oilseed, Sunflowerseed",SP,Spain,2025,2026,4,28,Production,8,(1000 MT),833.0
-2224000,"Oilseed, Sunflowerseed",SP,Spain,2026,2026,7,4,Area Harvested,4,(1000 HA),790.0
-2224000,"Oilseed, Sunflowerseed",SP,Spain,2026,2026,7,28,Production,8,(1000 MT),910.0
+2224000,"Oilseed, Sunflowerseed",SP,Spain,2026,2026,8,4,Area Harvested,4,(1000 HA),790.0
+2224000,"Oilseed, Sunflowerseed",SP,Spain,2026,2026,8,28,Production,8,(1000 MT),850.0
 422110,"Rice, Milled",BU,Bulgaria,2022,2024,4,4,Area Harvested,4,(1000 HA),11.0
 422110,"Rice, Milled",BU,Bulgaria,2022,2024,4,28,Production,8,(1000 MT),42.0
 422110,"Rice, Milled",BU,Bulgaria,2022,2024,4,54,Rough Production,8,(1000 MT),64.0
@@ -1013,9 +1013,9 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 422110,"Rice, Milled",BU,Bulgaria,2025,2026,4,4,Area Harvested,4,(1000 HA),12.0
 422110,"Rice, Milled",BU,Bulgaria,2025,2026,4,28,Production,8,(1000 MT),42.0
 422110,"Rice, Milled",BU,Bulgaria,2025,2026,4,54,Rough Production,8,(1000 MT),64.0
-422110,"Rice, Milled",BU,Bulgaria,2026,2026,7,4,Area Harvested,4,(1000 HA),12.0
-422110,"Rice, Milled",BU,Bulgaria,2026,2026,7,28,Production,8,(1000 MT),44.0
-422110,"Rice, Milled",BU,Bulgaria,2026,2026,7,54,Rough Production,8,(1000 MT),68.0
+422110,"Rice, Milled",BU,Bulgaria,2026,2026,8,4,Area Harvested,4,(1000 HA),12.0
+422110,"Rice, Milled",BU,Bulgaria,2026,2026,8,28,Production,8,(1000 MT),44.0
+422110,"Rice, Milled",BU,Bulgaria,2026,2026,8,54,Rough Production,8,(1000 MT),68.0
 422110,"Rice, Milled",FR,France,2022,2024,12,4,Area Harvested,4,(1000 HA),12.0
 422110,"Rice, Milled",FR,France,2022,2024,12,28,Production,8,(1000 MT),38.0
 422110,"Rice, Milled",FR,France,2022,2024,12,54,Rough Production,8,(1000 MT),64.0
@@ -1028,9 +1028,9 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 422110,"Rice, Milled",FR,France,2025,2026,4,4,Area Harvested,4,(1000 HA),13.0
 422110,"Rice, Milled",FR,France,2025,2026,4,28,Production,8,(1000 MT),43.0
 422110,"Rice, Milled",FR,France,2025,2026,4,54,Rough Production,8,(1000 MT),72.0
-422110,"Rice, Milled",FR,France,2026,2026,7,4,Area Harvested,4,(1000 HA),15.0
-422110,"Rice, Milled",FR,France,2026,2026,7,28,Production,8,(1000 MT),50.0
-422110,"Rice, Milled",FR,France,2026,2026,7,54,Rough Production,8,(1000 MT),84.0
+422110,"Rice, Milled",FR,France,2026,2026,8,4,Area Harvested,4,(1000 HA),15.0
+422110,"Rice, Milled",FR,France,2026,2026,8,28,Production,8,(1000 MT),50.0
+422110,"Rice, Milled",FR,France,2026,2026,8,54,Rough Production,8,(1000 MT),84.0
 422110,"Rice, Milled",GR,Greece,2022,2024,12,4,Area Harvested,4,(1000 HA),26.0
 422110,"Rice, Milled",GR,Greece,2022,2024,12,28,Production,8,(1000 MT),153.0
 422110,"Rice, Milled",GR,Greece,2022,2024,12,54,Rough Production,8,(1000 MT),240.0
@@ -1043,9 +1043,9 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 422110,"Rice, Milled",GR,Greece,2025,2026,4,4,Area Harvested,4,(1000 HA),27.0
 422110,"Rice, Milled",GR,Greece,2025,2026,4,28,Production,8,(1000 MT),173.0
 422110,"Rice, Milled",GR,Greece,2025,2026,4,54,Rough Production,8,(1000 MT),270.0
-422110,"Rice, Milled",GR,Greece,2026,2026,7,4,Area Harvested,4,(1000 HA),29.0
-422110,"Rice, Milled",GR,Greece,2026,2026,7,28,Production,8,(1000 MT),167.0
-422110,"Rice, Milled",GR,Greece,2026,2026,7,54,Rough Production,8,(1000 MT),265.0
+422110,"Rice, Milled",GR,Greece,2026,2026,8,4,Area Harvested,4,(1000 HA),29.0
+422110,"Rice, Milled",GR,Greece,2026,2026,8,28,Production,8,(1000 MT),167.0
+422110,"Rice, Milled",GR,Greece,2026,2026,8,54,Rough Production,8,(1000 MT),265.0
 422110,"Rice, Milled",HU,Hungary,2022,2024,4,4,Area Harvested,4,(1000 HA),2.0
 422110,"Rice, Milled",HU,Hungary,2022,2024,4,28,Production,8,(1000 MT),6.0
 422110,"Rice, Milled",HU,Hungary,2022,2024,4,54,Rough Production,8,(1000 MT),10.0
@@ -1058,9 +1058,9 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 422110,"Rice, Milled",HU,Hungary,2025,2026,4,4,Area Harvested,4,(1000 HA),2.0
 422110,"Rice, Milled",HU,Hungary,2025,2026,4,28,Production,8,(1000 MT),5.0
 422110,"Rice, Milled",HU,Hungary,2025,2026,4,54,Rough Production,8,(1000 MT),9.0
-422110,"Rice, Milled",HU,Hungary,2026,2026,7,4,Area Harvested,4,(1000 HA),3.0
-422110,"Rice, Milled",HU,Hungary,2026,2026,7,28,Production,8,(1000 MT),7.0
-422110,"Rice, Milled",HU,Hungary,2026,2026,7,54,Rough Production,8,(1000 MT),12.0
+422110,"Rice, Milled",HU,Hungary,2026,2026,8,4,Area Harvested,4,(1000 HA),3.0
+422110,"Rice, Milled",HU,Hungary,2026,2026,8,28,Production,8,(1000 MT),7.0
+422110,"Rice, Milled",HU,Hungary,2026,2026,8,54,Rough Production,8,(1000 MT),12.0
 422110,"Rice, Milled",IT,Italy,2022,2025,4,4,Area Harvested,4,(1000 HA),192.0
 422110,"Rice, Milled",IT,Italy,2022,2025,4,28,Production,8,(1000 MT),747.0
 422110,"Rice, Milled",IT,Italy,2022,2025,4,54,Rough Production,8,(1000 MT),1227.0
@@ -1073,9 +1073,9 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 422110,"Rice, Milled",IT,Italy,2025,2026,4,4,Area Harvested,4,(1000 HA),234.0
 422110,"Rice, Milled",IT,Italy,2025,2026,4,28,Production,8,(1000 MT),904.0
 422110,"Rice, Milled",IT,Italy,2025,2026,4,54,Rough Production,8,(1000 MT),1480.0
-422110,"Rice, Milled",IT,Italy,2026,2026,7,4,Area Harvested,4,(1000 HA),231.0
-422110,"Rice, Milled",IT,Italy,2026,2026,7,28,Production,8,(1000 MT),829.0
-422110,"Rice, Milled",IT,Italy,2026,2026,7,54,Rough Production,8,(1000 MT),1360.0
+422110,"Rice, Milled",IT,Italy,2026,2026,8,4,Area Harvested,4,(1000 HA),231.0
+422110,"Rice, Milled",IT,Italy,2026,2026,8,28,Production,8,(1000 MT),829.0
+422110,"Rice, Milled",IT,Italy,2026,2026,8,54,Rough Production,8,(1000 MT),1360.0
 422110,"Rice, Milled",PO,Portugal,2022,2024,12,4,Area Harvested,4,(1000 HA),29.0
 422110,"Rice, Milled",PO,Portugal,2022,2024,12,28,Production,8,(1000 MT),95.0
 422110,"Rice, Milled",PO,Portugal,2022,2024,12,54,Rough Production,8,(1000 MT),165.0
@@ -1088,9 +1088,9 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 422110,"Rice, Milled",PO,Portugal,2025,2026,4,4,Area Harvested,4,(1000 HA),27.0
 422110,"Rice, Milled",PO,Portugal,2025,2026,4,28,Production,8,(1000 MT),95.0
 422110,"Rice, Milled",PO,Portugal,2025,2026,4,54,Rough Production,8,(1000 MT),165.0
-422110,"Rice, Milled",PO,Portugal,2026,2026,7,4,Area Harvested,4,(1000 HA),25.0
-422110,"Rice, Milled",PO,Portugal,2026,2026,7,28,Production,8,(1000 MT),116.0
-422110,"Rice, Milled",PO,Portugal,2026,2026,7,54,Rough Production,8,(1000 MT),165.0
+422110,"Rice, Milled",PO,Portugal,2026,2026,8,4,Area Harvested,4,(1000 HA),25.0
+422110,"Rice, Milled",PO,Portugal,2026,2026,8,28,Production,8,(1000 MT),116.0
+422110,"Rice, Milled",PO,Portugal,2026,2026,8,54,Rough Production,8,(1000 MT),165.0
 422110,"Rice, Milled",RO,Romania,2022,2024,4,4,Area Harvested,4,(1000 HA),3.0
 422110,"Rice, Milled",RO,Romania,2022,2024,4,28,Production,8,(1000 MT),11.0
 422110,"Rice, Milled",RO,Romania,2022,2024,4,54,Rough Production,8,(1000 MT),17.0
@@ -1103,9 +1103,9 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 422110,"Rice, Milled",RO,Romania,2025,2026,4,4,Area Harvested,4,(1000 HA),4.0
 422110,"Rice, Milled",RO,Romania,2025,2026,4,28,Production,8,(1000 MT),8.0
 422110,"Rice, Milled",RO,Romania,2025,2026,4,54,Rough Production,8,(1000 MT),12.0
-422110,"Rice, Milled",RO,Romania,2026,2026,7,4,Area Harvested,4,(1000 HA),3.0
-422110,"Rice, Milled",RO,Romania,2026,2026,7,28,Production,8,(1000 MT),12.0
-422110,"Rice, Milled",RO,Romania,2026,2026,7,54,Rough Production,8,(1000 MT),17.0
+422110,"Rice, Milled",RO,Romania,2026,2026,8,4,Area Harvested,4,(1000 HA),3.0
+422110,"Rice, Milled",RO,Romania,2026,2026,8,28,Production,8,(1000 MT),12.0
+422110,"Rice, Milled",RO,Romania,2026,2026,8,54,Rough Production,8,(1000 MT),17.0
 422110,"Rice, Milled",SP,Spain,2022,2024,5,4,Area Harvested,4,(1000 HA),56.0
 422110,"Rice, Milled",SP,Spain,2022,2024,5,28,Production,8,(1000 MT),200.0
 422110,"Rice, Milled",SP,Spain,2022,2024,5,54,Rough Production,8,(1000 MT),354.0
@@ -1118,9 +1118,9 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 422110,"Rice, Milled",SP,Spain,2025,2026,4,4,Area Harvested,4,(1000 HA),96.0
 422110,"Rice, Milled",SP,Spain,2025,2026,4,28,Production,8,(1000 MT),500.0
 422110,"Rice, Milled",SP,Spain,2025,2026,4,54,Rough Production,8,(1000 MT),714.0
-422110,"Rice, Milled",SP,Spain,2026,2026,7,4,Area Harvested,4,(1000 HA),97.0
-422110,"Rice, Milled",SP,Spain,2026,2026,7,28,Production,8,(1000 MT),500.0
-422110,"Rice, Milled",SP,Spain,2026,2026,7,54,Rough Production,8,(1000 MT),725.0
+422110,"Rice, Milled",SP,Spain,2026,2026,8,4,Area Harvested,4,(1000 HA),97.0
+422110,"Rice, Milled",SP,Spain,2026,2026,8,28,Production,8,(1000 MT),500.0
+422110,"Rice, Milled",SP,Spain,2026,2026,8,54,Rough Production,8,(1000 MT),725.0
 459200,Sorghum,AU,Austria,2022,2025,1,4,Area Harvested,4,(1000 HA),5.0
 459200,Sorghum,AU,Austria,2022,2025,1,28,Production,8,(1000 MT),35.0
 459200,Sorghum,AU,Austria,2023,2024,4,4,Area Harvested,4,(1000 HA),5.0
@@ -1129,8 +1129,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 459200,Sorghum,AU,Austria,2024,2026,4,28,Production,8,(1000 MT),36.0
 459200,Sorghum,AU,Austria,2025,2026,4,4,Area Harvested,4,(1000 HA),6.0
 459200,Sorghum,AU,Austria,2025,2026,4,28,Production,8,(1000 MT),43.0
-459200,Sorghum,AU,Austria,2026,2026,7,4,Area Harvested,4,(1000 HA),6.0
-459200,Sorghum,AU,Austria,2026,2026,7,28,Production,8,(1000 MT),42.0
+459200,Sorghum,AU,Austria,2026,2026,8,4,Area Harvested,4,(1000 HA),6.0
+459200,Sorghum,AU,Austria,2026,2026,8,28,Production,8,(1000 MT),42.0
 459200,Sorghum,BU,Bulgaria,2022,2024,4,4,Area Harvested,4,(1000 HA),3.0
 459200,Sorghum,BU,Bulgaria,2022,2024,4,28,Production,8,(1000 MT),6.0
 459200,Sorghum,BU,Bulgaria,2023,2025,4,4,Area Harvested,4,(1000 HA),3.0
@@ -1139,8 +1139,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 459200,Sorghum,BU,Bulgaria,2024,2026,4,28,Production,8,(1000 MT),12.0
 459200,Sorghum,BU,Bulgaria,2025,2026,4,4,Area Harvested,4,(1000 HA),11.0
 459200,Sorghum,BU,Bulgaria,2025,2026,4,28,Production,8,(1000 MT),24.0
-459200,Sorghum,BU,Bulgaria,2026,2026,7,4,Area Harvested,4,(1000 HA),14.0
-459200,Sorghum,BU,Bulgaria,2026,2026,7,28,Production,8,(1000 MT),30.0
+459200,Sorghum,BU,Bulgaria,2026,2026,8,4,Area Harvested,4,(1000 HA),14.0
+459200,Sorghum,BU,Bulgaria,2026,2026,8,28,Production,8,(1000 MT),30.0
 459200,Sorghum,FR,France,2022,2024,4,4,Area Harvested,4,(1000 HA),50.0
 459200,Sorghum,FR,France,2022,2024,4,28,Production,8,(1000 MT),213.0
 459200,Sorghum,FR,France,2023,2025,4,4,Area Harvested,4,(1000 HA),54.0
@@ -1149,8 +1149,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 459200,Sorghum,FR,France,2024,2025,11,28,Production,8,(1000 MT),452.0
 459200,Sorghum,FR,France,2025,2026,4,4,Area Harvested,4,(1000 HA),63.0
 459200,Sorghum,FR,France,2025,2026,4,28,Production,8,(1000 MT),288.0
-459200,Sorghum,FR,France,2026,2026,7,4,Area Harvested,4,(1000 HA),80.0
-459200,Sorghum,FR,France,2026,2026,7,28,Production,8,(1000 MT),425.0
+459200,Sorghum,FR,France,2026,2026,8,4,Area Harvested,4,(1000 HA),35.0
+459200,Sorghum,FR,France,2026,2026,8,28,Production,8,(1000 MT),160.0
 459200,Sorghum,HU,Hungary,2022,2024,4,4,Area Harvested,4,(1000 HA),20.0
 459200,Sorghum,HU,Hungary,2022,2024,4,28,Production,8,(1000 MT),48.0
 459200,Sorghum,HU,Hungary,2023,2025,1,4,Area Harvested,4,(1000 HA),32.0
@@ -1159,8 +1159,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 459200,Sorghum,HU,Hungary,2024,2026,4,28,Production,8,(1000 MT),165.0
 459200,Sorghum,HU,Hungary,2025,2026,4,4,Area Harvested,4,(1000 HA),46.0
 459200,Sorghum,HU,Hungary,2025,2026,4,28,Production,8,(1000 MT),168.0
-459200,Sorghum,HU,Hungary,2026,2026,7,4,Area Harvested,4,(1000 HA),40.0
-459200,Sorghum,HU,Hungary,2026,2026,7,28,Production,8,(1000 MT),160.0
+459200,Sorghum,HU,Hungary,2026,2026,8,4,Area Harvested,4,(1000 HA),30.0
+459200,Sorghum,HU,Hungary,2026,2026,8,28,Production,8,(1000 MT),105.0
 459200,Sorghum,IT,Italy,2022,2023,4,4,Area Harvested,4,(1000 HA),36.0
 459200,Sorghum,IT,Italy,2022,2023,4,28,Production,8,(1000 MT),191.0
 459200,Sorghum,IT,Italy,2023,2025,4,4,Area Harvested,4,(1000 HA),41.0
@@ -1169,8 +1169,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 459200,Sorghum,IT,Italy,2024,2025,4,28,Production,8,(1000 MT),248.0
 459200,Sorghum,IT,Italy,2025,2026,4,4,Area Harvested,4,(1000 HA),48.0
 459200,Sorghum,IT,Italy,2025,2026,4,28,Production,8,(1000 MT),280.0
-459200,Sorghum,IT,Italy,2026,2026,7,4,Area Harvested,4,(1000 HA),48.0
-459200,Sorghum,IT,Italy,2026,2026,7,28,Production,8,(1000 MT),280.0
+459200,Sorghum,IT,Italy,2026,2026,8,4,Area Harvested,4,(1000 HA),48.0
+459200,Sorghum,IT,Italy,2026,2026,8,28,Production,8,(1000 MT),270.0
 459200,Sorghum,RO,Romania,2022,2023,8,4,Area Harvested,4,(1000 HA),6.0
 459200,Sorghum,RO,Romania,2022,2023,8,28,Production,8,(1000 MT),15.0
 459200,Sorghum,RO,Romania,2023,2024,8,4,Area Harvested,4,(1000 HA),7.0
@@ -1179,8 +1179,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 459200,Sorghum,RO,Romania,2024,2026,4,28,Production,8,(1000 MT),25.0
 459200,Sorghum,RO,Romania,2025,2026,4,4,Area Harvested,4,(1000 HA),19.0
 459200,Sorghum,RO,Romania,2025,2026,4,28,Production,8,(1000 MT),30.0
-459200,Sorghum,RO,Romania,2026,2026,7,4,Area Harvested,4,(1000 HA),20.0
-459200,Sorghum,RO,Romania,2026,2026,7,28,Production,8,(1000 MT),38.0
+459200,Sorghum,RO,Romania,2026,2026,8,4,Area Harvested,4,(1000 HA),15.0
+459200,Sorghum,RO,Romania,2026,2026,8,28,Production,8,(1000 MT),38.0
 459200,Sorghum,SP,Spain,2022,2024,8,4,Area Harvested,4,(1000 HA),5.0
 459200,Sorghum,SP,Spain,2022,2024,8,28,Production,8,(1000 MT),14.0
 459200,Sorghum,SP,Spain,2023,2025,4,4,Area Harvested,4,(1000 HA),7.0
@@ -1189,8 +1189,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 459200,Sorghum,SP,Spain,2024,2026,4,28,Production,8,(1000 MT),27.0
 459200,Sorghum,SP,Spain,2025,2026,4,4,Area Harvested,4,(1000 HA),5.0
 459200,Sorghum,SP,Spain,2025,2026,4,28,Production,8,(1000 MT),20.0
-459200,Sorghum,SP,Spain,2026,2026,7,4,Area Harvested,4,(1000 HA),7.0
-459200,Sorghum,SP,Spain,2026,2026,7,28,Production,8,(1000 MT),35.0
+459200,Sorghum,SP,Spain,2026,2026,8,4,Area Harvested,4,(1000 HA),7.0
+459200,Sorghum,SP,Spain,2026,2026,8,28,Production,8,(1000 MT),30.0
 410000,Wheat,AU,Austria,2022,2023,4,4,Area Harvested,4,(1000 HA),293.0
 410000,Wheat,AU,Austria,2022,2023,4,28,Production,8,(1000 MT),1685.0
 410000,Wheat,AU,Austria,2023,2024,4,4,Area Harvested,4,(1000 HA),280.0
@@ -1199,8 +1199,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 410000,Wheat,AU,Austria,2024,2025,4,28,Production,8,(1000 MT),1565.0
 410000,Wheat,AU,Austria,2025,2026,4,4,Area Harvested,4,(1000 HA),280.0
 410000,Wheat,AU,Austria,2025,2026,4,28,Production,8,(1000 MT),1744.0
-410000,Wheat,AU,Austria,2026,2026,7,4,Area Harvested,4,(1000 HA),282.0
-410000,Wheat,AU,Austria,2026,2026,7,28,Production,8,(1000 MT),1670.0
+410000,Wheat,AU,Austria,2026,2026,8,4,Area Harvested,4,(1000 HA),282.0
+410000,Wheat,AU,Austria,2026,2026,8,28,Production,8,(1000 MT),1670.0
 410000,Wheat,BE,Belgium-Luxembourg,2022,2024,12,4,Area Harvested,4,(1000 HA),218.0
 410000,Wheat,BE,Belgium-Luxembourg,2022,2024,12,28,Production,8,(1000 MT),1937.0
 410000,Wheat,BE,Belgium-Luxembourg,2023,2024,12,4,Area Harvested,4,(1000 HA),225.0
@@ -1209,8 +1209,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 410000,Wheat,BE,Belgium-Luxembourg,2024,2026,4,28,Production,8,(1000 MT),1156.0
 410000,Wheat,BE,Belgium-Luxembourg,2025,2026,4,4,Area Harvested,4,(1000 HA),210.0
 410000,Wheat,BE,Belgium-Luxembourg,2025,2026,4,28,Production,8,(1000 MT),1525.0
-410000,Wheat,BE,Belgium-Luxembourg,2026,2026,7,4,Area Harvested,4,(1000 HA),215.0
-410000,Wheat,BE,Belgium-Luxembourg,2026,2026,7,28,Production,8,(1000 MT),1750.0
+410000,Wheat,BE,Belgium-Luxembourg,2026,2026,8,4,Area Harvested,4,(1000 HA),215.0
+410000,Wheat,BE,Belgium-Luxembourg,2026,2026,8,28,Production,8,(1000 MT),1750.0
 410000,Wheat,BU,Bulgaria,2022,2024,9,4,Area Harvested,4,(1000 HA),1206.0
 410000,Wheat,BU,Bulgaria,2022,2024,9,28,Production,8,(1000 MT),6448.0
 410000,Wheat,BU,Bulgaria,2023,2025,4,4,Area Harvested,4,(1000 HA),1207.0
@@ -1219,8 +1219,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 410000,Wheat,BU,Bulgaria,2024,2026,4,28,Production,8,(1000 MT),7085.0
 410000,Wheat,BU,Bulgaria,2025,2026,4,4,Area Harvested,4,(1000 HA),1266.0
 410000,Wheat,BU,Bulgaria,2025,2026,4,28,Production,8,(1000 MT),7573.0
-410000,Wheat,BU,Bulgaria,2026,2026,7,4,Area Harvested,4,(1000 HA),1085.0
-410000,Wheat,BU,Bulgaria,2026,2026,7,28,Production,8,(1000 MT),6550.0
+410000,Wheat,BU,Bulgaria,2026,2026,8,4,Area Harvested,4,(1000 HA),1145.0
+410000,Wheat,BU,Bulgaria,2026,2026,8,28,Production,8,(1000 MT),7000.0
 410000,Wheat,HR,Croatia,2022,2024,4,4,Area Harvested,4,(1000 HA),158.0
 410000,Wheat,HR,Croatia,2022,2024,4,28,Production,8,(1000 MT),948.0
 410000,Wheat,HR,Croatia,2023,2024,12,4,Area Harvested,4,(1000 HA),171.0
@@ -1229,8 +1229,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 410000,Wheat,HR,Croatia,2024,2026,4,28,Production,8,(1000 MT),815.0
 410000,Wheat,HR,Croatia,2025,2026,4,4,Area Harvested,4,(1000 HA),150.0
 410000,Wheat,HR,Croatia,2025,2026,4,28,Production,8,(1000 MT),890.0
-410000,Wheat,HR,Croatia,2026,2026,7,4,Area Harvested,4,(1000 HA),155.0
-410000,Wheat,HR,Croatia,2026,2026,7,28,Production,8,(1000 MT),910.0
+410000,Wheat,HR,Croatia,2026,2026,8,4,Area Harvested,4,(1000 HA),160.0
+410000,Wheat,HR,Croatia,2026,2026,8,28,Production,8,(1000 MT),950.0
 410000,Wheat,CY,Cyprus,2022,2023,4,4,Area Harvested,4,(1000 HA),12.0
 410000,Wheat,CY,Cyprus,2022,2023,4,28,Production,8,(1000 MT),33.0
 410000,Wheat,CY,Cyprus,2023,2024,4,4,Area Harvested,4,(1000 HA),12.0
@@ -1239,8 +1239,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 410000,Wheat,CY,Cyprus,2024,2026,4,28,Production,8,(1000 MT),25.0
 410000,Wheat,CY,Cyprus,2025,2026,4,4,Area Harvested,4,(1000 HA),12.0
 410000,Wheat,CY,Cyprus,2025,2026,4,28,Production,8,(1000 MT),25.0
-410000,Wheat,CY,Cyprus,2026,2026,7,4,Area Harvested,4,(1000 HA),12.0
-410000,Wheat,CY,Cyprus,2026,2026,7,28,Production,8,(1000 MT),25.0
+410000,Wheat,CY,Cyprus,2026,2026,8,4,Area Harvested,4,(1000 HA),12.0
+410000,Wheat,CY,Cyprus,2026,2026,8,28,Production,8,(1000 MT),25.0
 410000,Wheat,EZ,Czech Republic,2022,2023,4,4,Area Harvested,4,(1000 HA),854.0
 410000,Wheat,EZ,Czech Republic,2022,2023,4,28,Production,8,(1000 MT),5189.0
 410000,Wheat,EZ,Czech Republic,2023,2024,4,4,Area Harvested,4,(1000 HA),817.0
@@ -1249,8 +1249,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 410000,Wheat,EZ,Czech Republic,2024,2025,11,28,Production,8,(1000 MT),4625.0
 410000,Wheat,EZ,Czech Republic,2025,2026,4,4,Area Harvested,4,(1000 HA),785.0
 410000,Wheat,EZ,Czech Republic,2025,2026,4,28,Production,8,(1000 MT),5189.0
-410000,Wheat,EZ,Czech Republic,2026,2026,7,4,Area Harvested,4,(1000 HA),770.0
-410000,Wheat,EZ,Czech Republic,2026,2026,7,28,Production,8,(1000 MT),4850.0
+410000,Wheat,EZ,Czech Republic,2026,2026,8,4,Area Harvested,4,(1000 HA),780.0
+410000,Wheat,EZ,Czech Republic,2026,2026,8,28,Production,8,(1000 MT),4750.0
 410000,Wheat,DA,Denmark,2022,2024,12,4,Area Harvested,4,(1000 HA),496.0
 410000,Wheat,DA,Denmark,2022,2024,12,28,Production,8,(1000 MT),4216.0
 410000,Wheat,DA,Denmark,2023,2025,4,4,Area Harvested,4,(1000 HA),496.0
@@ -1259,8 +1259,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 410000,Wheat,DA,Denmark,2024,2026,4,28,Production,8,(1000 MT),3506.0
 410000,Wheat,DA,Denmark,2025,2026,4,4,Area Harvested,4,(1000 HA),474.0
 410000,Wheat,DA,Denmark,2025,2026,4,28,Production,8,(1000 MT),4135.0
-410000,Wheat,DA,Denmark,2026,2026,7,4,Area Harvested,4,(1000 HA),437.0
-410000,Wheat,DA,Denmark,2026,2026,7,28,Production,8,(1000 MT),3600.0
+410000,Wheat,DA,Denmark,2026,2026,8,4,Area Harvested,4,(1000 HA),437.0
+410000,Wheat,DA,Denmark,2026,2026,8,28,Production,8,(1000 MT),3600.0
 410000,Wheat,EN,Estonia,2022,2023,8,4,Area Harvested,4,(1000 HA),180.0
 410000,Wheat,EN,Estonia,2022,2023,8,28,Production,8,(1000 MT),854.0
 410000,Wheat,EN,Estonia,2023,2025,4,4,Area Harvested,4,(1000 HA),172.0
@@ -1269,8 +1269,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 410000,Wheat,EN,Estonia,2024,2025,4,28,Production,8,(1000 MT),745.0
 410000,Wheat,EN,Estonia,2025,2026,4,4,Area Harvested,4,(1000 HA),181.0
 410000,Wheat,EN,Estonia,2025,2026,4,28,Production,8,(1000 MT),830.0
-410000,Wheat,EN,Estonia,2026,2026,7,4,Area Harvested,4,(1000 HA),190.0
-410000,Wheat,EN,Estonia,2026,2026,7,28,Production,8,(1000 MT),850.0
+410000,Wheat,EN,Estonia,2026,2026,8,4,Area Harvested,4,(1000 HA),190.0
+410000,Wheat,EN,Estonia,2026,2026,8,28,Production,8,(1000 MT),850.0
 410000,Wheat,FI,Finland,2022,2024,12,4,Area Harvested,4,(1000 HA),224.0
 410000,Wheat,FI,Finland,2022,2024,12,28,Production,8,(1000 MT),851.0
 410000,Wheat,FI,Finland,2023,2025,4,4,Area Harvested,4,(1000 HA),224.0
@@ -1279,8 +1279,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 410000,Wheat,FI,Finland,2024,2026,4,28,Production,8,(1000 MT),756.0
 410000,Wheat,FI,Finland,2025,2026,4,4,Area Harvested,4,(1000 HA),227.0
 410000,Wheat,FI,Finland,2025,2026,4,28,Production,8,(1000 MT),976.0
-410000,Wheat,FI,Finland,2026,2026,7,4,Area Harvested,4,(1000 HA),220.0
-410000,Wheat,FI,Finland,2026,2026,7,28,Production,8,(1000 MT),946.0
+410000,Wheat,FI,Finland,2026,2026,8,4,Area Harvested,4,(1000 HA),220.0
+410000,Wheat,FI,Finland,2026,2026,8,28,Production,8,(1000 MT),946.0
 410000,Wheat,FR,France,2022,2024,6,4,Area Harvested,4,(1000 HA),4950.0
 410000,Wheat,FR,France,2022,2024,6,28,Production,8,(1000 MT),35040.0
 410000,Wheat,FR,France,2023,2024,12,4,Area Harvested,4,(1000 HA),5000.0
@@ -1289,8 +1289,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 410000,Wheat,FR,France,2024,2026,4,28,Production,8,(1000 MT),26870.0
 410000,Wheat,FR,France,2025,2026,4,4,Area Harvested,4,(1000 HA),4720.0
 410000,Wheat,FR,France,2025,2026,4,28,Production,8,(1000 MT),34620.0
-410000,Wheat,FR,France,2026,2026,7,4,Area Harvested,4,(1000 HA),4835.0
-410000,Wheat,FR,France,2026,2026,7,28,Production,8,(1000 MT),34080.0
+410000,Wheat,FR,France,2026,2026,8,4,Area Harvested,4,(1000 HA),4835.0
+410000,Wheat,FR,France,2026,2026,8,28,Production,8,(1000 MT),32500.0
 410000,Wheat,GM,Germany,2022,2024,12,4,Area Harvested,4,(1000 HA),2981.0
 410000,Wheat,GM,Germany,2022,2024,12,28,Production,8,(1000 MT),22588.0
 410000,Wheat,GM,Germany,2023,2025,4,4,Area Harvested,4,(1000 HA),2981.0
@@ -1299,8 +1299,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 410000,Wheat,GM,Germany,2024,2025,4,28,Production,8,(1000 MT),18527.0
 410000,Wheat,GM,Germany,2025,2026,4,4,Area Harvested,4,(1000 HA),2958.0
 410000,Wheat,GM,Germany,2025,2026,4,28,Production,8,(1000 MT),23152.0
-410000,Wheat,GM,Germany,2026,2026,7,4,Area Harvested,4,(1000 HA),2965.0
-410000,Wheat,GM,Germany,2026,2026,7,28,Production,8,(1000 MT),22000.0
+410000,Wheat,GM,Germany,2026,2026,8,4,Area Harvested,4,(1000 HA),2965.0
+410000,Wheat,GM,Germany,2026,2026,8,28,Production,8,(1000 MT),22000.0
 410000,Wheat,GR,Greece,2022,2024,4,4,Area Harvested,4,(1000 HA),550.0
 410000,Wheat,GR,Greece,2022,2024,4,28,Production,8,(1000 MT),1210.0
 410000,Wheat,GR,Greece,2023,2025,4,4,Area Harvested,4,(1000 HA),550.0
@@ -1309,8 +1309,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 410000,Wheat,GR,Greece,2024,2026,4,28,Production,8,(1000 MT),1390.0
 410000,Wheat,GR,Greece,2025,2026,4,4,Area Harvested,4,(1000 HA),660.0
 410000,Wheat,GR,Greece,2025,2026,4,28,Production,8,(1000 MT),1510.0
-410000,Wheat,GR,Greece,2026,2026,7,4,Area Harvested,4,(1000 HA),630.0
-410000,Wheat,GR,Greece,2026,2026,7,28,Production,8,(1000 MT),1450.0
+410000,Wheat,GR,Greece,2026,2026,8,4,Area Harvested,4,(1000 HA),630.0
+410000,Wheat,GR,Greece,2026,2026,8,28,Production,8,(1000 MT),1450.0
 410000,Wheat,HU,Hungary,2022,2024,4,4,Area Harvested,4,(1000 HA),979.0
 410000,Wheat,HU,Hungary,2022,2024,4,28,Production,8,(1000 MT),4355.0
 410000,Wheat,HU,Hungary,2023,2025,4,4,Area Harvested,4,(1000 HA),979.0
@@ -1319,8 +1319,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 410000,Wheat,HU,Hungary,2024,2026,4,28,Production,8,(1000 MT),5273.0
 410000,Wheat,HU,Hungary,2025,2026,4,4,Area Harvested,4,(1000 HA),1052.0
 410000,Wheat,HU,Hungary,2025,2026,4,28,Production,8,(1000 MT),5791.0
-410000,Wheat,HU,Hungary,2026,2026,7,4,Area Harvested,4,(1000 HA),985.0
-410000,Wheat,HU,Hungary,2026,2026,7,28,Production,8,(1000 MT),5520.0
+410000,Wheat,HU,Hungary,2026,2026,8,4,Area Harvested,4,(1000 HA),985.0
+410000,Wheat,HU,Hungary,2026,2026,8,28,Production,8,(1000 MT),5000.0
 410000,Wheat,EI,Ireland,2022,2024,4,4,Area Harvested,4,(1000 HA),67.0
 410000,Wheat,EI,Ireland,2022,2024,4,28,Production,8,(1000 MT),720.0
 410000,Wheat,EI,Ireland,2023,2025,4,4,Area Harvested,4,(1000 HA),56.0
@@ -1329,8 +1329,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 410000,Wheat,EI,Ireland,2024,2026,4,28,Production,8,(1000 MT),414.0
 410000,Wheat,EI,Ireland,2025,2026,4,4,Area Harvested,4,(1000 HA),64.0
 410000,Wheat,EI,Ireland,2025,2026,4,28,Production,8,(1000 MT),560.0
-410000,Wheat,EI,Ireland,2026,2026,7,4,Area Harvested,4,(1000 HA),65.0
-410000,Wheat,EI,Ireland,2026,2026,7,28,Production,8,(1000 MT),515.0
+410000,Wheat,EI,Ireland,2026,2026,8,4,Area Harvested,4,(1000 HA),65.0
+410000,Wheat,EI,Ireland,2026,2026,8,28,Production,8,(1000 MT),515.0
 410000,Wheat,IT,Italy,2022,2023,4,4,Area Harvested,4,(1000 HA),1845.0
 410000,Wheat,IT,Italy,2022,2023,4,28,Production,8,(1000 MT),6270.0
 410000,Wheat,IT,Italy,2023,2024,8,4,Area Harvested,4,(1000 HA),1860.0
@@ -1339,8 +1339,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 410000,Wheat,IT,Italy,2024,2026,4,28,Production,8,(1000 MT),6020.0
 410000,Wheat,IT,Italy,2025,2026,4,4,Area Harvested,4,(1000 HA),1670.0
 410000,Wheat,IT,Italy,2025,2026,4,28,Production,8,(1000 MT),6370.0
-410000,Wheat,IT,Italy,2026,2026,7,4,Area Harvested,4,(1000 HA),1640.0
-410000,Wheat,IT,Italy,2026,2026,7,28,Production,8,(1000 MT),6240.0
+410000,Wheat,IT,Italy,2026,2026,8,4,Area Harvested,4,(1000 HA),1640.0
+410000,Wheat,IT,Italy,2026,2026,8,28,Production,8,(1000 MT),6240.0
 410000,Wheat,LG,Latvia,2022,2024,12,4,Area Harvested,4,(1000 HA),540.0
 410000,Wheat,LG,Latvia,2022,2024,12,28,Production,8,(1000 MT),2540.0
 410000,Wheat,LG,Latvia,2023,2025,4,4,Area Harvested,4,(1000 HA),543.0
@@ -1349,8 +1349,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 410000,Wheat,LG,Latvia,2024,2026,4,28,Production,8,(1000 MT),2500.0
 410000,Wheat,LG,Latvia,2025,2026,4,4,Area Harvested,4,(1000 HA),550.0
 410000,Wheat,LG,Latvia,2025,2026,4,28,Production,8,(1000 MT),2660.0
-410000,Wheat,LG,Latvia,2026,2026,7,4,Area Harvested,4,(1000 HA),535.0
-410000,Wheat,LG,Latvia,2026,2026,7,28,Production,8,(1000 MT),2600.0
+410000,Wheat,LG,Latvia,2026,2026,8,4,Area Harvested,4,(1000 HA),535.0
+410000,Wheat,LG,Latvia,2026,2026,8,28,Production,8,(1000 MT),2510.0
 410000,Wheat,LH,Lithuania,2022,2024,12,4,Area Harvested,4,(1000 HA),950.0
 410000,Wheat,LH,Lithuania,2022,2024,12,28,Production,8,(1000 MT),4500.0
 410000,Wheat,LH,Lithuania,2023,2025,4,4,Area Harvested,4,(1000 HA),940.0
@@ -1359,8 +1359,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 410000,Wheat,LH,Lithuania,2024,2026,4,28,Production,8,(1000 MT),4340.0
 410000,Wheat,LH,Lithuania,2025,2026,4,4,Area Harvested,4,(1000 HA),900.0
 410000,Wheat,LH,Lithuania,2025,2026,4,28,Production,8,(1000 MT),4700.0
-410000,Wheat,LH,Lithuania,2026,2026,7,4,Area Harvested,4,(1000 HA),890.0
-410000,Wheat,LH,Lithuania,2026,2026,7,28,Production,8,(1000 MT),4600.0
+410000,Wheat,LH,Lithuania,2026,2026,8,4,Area Harvested,4,(1000 HA),890.0
+410000,Wheat,LH,Lithuania,2026,2026,8,28,Production,8,(1000 MT),4400.0
 410000,Wheat,MT,Malta,2022,2023,4,4,Area Harvested,4,(1000 HA),2.0
 410000,Wheat,MT,Malta,2022,2023,4,28,Production,8,(1000 MT),10.0
 410000,Wheat,MT,Malta,2023,2024,4,4,Area Harvested,4,(1000 HA),2.0
@@ -1369,8 +1369,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 410000,Wheat,MT,Malta,2024,2025,4,28,Production,8,(1000 MT),10.0
 410000,Wheat,MT,Malta,2025,2026,4,4,Area Harvested,4,(1000 HA),2.0
 410000,Wheat,MT,Malta,2025,2026,4,28,Production,8,(1000 MT),10.0
-410000,Wheat,MT,Malta,2026,2026,7,4,Area Harvested,4,(1000 HA),2.0
-410000,Wheat,MT,Malta,2026,2026,7,28,Production,8,(1000 MT),10.0
+410000,Wheat,MT,Malta,2026,2026,8,4,Area Harvested,4,(1000 HA),2.0
+410000,Wheat,MT,Malta,2026,2026,8,28,Production,8,(1000 MT),10.0
 410000,Wheat,NL,Netherlands,2022,2023,9,4,Area Harvested,4,(1000 HA),124.0
 410000,Wheat,NL,Netherlands,2022,2023,9,28,Production,8,(1000 MT),1190.0
 410000,Wheat,NL,Netherlands,2023,2025,4,4,Area Harvested,4,(1000 HA),124.0
@@ -1379,8 +1379,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 410000,Wheat,NL,Netherlands,2024,2025,4,28,Production,8,(1000 MT),660.0
 410000,Wheat,NL,Netherlands,2025,2026,4,4,Area Harvested,4,(1000 HA),112.0
 410000,Wheat,NL,Netherlands,2025,2026,4,28,Production,8,(1000 MT),1120.0
-410000,Wheat,NL,Netherlands,2026,2026,7,4,Area Harvested,4,(1000 HA),115.0
-410000,Wheat,NL,Netherlands,2026,2026,7,28,Production,8,(1000 MT),1058.0
+410000,Wheat,NL,Netherlands,2026,2026,8,4,Area Harvested,4,(1000 HA),115.0
+410000,Wheat,NL,Netherlands,2026,2026,8,28,Production,8,(1000 MT),1058.0
 410000,Wheat,PL,Poland,2022,2025,12,4,Area Harvested,4,(1000 HA),2518.0
 410000,Wheat,PL,Poland,2022,2025,12,28,Production,8,(1000 MT),13460.0
 410000,Wheat,PL,Poland,2023,2025,12,4,Area Harvested,4,(1000 HA),2449.0
@@ -1389,8 +1389,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 410000,Wheat,PL,Poland,2024,2026,4,28,Production,8,(1000 MT),12700.0
 410000,Wheat,PL,Poland,2025,2026,4,4,Area Harvested,4,(1000 HA),2420.0
 410000,Wheat,PL,Poland,2025,2026,4,28,Production,8,(1000 MT),14000.0
-410000,Wheat,PL,Poland,2026,2026,7,4,Area Harvested,4,(1000 HA),2420.0
-410000,Wheat,PL,Poland,2026,2026,7,28,Production,8,(1000 MT),13050.0
+410000,Wheat,PL,Poland,2026,2026,8,4,Area Harvested,4,(1000 HA),2345.0
+410000,Wheat,PL,Poland,2026,2026,8,28,Production,8,(1000 MT),12300.0
 410000,Wheat,PO,Portugal,2022,2024,4,4,Area Harvested,4,(1000 HA),33.0
 410000,Wheat,PO,Portugal,2022,2024,4,28,Production,8,(1000 MT),64.0
 410000,Wheat,PO,Portugal,2023,2025,4,4,Area Harvested,4,(1000 HA),24.0
@@ -1399,8 +1399,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 410000,Wheat,PO,Portugal,2024,2026,4,28,Production,8,(1000 MT),85.0
 410000,Wheat,PO,Portugal,2025,2026,4,4,Area Harvested,4,(1000 HA),24.0
 410000,Wheat,PO,Portugal,2025,2026,4,28,Production,8,(1000 MT),60.0
-410000,Wheat,PO,Portugal,2026,2026,7,4,Area Harvested,4,(1000 HA),22.0
-410000,Wheat,PO,Portugal,2026,2026,7,28,Production,8,(1000 MT),55.0
+410000,Wheat,PO,Portugal,2026,2026,8,4,Area Harvested,4,(1000 HA),22.0
+410000,Wheat,PO,Portugal,2026,2026,8,28,Production,8,(1000 MT),55.0
 410000,Wheat,RO,Romania,2022,2025,8,4,Area Harvested,4,(1000 HA),2169.0
 410000,Wheat,RO,Romania,2022,2025,8,28,Production,8,(1000 MT),8684.0
 410000,Wheat,RO,Romania,2023,2025,8,4,Area Harvested,4,(1000 HA),2314.0
@@ -1409,8 +1409,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 410000,Wheat,RO,Romania,2024,2026,4,28,Production,8,(1000 MT),9900.0
 410000,Wheat,RO,Romania,2025,2026,4,4,Area Harvested,4,(1000 HA),2310.0
 410000,Wheat,RO,Romania,2025,2026,4,28,Production,8,(1000 MT),13000.0
-410000,Wheat,RO,Romania,2026,2026,7,4,Area Harvested,4,(1000 HA),2250.0
-410000,Wheat,RO,Romania,2026,2026,7,28,Production,8,(1000 MT),11000.0
+410000,Wheat,RO,Romania,2026,2026,8,4,Area Harvested,4,(1000 HA),2375.0
+410000,Wheat,RO,Romania,2026,2026,8,28,Production,8,(1000 MT),12500.0
 410000,Wheat,LO,Slovakia,2022,2023,9,4,Area Harvested,4,(1000 HA),411.0
 410000,Wheat,LO,Slovakia,2022,2023,9,28,Production,8,(1000 MT),2048.0
 410000,Wheat,LO,Slovakia,2023,2025,4,4,Area Harvested,4,(1000 HA),407.0
@@ -1419,8 +1419,8 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 410000,Wheat,LO,Slovakia,2024,2026,4,28,Production,8,(1000 MT),1908.0
 410000,Wheat,LO,Slovakia,2025,2026,4,4,Area Harvested,4,(1000 HA),380.0
 410000,Wheat,LO,Slovakia,2025,2026,4,28,Production,8,(1000 MT),2298.0
-410000,Wheat,LO,Slovakia,2026,2026,7,4,Area Harvested,4,(1000 HA),390.0
-410000,Wheat,LO,Slovakia,2026,2026,7,28,Production,8,(1000 MT),2250.0
+410000,Wheat,LO,Slovakia,2026,2026,8,4,Area Harvested,4,(1000 HA),390.0
+410000,Wheat,LO,Slovakia,2026,2026,8,28,Production,8,(1000 MT),2100.0
 410000,Wheat,SI,Slovenia,2022,2023,4,4,Area Harvested,4,(1000 HA),28.0
 410000,Wheat,SI,Slovenia,2022,2023,4,28,Production,8,(1000 MT),151.0
 410000,Wheat,SI,Slovenia,2023,2024,4,4,Area Harvested,4,(1000 HA),29.0
@@ -1429,18 +1429,18 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 410000,Wheat,SI,Slovenia,2024,2025,4,28,Production,8,(1000 MT),153.0
 410000,Wheat,SI,Slovenia,2025,2026,4,4,Area Harvested,4,(1000 HA),28.0
 410000,Wheat,SI,Slovenia,2025,2026,4,28,Production,8,(1000 MT),171.0
-410000,Wheat,SI,Slovenia,2026,2026,7,4,Area Harvested,4,(1000 HA),30.0
-410000,Wheat,SI,Slovenia,2026,2026,7,28,Production,8,(1000 MT),160.0
-410000,Wheat,SP,Spain,2022,2024,12,4,Area Harvested,4,(1000 HA),2172.0
-410000,Wheat,SP,Spain,2022,2024,12,28,Production,8,(1000 MT),6247.0
-410000,Wheat,SP,Spain,2023,2025,4,4,Area Harvested,4,(1000 HA),1950.0
-410000,Wheat,SP,Spain,2023,2025,4,28,Production,8,(1000 MT),3979.0
-410000,Wheat,SP,Spain,2024,2026,4,4,Area Harvested,4,(1000 HA),1911.0
-410000,Wheat,SP,Spain,2024,2026,4,28,Production,8,(1000 MT),7097.0
-410000,Wheat,SP,Spain,2025,2026,4,4,Area Harvested,4,(1000 HA),2005.0
-410000,Wheat,SP,Spain,2025,2026,4,28,Production,8,(1000 MT),8400.0
-410000,Wheat,SP,Spain,2026,2026,7,4,Area Harvested,4,(1000 HA),1950.0
-410000,Wheat,SP,Spain,2026,2026,7,28,Production,8,(1000 MT),6900.0
+410000,Wheat,SI,Slovenia,2026,2026,8,4,Area Harvested,4,(1000 HA),30.0
+410000,Wheat,SI,Slovenia,2026,2026,8,28,Production,8,(1000 MT),160.0
+410000,Wheat,SP,Spain,2022,2026,8,4,Area Harvested,4,(1000 HA),2172.0
+410000,Wheat,SP,Spain,2022,2026,8,28,Production,8,(1000 MT),6247.0
+410000,Wheat,SP,Spain,2023,2026,8,4,Area Harvested,4,(1000 HA),1950.0
+410000,Wheat,SP,Spain,2023,2026,8,28,Production,8,(1000 MT),3979.0
+410000,Wheat,SP,Spain,2024,2026,8,4,Area Harvested,4,(1000 HA),1911.0
+410000,Wheat,SP,Spain,2024,2026,8,28,Production,8,(1000 MT),7097.0
+410000,Wheat,SP,Spain,2025,2026,8,4,Area Harvested,4,(1000 HA),2005.0
+410000,Wheat,SP,Spain,2025,2026,8,28,Production,8,(1000 MT),8400.0
+410000,Wheat,SP,Spain,2026,2026,8,4,Area Harvested,4,(1000 HA),1950.0
+410000,Wheat,SP,Spain,2026,2026,8,28,Production,8,(1000 MT),6500.0
 410000,Wheat,SW,Sweden,2022,2024,12,4,Area Harvested,4,(1000 HA),475.0
 410000,Wheat,SW,Sweden,2022,2024,12,28,Production,8,(1000 MT),3254.0
 410000,Wheat,SW,Sweden,2023,2024,12,4,Area Harvested,4,(1000 HA),508.0
@@ -1449,5 +1449,5 @@ Commodity_Code,Commodity_Description,Country_Code,Country_Name,Market_Year,Calen
 410000,Wheat,SW,Sweden,2024,2026,4,28,Production,8,(1000 MT),2930.0
 410000,Wheat,SW,Sweden,2025,2026,4,4,Area Harvested,4,(1000 HA),522.0
 410000,Wheat,SW,Sweden,2025,2026,4,28,Production,8,(1000 MT),3797.0
-410000,Wheat,SW,Sweden,2026,2026,7,4,Area Harvested,4,(1000 HA),510.0
-410000,Wheat,SW,Sweden,2026,2026,7,28,Production,8,(1000 MT),3361.0
+410000,Wheat,SW,Sweden,2026,2026,8,4,Area Harvested,4,(1000 HA),510.0
+410000,Wheat,SW,Sweden,2026,2026,8,28,Production,8,(1000 MT),3361.0
