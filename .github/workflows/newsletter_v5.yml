@@ -3,7 +3,7 @@ name: Daily Agri-News Digest v5
 on:
   schedule:
     # 07:30 UTC every day (08:30 Paris CET / 09:30 Paris CEST)
-    - cron: "17 5 * * *"
+    - cron: "22 5 * * *"
   workflow_dispatch: # Allow manual trigger
 
 permissions:
