@@ -2,7 +2,10 @@
 # Python 3.11+
 
 # LLM
-anthropic>=0.40.0
+# Pinned 2026-09-22: anthropic 1.7.0's messages.create has no `temperature`
+# parameter. The unpinned requirement pulled it in and the market brief
+# failed with a TypeError on every run (missing since 21 Aug 2026).
+anthropic==1.7.0
 
 # RSS parsing
 feedparser>=6.0.0

@@ -355,6 +355,7 @@ class MarketBriefGenerator:
         self.metrics = metrics
         self._last_issues: list[str] = []
         self.last_status: str = "not run"
+        self.last_error: str = ""
 
     async def _call(self, system: str, user: str, tool: dict, tool_name: str) -> Optional[dict]:
         """One tool-use call with retries. On repeated API errors, retries
@@ -366,7 +367,6 @@ class MarketBriefGenerator:
                     response = await self.client.messages.create(
                         model=model,
                         max_tokens=2000,
-                        temperature=0.2,
                         system=system,
                         messages=[{"role": "user", "content": user}],
                         tools=[tool],
@@ -386,6 +386,9 @@ class MarketBriefGenerator:
                         await asyncio.sleep(1)
                 except Exception as e:
                     logger.error(f"Brief: unexpected error: {e}")
+                    # Surface the cause in the Run Report instead of a bare
+                    # "generation empty" (a TypeError hid here for a month).
+                    self.last_error = f"{type(e).__name__}: {e}"[:100]
                     return None
             if model == CLAUDE_MODEL_PRIMARY:
                 logger.info(f"Brief: retrying this call once on fallback model {CLAUDE_MODEL_FALLBACK}")
@@ -434,7 +437,10 @@ class MarketBriefGenerator:
             brief = self._parse(data)
             if not brief:
                 logger.warning("Brief: generation returned nothing usable")
-                self.last_status = "omitted (generation empty)"
+                self.last_status = (
+                    f"omitted (generation empty: {self.last_error})"
+                    if self.last_error else "omitted (generation empty)"
+                )
                 return None
 
             # Style is repaired deterministically (em dash, banned words,
