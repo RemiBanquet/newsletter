@@ -324,7 +324,13 @@ async def run_pipeline(args: argparse.Namespace) -> None:
         else:
             logger.info("Sending newsletter...")
             subject = f"🛰️ Daily Agri-News Digest — {datetime.now(timezone.utc).strftime('%d %b %Y')}"
-            send_newsletter(config, subject, html, metrics, test_mode=args.test)
+            sent_ok = send_newsletter(config, subject, html, metrics, test_mode=args.test)
+            # Marker read by the workflow guard: one real send per UTC day,
+            # whichever trigger (dispatch or backup cron) gets there first.
+            if sent_ok and not args.test:
+                marker = os.path.join(os.path.dirname(os.path.abspath(__file__)), "last_sent.txt")
+                with open(marker, "w", encoding="utf-8") as f:
+                    f.write(datetime.now(timezone.utc).strftime("%Y-%m-%d") + "\n")
 
         # ── Step 9: Mark processed + sent items and save dedup state ──
         if not args.dry_run:

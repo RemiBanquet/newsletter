@@ -1,13 +1,32 @@
 name: Daily Agri-News Digest v5
 
 on:
+  # One send per day, whatever triggers the run (see the guard step below).
+  #
+  # schedule: GitHub documents that scheduled runs are delayed under load and
+  #   can be dropped. Since 27 Aug 2026 they have started 4-12 h late, and
+  #   29 Aug never ran. 01:37 UTC (off the hour, as GitHub recommends) means a
+  #   5 h delay still lands around 06:30 UTC.
+  # workflow_dispatch: manual runs, or later an external scheduler calling the
+  #   GitHub API at a fixed time (dispatch runs start within seconds). If today's
+  #   digest already went out, the run exits at the guard unless force=true.
   schedule:
-    # 07:30 UTC every day (08:30 Paris CET / 09:30 Paris CEST)
-    - cron: "22 5 * * *"
-  workflow_dispatch: # Allow manual trigger
+    - cron: "37 1 * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Send even if today's digest was already sent"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
+
+# Never run two digests at the same time: a second trigger waits for the
+# first to finish, then hits the guard.
+concurrency:
+  group: daily-digest
+  cancel-in-progress: false
 
 jobs:
   run-newsletter:
@@ -21,13 +40,32 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Read the marker from the LATEST main, not the checked-out commit: a run
+      # that waited in the concurrency queue was checked out at its trigger SHA,
+      # before the earlier run pushed today's marker.
+      - name: Skip if today's digest was already sent
+        id: guard
+        run: |
+          git fetch --quiet origin main
+          today=$(date -u +%F)
+          last=$(git show origin/main:newsletter_v5/last_sent.txt 2>/dev/null | tr -d '[:space:]' || true)
+          if [ "$last" = "$today" ] && [ "${{ github.event.inputs.force }}" != "true" ]; then
+            echo "Digest already sent today ($today). Skipping this run."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Last sent: ${last:-never}. Running today's digest."
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Set up Python 3.11
+        if: steps.guard.outputs.skip != 'true'
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
           cache: pip
 
       - name: Set up Chrome (pinned for Selenium scrapers)
+        if: steps.guard.outputs.skip != 'true'
         uses: browser-actions/setup-chrome@v1
         with:
           chrome-version: stable
@@ -35,9 +73,11 @@ jobs:
         id: setup-chrome
 
       - name: Install dependencies
+        if: steps.guard.outputs.skip != 'true'
         run: pip install -r newsletter_v5/requirements.txt
 
       - name: Run newsletter pipeline
+        if: steps.guard.outputs.skip != 'true'
         env:
           # Selenium scrapers: only set CHROME_PATH; webdriver-manager
           # downloads a matched chromedriver at runtime to avoid version mismatches
@@ -59,7 +99,7 @@ jobs:
           python newsletter_v5.py
 
       - name: Persist state (dedup + geocache + config cache)
-        if: always()
+        if: always() && steps.guard.outputs.skip != 'true'
         run: |
           cd newsletter_v5
           git config user.name "github-actions[bot]"
@@ -67,5 +107,10 @@ jobs:
           git add -f sent_articles.json sent_publications.json sent_signals.json \
                     geocache.db config_cache.yaml pam_last_year.json \
                     source_health.json .psd_cache 2>/dev/null || true
+          # Separate add: a missing file makes `git add` skip the whole list.
+          # last_sent.txt only exists once a send has succeeded.
+          if [ -f last_sent.txt ]; then git add last_sent.txt; fi
           git diff --cached --quiet || git commit -m "chore: update pipeline state [skip ci]"
+          # Another run may have pushed state since this one was checked out.
+          git pull --rebase --autostash -X theirs origin main
           git push
