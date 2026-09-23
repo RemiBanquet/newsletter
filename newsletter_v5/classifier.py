@@ -421,7 +421,7 @@ CLASSIFY_SIGNAL_BATCH_TOOL = {
                         },
                         "angle": {
                             "type": "string",
-                            "description": "Only when score >= 4: one short sentence on why this could open or deepen a Hyperplan conversation, using only what the headline states. Empty string otherwise.",
+                            "description": "Only when score >= 4: one sentence, max 20 words, naming the Hyperplan use case it opens (territory planning, season monitoring, prospection or commercial performance tracking) and the country or crop if the headline gives one. Do not restate the headline. Use only facts the headline states. Empty string otherwise.",
                         },
                         "story_key": {
                             "type": "string",

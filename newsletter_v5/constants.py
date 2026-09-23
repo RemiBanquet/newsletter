@@ -262,6 +262,12 @@ SIGNAL_NOISE_PATTERNS = [
     r"\b20\d\d\s*[-–]\s*20\d\d\b.*\bmarket\b",
 ]
 
+# A hiring post for a senior commercial or technical role is a signal (a new
+# buyer persona at the account), so it is kept and left to the classifier.
+SIGNAL_SENIOR_ROLE_PATTERN = (
+    r"\b(head|director|vp|vice president|chief|cmo|cco|general manager|country manager)\b"
+)
+
 # Email content caps (v6 template).
 TOP_STORIES_MAX = 12            # ranked stories shown in the email
 TOP_STORIES_PER_SOURCE = 2      # max stories from one source

@@ -20,7 +20,7 @@ from models import (
     Article, CompanyConfig, CompanySignal, CompanyType, Publication,
     RunMetrics, SourceCategory, SourceConfig, SourceType,
 )
-from constants import SIGNAL_NOISE_PATTERNS
+from constants import SIGNAL_NOISE_PATTERNS, SIGNAL_SENIOR_ROLE_PATTERN
 from constants import (
     ARTICLE_LOOKBACK_HOURS, CROP_KEYWORDS, CROP_CONTEXTUAL_KEYWORDS,
     SIGNAL_LINKEDIN_ENABLED, SIGNAL_LINKEDIN_MAX_PER_COMPANY,
@@ -484,6 +484,17 @@ AG_INPUT_KEYWORDS = [
 
 
 _SIGNAL_NOISE_RE = re.compile("|".join(SIGNAL_NOISE_PATTERNS), re.IGNORECASE)
+_SENIOR_ROLE_RE = re.compile(SIGNAL_SENIOR_ROLE_PATTERN, re.IGNORECASE)
+
+
+def is_signal_noise(title: str) -> bool:
+    """Job posts, intern posts and market-report ads, except senior hires."""
+    m = _SIGNAL_NOISE_RE.search(title or "")
+    if not m:
+        return False
+    if "hiring" in m.group(0).lower() and _SENIOR_ROLE_RE.search(title):
+        return False
+    return True
 
 
 def _parse_signal_entries(
@@ -524,7 +535,7 @@ def _parse_signal_entries(
             source_name = parts[1].strip()
 
         # Rule filter: job ads and report spam never reach the classifier.
-        if _SIGNAL_NOISE_RE.search(title):
+        if is_signal_noise(title):
             metrics.signals_noise_filtered += 1
             continue
 

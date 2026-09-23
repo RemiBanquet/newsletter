@@ -14,7 +14,7 @@ from models import (  # noqa: E402
     MarketBrief, BriefSection, Publication, SignalType,
 )
 from ranking import flag_emoji, select_psd_movers, select_radar, select_top_stories  # noqa: E402
-from fetcher import _SIGNAL_NOISE_RE  # noqa: E402
+from fetcher import is_signal_noise  # noqa: E402
 from renderer import render_newsletter_v6  # noqa: E402
 
 NOW = datetime(2026, 9, 23, 6, 0, tzinfo=timezone.utc)
@@ -129,9 +129,12 @@ def test_signal_noise_filter():
         "Syngenta signs exclusive EU distribution deal with Amoéba",
         "Corteva board approves separation creating Vylor",
         "OCP signs MoU with Brazil for 3.8 Mt of fertilizer",
+        "UPL is looking for a State Marketing Head - We are Hiring",
+        "Nutrien hiring Senior Director, NA Agronomy in Deerfield, IL",
+        "Syngenta Bangladesh signs MoU with CAB International",
     ]
-    assert all(_SIGNAL_NOISE_RE.search(t) for t in noise)
-    assert not any(_SIGNAL_NOISE_RE.search(t) for t in keep)
+    assert all(is_signal_noise(t) for t in noise)
+    assert not any(is_signal_noise(t) for t in keep)
 
 
 # ── Renderer ──
