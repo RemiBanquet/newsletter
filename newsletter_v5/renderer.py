@@ -118,3 +118,57 @@ def render_newsletter(
         f"{len(client_signals)} client signals, {len(prospect_signals)} prospect signals"
     )
     return html
+
+
+# ── v6 renderer (Hyperplan brand, selected content) ────────────────
+
+READ_WPM = 230  # skim pace used for the "N min read" chip
+
+
+def estimate_read_minutes(html: str) -> int:
+    """Rough reading time from the visible text of the rendered email."""
+    import re
+    text = re.sub(r"<(style|title)[\s\S]*?</\1>", " ", html)
+    text = re.sub(r"<!--[\s\S]*?-->", " ", text)
+    text = re.sub(r"<[^>]+>", " ", text)
+    return max(1, round(len(text.split()) / READ_WPM))
+
+
+def render_newsletter_v6(
+    date: str,
+    preheader: str,
+    market_brief: MarketBrief,
+    publications: list[Publication],
+    top_stories: list,
+    total_articles: int,
+    radar: list,
+    radar_more: int,
+    psd_movers: list,
+    psd_release_label: str,
+    archive_url: str,
+    signals_url: str,
+    feedback_url: str,
+) -> str:
+    """Render the v6 email. Items are pre-selected by ranking.py.
+
+    autoescape is ON: titles and summaries come from third-party feeds.
+    Rendered twice so the read-time chip reflects the final text.
+    """
+    env = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)), autoescape=True)
+    template = env.get_template("newsletter_v6.html")
+    ctx = dict(
+        date=date, preheader=preheader, read_minutes=1,
+        market_brief=market_brief, publications=publications,
+        top_stories=top_stories, total_articles=total_articles,
+        radar=radar, radar_more=radar_more,
+        psd_movers=psd_movers, psd_release_label=psd_release_label,
+        archive_url=archive_url, signals_url=signals_url, feedback_url=feedback_url,
+    )
+    ctx["read_minutes"] = estimate_read_minutes(template.render(**ctx))
+    html = template.render(**ctx)
+    logger.info(
+        f"Rendered v6: {len(publications)} pubs, {len(top_stories)}/{total_articles} stories, "
+        f"{len(radar)} radar (+{radar_more}), {len(psd_movers)} PSD movers, "
+        f"{len(html.encode()) // 1024} KB, ~{ctx['read_minutes']} min"
+    )
+    return html

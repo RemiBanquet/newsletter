@@ -191,6 +191,9 @@ class Article:
     location: GeoLocation = field(default_factory=GeoLocation)
     relevant: bool = False
     raw_content: str = ""            # Original text fed to Claude
+    # v6 selection layer (set by the classifier, used by ranking.py)
+    importance: int = 3              # 1-5, how much a crop-input marketer needs it today
+    story_key: str = ""              # same key for articles covering the same event
     # True once Claude returned a classification for this item. Rejected items
     # with classified=True are marked seen in dedup so they are never
     # re-classified on later runs; items where the API call failed stay
@@ -230,6 +233,11 @@ class CompanySignal:
     original_language: str = "en"
     location: GeoLocation = field(default_factory=GeoLocation)
     classified: bool = False         # See Article.classified
+    # v6 account radar (set by the classifier, used by ranking.py)
+    score: int = 0                   # 1-5 sales relevance, 0 = unscored
+    angle: str = ""                  # why it matters for a Hyperplan conversation
+    story_key: str = ""              # same key for posts about the same event
+    company_is_actor: bool = True    # False when the company is only mentioned
 
 
 # ── Market brief ───────────────────────────────────────────────────
@@ -283,6 +291,8 @@ class RunMetrics:
     signals_accepted: int = 0
     signals_rejected: int = 0
     signals_duplicate: int = 0
+    signals_noise_filtered: int = 0
+    layout: str = ""                 # "v6" or "v5 (fallback)", shown in the run report   # job ads / report spam dropped by rule
     # Geocoding
     geocoding_attempted: int = 0
     geocoding_succeeded: int = 0

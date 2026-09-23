@@ -5,6 +5,8 @@ Handles articles, publications, and company signal feeds.
 
 import asyncio
 import hashlib
+import html
+import re
 import logging
 import urllib.parse
 from datetime import datetime, timedelta, timezone
@@ -18,6 +20,7 @@ from models import (
     Article, CompanyConfig, CompanySignal, CompanyType, Publication,
     RunMetrics, SourceCategory, SourceConfig, SourceType,
 )
+from constants import SIGNAL_NOISE_PATTERNS
 from constants import (
     ARTICLE_LOOKBACK_HOURS, CROP_KEYWORDS, CROP_CONTEXTUAL_KEYWORDS,
     SIGNAL_LINKEDIN_ENABLED, SIGNAL_LINKEDIN_MAX_PER_COMPANY,
@@ -240,7 +243,7 @@ async def fetch_articles_from_source(
     skipped_nodate = 0
     skipped_keyword = 0
     for entry in feed.entries:
-        title = entry.get("title", "").strip()
+        title = html.unescape(entry.get("title", "")).strip()
         url = entry.get("link", "").strip()
         if not title or not url:
             continue
@@ -371,7 +374,7 @@ async def fetch_publications_from_source(
     skipped_keyword = 0
     undated_accepted = 0
     for entry in feed.entries:
-        title = entry.get("title", "").strip()
+        title = html.unescape(entry.get("title", "")).strip()
         url = entry.get("link", "").strip()
         if not title or not url:
             continue
@@ -480,6 +483,9 @@ AG_INPUT_KEYWORDS = [
 ]
 
 
+_SIGNAL_NOISE_RE = re.compile("|".join(SIGNAL_NOISE_PATTERNS), re.IGNORECASE)
+
+
 def _parse_signal_entries(
     feed: feedparser.FeedParserDict,
     company: CompanyConfig,
@@ -501,7 +507,7 @@ def _parse_signal_entries(
         if max_entries and len(signals) >= max_entries:
             break
 
-        title = entry.get("title", "").strip()
+        title = html.unescape(entry.get("title", "")).strip()
         link = entry.get("link", "").strip()
         if not title or not link:
             continue
@@ -516,6 +522,11 @@ def _parse_signal_entries(
             parts = title.rsplit(" - ", 1)
             title = parts[0].strip()
             source_name = parts[1].strip()
+
+        # Rule filter: job ads and report spam never reach the classifier.
+        if _SIGNAL_NOISE_RE.search(title):
+            metrics.signals_noise_filtered += 1
+            continue
 
         if require_ag_keywords:
             # Keyword pre-filter: signal must mention ag/crop/input terms.

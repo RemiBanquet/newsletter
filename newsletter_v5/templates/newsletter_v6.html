@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<meta name="supported-color-schemes" content="light">
+<title>Daily Agri Digest · {{ date }}</title>
+{#
+  Daily Agri Digest v6 template (live from 2026-09, rendered by renderer.render_newsletter_v6).
+  Brand tokens measured on hyperplan.ag (22 Sep 2026):
+    navy #14213D · blue #3558A3 · green #69BE82 · mint #E1F2E6
+    paper #F6F6F6 · body #5B5B5B · muted #9E9E9E · line #E8E9EC
+    eyebrow green #379051 (from the Sep 2026 decks) · Montserrat 400/600/700
+    pill radius 50px · card radius 16px, 1px #E8E9EC border · "Hyperplan." wordmark
+  Outlook desktop ignores gradients, radius and web fonts: it falls back to
+  solid navy, square corners and Arial. That is expected.
+#}
+<!--[if mso]><style>* { font-family: Arial, sans-serif !important; }</style><![endif]-->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+  :root { color-scheme: light; supported-color-schemes: light; }
+  a { text-decoration: none; }
+  @media (max-width: 620px) {
+    .px { padding-left: 18px !important; padding-right: 18px !important; }
+    .h1 { font-size: 20px !important; }
+  }
+</style>
+</head>
+<body style="margin:0; padding:0; background:#F6F6F6; font-family:Montserrat, Arial, sans-serif; color:#14213D; -webkit-font-smoothing:antialiased;">
+
+<!-- Preheader: shown in the inbox list next to the subject -->
+<div style="display:none; max-height:0; overflow:hidden; mso-hide:all; font-size:1px; line-height:1px; color:#F6F6F6;">
+  {{ preheader }}&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;
+</div>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#F6F6F6" style="background:#F6F6F6;">
+<tr><td align="center" style="padding:24px 12px 32px;">
+<table role="presentation" width="640" cellpadding="0" cellspacing="0" style="width:100%; max-width:640px;">
+
+  <!-- ═════ Header ═════ -->
+  <tr><td class="px" bgcolor="#14213D" style="background:#14213D; background-image:linear-gradient(135deg, #14213D 0%, #14213D 45%, #3558A3 100%); border-radius:16px 16px 56px 16px; padding:28px 32px 30px;">
+    <p style="margin:0; font-size:26px; line-height:1; font-weight:700; color:#FFFFFF;">Hyperplan<span style="color:#68BE82;">.</span></p>
+    <p class="h1" style="margin:22px 0 14px; font-size:24px; line-height:1.25; font-weight:700; color:#FFFFFF;">Daily Agri Digest</p>
+    <table role="presentation" cellpadding="0" cellspacing="0"><tr>
+      <td style="border:1px solid #68BE82; border-radius:8px; padding:5px 12px; font-size:12px; color:#68BE82; white-space:nowrap;">{{ date }}</td>
+      <td width="8" style="font-size:0;">&nbsp;</td>
+      <td style="border:1px solid #68BE82; border-radius:8px; padding:5px 12px; font-size:12px; color:#68BE82; white-space:nowrap;">{{ read_minutes }} min read</td>
+    </tr></table>
+  </td></tr>
+
+  <!-- ═════ Market brief ═════ -->
+  {% if market_brief and market_brief.has_content %}
+  <tr><td style="padding:16px 0 0;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" style="background:#FFFFFF; border:1px solid #E8E9EC; border-radius:16px;">
+      <tr><td class="px" style="padding:24px 32px 18px;">
+        <span style="display:inline-block; background:#68BE82; color:#14213D; font-size:11px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; padding:4px 12px; border-radius:24px;">The day in 90 seconds</span>
+        <p style="margin:14px 0 16px; font-size:17px; line-height:1.5; font-weight:600; color:#14213D;">{{ market_brief.takeaway }}</p>
+        {% for section in market_brief.sections %}
+        <p style="margin:0 0 12px; font-size:14.5px; line-height:1.6; color:#5B5B5B;"><strong style="color:#14213D; font-weight:700;">{{ section.label }}.</strong> {{ section.text }}</p>
+        {% endfor %}
+      </td></tr>
+    </table>
+  </td></tr>
+  {% endif %}
+
+  {# ── Reusable section header ── #}
+  {% macro section_header(eyebrow, title) %}
+  <tr><td class="px" style="padding:30px 32px 12px;">
+    <p style="margin:0 0 4px; font-size:11px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:#379051;">{{ eyebrow }}</p>
+    <p style="margin:0; font-size:19px; line-height:1.3; font-weight:700; color:#14213D;">{{ title }}</p>
+  </td></tr>
+  {% endmacro %}
+
+  <!-- ═════ Official publications ═════ -->
+  {% if publications %}
+  {{ section_header('Official publications · ' ~ publications|length ~ ' today', 'Acreage, yield and production releases') }}
+  <tr><td>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" style="background:#FFFFFF; border:1px solid #E8E9EC; border-radius:16px;">
+      {% for pub in publications %}
+      <tr><td class="px" style="padding:16px 32px; {% if not loop.last %}border-bottom:1px solid #E8E9EC;{% endif %}">
+        <p style="margin:0 0 4px; font-size:11.5px; color:#9E9E9E; letter-spacing:0.3px;">{{ pub.flag_emoji }} {{ pub.source_name|upper }}{% if pub.published_at %} · {{ pub.published_at.strftime('%d %b') }}{% endif %}</p>
+        <a href="{{ pub.url }}" style="font-size:15px; line-height:1.4; font-weight:600; color:#14213D;">{{ pub.title }}</a>
+        {% if pub.summary %}<p style="margin:5px 0 0; font-size:13.5px; line-height:1.55; color:#5B5B5B;">{{ pub.summary }}</p>{% endif %}
+      </td></tr>
+      {% endfor %}
+    </table>
+  </td></tr>
+  {% endif %}
+
+  <!-- ═════ Top stories (ranked, capped, clustered) ═════ -->
+  {% if top_stories %}
+  {{ section_header('Top stories · ' ~ top_stories|length ~ ' of ' ~ total_articles, 'What moved in markets, weather and policy') }}
+  <tr><td>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" style="background:#FFFFFF; border:1px solid #E8E9EC; border-radius:16px;">
+      {% for a in top_stories %}
+      <tr><td class="px" style="padding:15px 32px; {% if not loop.last %}border-bottom:1px solid #E8E9EC;{% endif %}">
+        <p style="margin:0 0 4px; font-size:11.5px; color:#9E9E9E; letter-spacing:0.3px;">
+          {{ a.flag }} {{ a.theme|upper }} · {{ a.source_name }}{% if a.cluster_size and a.cluster_size > 1 %} <span style="color:#3558A3; font-weight:600;">+{{ a.cluster_size - 1 }} similar</span>{% endif %}
+        </p>
+        <a href="{{ a.url }}" style="font-size:15px; line-height:1.4; font-weight:600; color:#14213D;">{{ a.title }}</a>
+        <p style="margin:5px 0 0; font-size:13.5px; line-height:1.55; color:#5B5B5B;">{{ a.summary }}</p>
+      </td></tr>
+      {% endfor %}
+    </table>
+  </td></tr>
+  {% if archive_url %}
+  <tr><td align="center" style="padding:14px 0 0;">
+    <a href="{{ archive_url }}" style="display:inline-block; background:#69BE82; color:#14213D; font-size:14px; font-weight:700; padding:11px 24px; border-radius:50px;">All {{ total_articles }} stories in the archive</a>
+  </td></tr>
+  {% endif %}
+  {% endif %}
+
+  <!-- ═════ Account radar (hard cap, top-scored only) ═════ -->
+  {% if radar %}
+  {{ section_header('Account radar · top ' ~ radar|length, 'Clients and prospects worth a conversation') }}
+  <tr><td>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#14213D" style="background:#14213D; border-radius:16px;">
+      {% for s in radar %}
+      <tr><td class="px" style="padding:16px 32px; {% if not loop.last %}border-bottom:1px solid #2A3A5D;{% endif %}">
+        <p style="margin:0 0 6px; font-size:12px; color:#9FB0D6;">
+          <strong style="color:#FFFFFF; font-size:13.5px;">{{ s.company_name }}</strong>
+          {% if s.company_type == 'client' %}
+          <span style="display:inline-block; margin-left:6px; background:#68BE82; color:#14213D; font-size:10px; font-weight:700; letter-spacing:0.5px; padding:2px 9px; border-radius:24px;">CLIENT</span>
+          {% else %}
+          <span style="display:inline-block; margin-left:6px; border:1px solid #68BE82; color:#68BE82; font-size:10px; font-weight:700; letter-spacing:0.5px; padding:1px 8px; border-radius:24px;">PROSPECT</span>
+          {% endif %}
+          &nbsp;{{ s.signal_label }}{% if s.sources and s.sources > 1 %} · {{ s.sources }} sources{% endif %}
+        </p>
+        <a href="{{ s.url }}" style="font-size:14.5px; line-height:1.45; font-weight:600; color:#FFFFFF;">{{ s.summary }}</a>
+        {% if s.angle %}<p style="margin:5px 0 0; font-size:13px; line-height:1.5; color:#9FD9B0;">Angle: {{ s.angle }}</p>{% endif %}
+      </td></tr>
+      {% endfor %}
+    </table>
+  </td></tr>
+  {% if signals_url and radar_more %}
+  <tr><td align="center" style="padding:14px 0 0;">
+    <a href="{{ signals_url }}" style="display:inline-block; background:#FFFFFF; color:#14213D; font-size:14px; font-weight:700; padding:10px 22px; border-radius:50px; border:1.5px solid #14213D;">{{ radar_more }} more signals in the Signal board</a>
+  </td></tr>
+  {% endif %}
+  {% endif %}
+
+  <!-- ═════ USDA PSD movers (release days only) ═════ -->
+  {% if psd_movers %}
+  {{ section_header('USDA PSD · ' ~ psd_release_label, 'Biggest year-on-year moves') }}
+  <tr><td>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" style="background:#FFFFFF; border:1px solid #E8E9EC; border-radius:16px;">
+      {% for m in psd_movers %}
+      <tr><td class="px" style="padding:12px 32px; font-size:14px; color:#14213D; {% if not loop.last %}border-bottom:1px solid #E8E9EC;{% endif %}">
+        {{ m.flag }} <strong>{{ m.country }}</strong> {{ m.crop }} {{ m.metric }}
+        <span style="float:right; font-weight:700; color:{{ '#2E8B57' if m.yoy_pct > 0 else '#C0392B' }};">{{ "{:+.1f}".format(m.yoy_pct) }}%</span>
+      </td></tr>
+      {% endfor %}
+    </table>
+  </td></tr>
+  {% endif %}
+
+  <!-- ═════ Footer ═════ -->
+  <tr><td style="padding:30px 0 0;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#14213D" style="background:#14213D; border-radius:16px;">
+      <tr><td class="px" align="center" style="padding:22px 32px;">
+        <p style="margin:0 0 6px; font-size:13px; color:#F6F6F6; font-weight:600;">Daily Agri Digest by Hyperplan<span style="color:#68BE82;">.</span></p>
+        <p style="margin:0; font-size:12px; line-height:1.6; color:#9FB0D6;">
+          {% if feedback_url %}<a href="{{ feedback_url }}" style="color:#69BE82;">Was today useful? Reply in one click</a> · {% endif %}
+          {% if archive_url %}<a href="{{ archive_url }}" style="color:#69BE82;">Archive</a> · {% endif %}
+          Generated automatically every morning
+        </p>
+      </td></tr>
+    </table>
+  </td></tr>
+
+</table>
+</td></tr>
+</table>
+</body>
+</html>

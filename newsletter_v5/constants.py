@@ -249,3 +249,27 @@ SIGNAL_LINKEDIN_MAX_PER_COMPANY = 10  # Cap: these skip the ag-keyword pre-filte
 # ── Email sender config ──────────────────────────────────────────
 
 SENDER_EMAIL = "remi.banquet@gmail.com"
+
+
+# ── v6 selection layer ─────────────────────────────────────────────
+# Rule filters applied to signal headlines BEFORE classification (free,
+# deterministic). Case-insensitive regexes. Job ads and market-report spam
+# made up about 1 in 3 LinkedIn signals in the 20-22 Sep 2026 sample.
+SIGNAL_NOISE_PATTERNS = [
+    r"\bhiring\b", r"\bintern(ship)?\b", r"linkedin jobs", r"#hiring",
+    r"\bwe'?re hiring\b", r"\bjob (opening|offer)\b", r"\bapply now\b",
+    r"request (for )?(a )?sample", r"\bcagr\b", r"market (size|report|research|forecast)",
+    r"\b20\d\d\s*[-–]\s*20\d\d\b.*\bmarket\b",
+]
+
+# Email content caps (v6 template).
+TOP_STORIES_MAX = 12            # ranked stories shown in the email
+TOP_STORIES_PER_SOURCE = 2      # max stories from one source
+RADAR_MAX = 5                   # account signals shown in the email
+RADAR_MIN_SCORE = 4             # 4 = strategic move, 5 = buying trigger
+PSD_MOVERS_MAX = 5              # rows in the USDA PSD block (release days only)
+
+# Links shown in the email for "see everything" (Notion archives).
+ARCHIVE_URL = "https://www.notion.so/1f45e97ecd7d809cad9ff048ce70d972"
+SIGNALS_URL = "https://www.notion.so/1f7cb90adabd46c8a573b2516e45d5ee"
+FEEDBACK_URL = "mailto:remi@hyperplan.fr?subject=Digest%20feedback"

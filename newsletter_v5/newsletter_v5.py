@@ -21,6 +21,7 @@ Environment variables required:
 
 import argparse
 import asyncio
+import html as html_lib
 import logging
 import os
 import re
@@ -41,7 +42,12 @@ from sources import run_scraper_sources
 from classifier import ArticleClassifier
 from geocoder import Geocoder
 from dedup import DeduplicationManager
-from renderer import render_newsletter
+from renderer import render_newsletter, render_newsletter_v6
+from ranking import select_top_stories, select_radar, select_psd_movers
+from constants import (
+    TOP_STORIES_MAX, TOP_STORIES_PER_SOURCE, RADAR_MAX, RADAR_MIN_SCORE,
+    PSD_MOVERS_MAX, ARCHIVE_URL, SIGNALS_URL, FEEDBACK_URL,
+)
 from sender import send_newsletter, send_admin_report, _print_admin_report
 from notion_archiver import archive_to_notion
 from source_health import (
@@ -95,6 +101,30 @@ def dedup_signals_cross_company(signals: list[CompanySignal]) -> list[CompanySig
 
 
 # ── Main pipeline ──────────────────────────────────────────────
+
+def _clip(text: str, limit: int) -> str:
+    """Cut at a word boundary so inbox previews don't end mid-word."""
+    text = " ".join((text or "").split())
+    if len(text) <= limit:
+        return text
+    return text[:limit].rsplit(" ", 1)[0].rstrip(",;:·-") + "…"
+
+
+def _subject_hook(market_brief, top_stories) -> str:
+    """First sentence of the brief takeaway, else the top story title."""
+    if market_brief and market_brief.has_content:
+        first = re.split(r"(?<=[.!?])\s+", market_brief.takeaway.strip(), maxsplit=1)[0]
+        return _clip(first.rstrip("."), 60)
+    if top_stories:
+        return _clip(top_stories[0].title, 60)
+    return ""
+
+
+def _preheader(top_stories, skip_first: bool) -> str:
+    """Next few headlines, shown by the inbox after the subject."""
+    titles = [s.title for s in top_stories[1 if skip_first else 0:][:3]]
+    return _clip(" · ".join(titles), 140)
+
 
 async def run_pipeline(args: argparse.Namespace) -> None:
     """Execute the full newsletter pipeline."""
@@ -166,6 +196,11 @@ async def run_pipeline(args: argparse.Namespace) -> None:
         if scraper_pubs:
             logger.info(f"Scrapers: {len(scraper_pubs)} publications added")
             publications.extend(scraper_pubs)
+
+        # Scrapers and Eurostat bypass the RSS parser, so their titles can
+        # still carry entities such as &#39; or &amp;.
+        for _item in (*articles, *publications, *signals):
+            _item.title = html_lib.unescape(_item.title or "").strip()
 
         # Same reasoning as the branches above: PSD is a nice-to-have block in
         # the digest, not a reason to ship nothing.
@@ -282,17 +317,58 @@ async def run_pipeline(args: argparse.Namespace) -> None:
             market_brief = None
             metrics.brief_status = f"omitted (error: {type(e).__name__})"
 
-        # ── Step 7: Render newsletter HTML ──
-        logger.info("Rendering newsletter...")
-        html = render_newsletter(
-            date=today,
-            articles=relevant_articles,
-            publications=publications,
-            client_signals=client_signals,
-            prospect_signals=prospect_signals,
-            psd_data=psd_data,
-            market_brief=market_brief,
-        )
+        # ── Step 7: Select and render (v6) ──
+        # Everything accepted is still archived to Notion in step 7b. The
+        # email only carries the selection: top stories, a 5-signal radar,
+        # and PSD movers on release days. Falls back to the v5 layout if
+        # anything in the v6 path raises, so a bug never blocks the send.
+        logger.info("Selecting and rendering newsletter (v6)...")
+        short_date = datetime.now(timezone.utc).strftime("%d %b")
+        subject = f"🛰️ Daily Agri-News Digest — {datetime.now(timezone.utc).strftime('%d %b %Y')}"
+        try:
+            top_stories = select_top_stories(
+                relevant_articles, max_n=TOP_STORIES_MAX, per_source=TOP_STORIES_PER_SOURCE,
+            )
+            priority = {c.name: c.priority for c in config.companies}
+            radar, radar_more = select_radar(
+                relevant_signals, priority, max_n=RADAR_MAX, min_score=RADAR_MIN_SCORE,
+            )
+            psd_movers = select_psd_movers(psd_data, max_n=PSD_MOVERS_MAX)
+
+            hook = _subject_hook(market_brief, top_stories)
+            if hook:
+                subject = f"🛰️ Agri Digest {short_date}: {hook}"
+            preheader = _preheader(top_stories, skip_first=not (market_brief and market_brief.has_content))
+
+            html = render_newsletter_v6(
+                date=datetime.now(timezone.utc).strftime("%a %d %b %Y"),
+                preheader=preheader,
+                market_brief=market_brief,
+                publications=publications,
+                top_stories=top_stories,
+                total_articles=len(relevant_articles),
+                radar=radar,
+                radar_more=radar_more,
+                psd_movers=psd_movers,
+                psd_release_label=(psd_data or {}).get("release_label", ""),
+                archive_url=ARCHIVE_URL,
+                signals_url=SIGNALS_URL,
+                feedback_url=FEEDBACK_URL,
+            )
+            metrics.layout = "v6"
+        except Exception as e:
+            logger.error(f"v6 render failed, falling back to v5 layout: {e}\n{traceback.format_exc()}")
+            metrics.source_errors.append(f"v6 render: {type(e).__name__}: {e}")
+            metrics.layout = "v5 (fallback)"
+            html = render_newsletter(
+                date=today,
+                articles=relevant_articles,
+                publications=publications,
+                client_signals=client_signals,
+                prospect_signals=prospect_signals,
+                psd_data=psd_data,
+                market_brief=market_brief,
+            )
 
         # Save HTML to file if requested
         if args.save_html:
@@ -323,7 +399,6 @@ async def run_pipeline(args: argparse.Namespace) -> None:
             logger.info("DRY RUN — skipping email send")
         else:
             logger.info("Sending newsletter...")
-            subject = f"🛰️ Daily Agri-News Digest — {datetime.now(timezone.utc).strftime('%d %b %Y')}"
             sent_ok = send_newsletter(config, subject, html, metrics, test_mode=args.test)
             # Marker read by the workflow guard: one real send per UTC day,
             # whichever trigger (dispatch or backup cron) gets there first.

@@ -55,6 +55,13 @@ jobs:
           cd newsletter_v5
           python -c "import inspect; from sources import _get_scraper_registry; r=_get_scraper_registry(); w=[k for k,v in sorted(r.items()) if 'metrics' in inspect.signature(v).parameters]; print(f'{len(r)} scrapers registered'); print('accept metrics:', w)"
 
+      # Offline unit tests: v6 selection layer, signal noise filter, renderer.
+      - name: Unit tests
+        run: |
+          pip install pytest
+          cd newsletter_v5
+          python -m pytest -q tests
+
       - name: Set up Chrome (pinned for Selenium scrapers)
         uses: browser-actions/setup-chrome@v1
         with:
@@ -73,4 +80,14 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           cd newsletter_v5
-          python newsletter_v5.py --dry-run
+          python newsletter_v5.py --dry-run --save-html digest_preview.html
+
+      # The rendered email from the dry run, to eyeball before merging.
+      - name: Upload rendered digest
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: digest-preview
+          path: newsletter_v5/digest_preview.html
+          if-no-files-found: ignore
+          retention-days: 7

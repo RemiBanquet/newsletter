@@ -182,6 +182,16 @@ Seeds & genetics: KWS, Lidea, GDM (also Corteva, Syngenta, Bayer, BASF have seed
 Fertilizers & plant nutrition: Yara International, CF Industries, The Mosaic Company, OCP Nutricrops, ICL Group, Timac Agro, Nutrien
 Oilseed processing: Saipol (rapeseed/sunflower crushing)
 Grain trading & distribution: Richardson International, CHS Inc
+Seeds (since the Corteva split): Vylor is Corteva's former seed and genetics business; New Corteva keeps crop protection
+Cooperatives and distributors (mostly French and European clients): Axereal, Terrena, Vivescia, Arterris, Unéal, Lur Berri, Groupe CAL, Ternoveo, Agora, Calipso, Ceremis, Actura, Sana Terra, UNPT, LORCA, ValFrance, Maiz'Europ, RAGT, BayWa, Agravis, Sollio Agriculture, Ameropa, Grupo AN
+
+SCORING — sales relevance for Hyperplan (satellite crop acreage and yield intelligence used by input makers and distributors for territory planning, season monitoring, prospection and commercial performance tracking):
+5 = buying trigger: reorganisation or split, new commercial or marketing leader, product launch or new market entry in a named country, a regulation that removes or restricts a product, a distribution deal changing who sells what.
+4 = strategic move: M&A, partnership, capacity or supply deal, earnings with a clear ag-business message.
+3 = general company news with an ag angle.
+2 = PR, sustainability messaging, thought leadership, conference presence.
+1 = noise: job postings, internships, events, market-research report ads, posts by consultants or employees that only mention the company.
+If the company is not the actor (company_is_actor = false), the score cannot exceed 2.
 
 COMMON FALSE POSITIVE PATTERNS — mark as relevant=false:
 - Conglomerate's non-ag division: "Bayer Pharmaceuticals announces new cancer drug trial" → pharma, not ag
@@ -274,12 +284,20 @@ CLASSIFY_ARTICLE_BATCH_TOOL = {
                             "type": "string",
                             "description": "Most specific geographic location mentioned.",
                         },
+                        "importance": {
+                            "type": "integer",
+                            "description": "1-5: how much a marketing or commercial manager at a crop-input company needs this today. 5 = changes plans (major official estimate, policy decision, price shock, large M&A). 4 = notable market, crop or regulatory development in a key country. 3 = useful context. 2 = routine daily price recap or local field report. 1 = marginal.",
+                        },
+                        "story_key": {
+                            "type": "string",
+                            "description": "Short lowercase kebab-case key naming the underlying story, identical for articles covering the same event or theme today (e.g. 'us-harvest-rain-delays', 'poland-fertilizer-subsidy-cut', 'cbot-grains-daily'). Daily closing reports for the same market share one key.",
+                        },
                         "country_iso": {
                             "type": "string",
                             "description": "ISO 3166-1 alpha-2 country code.",
                         },
                     },
-                    "required": ["article_index", "relevant", "category", "tags", "summary", "place_name", "country_iso"],
+                    "required": ["article_index", "relevant", "category", "tags", "summary", "place_name", "country_iso", "importance", "story_key"],
                 },
             },
         },
@@ -397,6 +415,22 @@ CLASSIFY_SIGNAL_BATCH_TOOL = {
                             "type": "string",
                             "description": "English summary in plain prose (no bullets): 1 sentence carrying the key insight.",
                         },
+                        "score": {
+                            "type": "integer",
+                            "description": "1-5 sales relevance for Hyperplan, per the SCORING rules. 5 = buying trigger, 4 = strategic move, 3 = general ag news, 2 = PR or thought leadership, 1 = noise (hiring, events, third-party mentions).",
+                        },
+                        "angle": {
+                            "type": "string",
+                            "description": "Only when score >= 4: one short sentence on why this could open or deepen a Hyperplan conversation, using only what the headline states. Empty string otherwise.",
+                        },
+                        "story_key": {
+                            "type": "string",
+                            "description": "Short lowercase kebab-case key for the underlying event, identical for every headline about the same event (e.g. 'ocp-brazil-fertilizer-mou').",
+                        },
+                        "company_is_actor": {
+                            "type": "boolean",
+                            "description": "True if the tracked company itself acts or announces. False if a third party (consultant, analyst, report vendor, employee personal post) only mentions it.",
+                        },
                         "place_name": {
                             "type": "string",
                             "description": "Most specific geographic location mentioned.",
@@ -406,7 +440,7 @@ CLASSIFY_SIGNAL_BATCH_TOOL = {
                             "description": "ISO 3166-1 alpha-2 country code.",
                         },
                     },
-                    "required": ["item_index", "relevant", "signal_type", "summary", "place_name", "country_iso"],
+                    "required": ["item_index", "relevant", "signal_type", "summary", "place_name", "country_iso", "score", "angle", "story_key", "company_is_actor"],
                 },
             },
         },
@@ -453,6 +487,14 @@ CLASSIFY_PUBLICATION_BATCH_TOOL = {
 }
 
 
+def _clamp_int(value, lo: int, hi: int, default: int) -> int:
+    """Coerce a model-returned number into [lo, hi]; default when missing."""
+    try:
+        return max(lo, min(hi, int(value)))
+    except (TypeError, ValueError):
+        return default
+
+
 # ── Classifier class ──────────────────────────────────────────────
 
 class ArticleClassifier:
@@ -481,7 +523,7 @@ class ArticleClassifier:
             ]
             return dict(
                 model=model,
-                max_tokens=512 * len(chunk),
+                max_tokens=600 * len(chunk),
                 system=[{
                     "type": "text",
                     "text": ARTICLE_SYSTEM_PROMPT,
@@ -505,7 +547,7 @@ class ArticleClassifier:
             ]
             return dict(
                 model=model,
-                max_tokens=384 * len(chunk),
+                max_tokens=480 * len(chunk),
                 system=[{
                     "type": "text",
                     "text": SIGNAL_SYSTEM_PROMPT,
@@ -563,6 +605,8 @@ class ArticleClassifier:
                 item.category = ArticleCategory.OTHER
             item.tags = data.get("tags", [])
             item.summary = data.get("summary", "")
+            item.importance = _clamp_int(data.get("importance"), 1, 5, 3)
+            item.story_key = str(data.get("story_key", "") or "").strip().lower()
             item.location = GeoLocation(
                 place_name=data.get("place_name", ""),
                 country_iso=data.get("country_iso", ""),
@@ -577,6 +621,12 @@ class ArticleClassifier:
                 place_name=data.get("place_name", ""),
                 country_iso=data.get("country_iso", ""),
             )
+            item.company_is_actor = bool(data.get("company_is_actor", True))
+            item.score = _clamp_int(data.get("score"), 1, 5, 3)
+            if not item.company_is_actor:
+                item.score = min(item.score, 2)
+            item.angle = str(data.get("angle", "") or "").strip() if item.score >= 4 else ""
+            item.story_key = str(data.get("story_key", "") or "").strip().lower()
             if not data.get("relevant", False):
                 item.signal_type = None  # Mark as irrelevant
         elif kind == "publications":
