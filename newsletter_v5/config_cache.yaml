@@ -1,6 +1,16 @@
 companies:
 - company_type: prospect
   enabled: true
+  name: Mitsui & Co.
+  priority: high
+  search_keywords: '"Mitsui AgriScience" OR "Mitsui & Co" agriculture'
+- company_type: prospect
+  enabled: true
+  name: ETG Group
+  priority: medium
+  search_keywords: '"Export Trading Group" OR "ETG Group" agriculture'
+- company_type: prospect
+  enabled: true
   name: Ameropa
   priority: medium
   search_keywords: Ameropa grain trader fertilizer
