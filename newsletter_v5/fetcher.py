@@ -23,6 +23,7 @@ from models import (
 from constants import SIGNAL_NOISE_PATTERNS, SIGNAL_SENIOR_ROLE_PATTERN
 from constants import (
     ARTICLE_LOOKBACK_HOURS, CROP_KEYWORDS, CROP_CONTEXTUAL_KEYWORDS,
+    country_flag,
     SIGNAL_LINKEDIN_ENABLED, SIGNAL_LINKEDIN_MAX_PER_COMPANY,
     SIGNAL_LOOKBACK_DAYS,
 )
@@ -424,6 +425,7 @@ async def fetch_publications_from_source(
             url=url,
             source_name=source.name,
             country=source.country,
+            flag_emoji=country_flag(source.country),
             published_at=pub_date,
             original_language=_detect_language(title),
             summary=content[:500],

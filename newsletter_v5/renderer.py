@@ -10,7 +10,7 @@ from pathlib import Path
 from jinja2 import Environment, FileSystemLoader
 
 from models import Article, CompanySignal, CompanyType, Publication, MarketBrief
-from constants import CATEGORY_EMOJI, SIGNAL_TYPE_EMOJI, SENDER_EMAIL
+from constants import CATEGORY_EMOJI, SIGNAL_TYPE_EMOJI, SENDER_EMAIL, country_flag
 
 logger = logging.getLogger(__name__)
 
@@ -154,6 +154,10 @@ def render_newsletter_v6(
     autoescape is ON: titles and summaries come from third-party feeds.
     Rendered twice so the read-time chip reflects the final text.
     """
+    # Safety net: every publication gets a flag, whatever source type built it.
+    for pub in publications:
+        if not pub.flag_emoji:
+            pub.flag_emoji = country_flag(pub.country)
     env = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)), autoescape=True)
     template = env.get_template("newsletter_v6.html")
     ctx = dict(

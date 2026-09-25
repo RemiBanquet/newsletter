@@ -174,3 +174,11 @@ def test_render_hides_empty_blocks():
     assert "Account radar · " not in html
     assert "USDA PSD · " not in html
     assert "more signals in the Signal board" not in html
+
+
+def test_country_flag_for_rss_publications():
+    from constants import country_flag
+    assert country_flag("United Kingdom") == "🇬🇧"
+    assert country_flag("Finland") == "🇫🇮"
+    assert country_flag("Global") == "🌍"
+    assert country_flag("Atlantis") == ""

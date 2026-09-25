@@ -125,6 +125,31 @@ COUNTRY_FLAGS = {
     "USA": "🇺🇸",
 }
 
+# Alternate spellings used in the Sources DB (e.g. "United Kingdom" for DEFRA).
+_COUNTRY_ALIASES = {
+    "united kingdom": "UK", "great britain": "UK", "england": "UK",
+    "united states": "USA", "us": "USA", "czech republic": "Czechia",
+    "eu": "Europe", "european union": "Europe", "türkiye": "Turkey",
+}
+
+
+def country_flag(country: str) -> str:
+    """Country name from config -> flag emoji. 🌍 for Global, '' if unknown."""
+    name = (country or "").strip()
+    if not name:
+        return ""
+    if name.lower() == "global":
+        return "🌍"
+    if name in COUNTRY_FLAGS:
+        return COUNTRY_FLAGS[name]
+    alias = _COUNTRY_ALIASES.get(name.lower())
+    if alias:
+        return COUNTRY_FLAGS.get(alias, "")
+    for key, flag in COUNTRY_FLAGS.items():
+        if key.lower() == name.lower():
+            return flag
+    return ""
+
 # ── Category display config ───────────────────────────────────────
 
 CATEGORY_EMOJI = {
