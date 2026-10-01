@@ -19,7 +19,7 @@ companies:
   name: Agravis
   priority: high
   search_keywords: Agravis Raiffeisen agriculture
-- company_type: prospect
+- company_type: client
   enabled: true
   name: Sollio Agriculture
   priority: medium
