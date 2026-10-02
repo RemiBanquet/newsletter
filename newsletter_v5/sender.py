@@ -107,8 +107,19 @@ def send_admin_report(
     error_message: str = "",
     test_mode: bool = False,
 ):
-    """Send admin report email with run KPIs or failure alert."""
+    """Send admin report email with run KPIs or failure alert.
+
+    Success reports are OFF by default (2026-10-02): the run summary is
+    printed to the GitHub Actions log instead, for spot checks. Failure
+    alerts are always emailed. Set ADMIN_REPORT_ON_SUCCESS=1 to bring the
+    daily success email back.
+    """
     admin_email = os.getenv("ADMIN_EMAIL", SENDER_EMAIL)
+
+    if success and os.getenv("ADMIN_REPORT_ON_SUCCESS", "0") != "1":
+        logger.info("Success run report email disabled; printing to log instead")
+        _print_admin_report(metrics, success, error_message)
+        return
 
     if not os.getenv("SMTP_PASSWORD"):
         logger.warning("Cannot send admin report: SMTP_PASSWORD not set")
