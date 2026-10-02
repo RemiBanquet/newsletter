@@ -1,4 +1,14 @@
 companies:
+- company_type: client
+  enabled: true
+  name: Kynetec
+  priority: medium
+  search_keywords: Kynetec
+- company_type: client
+  enabled: true
+  name: Vylor
+  priority: high
+  search_keywords: Vylor Pioneer seeds VYLR
 - company_type: prospect
   enabled: true
   name: Mitsui & Co.
@@ -22,7 +32,7 @@ companies:
 - company_type: client
   enabled: true
   name: Sollio Agriculture
-  priority: medium
+  priority: high
   search_keywords: Sollio Agriculture cooperative Canada
 - company_type: prospect
   enabled: true
@@ -104,7 +114,7 @@ companies:
   name: RAGT Plateau Central
   priority: low
   search_keywords: RAGT semences Plateau Central
-- company_type: client
+- company_type: prospect
   enabled: true
   name: Calipso
   priority: low
@@ -164,18 +174,18 @@ companies:
   name: Sumitomo Chemical
   priority: medium
   search_keywords: Sumitomo Chemical agriculture crop protection
-- company_type: client
+- company_type: prospect
   enabled: true
   name: Lidea
   priority: high
   search_keywords: Lidea seeds agriculture
 - company_type: prospect
-  enabled: false
+  enabled: true
   name: De Sangosse
   priority: medium
   search_keywords: De Sangosse agriculture biocontrol
 - company_type: prospect
-  enabled: false
+  enabled: true
   name: K+S AG
   priority: medium
   search_keywords: K+S AG fertilizer potash agriculture
@@ -214,7 +224,7 @@ companies:
   name: Syngenta
   priority: high
   search_keywords: Syngenta agriculture crop
-- company_type: client
+- company_type: prospect
   enabled: true
   name: ADAMA
   priority: high
