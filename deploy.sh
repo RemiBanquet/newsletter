@@ -18,7 +18,9 @@
 
 set -euo pipefail
 
-REPO="/Users/remibanquet/Documents/Claude/Projects/Daily Agri-News Digest"
+# Run from wherever this script lives (was hard-coded to the old
+# ~/Documents/Claude copy, which is no longer the working folder).
+REPO="$(cd "$(dirname "$0")" && pwd)"
 cd "$REPO"
 
 # 1. Commit message is required.

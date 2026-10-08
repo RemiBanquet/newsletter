@@ -386,6 +386,8 @@ class RunMetrics:
             self.batch_calls += 1
 
         price = MODEL_PRICING.get(model, MODEL_PRICING_DEFAULT)
+        if "long" in price and (in_t + cr + cw) > price["long_threshold"]:
+            price = price["long"]
         discount = BATCH_API_DISCOUNT if batch else 1.0
         cost = discount * (
             in_t * price["input"]

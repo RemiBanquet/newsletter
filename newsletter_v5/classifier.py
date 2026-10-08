@@ -25,7 +25,7 @@ from models import (
 )
 from constants import (
     CLAUDE_MODEL_PRIMARY, CLAUDE_MODEL_FALLBACK, CLAUDE_MAX_CONCURRENT,
-    CLAUDE_MAX_RETRIES,
+    CLAUDE_MAX_RETRIES, TOKENIZER_HEADROOM,
     USE_BATCH_API, BATCH_POLL_SECONDS, BATCH_TIMEOUT_MINUTES,
     ARTICLE_BATCH_SIZE, SIGNAL_BATCH_SIZE, PUBLICATION_BATCH_SIZE,
     ARTICLE_CONTENT_MAX_CHARS,
@@ -523,7 +523,7 @@ class ArticleClassifier:
             ]
             return dict(
                 model=model,
-                max_tokens=600 * len(chunk),
+                max_tokens=int(600 * TOKENIZER_HEADROOM) * len(chunk),
                 system=[{
                     "type": "text",
                     "text": ARTICLE_SYSTEM_PROMPT,
@@ -547,7 +547,7 @@ class ArticleClassifier:
             ]
             return dict(
                 model=model,
-                max_tokens=480 * len(chunk),
+                max_tokens=int(480 * TOKENIZER_HEADROOM) * len(chunk),
                 system=[{
                     "type": "text",
                     "text": SIGNAL_SYSTEM_PROMPT,
@@ -574,7 +574,7 @@ class ArticleClassifier:
                 parts.append(text)
             return dict(
                 model=model,
-                max_tokens=256 * len(chunk),
+                max_tokens=int(256 * TOKENIZER_HEADROOM) * len(chunk),
                 system=[{
                     "type": "text",
                     "text": PUBLICATION_SYSTEM_PROMPT,
@@ -881,7 +881,7 @@ class ArticleClassifier:
         async with self.semaphore:
             try:
                 # ~60-80 tokens per translated item; pad generously to avoid truncation
-                translation_max_tokens = max(2048, len(items_to_translate) * 100)
+                translation_max_tokens = int(max(2048, len(items_to_translate) * 100) * TOKENIZER_HEADROOM)
                 response = await self.client.messages.create(
                     model=CLAUDE_MODEL_PRIMARY,
                     max_tokens=translation_max_tokens,

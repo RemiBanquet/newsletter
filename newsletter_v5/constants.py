@@ -207,19 +207,35 @@ BRIEF_SECTION_ORDER = [
 
 # ── Claude config ──────────────────────────────────────────────────
 
-CLAUDE_MODEL_PRIMARY = "claude-haiku-4-5-20251001"
+# Haiku 5.5 since 2026-10-08 (was claude-haiku-4-5-20251001). Every call
+# forces a tool (tool_choice=tool), so Haiku 5.5's default adaptive
+# thinking never kicks in; no sampling params or assistant prefill are
+# sent, which Haiku 5.5 rejects with a 400.
+CLAUDE_MODEL_PRIMARY = "claude-haiku-5-5"
 CLAUDE_MODEL_FALLBACK = "claude-sonnet-4-6"
 CLAUDE_MAX_CONCURRENT = 2  # Max parallel API calls (keep low to avoid 429s on Tier 1 accounts)
 CLAUDE_MAX_RETRIES = 3
 CLAUDE_TIMEOUT_SECONDS = 30
+# Haiku 5.5's tokenizer counts the same text as ~30% more tokens than
+# Haiku 4.5. All max_tokens budgets (tuned on 4.5) are scaled by this
+# factor so tool-call JSON is not truncated. Unused headroom costs nothing.
+TOKENIZER_HEADROOM = 1.3
 
 # ── Claude pricing (USD per million tokens) ────────────────────────
 # Source: https://platform.claude.com/docs/en/about-claude/pricing
-# (checked 2026-07-05). Cache write = 1.25x input (5-min TTL), cache
-# read = 0.10x input, Batch API = 50% off all token types. Unknown
+# (checked 2026-07-05; Haiku 5.5 added 2026-10-08). Cache write = 1.25x
+# input (5-min TTL), cache read = 0.10x input, Batch API = 50% off all
+# token types. Haiku 5.5 is tiered by prompt length: "long" rates apply
+# when a prompt (input + cache read + cache write) exceeds
+# "long_threshold" tokens. Digest prompts stay far below 100K. Unknown
 # models fall back to Sonnet pricing on purpose: better to over-report
 # spend than to hide it.
 MODEL_PRICING = {
+    "claude-haiku-5-5": {
+        "input": 0.10, "output": 0.50,
+        "long_threshold": 100_000,
+        "long": {"input": 0.50, "output": 2.50},
+    },
     "claude-haiku-4-5-20251001": {"input": 1.00, "output": 5.00},
     "claude-haiku-4-5": {"input": 1.00, "output": 5.00},
     "claude-sonnet-4-6": {"input": 3.00, "output": 15.00},

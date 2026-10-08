@@ -32,7 +32,7 @@ from models import (
     Article, CompanySignal, Publication, MarketBrief, BriefSection, RunMetrics,
 )
 from constants import (
-    CLAUDE_MODEL_PRIMARY, CLAUDE_MODEL_FALLBACK, CLAUDE_MAX_RETRIES,
+    CLAUDE_MODEL_PRIMARY, CLAUDE_MODEL_FALLBACK, CLAUDE_MAX_RETRIES, TOKENIZER_HEADROOM,
     BRIEF_MAX_WORDS, BRIEF_BANNED_WORDS, BRIEF_NEG_PARALLELISM, BRIEF_SECTION_ORDER,
 )
 
@@ -366,7 +366,7 @@ class MarketBriefGenerator:
                 try:
                     response = await self.client.messages.create(
                         model=model,
-                        max_tokens=2000,
+                        max_tokens=int(2000 * TOKENIZER_HEADROOM),
                         system=system,
                         messages=[{"role": "user", "content": user}],
                         tools=[tool],
