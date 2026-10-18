@@ -20,7 +20,7 @@ SMTP_PORT = 587
 
 
 def _send_smtp(
-    to: str,
+    to: str | None,
     subject: str,
     html_body: str,
     cc: list[str] = None,
@@ -36,7 +36,9 @@ def _send_smtp(
 
     msg = MIMEMultipart("alternative")
     msg["From"] = f"Hyperplan <{SENDER_EMAIL}>"
-    msg["To"] = f"Hyperplan Newsletter <{to}>"
+    # to=None -> BCC-only send: no visible To address, nobody gets a
+    # "to self" copy. Recipients see "undisclosed-recipients".
+    msg["To"] = f"Hyperplan Newsletter <{to}>" if to else "undisclosed-recipients:;"
     msg["Subject"] = subject
     if cc:
         msg["Cc"] = ", ".join(cc)
@@ -44,7 +46,7 @@ def _send_smtp(
 
     msg.attach(MIMEText(html_body, "html", "utf-8"))
 
-    all_recipients = [to] + (cc or []) + (bcc or [])
+    all_recipients = ([to] if to else []) + (cc or []) + (bcc or [])
 
     try:
         with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=30) as server:
@@ -90,8 +92,9 @@ def send_newsletter(
         metrics.emails_failed += 1
         return False
 
-    # Send to self, BCC all recipients
-    ok = _send_smtp(to=SENDER_EMAIL, subject=subject, html_body=html_body, bcc=all_emails)
+    # BCC-only send (2026-10-18): the sender Gmail is no longer a recipient.
+    # Only addresses in the Notion Recipients DB get the digest.
+    ok = _send_smtp(to=None, subject=subject, html_body=html_body, bcc=all_emails)
     if ok:
         metrics.emails_sent += 1
         logger.info(f"Newsletter sent to {len(all_emails)} recipients via BCC")
