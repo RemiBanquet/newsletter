@@ -87,7 +87,19 @@ async def scrape_mapa(
     3. Extract publication links with dates
     """
     publications = []
-    cutoff = datetime.now(timezone.utc) - timedelta(hours=168)  # 7-day lookback (monthly reports)
+
+    # Honour the Notion "Lookback Hours" field, as scrape_esmis already does.
+    # The old hardcoded 168h could not work for this source:
+    # _extract_date_from_url synthesises day 15 of the report's month, and MAPA
+    # publishes month M's avances well after M ends, so the synthesised date was
+    # essentially always more than 7 days old by the time the link appeared.
+    # Result: 190 candidate links found, zero published, 84 consecutive runs
+    # (2026-07-28 run log).
+    #
+    # Fallback stays 168h so this is behaviour-neutral until the Notion field is
+    # set. Suggested value for MAPA Avances Scraper: 2160 (90 days).
+    lookback_hours = source.lookback_hours if source.lookback_hours else 168
+    cutoff = datetime.now(timezone.utc) - timedelta(hours=lookback_hours)
 
     # ── Approach 1: Avances page ──
     avances_pubs, avances_candidates = await _scrape_avances_page(source, session, cutoff)
@@ -109,12 +121,13 @@ async def scrape_mapa(
     if metrics is not None:
         # Data-file links found on the Avances page before any date or dedup
         # filtering. 0 → the page or the /dam/ link pattern changed
-        # (source_health → DEAD). Non-zero with nothing published → the 7-day
-        # window is rejecting a monthly publisher (→ QUIET).
+        # (source_health → DEAD). Non-zero with nothing published → the
+        # lookback window is rejecting a monthly publisher (→ QUIET).
         metrics.source_raw_counts[source.name] = avances_candidates
     logger.info(
         f"MAPA: {avances_candidates} data-file links on Avances page → "
-        f"{len(publications)} agriculture publications"
+        f"{len(publications)} agriculture publications "
+        f"(within {lookback_hours}h)"
     )
     return publications
 
